@@ -1,0 +1,79 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    defaultConfig {
+        applicationId "com.tima.mainmodul"
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+
+        flavorDimensions "color"
+
+        testInstrumentationRunner "android.support.tima_test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("moduleName", project.getName())
+            }
+        }
+        manifestPlaceholders=[
+                //autoLayout 声明的最初尺寸
+                DESIGN_WIDTH:"1080",
+                DESIGN_HEIGHT:"1920"
+
+        ]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
+        }
+    }
+
+    productFlavors {
+        TimaTest{
+            dimension "color"
+//            buildConfigField("String", "ServiceUrl", "\"http://jmcradartest.timanetwork.com/sp/\"")
+        }
+        TimaUat{
+            dimension "color"
+//            buildConfigField("String", "ServiceUrl", "\"https://radar.jmc.com.cn/sp/\"")
+        }
+        TimaReport{
+            dimension "color"
+//            buildConfigField("String", "ServiceUrl", "\"https://radar.jmc.com.cn/sp/\"")
+        }
+    }
+//    dataBinding{
+//        enabled true
+//    }
+    kapt {
+        javacOptions {
+// Increase the max count of errors from annotation processors.
+// Default is 100.
+            option("-Xmaxerrs", 500)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':codelibrary')
+    implementation project(':commonresource')
+    kapt rootProject.ext.exps.arouter_compiler
+}

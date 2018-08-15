@@ -1,0 +1,73 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+//apply plugin: 'com.android.databinding'
+
+
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+
+
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+
+        testInstrumentationRunner "android.support.tima_test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("moduleName", project.getName())
+            }
+        }
+    }
+
+    buildTypes {
+
+        debug{
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
+            buildConfigField "boolean", "isDebug", "true"
+
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
+            buildConfigField "boolean", "isDebug", "false"
+        }
+    }
+
+    kapt {
+        javacOptions {
+// Increase the max count of errors from annotation processors.
+// Default is 100.
+            option("-Xmaxerrs", 500)
+        }
+    }
+
+//    dataBinding{
+//        enabled true
+//    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    kapt {
+        generateStubs = true
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':commonresource')
+    kapt rootProject.ext.exps.arouter_compiler
+    kapt rootProject.ext.exps.lifecycle_compiler
+//    kapt rootProject.ext.exps.databinding_compiler
+//    kapt 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.21'
+}

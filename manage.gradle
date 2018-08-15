@@ -1,0 +1,30 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+ext{
+    VERSION_CODE=1
+    VERSION_NAME="1.0"
+
+
+    COMPILE_SDK_VERSION=27
+
+    MIN_SDK_VERSION=19
+    TARGET_SDK_VERSION=27
+    BUILD_SDK_VERSION="27.1.1"
+
+    version_latest = 'latest.release'
+
+
+    arouter_version='1.0.4'
+    lifecycle_version='1.1.1'
+    databinding_version='3.1.4'
+
+
+    IsTest=true
+
+
+    exps=[
+            arouter_compiler        :"com.alibaba:arouter-compiler:${arouter_version}",
+            lifecycle_compiler        :"android.arch.lifecycle:compiler:${lifecycle_version}",
+//            databinding_compiler        :"com.android.databinding:compiler:${databinding_version}",
+    ]
+}
