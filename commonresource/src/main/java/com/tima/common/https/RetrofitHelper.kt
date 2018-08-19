@@ -1,9 +1,10 @@
-package com.tima.common.utils
+package com.tima.common.https
 
 import com.tima.common.BuildConfig
 import com.tima.common.base.App
 import com.tima.common.base.Constant
-import com.tima.common.https.UrlService
+import com.tima.common.utils.NetWorkUtil
+import com.tima.common.utils.SpHelper
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
