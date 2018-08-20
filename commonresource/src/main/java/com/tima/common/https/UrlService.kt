@@ -1,6 +1,7 @@
 package com.tima.common.https
 
 import io.reactivex.Observable
+import okhttp3.Call
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -21,10 +22,10 @@ interface UrlService{
     fun userLogin(@Field("username") username: String,
                         @Field("password") password: String): Observable<ResponseBody>
     /**
-     *  获取收藏列表
-     *  http://www.wanandroid.com/lg/collect/list/0/json
+     * https://api4c-dev.mowei.net/api/v1/apply/?position__type=0
      *  @param page
      */
-    @GET("lg/collect/list/{page}/json")
-    fun getCollectList(@Path("page") page: Int): Observable<ResponseBody>
+    @GET("uap/manage/getInitAdvert/{path}")
+    fun executeGet(@Path("path") path: String,@QueryMap queryMap: Map<String,String>):
+            Observable<ResponseBody>
 }
