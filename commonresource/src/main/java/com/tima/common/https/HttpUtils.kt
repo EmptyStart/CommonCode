@@ -15,20 +15,7 @@ class HttpUtils private constructor(){
         HttpUtils()
     }
     fun get(url: String)  {
-        val okHttpClient = OkHttpClient.Builder().addInterceptor(LoggingIntercepter()).build()
-        val request = Request.Builder().url(url).get().build()
 
-        val call = okHttpClient.newCall(request)
-        call.enqueue(object : Callback {
-            override fun onFailure(call: Call?, e: IOException?) {
-                    ApiException(e)
-            }
-
-            override fun onResponse(call: Call?, response: Response?) {
-
-            }
-        }
-        )
     }
 
 }

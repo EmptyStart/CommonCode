@@ -8,6 +8,7 @@ class WelcomeActivity : BaseActivity() {
     override fun getLayoutId(): Int =R.layout.activity_tima_welcome
 
     override fun inits(savedInstanceState: Bundle?) {
+
     }
 
 }

@@ -20,8 +20,6 @@ class App :Application(){
         super.onCreate()
         app=this;
 
-
-
         registerActivityLifecycleCallbacks(object :ActivityLifecycleCallbacks{
             override fun onActivityPaused(activity: Activity?) {
             }
