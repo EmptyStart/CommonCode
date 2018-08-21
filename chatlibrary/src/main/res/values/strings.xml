@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">chatlibrary</string>
+    <string name="noti_text_expression">[表情]</string>
+</resources>
