@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 //apply plugin: 'com.android.databinding'
 
 android {
@@ -29,18 +30,21 @@ android {
     }
 
     buildTypes {
-
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
             buildConfigField "boolean", "isDebug", "true"
-
         }
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
             buildConfigField "boolean", "isDebug", "false"
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 
@@ -62,7 +66,6 @@ android {
     kapt {
         generateStubs = true
     }
-    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -75,6 +78,8 @@ dependencies {
     kapt rootProject.ext.exps.lifecycle_compiler
     //环信客服SDK
     implementation 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com.hyphenate:kefu-easeui-android:1.1.7.final'
+    //用于线程间的通讯代替handler或用于组件间的通讯代替Intent
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     //    kapt rootProject.ext.exps.databinding_compiler
     //    kapt 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.21'

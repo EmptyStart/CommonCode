@@ -29,7 +29,7 @@
                 android:background="@drawable/edit_stroke_style"
                 android:orientation="horizontal">
                 <EditText
-                    android:id="@+id/input_sms"
+                    android:id="@+id/ed_input_sms"
                     style="@style/weight_width_1"
                     android:layout_height="32dp"
                     android:background="@null"

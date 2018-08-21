@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="PercentLayout_Layout">
+        <attr name="layout_widthPercent" format="string" />
+        <attr name="layout_heightPercent" format="string" />
+        <attr name="layout_marginPercent" format="string" />
+        <attr name="layout_marginLeftPercent" format="string" />
+        <attr name="layout_marginTopPercent" format="string" />
+        <attr name="layout_marginRightPercent" format="string" />
+        <attr name="layout_marginBottomPercent" format="string" />
+        <attr name="layout_marginStartPercent" format="string" />
+        <attr name="layout_marginEndPercent" format="string" />
+        <attr name="layout_textSizePercent" format="string" />
+        <attr name="layout_maxWidthPercent" format="string" />
+        <attr name="layout_maxHeightPercent" format="string" />
+        <attr name="layout_minWidthPercent" format="string" />
+        <attr name="layout_minHeightPercent" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="ProgressWheel">
+        <attr name="pwText" format="string" />
+        <attr name="pwTextColor" format="color" />
+        <attr name="pwTextSize" format="dimension" />
+        <attr name="pwBarColor" format="color" />
+        <attr name="pwRimColor" format="color" />
+        <attr name="pwRimWidth" format="dimension" />
+        <attr name="pwSpinSpeed" format="dimension" />
+        <attr name="pwDelayMillis" format="integer" />
+        <attr name="pwCircleColor" format="color" />
+        <attr name="pwRadius" format="dimension" />
+        <attr name="pwBarWidth" format="dimension" />
+        <attr name="pwBarLength" format="dimension" />
+        <attr name="pwContourColor" format="color" />
+        <attr name="pwContourSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchButton">
+        <attr name="frameDrawable" format="reference|color" />
+        <attr name="stateDrawable" format="reference|color" />
+        <attr name="stateMaskDrawable" format="reference|color" />
+        <attr name="sliderDrawable" format="reference|color" />
+        <attr name="withTextInterval" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialLayout">
+        <attr name="mtalpha" format="integer" />
+        <attr name="alpha_step" format="integer" />
+        <attr name="framerate" format="integer" />
+        <attr name="duration" format="integer" />
+        <attr name="color" format="color" />
+        <attr name="scale" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialLinearLayout">
+        <attr name="ll_mtalpha" format="integer" />
+        <attr name="ll_alpha_step" format="integer" />
+        <attr name="ll_framerate" format="integer" />
+        <attr name="ll_duration" format="integer" />
+        <attr name="ll_color" format="color" />
+        <attr name="ll_scale" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+        <attr name="arrowDrawable" format="reference|color"/>
+        <attr name="dropDownListPaddingBottom" format="dimension"/>
+        <attr name="backgroundSelector" format="integer"/>
+        <attr name="textTint" format="color"/>
+    </declare-styleable>
+    <!--<declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+        <attr name="backgroundSelector" format="integer" />
+        <attr name="textTint" format="color" />
+    </declare-styleable>-->
+</resources>

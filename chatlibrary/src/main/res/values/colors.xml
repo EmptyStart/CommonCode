@@ -8,7 +8,7 @@
     <color name="white">#ffffff</color>
     <!--  浅色的线 -->
     <color name="line">#E5E5E5</color>
-
+    <color name="xmpp_mian">#59a8f7</color>
 
     <color name="text_black_gray">#262626</color>
 
