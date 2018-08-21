@@ -14,6 +14,7 @@ ext {
             appcompat_v7   : "com.android.support:appcompat-v7:${support_version}",
             recyclerview_v7: "com.android.support:recyclerview-v7:${support_version}",
             support_v4     : "com.android.support:support-v4:${support_version}",
+            design     : "com.android.support:design:${support_version}",
             //核心路由器
             arouter        : "com.alibaba:arouter-api:${aroute_version}",
             //方法数问题
