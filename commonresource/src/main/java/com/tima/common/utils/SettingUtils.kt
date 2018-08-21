@@ -19,16 +19,16 @@ object SettingUtils{
         return  pm&& NetWorkUtil.isMobile(App.app.applicationContext)
     }
 
-    /**
-     * 获取主题颜色
-     */
-    fun getColor(): Int {
-        val defaultColor = App.app.applicationContext.resources.getColor(R.color.colorPrimary)
-        val color = setting.getInt("color", defaultColor)
-        return if (color != 0 && Color.alpha(color) != 255) {
-            defaultColor
-        } else color
-    }
+//    /**
+//     * 获取主题颜色
+//     */
+//    fun getColor(): Int {
+//        val defaultColor = App.app.applicationContext.resources.getColor(R.color.colorPrimary)
+//        val color = setting.getInt("color", defaultColor)
+//        return if (color != 0 && Color.alpha(color) != 255) {
+//            defaultColor
+//        } else color
+//    }
 
     /**
      * 设置主题颜色

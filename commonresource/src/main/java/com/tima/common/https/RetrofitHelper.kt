@@ -8,8 +8,13 @@ import com.tima.common.utils.SpHelper
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.*
 
 /**
  * @author : zhijun.li on 2018/8/1
@@ -25,6 +30,8 @@ object RetrofitHelper {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
                         .baseUrl(BuildConfig.SERVICE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .client(getOkHttpClient())
                         .build()
             }
@@ -54,6 +61,8 @@ object RetrofitHelper {
 
         }
                 .cache(cache)
+                .sslSocketFactory(sslSocketFactory)
+                .hostnameVerifier(hostnameVerifier)
                 .connectTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -178,4 +187,32 @@ object RetrofitHelper {
         @Suppress("UNUSED_VALUE")
         spDomain = cookies
     }
+
+
+    private val sslSocketFactory : SSLSocketFactory
+    get()  {
+        try {
+            val sslContext = SSLContext.getInstance("SSL")
+            sslContext.init(null, trustManager,SecureRandom())
+            return sslContext.socketFactory
+        }catch (e : Exception){
+           throw RuntimeException(e)
+        }
+    }
+    private val trustManager :Array<TrustManager>
+    get()= arrayOf(object  : X509TrustManager{
+        override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+        }
+
+        override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+        }
+
+        override fun getAcceptedIssuers(): Array<X509Certificate> {
+            return arrayOf()
+        }
+
+    })
+
+    private val hostnameVerifier : HostnameVerifier
+    get() = HostnameVerifier { hostname, session ->  true}
 }

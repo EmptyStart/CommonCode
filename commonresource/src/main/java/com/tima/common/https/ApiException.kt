@@ -1,23 +1,23 @@
 package com.tima.common.https
 
-import java.lang.Exception
 
 /**
  * @author : zhijun.li on 2018/7/3
  *   email : zhijun.li@timanetworks.com
  *
  */
-class ApiException constructor(): Exception(){
-    var errorCode : String?=null
-    constructor(message:String) : this() {
-        super.message
+class ApiException {
+    var errorCode : String="1001"
+    var errorMessage : CharSequence?=null
+    constructor(message:String)  {
+        this.errorMessage=message
     }
-    constructor(errorCode :String,message: String) : this(){
-        super.message
+    constructor(errorCode :String,message: String) {
         this.errorCode=errorCode
+        this.errorMessage=message
     }
-    constructor(e :Throwable?) : this(){
-        super.cause
+    constructor(e :Exception) {
+        this.errorMessage=e.message
     }
 
 }
