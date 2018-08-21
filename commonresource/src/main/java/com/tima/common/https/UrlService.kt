@@ -1,7 +1,7 @@
 package com.tima.common.https
 
 import io.reactivex.Observable
-import okhttp3.Call
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -12,20 +12,22 @@ import retrofit2.http.*
  */
 interface UrlService{
     /**
-     * 登录
-     * http://www.wanandroid.com/user/login
-     * @param username
-     * @param password
+     *post请求
      */
-    @POST("user/login")
+    @POST("{path}")
     @FormUrlEncoded
-    fun userLogin(@Field("username") username: String,
-                        @Field("password") password: String): Observable<ResponseBody>
+    fun executePost(@Path("path") @FieldMap fieldMap: Map<String,String>, @QueryMap queryMap:
+    Map<String, String>): Observable<ResponseBody>
     /**
-     * https://api4c-dev.mowei.net/api/v1/apply/?position__type=0
-     *  @param page
+     *get请求
      */
-    @GET("uap/manage/getInitAdvert/{path}")
-    fun executeGet(@Path("path") path: String,@QueryMap queryMap: Map<String,String>):
-            Observable<ResponseBody>
+    @GET("{path}")
+    fun executeGet(@Path("path") @QueryMap queryMap: Map<String,String>): Observable<ResponseBody>
+
+    /**
+     * 文件上传
+     */
+    @POST("{path}")
+    @Multipart
+    fun upFile(@Path("path") @PartMap file : Array<MultipartBody.Part>)
 }
