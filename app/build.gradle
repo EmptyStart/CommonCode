@@ -75,5 +75,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':codelibrary')
     implementation project(':commonresource')
+    implementation project(':chatlibrary')
     kapt rootProject.ext.exps.arouter_compiler
 }
