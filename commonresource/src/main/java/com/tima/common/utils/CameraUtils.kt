@@ -137,7 +137,7 @@ object CameraUtils {
      * 根据uri获取path
      */
     @SuppressLint("NewApi")
-    fun getPath(uri: Uri, activity: Activity): String {
+    fun getPath(uri: Uri, activity: Activity): String? {
         var path: String?
         val filePathColumns = arrayOf(MediaStore.Images.Media.DATA)
         val c = activity.contentResolver.query(uri, filePathColumns, null, null, null)
