@@ -79,7 +79,7 @@ dependencies {
     //环信客服SDK
     implementation 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com.hyphenate:kefu-easeui-android:1.1.7.final'
     //用于线程间的通讯代替handler或用于组件间的通讯代替Intent
-    implementation 'org.greenrobot:eventbus:3.1.1'
+    //implementation 'org.greenrobot:eventbus:3.1.1'
 
     //    kapt rootProject.ext.exps.databinding_compiler
     //    kapt 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.21'

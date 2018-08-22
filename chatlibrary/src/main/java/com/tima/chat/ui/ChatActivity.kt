@@ -1,29 +1,30 @@
-package com.tima.code.ui
+package com.tima.chat.ui
 
 import android.os.Bundle
 import android.view.View
-import com.tima.code.R
-import com.tima.code.bean.MsgInfo
+import com.tima.chat.R
+import com.tima.chat.apdater.ChatAdapter
+import com.tima.chat.bean.MsgInfo
 import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.chat_activity_chat_layout.*
 import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.*
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by Administrator on 2018/8/20/020.
  */
 class ChatActivity : BaseActivity() , View.OnClickListener{
 
-    var msgInfos = ArrayList<MsgInfo>()                                                             //
+    var msgInfos = ArrayList<MsgInfo>()                                                             //聊天信息
+    var chapAdapter : ChatAdapter = null!!
 
     override fun inits(savedInstanceState: Bundle?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        EventBus.getDefault().register(this)
         tv_age.text="23"
-
         iv_send.setOnClickListener(this)
     }
 
     override fun getLayoutId(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         return R.layout.chat_activity_chat_layout
     }
 
@@ -35,5 +36,9 @@ class ChatActivity : BaseActivity() , View.OnClickListener{
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
 
 }

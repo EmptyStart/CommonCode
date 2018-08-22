@@ -1,4 +1,4 @@
-package com.tima.code.bean
+package com.tima.chat.bean
 
 import com.hyphenate.chat.EMMessage
 

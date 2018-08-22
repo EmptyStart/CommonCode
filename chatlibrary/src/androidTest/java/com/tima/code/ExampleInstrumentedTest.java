@@ -1,4 +1,4 @@
-package com.tima.code;
+package com.tima.chat;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

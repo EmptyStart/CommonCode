@@ -1,13 +1,11 @@
-package com.tima.code.helper;
+package com.tima.chat.helper;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import com.hyphenate.chat.ChatClient;
 import com.hyphenate.chat.ChatManager;
 import com.hyphenate.chat.Conversation;
@@ -20,9 +18,9 @@ import com.hyphenate.helpdesk.easeui.util.IntentBuilder;
 import com.hyphenate.helpdesk.model.AgentInfo;
 import com.hyphenate.helpdesk.model.MessageHelper;
 import com.hyphenate.helpdesk.util.Log;
-import com.tima.code.Listener.ListenerManager;
-import com.tima.code.R;
-import com.tima.code.ui.ChatActivity;
+import com.tima.chat.Listener.ListenerManager;
+import com.tima.chat.R;
+import com.tima.chat.ui.ChatActivity;
 import org.json.JSONObject;
 import java.util.List;
 

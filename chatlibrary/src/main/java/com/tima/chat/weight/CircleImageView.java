@@ -1,4 +1,4 @@
-package com.tima.code.weight;
+package com.tima.chat.weight;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -20,7 +20,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 
-import com.tima.code.R;
+import com.tima.chat.R;
 
 
 public class CircleImageView extends android.support.v7.widget.AppCompatImageView {

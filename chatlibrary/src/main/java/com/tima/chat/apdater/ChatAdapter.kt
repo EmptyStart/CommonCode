@@ -1,4 +1,4 @@
-package com.tima.code.apdater
+package com.tima.chat.apdater
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -8,9 +8,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.tima.code.R
-import com.tima.code.bean.MsgInfo
-import com.tima.code.weight.CircleImageView
+import com.tima.chat.R
+import com.tima.chat.bean.MsgInfo
+import com.tima.chat.weight.CircleImageView
 
 /**
  * 聊天适配器
@@ -23,7 +23,7 @@ class ChatAdapter(var context : Context, var msgInfos : List<MsgInfo>) : Recycle
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view = View.inflate(context, R.layout.reycler_chat_layout,null)
+        var view = View.inflate(context, R.layout.chat_reycler_chat_layout,null)
         return ViewHolder(view)
     }
 
@@ -32,7 +32,6 @@ class ChatAdapter(var context : Context, var msgInfos : List<MsgInfo>) : Recycle
     }
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        var tvPaymentImg: ImageView = itemView.findViewById(R.id.chat_time)                         //聊天时间
         var ivChatfrom: CircleImageView = itemView.findViewById(R.id.iv_chatfrom)                   //接收人头像
         var ivChatto:CircleImageView = itemView.findViewById(R.id.iv_chatto)                        //自己 头像
         var llChartFrom: LinearLayout = itemView.findViewById(R.id.ll_chart_from)                   //接收布局

@@ -1,8 +1,8 @@
-package com.tima.code.Listener
+package com.tima.chat.Listener
 
 import com.hyphenate.EMMessageListener
 import com.hyphenate.chat.EMMessage
-import com.tima.code.bean.MsgInfo
+import com.tima.chat.bean.MsgInfo
 import com.tima.common.utils.DateUtils
 import com.tima.common.utils.LogUtils
 
@@ -10,12 +10,15 @@ import com.tima.common.utils.LogUtils
  *  消息监听
  * Created by Administrator on 2018/8/21/021.
  */
-class NyEMMessageListener : EMMessageListener{
+class NyEMMessageListener{/* : EMMessageListener{
+
+    override fun onMessageRecalled(p0: MutableList<EMMessage>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onMessageRead(p0: MutableList<EMMessage>?) {
     }
 
-    override fun onMessageRecalled(p0: MutableList<EMMessage>?) {
-    }
 
     override fun onMessageChanged(p0: EMMessage?, p1: Any?) {
         //消息状态变动
@@ -43,6 +46,6 @@ class NyEMMessageListener : EMMessageListener{
     }
 
     override fun onMessageDelivered(p0: MutableList<EMMessage>?) {
-    }
+    }*/
 
 }

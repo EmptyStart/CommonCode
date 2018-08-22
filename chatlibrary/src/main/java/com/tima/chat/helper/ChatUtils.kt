@@ -1,4 +1,4 @@
-package com.tima.code.helper
+package com.tima.chat.helper
 
 import android.app.Activity
 import android.content.Context
@@ -9,26 +9,32 @@ import com.hyphenate.EMCallBack
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMOptions
-import com.tima.code.Listener.NyEMMessageListener
-import com.tima.code.ui.ChatActivity
+import com.tima.chat.Listener.MyEMMessageListener
+import com.tima.chat.Listener.NyEMMessageListener
+import com.tima.chat.ui.ChatActivity
 
 /**
  * Created by Administrator on 2018/8/21/021.
  */
-class ChatUtils{
+object ChatUtils{
 
     /**
      * 初始化聊天
      */
-    fun init(context: Context){
-        val options = EMOptions()
-        options.acceptInvitationAlways = false
-        //初始化
-        EMClient.getInstance().init(context, options)
-        //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
-        EMClient.getInstance().setDebugMode(true)
-
-        EMClient.getInstance().chatManager().addMessageListener(NyEMMessageListener())
+    fun init(context: Context) : Boolean{
+        try {
+            val options = EMOptions()
+            options.acceptInvitationAlways = false
+            //初始化
+            EMClient.getInstance().init(context, options)
+            //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
+            EMClient.getInstance().setDebugMode(true)
+            EMClient.getInstance().chatManager().addMessageListener(MyEMMessageListener())
+        }catch (e : Exception){
+            e.printStackTrace()
+            return false
+        }
+        return true
     }
 
     /**
@@ -72,5 +78,9 @@ class ChatUtils{
         return true
     }
 
+    fun onDestory() : Boolean{
+
+        return true
+    }
 
 }

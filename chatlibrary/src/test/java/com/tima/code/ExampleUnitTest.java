@@ -1,4 +1,4 @@
-package com.tima.code;
+package com.tima.chat;
 
 import org.junit.Test;
 
