@@ -11,6 +11,8 @@ import com.tima.code.timaconstracts.IWelcomeViewModel
 import com.tima.code.timaviewmodels.WelcomeViewModelImpl
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.IDataListener
+import com.tima.common.https.ApiException
+import com.tima.common.https.ExceptionDeal
 import okhttp3.ResponseBody
 
 /**
@@ -21,41 +23,43 @@ import okhttp3.ResponseBody
 class WelcomePersenterImpl : IWelcomePresent {
 
 
-    var view : IWelcomeView? = null
-    var viewMode : IWelcomeViewModel?=null
+    var view: IWelcomeView? = null
+    var viewMode: IWelcomeViewModel? = null
 
 
-    constructor(view : IBaseViews?){
-        this.view= view as IWelcomeView?
-        viewMode=WelcomeViewModelImpl()
+    constructor(view: IBaseViews?) {
+        this.view = view as IWelcomeView?
+        viewMode = WelcomeViewModelImpl()
     }
 
 
     override fun onClick(view: View?) {
-        Log.i("tag","onclick event")
+        Log.i("tag", "onclick event")
     }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(owner: LifecycleOwner) {
-        Log.i("tag","onCreate")
+        Log.i("tag", "onCreate")
 //        Super calls to java default methods are prohibited in JVM target 1.6 Recompile with '-jvm-target 1.8'
         view?.showLoading()
-       viewMode?.addOnBodyDataListener(object : IDataListener{
-           override fun successData(success: ResponseBody) {
-               //成功返回
-               view?.hideLoading()
+        viewMode?.addOnBodyDataListener(object : IDataListener {
+            override fun successData(success: ResponseBody) {
+                //成功返回
+                view?.hideLoading()
 
-           }
+            }
 
-           override fun errorData(error: String) {
-               //错误返回
-               view?.hideLoading()
-           }
+            override fun errorData(error: String) {
+                //错误返回
+                view?.hideLoading()
+                ExceptionDeal.handleException(ApiException(error))
+            }
 
-           override fun requestData(): Map<String, String>? {
-               //请求参数
-               return null
-           }
+            override fun requestData(): Map<String, String>? {
+                //请求参数
+                return null
+            }
 
-       })
+        })
     }
 }
