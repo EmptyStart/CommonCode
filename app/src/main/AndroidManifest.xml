@@ -42,7 +42,7 @@
         android:supportsRtl="true"
         android:name="com.tima.common.base.App"
         android:theme="@style/AppTheme">
-        <activity android:name=".WelcomeActivity">
+        <activity android:name="com.tima.code.views.activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,17 +1,20 @@
-package com.tima.code.views
+package com.tima.code.views.activitys
 
 import android.os.Bundle
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
 import com.tima.code.timaconstracts.IWelcomePresent
 import com.tima.code.timaconstracts.IWelcomeView
 import com.tima.code.timapresenter.WelcomePersenterImpl
 import com.tima.common.base.BaseActivity
+import com.tima.common.base.RoutePaths
 
 /**
  * @author : zhijun.li on 2018/8/22
  *   email : zhijun.li@timanetworks.com
  *
  */
+@Route(path = RoutePaths.welcome)
 class WelcomeActivity : BaseActivity() ,IWelcomeView{
 
     var iWelcomePresent : IWelcomePresent? =null

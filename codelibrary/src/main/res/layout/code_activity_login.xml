@@ -10,7 +10,7 @@
         android:layout_width="237px"
         android:layout_height="237px"
         android:layout_marginTop="260px"
-        android:src="@mipmap/code_ic_arrive" />
+        android:src="@mipmap/code_login_arrive" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="72px"
             android:layout_marginRight="43px"
-            android:src="@mipmap/code_ic_username" />
+            android:src="@mipmap/code_login_username" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="72px"
             android:layout_marginRight="43px"
-            android:src="@mipmap/code_ic_username" />
+            android:src="@mipmap/code_login_username" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="590px"

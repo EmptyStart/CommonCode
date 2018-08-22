@@ -14,7 +14,7 @@ import kotlin.reflect.KProperty
  */
 class SpHelper<T>(val name:String, private val default: T){
     companion object {
-        private val file_name="jmcreport_config"
+        private val file_name="work_god_config"
         private val prefs: SharedPreferences by lazy{
             App.app.getSharedPreferences(file_name, Context.MODE_PRIVATE)
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="144px"
+        android:layout_height="156px"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -30,10 +30,129 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/iv_tab1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="63px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/code_main_office_nor" />
+
+            <TextView
+                android:id="@+id/tv_tab1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="职位"
+                android:textSize="12sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tab2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_tab2"
+                android:layout_width="wrap_content"
+                android:layout_height="63px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/code_main_company_nor" />
+
+            <TextView
+                android:id="@+id/tv_tab2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公司"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tab5"
+            android:layout_width="0dp"
+            android:layout_height="219px"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_tab5"
+                android:layout_width="140px"
+                android:layout_height="140px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/code_main_go_nor" />
+
+            <TextView
+                android:id="@+id/tv_tab5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公司"
+                android:textSize="12sp"
+                android:layout_marginBottom="12px"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tab3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_tab3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="63px"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/code_main_message_nor" />
+
+                <View
+                    android:id="@+id/v_hotdot"
+                    android:layout_width="15px"
+                    android:layout_height="15px"
+                    android:layout_gravity="right|top"
+                    android:background="@drawable/code_main_hotdot" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_tab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="消息"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_tab4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_tab4"
+                android:layout_width="wrap_content"
+                android:layout_height="63px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/code_main_my_nor" />
+
+            <TextView
+                android:id="@+id/tv_tab4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"
+                android:textSize="12sp" />
+        </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

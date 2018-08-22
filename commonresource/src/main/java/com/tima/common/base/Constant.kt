@@ -12,13 +12,22 @@ object Constant {
     //lateinit不支持数据基础类型
 //    private var mNumber: Int by Delegates.notNull<Int>()
 //    lateinit var baseUrl: String
+
+
     val token : String by SpHelper("token","")
 
+    //获取当前角色   1 表示个人  2表示公司  0表示 默认值
+    fun getPosition(): Int {
+        val set by SpHelper("position", 0)
+        return set
+    }
 
+
+
+    /**
+     * cookie
+     */
     const val DEFAULT_TIMEOUT :Long=15
-
-
-
     const val SET_COOKIE_KEY = "set-cookie"
     const val COOKIE_NAME = "Cookie"
 
@@ -43,4 +52,5 @@ object Constant {
         }
         return sb.toString()
     }
+
 }
