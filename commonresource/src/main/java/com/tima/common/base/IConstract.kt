@@ -1,4 +1,4 @@
-package com.tima.code.timaconstracts
+package com.tima.common.base
 
 import com.tima.common.base.IBasePresenter
 import com.tima.common.base.IBaseViewModel

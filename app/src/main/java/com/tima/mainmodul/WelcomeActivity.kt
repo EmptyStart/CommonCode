@@ -26,8 +26,8 @@ class WelcomeActivity : BaseActivity() {
 
 //            RetrofitHelper.service.executeGet("99",map)
 //                    .compose(SchedulerUtils.ioToMain()).subscribe(BaseSubscriber());
-            RetrofitHelper.service.executePost(map,map2).compose(SchedulerUtils.ioToMain())
-                    .subscribe(BaseSubscriber())
+//            RetrofitHelper.service.executePost(map,map2).compose(SchedulerUtils.ioToMain())
+//                    .subscribe(BaseSubscriber())
         }
     }
 

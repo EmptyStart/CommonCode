@@ -10,24 +10,26 @@ import retrofit2.http.*
  *   email : zhijun.li@timanetworks.com
  *
  */
-interface UrlService{
+interface UrlService {
     /**
      *post请求
      */
     @POST("{path}")
     @FormUrlEncoded
-    fun executePost(@Path("path") @FieldMap fieldMap: Map<String,String>, @QueryMap queryMap:
-    Map<String, String>): Observable<ResponseBody>
+    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>, @QueryMap
+    queryMap: Map<String, String>?): Observable<ResponseBody>
+
     /**
      *get请求
      */
     @GET("{path}")
-    fun executeGet(@Path("path") @QueryMap queryMap: Map<String,String>): Observable<ResponseBody>
+    fun executeGet(@Path("path") path: String, @QueryMap queryMap: Map<String, String>?):
+            Observable<ResponseBody>
 
     /**
      * 文件上传
      */
     @POST("{path}")
     @Multipart
-    fun upFile(@Path("path") @PartMap file : Array<MultipartBody.Part>)
+    fun upFile(@Path("path") path: String, @PartMap file: Array<MultipartBody.Part>?)
 }

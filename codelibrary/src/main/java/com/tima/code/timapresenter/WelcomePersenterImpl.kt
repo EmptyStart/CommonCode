@@ -8,6 +8,10 @@ import android.view.View
 import com.tima.code.timaconstracts.IWelcomePresent
 import com.tima.code.timaconstracts.IWelcomeView
 import com.tima.code.timaconstracts.IWelcomeViewModel
+import com.tima.code.timaviewmodels.WelcomeViewModelImpl
+import com.tima.common.base.IBaseViews
+import com.tima.common.base.IDataListener
+import okhttp3.ResponseBody
 
 /**
  * @author : zhijun.li on 2018/6/28
@@ -21,10 +25,10 @@ class WelcomePersenterImpl : IWelcomePresent {
     var viewMode : IWelcomeViewModel?=null
 
 
-//    constructor(view :IBaseViews?){
-//        this.view= view as IWelcomeView?
-//
-//    }
+    constructor(view : IBaseViews?){
+        this.view= view as IWelcomeView?
+        viewMode=WelcomeViewModelImpl()
+    }
 
 
     override fun onClick(view: View?) {
@@ -34,5 +38,24 @@ class WelcomePersenterImpl : IWelcomePresent {
     fun onCreate(owner: LifecycleOwner) {
         Log.i("tag","onCreate")
 //        Super calls to java default methods are prohibited in JVM target 1.6 Recompile with '-jvm-target 1.8'
+        view?.showLoading()
+       viewMode?.addOnBodyDataListener(object : IDataListener{
+           override fun successData(success: ResponseBody) {
+               //成功返回
+               view?.hideLoading()
+
+           }
+
+           override fun errorData(error: String) {
+               //错误返回
+               view?.hideLoading()
+           }
+
+           override fun requestData(): Map<String, String>? {
+               //请求参数
+               return null
+           }
+
+       })
     }
 }

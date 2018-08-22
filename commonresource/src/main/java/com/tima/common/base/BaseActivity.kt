@@ -26,9 +26,9 @@ abstract class BaseActivity : AutoLayoutActivity(){
 
 
 
-    fun getRootView() : View?=rootView
+    open fun getRootView() : View?=rootView
     //default is not use EventBus
-    fun userEventBus() :Boolean =false
+    open fun userEventBus() :Boolean =false
 
     abstract fun getLayoutId() :Int
     abstract fun inits(savedInstanceState: Bundle?)

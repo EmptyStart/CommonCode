@@ -1,4 +1,6 @@
-package com.tima.code.timaconstracts
+package com.tima.common.base
+
+import okhttp3.ResponseBody
 
 /**
  * @author : zhijun.li on 2018/6/28
@@ -6,6 +8,7 @@ package com.tima.code.timaconstracts
  *
  */
 interface IDataListener{
-    fun successData(success : String?)
+    fun successData(success : ResponseBody)
+    fun errorData(error : String)
     fun requestData() : Map<String,String>?
 }
