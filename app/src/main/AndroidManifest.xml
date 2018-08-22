@@ -42,7 +42,7 @@
         android:supportsRtl="true"
         android:name="com.tima.common.base.App"
         android:theme="@style/AppTheme">
-        <activity android:name="com.tima.code.views.activitys.MainActivity">
+        <activity android:name="com.tima.chat.ui.activity.ChatActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,6 +51,17 @@
         </activity>
         <meta-data android:name="design_width" android:value="${DESIGN_WIDTH}"/>
         <meta-data android:name="design_height" android:value="${DESIGN_HEIGHT}"/>
+
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.tima.mainmodul.lj.jjy.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths"/>
+        </provider>
     </application>
 
 </manifest>

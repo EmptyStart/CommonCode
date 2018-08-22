@@ -20,7 +20,7 @@ import com.hyphenate.helpdesk.model.MessageHelper;
 import com.hyphenate.helpdesk.util.Log;
 import com.tima.chat.Listener.ListenerManager;
 import com.tima.chat.R;
-import com.tima.chat.ui.ChatActivity;
+import com.tima.chat.ui.activity.ChatActivity;
 import org.json.JSONObject;
 import java.util.List;
 

@@ -4,14 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
-import android.widget.Toast
 import com.hyphenate.EMCallBack
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMOptions
 import com.tima.chat.Listener.MyEMMessageListener
-import com.tima.chat.Listener.NyEMMessageListener
-import com.tima.chat.ui.ChatActivity
+import com.tima.chat.ui.activity.ChatActivity
 
 /**
  * Created by Administrator on 2018/8/21/021.

@@ -127,6 +127,7 @@
                 android:id="@+id/gv_add_chat"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
+                android:background="@color/line"
                 android:layout_gravity="center"
                 android:padding="10dip"
                 android:visibility="gone"/>
