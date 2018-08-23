@@ -11,18 +11,14 @@ import com.tima.code.timaconstracts.IWelcomeView
 import com.tima.code.timaconstracts.IWelcomeViewModel
 import com.tima.code.timaviewmodels.WelcomeViewModelImpl
 import com.tima.common.base.IBaseViews
-import com.tima.common.base.IDataListener
 import com.tima.common.base.RoutePaths
-import com.tima.common.https.ApiException
-import com.tima.common.https.ExceptionDeal
-import okhttp3.ResponseBody
 
 /**
  * @author : zhijun.li on 2018/6/28
  *   email : zhijun.li@timanetworks.com
  *
  */
-class WelcomePersenterImpl : IWelcomePresent {
+class WelcomePresenterImpl : IWelcomePresent {
 
 
     var view: IWelcomeView? = null
@@ -37,7 +33,7 @@ class WelcomePersenterImpl : IWelcomePresent {
 
     override fun onClick(view: View?) {
         Log.i("tag", "onclick event")
-        ARouter.getInstance().build(RoutePaths.main).navigation()
+        ARouter.getInstance().build(RoutePaths.private_main).navigation()
 
     }
 

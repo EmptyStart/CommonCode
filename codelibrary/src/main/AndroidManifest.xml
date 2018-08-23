@@ -2,7 +2,9 @@
     package="com.tima.code" >
 
     <application>
-        <activity android:name=".views.activitys.MainActivity"
+        <activity android:name=".views.activitys.PrivateMainActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.CompanyMainActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
         <activity android:name=".views.activitys.WelcomeActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>

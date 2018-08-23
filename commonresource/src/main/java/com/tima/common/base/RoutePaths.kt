@@ -7,7 +7,23 @@ package com.tima.common.base
  */
 object RoutePaths{
     const val group1 = "all"
-    const val main="/main/mainpage"
-    const val login="/login/loginpage"
+    /**
+     * activitys
+     */
+    //欢迎界面
     const val welcome="login/welcomepage"
+    //登录界面
+    const val login="/login/loginpage"
+    //公司主界面
+    const val company_main="/company_main/mainpage"
+    //个人主界面
+    const val private_main="/private_main/mainpage"
+
+
+
+    /**
+     * fragments
+     */
+
+
 }
