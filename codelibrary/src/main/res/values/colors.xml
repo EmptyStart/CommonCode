@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="code_linebc">#BFBFBF</color>
+    <color name="code_main_textcolor">#B9B9B9</color>
 </resources>

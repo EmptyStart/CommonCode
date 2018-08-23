@@ -2,7 +2,6 @@ package com.tima.common.base
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.zhy.autolayout.AutoLayoutActivity
 import org.greenrobot.eventbus.EventBus
 
@@ -28,7 +27,7 @@ abstract class BaseActivity : AutoLayoutActivity(){
 
     open fun getRootView() : View?=rootView
     //default is not use EventBus
-    open fun userEventBus() :Boolean =false
+    open fun useEventBus() :Boolean =false
 
     abstract fun getLayoutId() :Int
     abstract fun inits(savedInstanceState: Bundle?)
@@ -36,14 +35,14 @@ abstract class BaseActivity : AutoLayoutActivity(){
     override fun onStart() {
         super.onStart()
         //if use  and is not register
-        if(userEventBus()&&!EventBus.getDefault().isRegistered(this)){
+        if(useEventBus()&&!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this)
         }
     }
 
     override fun onDestroy() {
         //if use and  is  register
-        if (userEventBus()&&EventBus.getDefault().isRegistered(this)) {
+        if (useEventBus()&&EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this)
         }
         super.onDestroy()

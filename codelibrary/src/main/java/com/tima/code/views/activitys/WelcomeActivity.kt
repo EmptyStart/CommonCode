@@ -10,6 +10,7 @@ import com.tima.code.timaconstracts.IWelcomeView
 import com.tima.code.timapresenter.WelcomePersenterImpl
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.RoutePaths
+import com.tima.common.utils.SpHelper
 import kotlinx.android.synthetic.main.code_activity_welcome.*
 
 /**
@@ -20,6 +21,8 @@ import kotlinx.android.synthetic.main.code_activity_welcome.*
 @Route(path = RoutePaths.welcome)
 class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
     override fun onClick(v: View?) {
+        var pos: Int by SpHelper("position",0)
+        pos=2;
         iWelcomePresent?.onClick(v)
     }
 
@@ -46,5 +49,5 @@ class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
 
     }
 
-    override fun userEventBus(): Boolean = false
+    override fun useEventBus(): Boolean = false
 }
