@@ -1,6 +1,7 @@
 package com.tima.code.views.activitys
 
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
@@ -17,7 +18,10 @@ import kotlinx.android.synthetic.main.code_activity_welcome.*
  *
  */
 @Route(path = RoutePaths.welcome)
-class WelcomeActivity : BaseActivity(), IWelcomeView {
+class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
+    override fun onClick(v: View?) {
+        iWelcomePresent?.onClick(v)
+    }
 
     var iWelcomePresent: IWelcomePresent? = null
     override fun getLayoutId(): Int = R.layout.code_activity_welcome
@@ -25,6 +29,8 @@ class WelcomeActivity : BaseActivity(), IWelcomeView {
     override fun inits(savedInstanceState: Bundle?) {
         iWelcomePresent = WelcomePersenterImpl(this)
         lifecycle.addObserver(iWelcomePresent as WelcomePersenterImpl)
+
+        tv_hello.setOnClickListener(this)
 
     }
 
