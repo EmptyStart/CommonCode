@@ -28,7 +28,8 @@ class ActionBarView : LinearLayout {
     }
 
     private fun initView(context: Context?) {
-//        LayoutInflater.from(context).inflate(R.la)
+        val view = LayoutInflater.from(context).inflate(R.layout.common_actionbar_view, this)
+
     }
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
