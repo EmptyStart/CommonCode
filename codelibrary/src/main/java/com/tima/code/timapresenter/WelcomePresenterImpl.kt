@@ -33,7 +33,7 @@ class WelcomePresenterImpl : IWelcomePresent {
 
     override fun onClick(view: View?) {
         Log.i("tag", "onclick event")
-        ARouter.getInstance().build(RoutePaths.private_main).navigation()
+        ARouter.getInstance().build(RoutePaths.mainpage).navigation()
 
     }
 

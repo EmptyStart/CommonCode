@@ -5,62 +5,71 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
 import com.tima.common.base.BaseActivity
+import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.ColorIdUtil
+import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.code_activity_main.*
 
 /**
- * @author : zhijun.li on 2018/8/23
+ * @author : zhijun.li on 2018/8/22
  *   email : zhijun.li@timanetworks.com
- *   公司主页
+ *  个人主页
  */
-@Route(path = RoutePaths.company_main)
-class CompanyMainActivity : BaseActivity(), View.OnClickListener {
+@Route(path = RoutePaths.mainpage)
+class MainPageActivity : BaseActivity(), View.OnClickListener {
+
+    var currentPosition: Int = 0
+    /**
+     * 0普通用户 1登录的求职 2登录的发布职位
+     */
+    var office: Int = 0;
 
 
     override fun getLayoutId(): Int {
+
         return R.layout.code_activity_main
     }
-    override fun onClick(v: View?) {
-
-
-    }
-
-    var currentPosition: Int = 0
 
     override fun inits(savedInstanceState: Bundle?) {
+        office = Constant.getPosition()
+        LogUtils.i("MainPageActivity", office.toString());
         defaultTab()
     }
 
-    fun  haveUnReadMessage(unRead: Boolean){
 
+    override fun onClick(v: View?) {
+        tabSelect(0)
     }
 
-    private fun defaultTab() {
-        ll_tab5.visibility = View.GONE
-        tv_tab1.text = "发布"
-        tv_tab2.text = "管理"
-        iv_tab1.setImageResource(R.mipmap.code_main_release_nor)
-        iv_tab2.setImageResource(R.mipmap.code_main_manage_nor)
+
+    /**
+     * 初始化tab
+     */
+    fun defaultTab() {
         ll_tab1.setOnClickListener(this)
         ll_tab2.setOnClickListener(this)
         ll_tab3.setOnClickListener(this)
         ll_tab4.setOnClickListener(this)
+
         iv_tab1.tag=false
         iv_tab2.tag=false
         iv_tab3.tag=false
         iv_tab4.tag=false
+
         tabSelect(0)
     }
+
     fun tabSelect(position: Int) {
+
         if (iv_tab1.tag as Boolean) {
             iv_tab1.tag = false
-            iv_tab1.setImageResource(R.mipmap.code_main_office_nor)
+            iv_tab1.setImageResource(R.mipmap.code_main_release_nor)
             tv_tab1.setTextColor(ColorIdUtil.getColorId(R.color.code_main_textcolor))
         }
         if (iv_tab2.tag as Boolean) {
             iv_tab2.tag = false
-            iv_tab2.setImageResource(R.mipmap.code_main_company_nor)
+            iv_tab2.setImageResource(R.mipmap.code_main_manage_nor)
             tv_tab2.setTextColor(ColorIdUtil.getColorId(R.color.code_main_textcolor))
         }
         if (iv_tab3.tag as Boolean) {
@@ -105,6 +114,4 @@ class CompanyMainActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
-
-
 }
