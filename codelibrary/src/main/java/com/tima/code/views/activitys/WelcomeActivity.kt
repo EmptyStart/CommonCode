@@ -35,6 +35,7 @@ class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
 
     }
 
+
     override fun showLoading() {
 
     }

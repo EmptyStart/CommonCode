@@ -5,8 +5,8 @@ package com.tima.common.BusEvents
  *   email : zhijun.li@timanetworks.com
  *
  */
-class SelectPos1{
-    var isPos1 : Boolean=false
+class SelectPos1(boo: Boolean){
+    val isPos1  =boo
 }
 class SelectPos2{
     var  isPos2:Boolean=false

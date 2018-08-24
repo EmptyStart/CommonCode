@@ -22,6 +22,6 @@ object RoutePaths{
     /**
      * fragments
      */
-
+    const val fragmentutils="/fragment/utils"
 
 }

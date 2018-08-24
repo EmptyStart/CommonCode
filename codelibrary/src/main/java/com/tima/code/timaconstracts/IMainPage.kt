@@ -11,5 +11,7 @@ import com.tima.common.base.IBaseViews
  */
 interface IMainPageViewModel : IBaseViewModel
 
-interface IMainPageView : IBaseViews
+interface IMainPageView : IBaseViews{
+    fun tabSelect(position: Int)
+}
 interface IMainPagePresent : IBasePresenter
