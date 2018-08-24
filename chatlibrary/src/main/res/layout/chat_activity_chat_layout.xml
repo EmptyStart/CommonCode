@@ -104,11 +104,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/reycler_chat"
+            android:background="@color/line"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+        </android.support.v4.widget.SwipeRefreshLayout>
         <LinearLayout
             android:id="@+id/id_buttom"
             android:layout_width="match_parent"

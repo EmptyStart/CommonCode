@@ -6,8 +6,6 @@ import com.hyphenate.chat.EMMessage
  * Created by Administrator on 2018/8/21/021.
  */
 class MsgInfo{
-    val TYPE_RECEIVED = 0                                           //消息的类型:接收
-    val TYPE_SEND = 1                                               //消息的类型:发送
     //val MSGTYPE_VOICE = 2                                           //信息的类型:语音
     //val MSGTYPE_IMAGE = 3                                           //信息的类型:图片
     //val MSGTYPE_TEXT = 4                                            //信息的类型:文本
@@ -18,4 +16,11 @@ class MsgInfo{
     var voiceLeght : Int = 0                                        //语音-长度
     var acceptTime : String =""                                     //接收最新消息时间  yyyy-MM-dd HH:mm:ss
     var from : String = ""                                          //接收人
+
+
+    override fun toString(): String {
+        return "MsgInfo(content='$content', type=$type, msgType=$msgType, voiceLeght=$voiceLeght, acceptTime='$acceptTime', from='$from')"
+    }
+
+
 }

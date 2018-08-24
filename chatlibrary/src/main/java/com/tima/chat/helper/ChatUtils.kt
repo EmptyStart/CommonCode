@@ -9,13 +9,22 @@ import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMOptions
 import com.tima.chat.Listener.MyEMMessageListener
-import com.tima.chat.ui.activity.ChatActivity
+import com.tima.chat.bean.MsgInfo
+import com.tima.common.utils.LogUtils
 
 /**
  * Created by Administrator on 2018/8/21/021.
  */
 object ChatUtils{
+    var TAG = "ChatUtils"
+    val TYPE_RECEIVED = 0                                           //消息的类型:接收
+    val TYPE_SEND = 1                                               //消息的类型:发送
+    var msgInfos = ArrayList<MsgInfo>()                             //接受到----聊天信息
 
+    val FRIENDID = "test2"                                          //发送人Id
+    val NAME = "test1"                                              //账号
+    val PASSWORD = "123456"                                         //密码
+    var REFRESH_CHAT = "refresh_chat"                               //刷新聊天信息
     /**
      * 初始化聊天
      */
@@ -28,8 +37,10 @@ object ChatUtils{
             //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
             EMClient.getInstance().setDebugMode(true)
             EMClient.getInstance().chatManager().addMessageListener(MyEMMessageListener())
+            LogUtils.i(TAG,"初始化聊天信息成功!")
         }catch (e : Exception){
             e.printStackTrace()
+            LogUtils.i(TAG,"初始化聊天信息失败!")
             return false
         }
         return true
@@ -38,26 +49,32 @@ object ChatUtils{
     /**
      * 登陆环信
      */
-    fun login(name : String,password : String, activity : Activity){
+    fun login(name : String,password : String, activity : Activity) : Boolean{
+        var result = false
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
-            return
+            return result
         }
         EMClient.getInstance().login(name, password, object : EMCallBack {
             override fun onSuccess() {
                 EMClient.getInstance().groupManager().loadAllGroups()
                 EMClient.getInstance().chatManager().loadAllConversations()
-                activity.runOnUiThread(Runnable {
+                LogUtils.i(TAG,"登陆成功——---"+name)
+                /*activity.runOnUiThread(Runnable {
                     activity.startActivity(Intent(activity, ChatActivity::class.java))
                     activity.finish()
-                })
+                })*/
+                result = true
             }
 
             override fun onProgress(progress: Int, status: String) {
             }
 
             override fun onError(code: Int, message: String) {
+                LogUtils.i(TAG,"登陆失败——---"+name+"  message=="+message)
+                result = false
             }
         })
+        return result
     }
 
     /**
@@ -77,7 +94,7 @@ object ChatUtils{
     }
 
     fun onDestory() : Boolean{
-
+        EMClient.getInstance().chatManager().removeMessageListener(MyEMMessageListener())
         return true
     }
 

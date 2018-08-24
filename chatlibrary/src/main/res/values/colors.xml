@@ -15,4 +15,7 @@
     <color name="text_black">#091926</color>
 
     <color name="text_gray">#555555</color>
+
+    <color name="wxTitle">#40b643</color>
+    <color name="wxTitleDeep">#308932</color>
 </resources>

@@ -24,10 +24,24 @@
                 android:src="@mipmap/ic_voice"
                 android:visibility="visible"/>
 
+
             <LinearLayout
                 style="@style/weight_width_1"
                 android:background="@drawable/edit_stroke_style"
                 android:orientation="horizontal">
+
+                <com.tima.chat.weight.RecordVoiceBtnController
+                    android:id="@+id/voice_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:background="@drawable/voice_bg"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/record_voice_hint"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
                 <EditText
                     android:id="@+id/ed_input_sms"
                     style="@style/weight_width_1"

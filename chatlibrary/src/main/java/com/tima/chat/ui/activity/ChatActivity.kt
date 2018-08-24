@@ -1,35 +1,46 @@
 package com.tima.chat.ui.activity
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.AppCompatButton
+import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.EditText
+import android.widget.GridView
 import com.tima.chat.R
-import com.tima.chat.apdater.ChatAdapter
-import com.tima.chat.apdater.ChoiceFunctionAdapter
-import com.tima.chat.bean.MsgInfo
 import com.tima.chat.constracts.IChatPresent
 import com.tima.chat.constracts.IChatView
+import com.tima.chat.helper.ChatUtils
 import com.tima.chat.ui.presenter.ChatPersenterImpl
+import com.tima.chat.weight.RecordVoiceBtnController
 import com.tima.common.base.BaseActivity
-import com.tima.common.utils.CameraUtils
 import kotlinx.android.synthetic.main.chat_activity_chat_layout.*
 import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.*
 
 /**
  * Created by Administrator on 2018/8/20/020.
  */
-class ChatActivity : BaseActivity() , View.OnClickListener, ChoiceFunctionAdapter.OnChoiceClickListener,IChatView {
+class ChatActivity : BaseActivity() , View.OnClickListener,IChatView ,SwipeRefreshLayout.OnRefreshListener{
 
-    var ichatPresent : IChatPresent? = null
-
-    var msgInfos = ArrayList<MsgInfo>()                                                             //聊天信息
-    var chapAdapter : ChatAdapter? = null
+    var ichatPresent : ChatPersenterImpl? = null
 
     override fun inits(savedInstanceState: Bundle?) {
         ichatPresent = ChatPersenterImpl(this)
-        lifecycle.addObserver(ichatPresent as ChatPersenterImpl)
+        lifecycle.addObserver(ichatPresent!!)
 
-        tv_age.text="23"
+        iv_add.setOnClickListener(this)
         iv_send.setOnClickListener(this)
+        iv_voice.setOnClickListener(this)
+        reycler_chat.setOnClickListener(this)
+        swipe_refresh.setOnRefreshListener(this)
+        ichatPresent!!.init()
+    }
+
+
+    override fun onRefresh() {
+        if (ichatPresent != null)
+            ichatPresent!!.refreshChatAdapter()
     }
 
     override fun getLayoutId(): Int {
@@ -37,36 +48,28 @@ class ChatActivity : BaseActivity() , View.OnClickListener, ChoiceFunctionAdapte
     }
 
     override fun onClick(p0: View?) {
-        when(p0!!.id){
-            R.id.iv_send -> {
-                gv_add_chat.visibility = View.VISIBLE
-                refreshChatAdapter()
-            }
-        }
+        ichatPresent!!.onClick(p0)
     }
 
-    var choiceAdpater : ChoiceFunctionAdapter? = null
-    /**
-     * 刷新拍照等适配器
-     */
-    private fun refreshChatAdapter() {
-        if (choiceAdpater == null) {
-            choiceAdpater = ChoiceFunctionAdapter(this, this)
-            gv_add_chat.setAdapter(choiceAdpater)
-            gv_add_chat.setNumColumns(4)
-        } else {
-            choiceAdpater!!.notifyDataSetChanged()
-        }
+    override fun getChatRecyclerView(): RecyclerView {
+        return reycler_chat
     }
 
-    override fun onClickItem(name: String) {
-        if (name.equals("拍摄")) {
-            var imagePath = CameraUtils.onCallCamera(this)
-        } else {
-            CameraUtils.onCallAlbum(this)
-        }
+    override fun getGvAddChatView(): GridView {
+        return gv_add_chat
     }
 
+    override fun getEdInputSmsView(): EditText {
+        return ed_input_sms
+    }
+
+    override fun getVoiceBtView(): RecordVoiceBtnController {
+        return voice_btn
+    }
+
+    override fun getActivity(): AppCompatActivity {
+        return this
+    }
 
     override fun showLoading() {
     }
@@ -75,5 +78,10 @@ class ChatActivity : BaseActivity() , View.OnClickListener, ChoiceFunctionAdapte
     }
 
     override fun showError(errorMsg: String) {
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ChatUtils.onDestory()
     }
 }

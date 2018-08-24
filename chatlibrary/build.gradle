@@ -19,34 +19,32 @@ android {
                 arg("moduleName", project.getName())
             }
         }
-    }
 
-    defaultConfig {
         ndk {
             //选择要添加的对应cpu类型的.so库
-            abiFilters 'armeabi-v7a', 'arm64-v8a'
+            abiFilters 'armeabi-v7a','arm64-v8a',"x86"
             //还可以添加 'armeabi', 'x86'
         }
     }
 
     buildTypes {
-        debug {
+        /*debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
-            buildConfigField "boolean", "isDebug", "true"
-        }
+            //buildConfigField "boolean", "isDebug", "true"
+        }*/
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
-            buildConfigField "boolean", "isDebug", "false"
+            //buildConfigField "boolean", "isDebug", "false"
         }
     }
 
-    sourceSets {
+    /*sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
-    }
+    }*/
 
     kapt {
         javacOptions {
@@ -77,10 +75,10 @@ dependencies {
     kapt rootProject.ext.exps.arouter_compiler
     kapt rootProject.ext.exps.lifecycle_compiler
     //环信客服SDK
-    implementation 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com.hyphenate:kefu-easeui-android:1.1.7.final'
+    //implementation 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com.hyphenate:kefu-easeui-android:1.1.7.final'
     //用于线程间的通讯代替handler或用于组件间的通讯代替Intent
     //implementation 'org.greenrobot:eventbus:3.1.1'
-
     //    kapt rootProject.ext.exps.databinding_compiler
     //    kapt 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.21'
+    //implementation files('libs/hyphenatechat_3.2.3.jar')
 }

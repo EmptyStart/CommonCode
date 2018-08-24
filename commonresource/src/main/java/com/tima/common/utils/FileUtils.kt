@@ -10,6 +10,56 @@ import java.io.*
  */
 object FileUtils {
 
+    val PICTURE_DIR = "pictures/"
+    val CAMERA_DIR = "Camera/"
+    val VOICE_DIR = "voices/"
+    val VERSION_DIR = "version/"
+    val THUMB_DIR = "ThumbDir/"
+    val FILEPATH = "android/mainmodul/"
+
+    /**
+     * 获取文件路径
+     * @param fileName sd卡相对路径，如“/”表示根目录
+     * *
+     * @return
+     */
+    fun getDirectory(fileName: String): String {
+        return getSDPath() + "/" + FILEPATH + fileName
+    }
+
+    /**
+     * 获取语音本地路径
+     * @return /sdcard/ywk/voices/
+     */
+    fun getVoiceDirectory(): String {
+        return getDirectory(VOICE_DIR)
+    }
+
+
+    /**
+     * 取SD卡路径
+     * @return
+     */
+    private fun getSDPath(): String {
+        var sdDir: File? = null
+        val sdCardExist = Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED //判断sd卡是否存在
+        if (sdCardExist) {
+            sdDir = Environment.getExternalStorageDirectory() // 获取根目录
+        }
+        if (sdDir != null) {
+            return sdDir.toString()
+        } else {
+            return ""
+        }
+    }
+
+    /**
+     * //检查sd卡是否存在
+     */
+    fun isSdCardExist(): Boolean {
+        return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+    }
+
     /**
      * 获取根目录
      */
@@ -45,7 +95,6 @@ object FileUtils {
 
     /**
      * 创建文件
-     *
      * dirpath 文件目录
      * fileName 文件名称
      */
@@ -54,7 +103,6 @@ object FileUtils {
         if (!file.exists()) {
             file.createNewFile()
         }
-
     }
 
     /**
