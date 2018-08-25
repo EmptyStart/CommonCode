@@ -1,6 +1,9 @@
 package com.tima.common.utils
 
+import android.content.Context
+import android.net.Uri
 import android.os.Environment
+import android.support.v4.content.FileProvider
 import java.io.*
 
 /**
@@ -24,7 +27,8 @@ object FileUtils {
      * @return
      */
     fun getDirectory(fileName: String): String {
-        return getSDPath() + "/" + FILEPATH + fileName
+        //return  getCacheDownloadDir() + "/" + FILEPATH + fileName
+        return  getCacheDownloadDir() + "/" + fileName
     }
 
     /**
@@ -35,6 +39,34 @@ object FileUtils {
         return getDirectory(VOICE_DIR)
     }
 
+
+    /**
+     * 获取缓存目录
+     */
+    fun getCacheDownloadDir(): String {
+        var cacheDownloadDir = ""
+        val downloadRootPath = File.separator + "download" + File.separator
+        val cacheDownloadPath = downloadRootPath + "cache" + File.separator
+        val root = Environment.getExternalStorageDirectory()
+        val cacheDownloadDirFile = File(root.absolutePath + cacheDownloadPath)
+        if (!cacheDownloadDirFile.exists()) {
+            cacheDownloadDirFile.mkdirs()
+        }
+        cacheDownloadDir = cacheDownloadDirFile.path
+        return cacheDownloadDir
+    }
+
+
+    /**
+     * 获取随机路径
+     * @return
+     */
+    fun getRandomUri(context: Context): Uri {
+        val mFileName = System.currentTimeMillis().toString() + ".jpg"
+        val mCurrentPhotoFile = File(FileUtils.getCacheDownloadDir(), mFileName)
+        val photoURI = FileProvider.getUriForFile(context, CameraUtils.AUTHORITY, mCurrentPhotoFile)
+        return photoURI
+    }
 
     /**
      * 取SD卡路径

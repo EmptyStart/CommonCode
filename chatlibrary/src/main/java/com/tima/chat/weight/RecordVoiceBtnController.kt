@@ -1,14 +1,17 @@
 package com.tima.chat.weight
 
+import android.Manifest
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Process
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.AppCompatButton
-import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -17,6 +20,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.tima.chat.R
 import com.tima.chat.apdater.ChatAdapter
+import com.tima.common.utils.DateUtils
 import com.tima.common.utils.FileUtils
 import com.tima.common.utils.LogUtils
 import java.io.File
@@ -62,8 +66,7 @@ class RecordVoiceBtnController : AppCompatButton {
     private var mTimeUp = false
     private val HANDLER_WHAT_FOR_SEND_VOICE = 0x20
     private val myHandler = MyHandler(this)
-
-    private var durationString: String? = null
+    var isRecord = false                                                                            //false 录音结束  true 录音开始
 
     constructor(context: Context) : super(context) {
         init()
@@ -94,8 +97,9 @@ class RecordVoiceBtnController : AppCompatButton {
         when (action) {
             MotionEvent.ACTION_DOWN -> {
                 Process.myPid()
-
                 this.text = mContext?.getString(R.string.send_voice_hint)
+                LogUtils.i(TAG,"ACTION_DOWN text=="+text)
+
                 mIsPressed = true
                 time1 = System.currentTimeMillis()
                 mTouchY1 = event.y
@@ -122,22 +126,13 @@ class RecordVoiceBtnController : AppCompatButton {
             }
             MotionEvent.ACTION_UP -> {
                 this.text = mContext!!.getString(R.string.record_voice_hint)
-                mIsPressed = false
-                this.isPressed = false
+                LogUtils.i(TAG,"ACTION_UP text=="+text)
                 mTouchY2 = event.y
-                time2 = System.currentTimeMillis()
-                if (time2 - time1 < 500) {
-                    cancelTimer()
-                    return true
-                } else if (time2 - time1 < 1000) {
-                    cancelRecord()
-                } else if (mTouchY1 - mTouchY2 > MIN_CANCEL_DISTANCE) {
-                    cancelRecord()
-                } else if (time2 - time1 < 60000)
-                    finishRecord()
+                stopRecord()
             }
             MotionEvent.ACTION_MOVE -> {
                 mTouchY = event.y
+                LogUtils.i(TAG,"ACTION_MOVE mTouchY=="+mTouchY)
                 //手指上滑到超出限定后，显示松开取消发送提示
                 if (mTouchY1 - mTouchY > MIN_CANCEL_DISTANCE) {
                     this.text = mContext!!.getString(R.string.cancel_record_voice_hint)
@@ -156,12 +151,38 @@ class RecordVoiceBtnController : AppCompatButton {
             }
             MotionEvent.ACTION_CANCEL -> {  // 当手指移动到view外面，会cancel
                 this.text = mContext!!.getString(R.string.record_voice_hint)
-                cancelRecord()
+                LogUtils.i(TAG,"ACTION_CANCEL text=="+text)
+                stopRecord()
+                //cancelRecord()
             }
         }
         return true
     }
 
+    fun stopRecord() : Boolean{
+        if (!isRecord) return false
+
+        mIsPressed = false
+        this.isPressed = false
+
+        time2 = System.currentTimeMillis()
+        LogUtils.i(TAG,"录音的时间=="+ (time2 - time1).toString())
+        if (time2 - time1 < 500) {
+            LogUtils.i(TAG,"cancelTimer 0")
+            cancelTimer()
+        } else if (time2 - time1 < 1000) {
+            LogUtils.i(TAG,"cancelRecord 1")
+            cancelRecord()
+        } else if (mTouchY1 - mTouchY2 > MIN_CANCEL_DISTANCE) {
+            LogUtils.i(TAG,"cancelRecord 2")
+            cancelRecord()
+        } else if (time2 - time1 < 60000){
+            LogUtils.i(TAG,"录音的结束")
+            isRecord = false
+            finishRecord()
+        }
+        return true
+    }
 
     private fun cancelTimer() {
         if (timer != null) {
@@ -183,32 +204,40 @@ class RecordVoiceBtnController : AppCompatButton {
 
     private fun initDialogAndStartRecord() {
         //存放录音文件目录
-        val fileDir = FileUtils.getVoiceDirectory()
-        val destDir = File(fileDir)
+        var fileDir = FileUtils.getVoiceDirectory()
+        var destDir = File(fileDir)
         if (!destDir.exists()) {
             destDir.mkdirs()
         }
 
         //录音文件的命名格式
-        myRecAudioFile = File(fileDir, DateFormat.format("yyyyMMdd_hhmmss", Calendar.getInstance(Locale.CHINA)).toString()+".amr")
+        myRecAudioFile = File(fileDir, DateUtils.getDateYMDHMS_(System.currentTimeMillis())+".amr")
         if (myRecAudioFile == null) {
             cancelTimer()
             stopRecording()
             Toast.makeText(mContext, mContext!!.getString(R.string.create_file_failed), Toast.LENGTH_SHORT).show()
         }
 
-        Log.i("FileCreate", "Create file success file path: " + myRecAudioFile!!.absolutePath)
+        LogUtils.i(TAG, "myRecAudioFile== " + myRecAudioFile!!.absolutePath)
         recordIndicator = Dialog(context, R.style.record_voice_dialog)
         recordIndicator?.setContentView(R.layout.dialog_record_voice)
         mVolumeIv = recordIndicator?.findViewById(R.id.volume_hint_iv)
         mRecordHintTv = recordIndicator?.findViewById(R.id.record_voice_tv)
         mRecordHintTv!!.text = mContext!!.getString(R.string.move_to_cancel_hint)
-        startRecording()
-        recordIndicator!!.show()
+
+        val hasPermission = PackageManager.PERMISSION_GRANTED ==  mContext!!.packageManager.checkPermission("android.permission.RECORD_AUDIO", context.packageName)
+        val sdCardWritePermission = PackageManager.PERMISSION_GRANTED == mContext!!.packageManager.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, context.packageName)
+        if (hasPermission && sdCardWritePermission){
+            isRecord = true
+            startRecording()
+            recordIndicator!!.show()
+        }else{
+            ActivityCompat.requestPermissions(mContext as Activity, arrayOf(Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+        }
     }
 
     //录音完毕加载 ListView item
-    private fun finishRecord() {
+    fun finishRecord() {
         cancelTimer()
         stopRecording()
         if (recordIndicator != null) {
@@ -238,10 +267,11 @@ class RecordVoiceBtnController : AppCompatButton {
                     } else if (duration > 60) {
                         duration = 60
                     }
-                    durationString = duration.toString() + ""
                     try {
                         //发送语音
-                        LogUtils.i(TAG,"录音完毕加载 发送语音  duration=="+duration)
+                        LogUtils.i(TAG,"录音完毕加载 发送语音  语音时常=="+duration)
+                        if (mListener != null)
+                            mListener?.onFinish(duration.toFloat(),myRecAudioFile!!.absolutePath)
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -342,9 +372,7 @@ class RecordVoiceBtnController : AppCompatButton {
     }
 
     private inner class ObtainDecibelThread : Thread() {
-
         @Volatile private var running = true
-
         fun exit() {
             running = false
         }
@@ -481,5 +509,16 @@ class RecordVoiceBtnController : AppCompatButton {
 
         private val res = intArrayOf(R.mipmap.mic_1, R.mipmap.mic_2, R.mipmap.mic_3, R.mipmap.mic_4, R.mipmap.mic_5, R.mipmap.cancel_record)
         var mIsPressed = false
+    }
+
+    /**
+     * 录音结束后的回调
+     */
+    interface AudioFinishRecorderListener {
+        fun onFinish(seconds: Float, filePath: String)
+    }
+    internal var mListener: AudioFinishRecorderListener? = null
+    fun setAudioFinishRecorderListener(listener: AudioFinishRecorderListener) {
+        mListener = listener
     }
 }

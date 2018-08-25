@@ -42,4 +42,15 @@ object DateUtils{
         return strs
     }
 
+    fun getDateYMDHMS_(mill: Long): String {
+        val date = Date(mill)
+        var strs = ""
+        try {
+            val sdf = SimpleDateFormat("yyyy-MM-dd=HH-mm-ss", Locale.getDefault())
+            strs = sdf.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return strs
+    }
 }

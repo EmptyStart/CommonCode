@@ -21,6 +21,7 @@ import com.tima.chat.helper.ChatUtils.NAME
 import com.tima.chat.helper.ChatUtils.PASSWORD
 import com.tima.chat.helper.ChatUtils.TYPE_SEND
 import com.tima.chat.ui.model.ChatViewModelImpl
+import com.tima.chat.weight.RecordVoiceBtnController
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.IDataListener
 import com.tima.common.https.ApiException
@@ -37,7 +38,7 @@ import okhttp3.ResponseBody
 /**
  * Created by Administrator on 2018/8/22/022.
  */
-class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListener {
+class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListener ,RecordVoiceBtnController.AudioFinishRecorderListener{
     var TAG = "ChatPersenterImpl"
 
     var view: IChatView? = null
@@ -63,6 +64,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
         }
         refreshChatAdapter()
         view?.getVoiceBtView()?.initConv(chatActivity!!, chatAdapter!!)
+        view?.getVoiceBtView()?.setAudioFinishRecorderListener(this)
     }
 
     override fun onRefreshChatAdapter(msgInfos: ArrayList<MsgInfo>) {
@@ -193,5 +195,21 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
         } else {
 
         }
+    }
+
+    /**
+     * 录音结束
+     */
+    override fun onFinish(seconds: Float, filePath: String) {
+        var msgInfo = MsgInfo()
+        msgInfo.content = filePath
+        msgInfo.acceptTime = DateUtils.getDateYMDHMS(System.currentTimeMillis())
+        msgInfo.msgType = EMMessage.Type.VOICE
+        msgInfo.type = TYPE_SEND
+        msgInfo.from = FRIENDID
+        msgInfo.voiceLeght = seconds.toInt()
+        msgInfos.add(msgInfo)
+        LogUtils.i(TAG,ChatUtils.NAME+"--发送--"+ChatUtils.FRIENDID+"--消息--"+msgInfo.toString())
+        refreshChatAdapter()
     }
 }

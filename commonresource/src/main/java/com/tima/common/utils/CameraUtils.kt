@@ -23,7 +23,7 @@ object CameraUtils {
     val REQUEST_PICK_PICTURE = 0x1955                                          //相册
     val REQUEST_TAKE_PICTURE = 0x1956                                          //相机
     val REQUEST_EDIT_PICTURE = 0x1957                                          //裁剪后的图
-
+    val AUTHORITY = "com.tima.mainmodul.lj.jjy.fileprovider"                   //过滤存储 路径
     /**
      * 调用相册
      * @param activity
@@ -49,7 +49,7 @@ object CameraUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)  //添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
-        val uri = getRandomUri(activity)
+        val uri = FileUtils.getRandomUri(activity)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
         activity.startActivityForResult(intent, REQUEST_TAKE_PICTURE)
         return uri
@@ -67,12 +67,12 @@ object CameraUtils {
                 ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.CAMERA), 1)
             } else {
                 val mFileName = System.currentTimeMillis().toString() + ".jpg"
-                val mCurrentPhotoFile = File(getCacheDownloadDir(), mFileName)
+                val mCurrentPhotoFile = File(FileUtils.getCacheDownloadDir(), mFileName)
                 filepath = mCurrentPhotoFile.absolutePath.trim { it <= ' ' }
 
                 val intent = Intent()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { //获取文件提供者 跟manifest保持一致
-                    val photoURI = FileProvider.getUriForFile(activity, "com.zksr.newywy.jjy.fileprovider", mCurrentPhotoFile)
+                    val photoURI = FileProvider.getUriForFile(activity, AUTHORITY, mCurrentPhotoFile)
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//表示对目标应用临时授权该uri所代表的文件
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)////设置拍照后输出url
                 } else {
@@ -151,8 +151,7 @@ object CameraUtils {
             var bos: BufferedOutputStream? = null
             try {
                 inputStream = activity.contentResolver.openInputStream(uri)
-                val file = File(getCacheDownloadDir(),
-                        System.currentTimeMillis().toString() + ".png")
+                val file = File(FileUtils.getCacheDownloadDir(), System.currentTimeMillis().toString() + ".png")
                 path = file.absolutePath
                 bos = BufferedOutputStream(FileOutputStream(file))
                 val bytes = ByteArray(512)
@@ -184,33 +183,5 @@ object CameraUtils {
         }
         return path
     }
-
-    /**
-     * 获取随机路径
-     * @return
-     */
-    fun getRandomUri(context: Context): Uri {
-        val mFileName = System.currentTimeMillis().toString() + ".jpg"
-        val mCurrentPhotoFile = File(getCacheDownloadDir(), mFileName)
-        val photoURI = FileProvider.getUriForFile(context, "com.tima.mainmodul.lj.jjy.fileprovider", mCurrentPhotoFile)
-        return photoURI
-    }
-
-    /**
-     * 获取缓存目录
-     */
-    fun getCacheDownloadDir(): String {
-        var cacheDownloadDir = ""
-        val downloadRootPath = File.separator + "download" + File.separator
-        val cacheDownloadPath = downloadRootPath + "cache" + File.separator
-        val root = Environment.getExternalStorageDirectory()
-        val cacheDownloadDirFile = File(root.absolutePath + cacheDownloadPath)
-        if (!cacheDownloadDirFile.exists()) {
-            cacheDownloadDirFile.mkdirs()
-        }
-        cacheDownloadDir = cacheDownloadDirFile.path
-        return cacheDownloadDir
-    }
-
 
 }

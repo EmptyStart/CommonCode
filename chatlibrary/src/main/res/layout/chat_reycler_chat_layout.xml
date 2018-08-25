@@ -60,7 +60,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="200dp"
+                    android:minWidth="20dp"
+                    android:src="@drawable/voice_send"
                     android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/ll_chatfrom_voice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_chatfrom_voice_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/sending_img" />
+
+                    <TextView
+                        android:id="@+id/tv_chatfrom_voice_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:text="@string/voice_length"
+                        android:textColor="#555555"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/chatfrom_content"
@@ -70,7 +96,7 @@
                     android:text="你好！在不在啊？你好！在不在啊？你好！在不在啊？"
                     android:textColor="@color/text_black"
                     android:textSize="15sp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/chatfrom_time"
@@ -115,12 +141,38 @@
                 android:background="@mipmap/talk_blue_icon"
                 android:orientation="horizontal">
 
+
+                <LinearLayout
+                    android:id="@+id/ll_chatto_voice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/tv_chatto_voice_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="3dp"
+                        android:text="@string/voice_length"
+                        android:textColor="#555555"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_chatto_voice_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/sending_img" />
+                </LinearLayout>
+
                 <ImageView
                     android:id="@+id/iv_chatto_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxWidth="200dp"
-                    android:visibility="gone" />
+                    android:minWidth="40dp"
+                    android:src="@mipmap/send_3"
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/chatto_content"
@@ -129,7 +181,8 @@
                     android:maxWidth="200dp"
                     android:text="你好"
                     android:textColor="@color/xmpp_mian"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/chatto_time"
