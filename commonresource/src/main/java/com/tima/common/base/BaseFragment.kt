@@ -62,7 +62,7 @@ abstract class BaseFragment : Fragment(){
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(attachLayoutRes(),null)
+        return inflater?.inflate(attachLayoutRes(),container,false)
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

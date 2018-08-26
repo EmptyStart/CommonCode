@@ -16,9 +16,10 @@ android {
         testInstrumentationRunner "android.support.tima_test.runner.AndroidJUnitRunner"
         kapt {
             arguments {
-                arg("moduleName", project.getName())
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
+
 
         ndk {
             //选择要添加的对应cpu类型的.so库

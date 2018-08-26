@@ -23,9 +23,9 @@ android {
         versionName VERSION_NAME
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        kapt {
-            arguments {
-                arg("moduleName", project.getName())
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
         buildConfigField "String", "SERVICE_URL", "${SERVICE_URL}"
@@ -69,14 +69,13 @@ dependencies {
         }
 
     }
-    retrofit.each {lib->
-        api(lib.value){
+    retrofit.each { lib ->
+        api(lib.value) {
             transitive = true
             exclude module: 'tesng'
             exclude module: 'junit'
         }
     }
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -90,7 +89,6 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     api 'com.google.code.gson:gson:2.8.2'
     api 'org.greenrobot:eventbus:3.1.1'
-
-//    api libraries.values()
+    //    api libraries.values()
 }
 

@@ -1,5 +1,6 @@
 package com.tima.code.views.fragments
 
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
 import com.tima.common.base.BaseFragment
 import com.tima.common.base.RoutePaths
@@ -9,8 +10,8 @@ import  kotlinx.android.synthetic.main.code_fragment_fragmentutils.*
  *   email : zhijun.li@timanetworks.com
  *
  */
-//@Route(path = RoutePaths.fragmentutils)
-class FragmentUtils : BaseFragment() {
+@Route(path = RoutePaths.fragmentutils)
+class  FragmentUtils : BaseFragment() {
 //    @Autowired(name = "title")
 //    @JvmField
 //    var title : String=""

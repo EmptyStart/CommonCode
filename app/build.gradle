@@ -20,9 +20,10 @@ android {
         testInstrumentationRunner "android.support.tima_test.runner.AndroidJUnitRunner"
         kapt {
             arguments {
-                arg("moduleName", project.getName())
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
+
         manifestPlaceholders=[
                 //autoLayout 声明的最初尺寸
                 DESIGN_WIDTH:"1080",
