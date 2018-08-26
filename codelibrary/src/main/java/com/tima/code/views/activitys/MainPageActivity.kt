@@ -1,8 +1,10 @@
 package com.tima.code.views.activitys
 
+import android.app.Fragment
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
@@ -138,7 +140,9 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     }
 
     private fun changeFragment(position: Int) {
-
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.container,ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title",position.toString()+"1").navigation() as Fragment)
+        transaction.commit()
 
     }
 
