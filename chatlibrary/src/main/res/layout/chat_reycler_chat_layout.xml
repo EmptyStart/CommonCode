@@ -58,11 +58,11 @@
                 <ImageView
                     android:id="@+id/iv_chatfrom_content"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:maxWidth="200dp"
-                    android:minWidth="20dp"
-                    android:src="@drawable/voice_send"
-                    android:visibility="gone" />
+                    android:minWidth="40dp"
+                    android:src="@mipmap/receive_3"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:id="@+id/ll_chatfrom_voice"

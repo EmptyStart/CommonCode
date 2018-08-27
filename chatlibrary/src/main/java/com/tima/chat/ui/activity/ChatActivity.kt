@@ -1,22 +1,32 @@
 package com.tima.chat.ui.activity
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.Window
 import android.widget.EditText
 import android.widget.GridView
 import com.tima.chat.R
 import com.tima.chat.constracts.IChatPresent
 import com.tima.chat.constracts.IChatView
 import com.tima.chat.helper.ChatUtils
+import com.tima.chat.helper.ChatUtils.REFRESH_CHAT
+import com.tima.chat.helper.ChatUtils.TAG
 import com.tima.chat.ui.presenter.ChatPersenterImpl
 import com.tima.chat.weight.RecordVoiceBtnController
+import com.tima.common.BusEvents.SelectPos1
 import com.tima.common.base.BaseActivity
+import com.tima.common.base.MsgEventData
+import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.chat_activity_chat_layout.*
 import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by Administrator on 2018/8/20/020.
@@ -34,13 +44,15 @@ class ChatActivity : BaseActivity() , View.OnClickListener,IChatView ,SwipeRefre
         iv_voice.setOnClickListener(this)
         reycler_chat.setOnClickListener(this)
         swipe_refresh.setOnRefreshListener(this)
+
         ichatPresent!!.init()
     }
 
-
+    override fun useEventBus(): Boolean =true
     override fun onRefresh() {
         if (ichatPresent != null)
             ichatPresent!!.refreshChatAdapter()
+        swipe_refresh.isRefreshing = false
     }
 
     override fun getLayoutId(): Int {
@@ -83,5 +95,17 @@ class ChatActivity : BaseActivity() , View.OnClickListener,IChatView ,SwipeRefre
     override fun onDestroy() {
         super.onDestroy()
         ChatUtils.onDestory()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun reciviceBus(event: MsgEventData) {
+        LogUtils.i(TAG,"刷新接收的内容 event=="+event)
+        when(event.functionName){
+            REFRESH_CHAT->{
+                LogUtils.i(TAG,"刷新接收的内容")
+                if (ichatPresent != null)
+                    ichatPresent?.refreshChatAdapter()
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.os.AsyncTask
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -11,7 +12,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.hyphenate.chat.ChatClient
+import com.hyphenate.chat.EMFileMessageBody
 import com.hyphenate.chat.EMMessage
+import com.hyphenate.helpdesk.easeui.adapter.MessageAdapter
+import com.hyphenate.helpdesk.easeui.recorder.MediaManager
 import com.tima.chat.R
 import com.tima.chat.bean.MsgInfo
 import com.tima.chat.helper.ChatUtils.TYPE_SEND
@@ -20,6 +25,7 @@ import com.tima.common.utils.DateUtils
 import com.tima.common.utils.DensityUtils
 import com.tima.common.utils.LogUtils
 import com.tima.common.utils.StringUtils
+import java.io.File
 import java.io.FileInputStream
 
 /**
@@ -59,13 +65,12 @@ class ChatAdapter(var context : Context, var msgInfos : List<MsgInfo>) : Recycle
                 holder.chatto_content.text = msgInfo.content
             }else if (msgInfo.msgType == EMMessage.Type.VOICE){                                      //语音
                 holder.llChattoVoice.visibility = View.VISIBLE
-
                 holder.tvChattoVoiceLength.text = msgInfo.voiceLeght.toString()
                 //holder.ivChattoVoiceType.width = DensityUtil.getVoiceWidth((msgInfo.voiceLeght * mDensity).toInt())
                 //holder.ivChattoContent.layoutParams.width = DensityUtil.getVoiceWidth((msgInfo.voiceLeght * mDensity).toInt())
                 holder.ivChattoContent.setImageResource(R.mipmap.send_3)
                 holder.ivChattoContent.setOnClickListener(View.OnClickListener {
-                    if (mp != null ){
+                   /* if (mp != null ){
                         if (mp!!.isPlaying ){
                             pauseVoice()
                         }else{
@@ -82,14 +87,15 @@ class ChatAdapter(var context : Context, var msgInfos : List<MsgInfo>) : Recycle
                                     e.printStackTrace()
                                     Toast.makeText(context,"",Toast.LENGTH_SHORT).show()
                                 }finally {
-                                     /*if (mFIS != null)
-                                         mFIS.close()*/
+                                     if (mFIS != null)
+                                         mFIS.close()
                                 }
                             }else{
                                 LogUtils.i(TAG,"语音路径==="+msgInfo.content)
                             }
                         }
-                    }
+                    }*/
+                    playFromVoice(msgInfo.content)
                 })
             }else{
                 holder.chatto_content.visibility = View.GONE
@@ -99,17 +105,24 @@ class ChatAdapter(var context : Context, var msgInfos : List<MsgInfo>) : Recycle
             holder.llChartTo.visibility = View.GONE
             holder.llChartFrom.visibility = View.VISIBLE
             holder.chatfrom_content.text = msgInfo.content
-            holder.chatto_time.text = StringUtils.getSubString(msgInfo.acceptTime,11,16)
-
+            holder.chatfrom_time.text = StringUtils.getSubString(msgInfo.acceptTime,11,16)
 
             if (msgInfo.msgType == EMMessage.Type.TXT){
                 holder.chatfrom_content.visibility = View.VISIBLE
                 holder.ivChatfromContent.visibility = View.GONE
+                holder.llChatfromVoice.visibility = View.GONE
 
                 holder.chatfrom_content.text = msgInfo.content
             }else{
                 holder.chatfrom_content.visibility = View.GONE
+                holder.llChatfromVoice.visibility = View.VISIBLE
                 holder.ivChatfromContent.visibility = View.VISIBLE
+
+                holder.ivChatfromContent.setImageResource(R.mipmap.receive_3)
+                holder.tvChatfromVoiceLength.text = msgInfo.voiceLeght.toString()
+                holder.ivChatfromContent.setOnClickListener(View.OnClickListener {
+                    playFromVoice(msgInfo.content)
+                })
             }
         }
 
@@ -181,6 +194,20 @@ class ChatAdapter(var context : Context, var msgInfos : List<MsgInfo>) : Recycle
         mp?.start()
         mp?.setOnCompletionListener {
             mp?.reset()
+        }
+    }
+
+    /**
+     *  播放接收到语音
+     */
+    fun playFromVoice(localPath : String){
+        val file = File(localPath)
+        if (file.exists()) {
+            MediaManager.playSound(context, localPath,MediaPlayer.OnCompletionListener() {
+                mediaPlayer ->
+            })
+        } else {
+            Toast.makeText(context, com.hyphenate.helpdesk.R.string.is_down_please_wait, Toast.LENGTH_SHORT).show()
         }
     }
 }

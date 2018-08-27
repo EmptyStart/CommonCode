@@ -27,5 +27,7 @@ object RoutePaths{
     const val reasefragment="/mainpage/reasefragment"
     const val managefragment="/mainpage/managefragment"
     const val mainfragment="/mainpage/mainfragment"
-
+    const val newsfragment="/mainpage/newsfragment"
+    const val communicatefragment="/mainpage/communicatefragment"
+    const val interactionfragment="/mainpage/interactionfragment"
 }

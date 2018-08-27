@@ -20,16 +20,14 @@ import com.tima.chat.helper.ChatUtils.FRIENDID
 import com.tima.chat.helper.ChatUtils.NAME
 import com.tima.chat.helper.ChatUtils.PASSWORD
 import com.tima.chat.helper.ChatUtils.TYPE_SEND
+import com.tima.chat.helper.MessageUtils
 import com.tima.chat.ui.model.ChatViewModelImpl
 import com.tima.chat.weight.RecordVoiceBtnController
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.IDataListener
 import com.tima.common.https.ApiException
 import com.tima.common.https.ExceptionDeal
-import com.tima.common.utils.ActivityManage
-import com.tima.common.utils.CameraUtils
-import com.tima.common.utils.DateUtils
-import com.tima.common.utils.LogUtils
+import com.tima.common.utils.*
 import kotlinx.android.synthetic.main.chat_activity_chat_layout.*
 import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.*
 import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.view.*
@@ -57,10 +55,16 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
     override fun init() {
         if (view != null){
             chatActivity = view?.getActivity()
-            chatActivity!!.runOnUiThread(Runnable {
-                ChatUtils.init(chatActivity!!)
-                ChatUtils.login(NAME, PASSWORD, chatActivity!!)
-            })
+            var result = ChatUtils.init(chatActivity!!)
+            if (result) {
+                var result = ChatUtils.login(NAME, PASSWORD, chatActivity!!)
+            }else{
+                Toast.makeText(chatActivity,"初始化环信",Toast.LENGTH_SHORT).show()
+            }
+
+            /*chatActivity!!.runOnUiThread(Runnable {
+
+            })*/
         }
         refreshChatAdapter()
         view?.getVoiceBtView()?.initConv(chatActivity!!, chatAdapter!!)
@@ -92,6 +96,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
                     this.view?.getVoiceBtView()?.visibility = View.GONE
                     
                 }else{                          //显示语音
+                    KeyboardUtils.hideSoftInput(chatActivity!!)
                     this.view?.getVoiceBtView()?.visibility = View.VISIBLE
                 }
             }
@@ -107,8 +112,8 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
     }
 
     override fun sendMsg(content: String, msgType: EMMessage.Type) {
-        var result = ChatUtils.sendMsg(content,FRIENDID)
-        if (result){
+        var message = ChatUtils.sendMsgTxt(content,FRIENDID)
+        if (message != null){
             var msgInfo = MsgInfo()
             msgInfo.content = content
             msgInfo.acceptTime = DateUtils.getDateYMDHMS(System.currentTimeMillis())
@@ -130,11 +135,16 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
      */
     fun refreshChatAdapter(){
         if (chatActivity != null) {
+            msgInfos.addAll(ChatUtils.msgInfos)
+            ChatUtils.msgInfos.clear()
+
             if (chatAdapter == null) {
                 chatAdapter = ChatAdapter(chatActivity!!, msgInfos)
                 view!!.getChatRecyclerView().layoutManager = LinearLayoutManager(chatActivity!!,LinearLayoutManager.VERTICAL,false)
+                view!!.getChatRecyclerView().scrollToPosition(msgInfos.size-1)
                 view!!.getChatRecyclerView().adapter = chatAdapter
             } else {
+                view!!.getChatRecyclerView().scrollToPosition(msgInfos.size-1)
                 chatAdapter!!.notifyDataSetChanged()
             }
         }else{
@@ -201,6 +211,8 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
      * 录音结束
      */
     override fun onFinish(seconds: Float, filePath: String) {
+        var message = ChatUtils.sendMsgVoice(filePath, seconds.toInt(), ChatUtils.FRIENDID)
+
         var msgInfo = MsgInfo()
         msgInfo.content = filePath
         msgInfo.acceptTime = DateUtils.getDateYMDHMS(System.currentTimeMillis())

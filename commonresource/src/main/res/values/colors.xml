@@ -5,4 +5,20 @@
     <color name="colorAccent">#FF4081</color>
     <color name="code_title_barbc">#D94136</color>
     <color name="code_tv_logincolor">#9B9B9B</color>
+
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <!--  浅色的线 -->
+    <color name="line">#E5E5E5</color>
+    <color name="xmpp_mian">#59a8f7</color>
+
+    <color name="text_black_gray">#262626</color>
+
+    <color name="text_black">#091926</color>
+
+    <color name="text_gray">#555555</color>
+
+    <color name="wxTitle">#40b643</color>
+    <color name="wxTitleDeep">#308932</color>
 </resources>

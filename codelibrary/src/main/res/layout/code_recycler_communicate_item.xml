@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/radius_white_solid_gray"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/margin_15_7_15_7"
+        android:orientation="horizontal">
+        <TextView
+            style="@style/weight_width_1"
+            android:textColor="@color/text_black"
+            android:text="张三报名了您的职位"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_see_vitae"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:textSize="11sp"
+            android:text="查看简历"
+            android:textColor="@color/text_black"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="通知"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/radius_white_solid_red"
+        android:textSize="12sp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="right"
+        style="@style/padding_15_5_15_5"/>
+</LinearLayout>
