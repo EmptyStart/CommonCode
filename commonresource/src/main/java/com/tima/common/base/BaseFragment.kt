@@ -6,6 +6,7 @@ import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.common.views.MultipleStatusView
 import org.greenrobot.eventbus.EventBus
 
@@ -14,7 +15,8 @@ import org.greenrobot.eventbus.EventBus
  *   email : zhijun.li@timanetworks.com
  *
  */
-abstract class BaseFragment : Fragment(){
+abstract class BaseFragment : Fragment{
+    constructor()
     /**
      * 视图是否加载完毕
      */
@@ -78,6 +80,7 @@ abstract class BaseFragment : Fragment(){
             EventBus.getDefault().register(this)
         }
         isViewPrepare=true
+        ARouter.getInstance().inject(this)
         initView()
         lazyLoadDataIfPrepared()
         //多种状态切换的view 重试点击事件

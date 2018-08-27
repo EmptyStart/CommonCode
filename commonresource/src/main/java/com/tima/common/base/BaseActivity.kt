@@ -2,6 +2,7 @@ package com.tima.common.base
 
 import android.os.Bundle
 import android.view.View
+import com.alibaba.android.arouter.launcher.ARouter
 import com.zhy.autolayout.AutoLayoutActivity
 import org.greenrobot.eventbus.EventBus
 
@@ -20,6 +21,7 @@ abstract class BaseActivity : AutoLayoutActivity(){
         super.onCreate(savedInstanceState)
         rootView= View.inflate(this,getLayoutId(),null)
         setContentView(rootView)
+        ARouter.getInstance().inject(this)
         inits(savedInstanceState)
     }
 

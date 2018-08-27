@@ -13,16 +13,19 @@ import  kotlinx.android.synthetic.main.code_fragment_fragmentutils.*
  */
 @Route(path = RoutePaths.fragmentutils)
 class  FragmentUtils : BaseFragment() {
-    @Autowired(name = "title")
+    @Autowired
     @JvmField
-    var title : String=""
+    var title : String="baby"
 
     override fun attachLayoutRes(): Int {
         return R.layout.code_fragment_fragmentutils
     }
 
     override fun initView() {
-        tv_frag1.text=title
+//        title=arguments.get("title") as String
+        title?.let {
+            tv_frag1.text=it
+        }
     }
 
     override fun lazyLoad() {

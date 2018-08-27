@@ -1,6 +1,7 @@
 package com.tima.code.views.activitys
 
 import android.app.Fragment
+import android.app.FragmentTransaction
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -9,6 +10,7 @@ import com.tima.code.R
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
 import com.tima.code.timapresenter.MainPagePresenterImpl
+import com.tima.code.views.fragments.FragmentUtils
 import com.tima.common.BusEvents.SelectPos1
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
@@ -35,9 +37,15 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
      */
     var office: Int = 0;
 
-    var present : IMainPagePresent ?=null
+    var present: IMainPagePresent? = null
 
-    override fun useEventBus(): Boolean =true
+
+    var fragment1: FragmentUtils? = null
+    var fragment2: FragmentUtils? = null
+    var fragment3: FragmentUtils? = null
+    var fragment4: FragmentUtils? = null
+
+    override fun useEventBus(): Boolean = true
 
 
     override fun getLayoutId(): Int {
@@ -47,7 +55,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
 
     override fun inits(savedInstanceState: Bundle?) {
         office = Constant.getPosition()
-        present=MainPagePresenterImpl(this)
+        present = MainPagePresenterImpl(this)
         LogUtils.i("MainPageActivity", office.toString());
         defaultTab()
     }
@@ -56,10 +64,11 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     override fun onClick(v: View?) {
         present?.onClick(v)
     }
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true)
-    fun reciviceBus(event: SelectPos1){
-        if (event.isPos1){
-            tabSelect(3)
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun reciviceBus(event: SelectPos1) {
+        if (event.isPos1) {
+//            tabSelect(3)
         }
         EventBus.getDefault().removeStickyEvent(event)
     }
@@ -80,6 +89,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         iv_tab4.tag = false
 
         tabSelect(0)
+//        changeFragment(0)
     }
 
     override fun tabSelect(position: Int) {
@@ -141,10 +151,68 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
 
     private fun changeFragment(position: Int) {
         val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.container,ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title",position.toString()+"1").navigation() as Fragment)
+        hideFragment(position, transaction)
+        when (position) {
+            0 -> {
+                if (fragment1 == null) {
+                    fragment1 = ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title", position.toString() + "1").navigation() as FragmentUtils
+                    transaction.add(R.id.fl_container, fragment1)
+                } else {
+                    transaction.show(fragment1)
+                }
+            }
+            1 -> {
+                if (fragment2 == null) {
+                    fragment2 = ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title", position.toString() + "1").navigation() as FragmentUtils
+                    transaction.add(R.id.fl_container, fragment2)
+                } else {
+                    transaction.show(fragment2)
+                }
+            }
+            2 -> {
+                if (fragment3 == null) {
+                    fragment3 = ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title", position.toString() + "1").navigation() as FragmentUtils
+                    transaction.add(R.id.fl_container, fragment3)
+                } else {
+                    transaction.show(fragment3)
+                }
+            }
+            3 -> {
+                if (fragment4 == null) {
+                    fragment4 = ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title", position.toString() + "1").navigation() as FragmentUtils
+                    transaction.add(R.id.fl_container, fragment4)
+                } else {
+                    transaction.show(fragment4)
+                }
+            }
+        }
         transaction.commit()
 
     }
+
+    private fun hideFragment(position: Int, transaction: FragmentTransaction) {
+        if (position!=0) {
+            fragment1?.let {
+                transaction.hide(it)
+            }
+        }
+        if (position!=1) {
+            fragment2?.let {
+                transaction.hide(it)
+            }
+        }
+        if (position!=2) {
+            fragment3?.let {
+                transaction.hide(it)
+            }
+        }
+        if (position!=3) {
+            fragment4?.let {
+                transaction.hide(it)
+            }
+        }
+    }
+
 
     override fun showLoading() {
 
