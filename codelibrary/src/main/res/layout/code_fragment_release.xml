@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/code_title_barbc"
+    android:orientation="vertical"
+    android:gravity="center">
+    <ImageView
+        android:id="@+id/release_fulltime"
+        android:layout_width="630px"
+        android:layout_height="246px"
+        android:src="@mipmap/code_main_release_fulltime"/>
+    <ImageView
+        android:id="@+id/release_parttime"
+        android:layout_width="630px"
+        android:layout_height="246px"
+        android:layout_marginTop="235px"
+        android:src="@mipmap/code_main_release_parttime"/>
+</com.zhy.autolayout.AutoLinearLayout>

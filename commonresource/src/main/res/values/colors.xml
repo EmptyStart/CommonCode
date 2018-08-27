@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="code_title_barbc">#D94136</color>
+    <color name="code_tv_logincolor">#9B9B9B</color>
 </resources>

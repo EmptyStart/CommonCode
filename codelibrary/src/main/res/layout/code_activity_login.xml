@@ -24,7 +24,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180px"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="60px"
@@ -46,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@null"
-                android:hint="Username" />
+                android:hint="PhoneNumber"
+                android:textSize="12sp"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -68,7 +70,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="72px"
             android:layout_marginRight="43px"
-            android:src="@mipmap/code_login_username" />
+            android:src="@mipmap/code_login_valid" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="590px"
@@ -84,7 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@null"
-                android:hint="Password" />
+                android:hint="Password"
+                android:textSize="12sp"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -101,12 +104,33 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/code_linebc"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40px"
+        android:layout_marginTop="10px"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <CheckBox
+            android:id="@+id/cb_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_contract"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/code_tv_logincolor"
+            android:text="@string/code_login_contract_tv"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="130px"
+        android:layout_height="172px"
         android:background="@color/code_title_barbc"
         android:gravity="center"
         android:text="Sign in"
+        android:layout_marginTop="316px"
         android:textColor="@android:color/white" />
 </com.zhy.autolayout.AutoLinearLayout>

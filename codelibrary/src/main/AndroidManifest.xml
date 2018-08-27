@@ -6,5 +6,7 @@
             android:theme="@style/BaseAppTheme.NoActionBar"/>
         <activity android:name=".views.activitys.WelcomeActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.LoginActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
     </application>
 </manifest>

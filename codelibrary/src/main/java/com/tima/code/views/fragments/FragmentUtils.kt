@@ -22,7 +22,6 @@ class  FragmentUtils : BaseFragment() {
     }
 
     override fun initView() {
-//        title=arguments.get("title") as String
         title?.let {
             tv_frag1.text=it
         }

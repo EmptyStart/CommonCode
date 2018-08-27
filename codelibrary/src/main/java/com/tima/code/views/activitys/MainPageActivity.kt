@@ -1,6 +1,5 @@
 package com.tima.code.views.activitys
 
-import android.app.Fragment
 import android.app.FragmentTransaction
 import android.os.Bundle
 import android.view.View
@@ -11,6 +10,7 @@ import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
 import com.tima.code.timapresenter.MainPagePresenterImpl
 import com.tima.code.views.fragments.FragmentUtils
+import com.tima.code.views.fragments.ReleaseFragment
 import com.tima.common.BusEvents.SelectPos1
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
@@ -40,7 +40,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     var present: IMainPagePresent? = null
 
 
-    var fragment1: FragmentUtils? = null
+    var releaseFragment: ReleaseFragment? = null
     var fragment2: FragmentUtils? = null
     var fragment3: FragmentUtils? = null
     var fragment4: FragmentUtils? = null
@@ -154,11 +154,12 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         hideFragment(position, transaction)
         when (position) {
             0 -> {
-                if (fragment1 == null) {
-                    fragment1 = ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title", position.toString() + "1").navigation() as FragmentUtils
-                    transaction.add(R.id.fl_container, fragment1)
+                if (releaseFragment == null) {
+                    releaseFragment = ARouter.getInstance().build(RoutePaths.reasefragment).navigation() as
+                            ReleaseFragment
+                    transaction.add(R.id.fl_container, releaseFragment)
                 } else {
-                    transaction.show(fragment1)
+                    transaction.show(releaseFragment)
                 }
             }
             1 -> {
@@ -191,22 +192,22 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     }
 
     private fun hideFragment(position: Int, transaction: FragmentTransaction) {
-        if (position!=0) {
-            fragment1?.let {
+        if (position != 0) {
+            releaseFragment?.let {
                 transaction.hide(it)
             }
         }
-        if (position!=1) {
+        if (position != 1) {
             fragment2?.let {
                 transaction.hide(it)
             }
         }
-        if (position!=2) {
+        if (position != 2) {
             fragment3?.let {
                 transaction.hide(it)
             }
         }
-        if (position!=3) {
+        if (position != 3) {
             fragment4?.let {
                 transaction.hide(it)
             }
