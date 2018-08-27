@@ -24,4 +24,8 @@ object RoutePaths{
      */
     const val fragmentutils="/utils/fragment"
 
+    const val reasefragment="/mainpage/reasefragment"
+    const val managefragment="/mainpage/managefragment"
+    const val mainfragment="/mainpage/mainfragment"
+
 }
