@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="159px"
+    android:background="@color/code_title_barbc">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_actionbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="46px"
+        android:text="个人注册"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/ll_right_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_actionbar_cancle"
+            android:layout_width="63px"
+            android:layout_height="63px"
+            android:layout_marginRight="23px"
+            android:padding="10px"
+            android:src="@mipmap/common_cancle"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tv_actionbar_line"
+            android:layout_width="1dp"
+            android:layout_height="57px"
+            android:textColor="@android:color/white"
+            android:text="|"
+            android:layout_marginRight="23px"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tv_actionbar_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:layout_marginRight="23px"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+</RelativeLayout>
