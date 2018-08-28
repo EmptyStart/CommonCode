@@ -1,14 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@color/code_registerbc_color"
+    android:orientation="vertical">
+
     <com.tima.common.views.ActionBarView
+        android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mode_type="type_default"
-        app:mode_title="公司注册"
         app:mode_right_title="保存"
-        app:mode_right_image="@mipmap/common_search"
-        />
+        app:mode_title="公司注册"
+        app:mode_type="type_three" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginTop="30px"
+        android:background="@android:color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="72px"
+            android:text="姓名"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="600px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="72px"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请填写"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginTop="2px"
+        android:background="@android:color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="72px"
+            android:text="我的公司"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_mycompany"
+            android:layout_width="600px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="72px"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请填写"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginTop="2px"
+        android:background="@android:color/white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="72px"
+            android:text="我的职务"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_work"
+            android:layout_width="600px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="72px"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请填写"
+            android:maxLines="1"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="230px"
+        android:layout_marginTop="30px"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/iv_cer"
+            android:layout_width="57px"
+            android:layout_height="57px"
+            android:layout_marginLeft="45px"
+            android:layout_marginTop="45px"
+            android:src="@mipmap/code_register_certify" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="45px"
+            android:layout_toRightOf="@id/iv_cer"
+            android:text="上传营业执照" />
+
+        <ImageView
+            android:id="@+id/iv_add_photo"
+            android:layout_width="172px"
+            android:layout_height="172px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="35px"
+            android:src="@mipmap/code_register_addphoto" />
+    </RelativeLayout>
+
 </com.zhy.autolayout.AutoLinearLayout>
