@@ -61,7 +61,6 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             }else{
                 Toast.makeText(chatActivity,"初始化环信",Toast.LENGTH_SHORT).show()
             }
-
             /*chatActivity!!.runOnUiThread(Runnable {
 
             })*/

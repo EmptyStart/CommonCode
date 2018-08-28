@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="35dp">
+
+    <TextView
+        android:id="@+id/tv_select_one"
+        style="@style/weight_width_1_Hmatch"
+        android:background="@color/code_title_barbc"
+        android:text="已发布"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="12sp"/>
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@color/line"/>
+    <TextView
+        android:id="@+id/tv_select_two"
+        style="@style/weight_width_1_Hmatch"
+        android:background="@color/code_linebc"
+        android:text="审核中"
+        android:gravity="center"
+        android:textColor="@color/text_black_gray"
+        android:textSize="12sp"/>
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="@color/line"/>
+    <TextView
+        android:id="@+id/tv_select_three"
+        style="@style/weight_width_1_Hmatch"
+        android:background="@color/code_linebc"
+        android:text="已下架"
+        android:gravity="center"
+        android:textColor="@color/text_black_gray"
+        android:textSize="12sp"/>
+</LinearLayout>

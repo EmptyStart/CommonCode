@@ -30,4 +30,6 @@ object RoutePaths{
     const val newsfragment="/mainpage/newsfragment"
     const val communicatefragment="/mainpage/communicatefragment"
     const val interactionfragment="/mainpage/interactionfragment"
+    const val fulltimefragment="/mainpage/fulltimefragment"
+    const val parttimefragment="/mainpage/parttimefragment"
 }

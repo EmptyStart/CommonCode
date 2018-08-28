@@ -10,6 +10,7 @@ import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
 import com.tima.code.timapresenter.MainPagePresenterImpl
 import com.tima.code.views.fragments.FragmentUtils
+import com.tima.code.views.fragments.ManageFragment
 import com.tima.code.views.fragments.NewsFragment
 import com.tima.code.views.fragments.ReleaseFragment
 import com.tima.common.BusEvents.SelectPos1
@@ -42,7 +43,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
 
 
     var releaseFragment: ReleaseFragment? = null
-    var fragment2: FragmentUtils? = null
+    var manageFragment: ManageFragment? = null
     var newsFragment: NewsFragment? = null
     var fragment4: FragmentUtils? = null
 
@@ -164,11 +165,11 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
                 }
             }
             1 -> {
-                if (fragment2 == null) {
-                    fragment2 = ARouter.getInstance().build(RoutePaths.fragmentutils).withString("title", position.toString() + "1").navigation() as FragmentUtils
-                    transaction.add(R.id.fl_container, fragment2)
+                if (manageFragment == null) {
+                    manageFragment = ARouter.getInstance().build(RoutePaths.managefragment).navigation() as ManageFragment
+                    transaction.add(R.id.fl_container, manageFragment)
                 } else {
-                    transaction.show(fragment2)
+                    transaction.show(manageFragment)
                 }
             }
             2 -> {
@@ -199,7 +200,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
             }
         }
         if (position != 1) {
-            fragment2?.let {
+            manageFragment?.let {
                 transaction.hide(it)
             }
         }

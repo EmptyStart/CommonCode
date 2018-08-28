@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        layout="@layout/code_double_select_top" />
+
+    <FrameLayout
+        android:id="@+id/fl_manage_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/line"/>
 
 </com.zhy.autolayout.AutoLinearLayout>

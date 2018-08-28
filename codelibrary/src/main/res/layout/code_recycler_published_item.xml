@@ -18,25 +18,38 @@
             android:text="张三报名了您的职位"
             android:textSize="16sp" />
         <TextView
-            android:id="@+id/tv_see_vitae"
+            android:id="@+id/tv_number"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
             android:gravity="center"
-            android:textSize="11sp"
-            android:text="查看简历"
+            android:textSize="16sp"
+            android:text="4/20人"
             android:textColor="@color/text_black"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/tv_notify"
+    <ImageView
+        android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="通知"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/radius_white_solid_red"
-        android:textSize="12sp"
+        android:src="@mipmap/ic_back"
         android:layout_marginRight="10dp"
-        android:layout_gravity="right"
-        style="@style/padding_15_5_15_5"/>
+        android:padding="5dp"
+        android:layout_gravity="right" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布时间"
+        android:textColor="@color/text_black"
+        android:textSize="14sp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15sp" />
+    <TextView
+        android:id="@+id/tv_release_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018-07-30 14:09"
+        android:textColor="@color/text_gray"
+        android:textSize="11sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15sp" />
 </LinearLayout>

@@ -107,6 +107,13 @@
         <item name="android:paddingBottom">5dp</item>
     </style>
 
+    <style name="padding_5_2_5_2" >
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
     <style name="padding_10_5_10_5" >
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingTop">5dp</item>
@@ -132,6 +139,8 @@
         <item name="android:paddingRight">15dp</item>
         <item name="android:paddingBottom">10dp</item>
     </style>
+
+
 
     <style name="margin_10_0_10_0_m_w" parent="@style/margin_10_0_10_0" >
         <item name="android:layout_width">match_parent</item>
