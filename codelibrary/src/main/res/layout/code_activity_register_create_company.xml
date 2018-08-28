@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/code_registerbc_color">
+
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="创建公司"
+        app:mode_type="type_three" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="250px"
+        android:layout_below="@+id/actionbar"
+        android:background="@color/code_title_barbc" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:id="@+id/rl_company_list"
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="72px"
+                    android:text="公司行业"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/iv_right_point"
+                    android:layout_width="15px"
+                    android:layout_height="26px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="45px"
+                    android:src="@mipmap/code_register_point_right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12px"
+                    android:layout_toLeftOf="@+id/iv_right_point"
+                    android:gravity="right"
+                    android:text="请选择"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_company_size"
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="72px"
+                    android:text="公司规模"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/iv_right_point2"
+                    android:layout_width="15px"
+                    android:layout_height="26px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="45px"
+                    android:src="@mipmap/code_register_point_right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12px"
+                    android:layout_toLeftOf="@+id/iv_right_point2"
+                    android:gravity="right"
+                    android:text="请选择"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="72px"
+                    android:text="公司介绍"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_introduce"
+                    android:layout_width="600px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="72px"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请填写"
+                    android:maxLines="1"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="72px"
+                    android:text="公司网址"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_web"
+                    android:layout_width="600px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="72px"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请填写"
+                    android:maxLines="1"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="230px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="45px"
+                    android:text="上传公司LOGO" />
+
+                <ImageView
+                    android:id="@+id/iv_add_photo"
+                    android:layout_width="172px"
+                    android:layout_height="172px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35px"
+                    android:src="@mipmap/code_register_addphoto" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="30px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30px"
+                    android:text="公司地点"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_pro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="省" />
+
+                    <ImageView
+                        android:id="@+id/iv_pro"
+                        android:layout_width="25px"
+                        android:layout_height="14px"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="126px"
+                        android:src="@mipmap/code_register_list_close" />
+
+                    <TextView
+                        android:id="@+id/tv_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="市" />
+
+                    <ImageView
+                        android:id="@+id/iv_city"
+                        android:layout_width="25px"
+                        android:layout_height="14px"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="126px"
+                        android:src="@mipmap/code_register_list_close" />
+
+                    <TextView
+                        android:id="@+id/tv_county"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="区" />
+
+                    <ImageView
+                        android:id="@+id/iv_county"
+                        android:layout_width="25px"
+                        android:layout_height="14px"
+                        android:layout_marginLeft="20px"
+                        android:src="@mipmap/code_register_list_close" />
+
+                </LinearLayout>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:background="@null"
+                    android:hint="具体地址"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <com.amap.api.maps.MapView
+                android:id="@+id/map_view"
+                android:layout_width="match_parent"
+                android:layout_height="572px"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:layout_width="230px"
+        android:layout_height="230px"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="35px"
+        android:layout_marginTop="220px"
+        android:src="@mipmap/code_register_addphoto" />
+</com.zhy.autolayout.AutoRelativeLayout>

@@ -42,29 +42,37 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_my_company"
         android:layout_width="match_parent"
         android:layout_height="140px"
         android:layout_marginTop="2px"
-        android:background="@android:color/white"
-        android:gravity="center_vertical">
+        android:background="@android:color/white">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="72px"
             android:text="我的公司"
             android:textSize="12sp" />
 
-        <EditText
-            android:id="@+id/et_mycompany"
-            android:layout_width="600px"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/iv_right_point"
+            android:layout_width="15px"
+            android:layout_height="26px"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="72px"
-            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="45px"
+            android:src="@mipmap/code_register_point_right" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12px"
+            android:layout_toLeftOf="@+id/iv_right_point"
             android:gravity="right"
-            android:hint="请填写"
-            android:maxLines="1"
+            android:text="请选择"
             android:textSize="12sp" />
     </RelativeLayout>
 
