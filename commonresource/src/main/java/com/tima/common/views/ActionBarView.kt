@@ -1,8 +1,11 @@
 package com.tima.common.views
 
 import android.content.Context
+import android.support.annotation.DrawableRes
+import android.support.annotation.LayoutRes
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -44,7 +47,46 @@ class ActionBarView : AutoLinearLayout {
         iv_actionbar_cancle=view.find(R.id.iv_actionbar_cancle)
         tv_actionbar_line=view.find(R.id.tv_actionbar_line)
         tv_actionbar_right_title=view.find(R.id.tv_actionbar_right_title)
+
+
+        tv_title?.text=mTitle
+
+        when(mType){
+            1001->{
+                ll_right?.visibility= View.VISIBLE
+                iv_actionbar_cancle?.visibility=View.VISIBLE
+            }
+            1002->{
+                ll_right?.visibility= View.VISIBLE
+                iv_actionbar_cancle?.visibility=View.VISIBLE
+                tv_actionbar_line?.visibility=View.VISIBLE
+                tv_actionbar_right_title?.visibility=View.VISIBLE
+            }
+        }
+    }
+    fun setTitle(title: String?){
+        title?.let {
+            tv_title?.text=it
+        }
     }
 
+    fun setRightImage(@DrawableRes image:Int?){
+        image?.let {
+            iv_actionbar_cancle?.setImageResource(image)
+        }
+    }
+
+    fun setRightTitle(rightTitle : String?){
+        rightTitle?.let {
+            tv_actionbar_right_title?.text=rightTitle
+        }
+    }
+
+    fun setOnRightImageListener(listener: OnClickListener){
+        iv_actionbar_cancle?.setOnClickListener(listener)
+    }
+    fun setOnRightTextListener(listener: OnClickListener){
+        tv_actionbar_right_title?.setOnClickListener(listener)
+    }
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 }

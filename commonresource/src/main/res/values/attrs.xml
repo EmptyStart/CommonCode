@@ -11,7 +11,7 @@
 
     <declare-styleable name="ActionBarView">
         <attr name="mode_right">
-            <enum name="type_one" value="1000" />
+            <enum name="type_default" value="1000" />
             <enum name="type_two" value="1001" />
             <enum name="type_three" value="1002" />
         </attr>
