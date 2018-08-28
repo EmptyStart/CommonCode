@@ -27,7 +27,7 @@ class ActionBarView : AutoLinearLayout {
     var tv_title: TextView? = null
     var ll_right: LinearLayout? = null
     var iv_actionbar_cancle: ImageView? = null
-    var tv_actionbar_line: TextView? = null
+    var tv_actionbar_line: View? = null
     var tv_actionbar_right_title: TextView? = null
 
     constructor(context: Context?) : super(context)
@@ -51,28 +51,21 @@ class ActionBarView : AutoLinearLayout {
         tv_actionbar_right_title=view.find(R.id.tv_actionbar_right_title)
 
 
-        tv_title?.text=mTitle
+        setTitle(mTitle)
 
         when(mType){
             1001->{
                 ll_right?.visibility= View.VISIBLE
                 iv_actionbar_cancle?.visibility=View.VISIBLE
-                if (mRightImage!=0){
-                    mRightImage?.let {
-                        iv_actionbar_cancle?.setImageResource(it)
-                    }
-                }
+                setRightImage(mRightImage)
             }
             1002->{
                 ll_right?.visibility= View.VISIBLE
                 iv_actionbar_cancle?.visibility=View.VISIBLE
                 tv_actionbar_line?.visibility=View.VISIBLE
                 tv_actionbar_right_title?.visibility=View.VISIBLE
-                if (mRightImage!=0){
-                    mRightImage?.let {
-                        iv_actionbar_cancle?.setImageResource(it)
-                    }
-                }
+                setRightImage(mRightImage)
+                setRightTitle(mTitle_right)
             }
         }
     }
@@ -83,8 +76,10 @@ class ActionBarView : AutoLinearLayout {
     }
 
     fun setRightImage(@DrawableRes image:Int?){
-        image?.let {
-            iv_actionbar_cancle?.setImageResource(image)
+        if (image!=0) {
+            image?.let {
+                iv_actionbar_cancle?.setImageResource(image)
+            }
         }
     }
 

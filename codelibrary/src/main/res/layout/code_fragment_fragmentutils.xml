@@ -1,13 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
+
+    <com.tima.common.views.ActionBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="类型1"
+        app:mode_type="type_default" />
+
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/abv_type2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="类型2"
+        app:mode_type="type_two"
+        android:layout_marginTop="5dp"/>
+
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/abv_type3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="类型3"
+        app:mode_type="type_three"
+        android:layout_marginTop="5dp"/>
+
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/abv_type4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="类型3_2"
+        app:mode_type="type_three"
+        app:mode_right_title="确认提交"
+        app:mode_right_image="@mipmap/common_search"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/tv_frag1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="fragmentdfs" />
+
 </LinearLayout>
