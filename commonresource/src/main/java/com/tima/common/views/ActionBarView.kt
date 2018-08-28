@@ -22,6 +22,7 @@ class ActionBarView : AutoLinearLayout {
     var mTitle: String? = null
     var mTitle_right: String? = null
     var mType: Int? = 1000
+    var mRightImage: Int? = 0
 
     var tv_title: TextView? = null
     var ll_right: LinearLayout? = null
@@ -34,7 +35,8 @@ class ActionBarView : AutoLinearLayout {
         val typeArray = context?.obtainStyledAttributes(attrs, R.styleable.ActionBarView)
         mTitle = typeArray?.getString(R.styleable.ActionBarView_mode_title)
         mTitle_right = typeArray?.getString(R.styleable.ActionBarView_mode_right_title)
-        mType = typeArray?.getInt(R.styleable.ActionBarView_mode_right, 1000)
+        mType = typeArray?.getInt(R.styleable.ActionBarView_mode_type, 1000)
+        mRightImage = typeArray?.getResourceId(R.styleable.ActionBarView_mode_right_image, 0)
         typeArray?.recycle()
 
         initView(context)
@@ -55,12 +57,22 @@ class ActionBarView : AutoLinearLayout {
             1001->{
                 ll_right?.visibility= View.VISIBLE
                 iv_actionbar_cancle?.visibility=View.VISIBLE
+                if (mRightImage!=0){
+                    mRightImage?.let {
+                        iv_actionbar_cancle?.setImageResource(it)
+                    }
+                }
             }
             1002->{
                 ll_right?.visibility= View.VISIBLE
                 iv_actionbar_cancle?.visibility=View.VISIBLE
                 tv_actionbar_line?.visibility=View.VISIBLE
                 tv_actionbar_right_title?.visibility=View.VISIBLE
+                if (mRightImage!=0){
+                    mRightImage?.let {
+                        iv_actionbar_cancle?.setImageResource(it)
+                    }
+                }
             }
         }
     }
