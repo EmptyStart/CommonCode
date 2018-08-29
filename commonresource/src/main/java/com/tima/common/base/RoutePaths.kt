@@ -16,6 +16,10 @@ object RoutePaths{
     const val login="/login/loginpage"
     //主界面
     const val mainpage="/mainpage/mainpage"
+    //发布/全职
+    const val releasefulltime="/release/fulltime"
+    //发布/兼职
+    const val releaseparttime="/release/parttime"
 
 
 
@@ -24,12 +28,25 @@ object RoutePaths{
      */
     const val fragmentutils="/utils/fragment"
 
-    const val reasefragment="/mainpage/reasefragment"
+
+    //发布
+    const val releasefragment="/mainpage/releasefragment"
+    //管理
     const val managefragment="/mainpage/managefragment"
-    const val mainfragment="/mainpage/mainfragment"
+    //我的
+    const val minefragment="/mainpage/minefragment"
+    //消息
     const val newsfragment="/mainpage/newsfragment"
-    const val communicatefragment="/mainpage/communicatefragment"
-    const val interactionfragment="/mainpage/interactionfragment"
-    const val fulltimefragment="/mainpage/fulltimefragment"
-    const val parttimefragment="/mainpage/parttimefragment"
+
+    //消息/沟通
+    const val communicatefragment="/mainpage/news/communicatefragment"
+    //消息/互动
+    const val interactionfragment="/mainpage/news/interactionfragment"
+    //管理/全职
+    const val manageftfragment="/mainpage/manage/fulltimefragment"
+    //管理/兼职
+    const val manageptfragment="/mainpage/manage/parttimefragment"
+
+
+
 }

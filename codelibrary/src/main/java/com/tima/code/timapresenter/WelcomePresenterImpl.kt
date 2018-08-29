@@ -35,7 +35,7 @@ class WelcomePresenterImpl : IWelcomePresent {
 
     override fun onClick(view: View?) {
         Log.i("tag", "onclick event")
-        ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+        ARouter.getInstance().build(RoutePaths.releasefulltime).navigation()
         EventBus.getDefault().postSticky(SelectPos1(true))
     }
 

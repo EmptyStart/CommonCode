@@ -157,7 +157,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         when (position) {
             0 -> {
                 if (releaseFragment == null) {
-                    releaseFragment = ARouter.getInstance().build(RoutePaths.reasefragment).navigation() as
+                    releaseFragment = ARouter.getInstance().build(RoutePaths.releasefragment).navigation() as
                             ReleaseFragment
                     transaction.add(R.id.fl_container, releaseFragment)
                 } else {

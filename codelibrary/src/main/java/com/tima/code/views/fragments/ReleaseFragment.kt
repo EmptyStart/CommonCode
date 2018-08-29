@@ -10,7 +10,7 @@ import com.tima.common.base.RoutePaths
  *   email : zhijun.li@timanetworks.com
  *
  */
-@Route(path = RoutePaths.reasefragment)
+@Route(path = RoutePaths.releasefragment)
 class ReleaseFragment : BaseFragment() {
     override fun attachLayoutRes(): Int {
 
