@@ -88,6 +88,7 @@ class ManageFragment : BaseFragment(),View.OnClickListener{
                 if (partTimeFragment == null) {
                     partTimeFragment = ARouter.getInstance().build(RoutePaths.manageptfragment).navigation() as PartTimeFragment
                     transaction.add(R.id.fl_manage_layout, partTimeFragment)
+
                 } else {
                     transaction.show(partTimeFragment)
                 }
