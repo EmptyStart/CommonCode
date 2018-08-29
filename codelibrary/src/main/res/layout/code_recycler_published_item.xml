@@ -15,7 +15,7 @@
             android:id="@+id/tv_describe"
             style="@style/weight_width_1"
             android:textColor="@color/text_black"
-            android:text="张三报名了您的职位"
+            android:text="促销员（兼职）"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/tv_number"

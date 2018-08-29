@@ -1,7 +1,6 @@
 package com.tima.code.timaconstracts
 
 import android.app.Activity
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.widget.TextView
 import com.tima.common.base.IBasePresenter
@@ -9,13 +8,16 @@ import com.tima.common.base.IBaseViewModel
 import com.tima.common.base.IBaseViews
 
 /**
+ * Created by Administrator on 2018/8/29/029.
+ */
+/**
  *  兼职
  * Created by Administrator on 2018/8/28/028.
  */
-interface IPartTimeViewModel : IBaseViewModel
+interface IFullTimeViewModel : IBaseViewModel
 
-interface IPartTimeView : IBaseViews {
-    fun getRecyclerPartTimeView() : RecyclerView
+interface IFullTimeView : IBaseViews {
+    fun getRecyclerFullTimeView() : RecyclerView
 
     fun getTextSelectOneView() : TextView
 
@@ -23,9 +25,9 @@ interface IPartTimeView : IBaseViews {
 
     fun getTextSelectThreeView() : TextView
 
-    fun getPartActivity() : Activity
+    fun getFullActivity() : Activity
 }
-interface IPartTimePresent : IBasePresenter{
+interface IFullTimePresent : IBasePresenter {
     fun init()
 
     fun toSelect(position : Int)

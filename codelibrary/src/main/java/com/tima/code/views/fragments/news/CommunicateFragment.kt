@@ -1,4 +1,4 @@
-package com.tima.code.views.fragments
+package com.tima.code.views.fragments.news
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -14,14 +14,14 @@ import kotlinx.android.synthetic.main.code_fragment_communicate.*
  * 沟通
  * Created by Administrator on 2018/8/27/027.
  */
-@Route(path = RoutePaths.communicatefragment)
-class CommunicateFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener,CommunicateAdapter.OnCommunicateListener{
+@com.alibaba.android.arouter.facade.annotation.Route(path = com.tima.common.base.RoutePaths.communicatefragment)
+class CommunicateFragment : com.tima.common.base.BaseFragment(), android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener, com.tima.code.views.adapter.CommunicateAdapter.OnCommunicateListener {
 
-    var communicateAdapter : CommunicateAdapter? = null
+    var communicateAdapter : com.tima.code.views.adapter.CommunicateAdapter? = null
 
 
     override fun attachLayoutRes(): Int {
-        return R.layout.code_fragment_communicate
+        return com.tima.code.R.layout.code_fragment_communicate
     }
 
     override fun initView() {
@@ -34,8 +34,8 @@ class CommunicateFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener,
 
     fun onRefreshAdpater(){
         if (communicateAdapter == null){
-            communicateAdapter = CommunicateAdapter(activity,this)
-            recycler_communicate.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+            communicateAdapter = com.tima.code.views.adapter.CommunicateAdapter(activity, this)
+            recycler_communicate.layoutManager = android.support.v7.widget.LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             recycler_communicate.adapter = communicateAdapter
         }else{
             communicateAdapter!!.notifyDataSetChanged()
@@ -47,6 +47,6 @@ class CommunicateFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener,
     }
 
     override fun onCommunicateClick() {
-        Toast.makeText(activity,"点击通知",Toast.LENGTH_SHORT).show()
+        android.widget.Toast.makeText(activity,"点击通知", android.widget.Toast.LENGTH_SHORT).show()
     }
 }

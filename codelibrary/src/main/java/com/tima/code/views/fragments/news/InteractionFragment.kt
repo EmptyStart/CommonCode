@@ -1,4 +1,4 @@
-package com.tima.code.views.fragments
+package com.tima.code.views.fragments.news
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.code_fragment_interaction.*
  * Created by Administrator on 2018/8/27/027.
  */
 @Route(path = RoutePaths.interactionfragment)
-class InteractionFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener,InteractionAdapter.OnInteractionListener{
+class InteractionFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, InteractionAdapter.OnInteractionListener {
 
 
     var interactionAdapter : InteractionAdapter? = null

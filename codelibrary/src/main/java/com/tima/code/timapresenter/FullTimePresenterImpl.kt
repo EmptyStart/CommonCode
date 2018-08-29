@@ -3,35 +3,32 @@ package com.tima.code.timapresenter
 import android.app.Activity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import android.widget.Toast
 import com.tima.code.R
-import com.tima.code.timaconstracts.IPartTimePresent
-import com.tima.code.timaconstracts.IPartTimeView
-import com.tima.code.timaviewmodels.PartTimeViewModelImpl
-import com.tima.code.views.adapter.part.PartAlreadyDownAdapter
-import com.tima.code.views.adapter.part.PartAuditAdapter
-import com.tima.code.views.adapter.part.PartPublishedAdapter
+import com.tima.code.timaconstracts.IFullTimePresent
+import com.tima.code.timaconstracts.IFullTimeView
+import com.tima.code.timaviewmodels.FullTimeViewModelImpl
+import com.tima.code.views.adapter.full.FullPublishedAdapter
 import com.tima.common.base.IBaseViews
 import com.tima.common.utils.ColorIdUtil
 
 /**
- *
+ * 管理-全职
  * Created by Administrator on 2018/8/28/028.
  */
-class PartTimePresenterImpl : IPartTimePresent , PartPublishedAdapter.OnPublishedListener, PartAuditAdapter.OnAuditListener, PartAlreadyDownAdapter.OnAlreadyDownListener{
+class FullTimePresenterImpl : IFullTimePresent, FullPublishedAdapter.OnPublishedListener{
 
     var activity : Activity? = null
-    var view: IPartTimeView? = null
-    var viewMode: PartTimeViewModelImpl? = null
+    var view: IFullTimeView? = null
+    var viewMode: FullTimeViewModelImpl? = null
 
     constructor(view: IBaseViews?) {
-        this.view = view as IPartTimeView?
-        viewMode = PartTimeViewModelImpl()
+        this.view = view as IFullTimeView?
+        viewMode = FullTimeViewModelImpl()
         init()
     }
 
     override fun init() {
-        activity = view?.getPartActivity()
+        activity = view?.getFullActivity()
         view?.getTextSelectOneView()?.tag = false
         view?.getTextSelectTwoView()?.tag = false
         view?.getTextSelectThreeView()?.tag = false
@@ -101,35 +98,29 @@ class PartTimePresenterImpl : IPartTimePresent , PartPublishedAdapter.OnPublishe
      * 刷新已发布配器
      */
     override fun refreshPublishedAdapter() {
-        var publishedAdapter = PartPublishedAdapter(activity!!, this)
-        view?.getRecyclerPartTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-        view?.getRecyclerPartTimeView()!!.adapter = publishedAdapter
+        var publishedAdapter = FullPublishedAdapter(activity!!, this)
+        view?.getRecyclerFullTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+        view?.getRecyclerFullTimeView()!!.adapter = publishedAdapter
     }
 
     /**
      * 刷新审核中
      */
     override fun refreshAuditAdapter() {
-        var auditAdapter = PartAuditAdapter(activity!!,this)
+        /*var auditAdapter = PartAuditAdapter(activity!!,this)
         view?.getRecyclerPartTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-        view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
+        view?.getRecyclerPartTimeView()!!.adapter = auditAdapter*/
     }
 
     override fun refreshAlreadyDownAdapter() {
-        var alreadyDownAdapter = PartAlreadyDownAdapter(activity!!,this)
+        /*var alreadyDownAdapter = PartAlreadyDownAdapter(activity!!,this)
         view?.getRecyclerPartTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-        view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter
+        view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter*/
     }
 
-    override fun onPublishedClick() {
-        Toast.makeText(activity,"点击已发布", Toast.LENGTH_SHORT).show()
+    override fun onPublishClickRelase() {
     }
 
-    override fun onAuditClick() {
-        Toast.makeText(activity,"点击审核中", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onAlreadyDownClick() {
-        Toast.makeText(activity,"点击已下架", Toast.LENGTH_SHORT).show()
+    override fun onPublishedClickItem() {
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/radius_white_solid_gray"
+    android:layout_margin="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/margin_15_7_15_7"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_describe"
+            style="@style/weight_width_1"
+            android:textColor="@color/text_black"
+            android:text="促销员（全职）"
+            android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:text="面试时间"
+            android:textColor="@color/text_black"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_interview_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@mipmap/ic_back"
+        android:layout_marginRight="10dp"
+        android:padding="5dp"
+        android:textSize="11sp"
+        android:drawablePadding="5dp"
+        android:text="2018-07-30:14:00"
+        android:layout_gravity="right" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            style="@style/weight_width_1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_company_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="公司名字"
+                android:textColor="@color/text_black"
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp" />
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上海 长宁区 复兴路"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_release_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下架"
+            android:textColor="@color/white"
+            android:background="@drawable/radius_white_solid_red"
+            style="@style/padding_15_5_15_5"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+</LinearLayout>

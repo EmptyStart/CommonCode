@@ -5,6 +5,8 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
+import com.tima.code.views.fragments.manage.FullTimeFragment
+import com.tima.code.views.fragments.manage.PartTimeFragment
 import com.tima.common.base.BaseFragment
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.ColorIdUtil
@@ -107,12 +109,12 @@ class ManageFragment : BaseFragment(),View.OnClickListener{
 
     fun hideFragment(position: Int, transaction: FragmentTransaction) {
         if (position != 0) {
-            partTimeFragment?.let {
+            fullTimeFragment?.let {
                 transaction.hide(it)
             }
         }
         if (position != 1) {
-            fullTimeFragment?.let {
+            partTimeFragment?.let {
                 transaction.hide(it)
             }
         }
