@@ -86,7 +86,7 @@ class ManageFragment : BaseFragment(),View.OnClickListener{
         when (position) {
             0 -> {
                 if (partTimeFragment == null) {
-                    partTimeFragment = ARouter.getInstance().build(RoutePaths.parttimefragment).navigation() as PartTimeFragment
+                    partTimeFragment = ARouter.getInstance().build(RoutePaths.manageptfragment).navigation() as PartTimeFragment
                     transaction.add(R.id.fl_manage_layout, partTimeFragment)
                 } else {
                     transaction.show(partTimeFragment)
@@ -94,7 +94,7 @@ class ManageFragment : BaseFragment(),View.OnClickListener{
             }
             1 -> {
                 if (fullTimeFragment == null) {
-                    fullTimeFragment = ARouter.getInstance().build(RoutePaths.fulltimefragment).navigation() as FullTimeFragment
+                    fullTimeFragment = ARouter.getInstance().build(RoutePaths.manageftfragment).navigation() as FullTimeFragment
                     transaction.add(R.id.fl_manage_layout, fullTimeFragment)
                 } else {
                     transaction.show(fullTimeFragment)

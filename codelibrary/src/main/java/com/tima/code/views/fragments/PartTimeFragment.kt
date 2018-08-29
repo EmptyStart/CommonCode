@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.code_fragment_part_time.*
  * 管理-兼职
  * Created by Administrator on 2018/8/28/028.
  */
-@Route(path = RoutePaths.parttimefragment)
+@Route(path = RoutePaths.manageptfragment)
 class PartTimeFragment : BaseFragment(),PublishedAdapter.OnPublishedListener,SwipeRefreshLayout.OnRefreshListener,IPartTimeView{
 
     var publishedAdapter : PublishedAdapter? = null

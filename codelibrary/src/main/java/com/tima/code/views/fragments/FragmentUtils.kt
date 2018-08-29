@@ -29,11 +29,11 @@ class  FragmentUtils : BaseFragment() {
             tv_frag1.text=it
         }
 
-        abv_type2.setOnRightImageListener(listener = View.OnClickListener { toast("点击了图片") })
-        abv_type3.setOnRightImageListener(listener = View.OnClickListener { toast("点击了图片") })
-        abv_type3.setOnRightTextListener(listener = View.OnClickListener { toast("点击了文字") })
-        abv_type4.setOnRightImageListener(listener = View.OnClickListener { toast("点击了图片") })
-        abv_type4.setOnRightTextListener(listener = View.OnClickListener { toast("点击了文字") })
+        abv_type2.setOnRightImageListener(View.OnClickListener { toast("点击了图片") })
+        abv_type3.setOnRightImageListener(View.OnClickListener { toast("点击了图片") })
+        abv_type3.setOnRightTextListener(View.OnClickListener { toast("点击了文字") })
+        abv_type4.setOnRightImageListener( View.OnClickListener { toast("点击了图片") })
+        abv_type4.setOnRightTextListener(View.OnClickListener { toast("点击了文字") })
     }
 
     override fun lazyLoad() {
