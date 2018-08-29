@@ -89,7 +89,31 @@
                     android:textSize="12sp" />
 
 
-
+                <LinearLayout
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tv_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textSize="25sp"
+                        android:textColor="@color/code_title_barbc"
+                        />
+                    <EditText
+                        android:id="@+id/et_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:textSize="25sp"
+                        android:textColor="@color/code_title_barbc"/>
+                </LinearLayout>
             </RelativeLayout>
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>
