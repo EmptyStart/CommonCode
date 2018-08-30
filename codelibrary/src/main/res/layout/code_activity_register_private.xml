@@ -93,7 +93,17 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="35px"
         android:layout_marginTop="220px"
-        android:src="@mipmap/code_register_addphoto" />
+        android:src="@mipmap/code_register_addphoto"
+        android:id="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="99dp"
+        android:src="@mipmap/ic_back" />
 
 
 </com.zhy.autolayout.AutoRelativeLayout>

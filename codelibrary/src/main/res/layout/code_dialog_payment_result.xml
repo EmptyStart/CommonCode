@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="@drawable/radius_white_solid_gray_10">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60px"
+        android:text="支付结果"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50px"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 支付订单号："
+            android:textSize="13sp"
+            android:textColor="@color/text_black"/>
+        <TextView
+            android:id="@+id/tv_payment_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" xxxx"
+            android:textSize="13sp"
+            android:textColor="@color/text_black"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:text="支付成功/处理中"
+        android:textColor="@color/text_black"
+        android:textSize="13sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20px"
+        android:layout_marginBottom="60px"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 账户余额："
+            android:textSize="13sp"
+            android:textColor="@color/text_black"/>
+        <TextView
+            android:id="@+id/tv_account_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" xxxx"
+            android:textSize="13sp"
+            android:textColor="@color/text_black"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3px"
+        android:background="@color/line"/>
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="40px"
+        android:paddingBottom="40px"
+        android:text="确定"
+        android:textColor="@color/xmpp_mian"
+        android:textSize="16sp"/>
+</com.zhy.autolayout.AutoLinearLayout>
