@@ -19,6 +19,10 @@ class PartPublishedAdapter(var context : Context, var listener : OnPublishedList
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            if (listener != null)
+                listener.onPublishedClick()
+        })
     }
 
     override fun getItemCount(): Int {

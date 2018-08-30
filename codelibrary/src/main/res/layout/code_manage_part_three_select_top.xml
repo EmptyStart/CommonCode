@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_manage_part"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="210px"
+    android:padding="30px"
+    android:background="@color/line">
+
+    <LinearLayout
+        android:id="@+id/ll_manage_part_one"
+        style="@style/weight_width_1_Hmatch"
+        android:orientation="horizontal"
+        android:background="@drawable/radius_white_solid_red">
+        <TextView
+            android:id="@+id/tv_manage_part_title_one"
+            style="@style/weight_width_1"
+            android:textColor="@color/white"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15px"
+            android:text="报名管理"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_manage_part_num_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginRight="15px"
+            android:layout_gravity="center_vertical"
+            android:text="24"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_manage_part_two"
+        style="@style/weight_width_1_Hmatch"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30px"
+        android:background="@drawable/radius_white_solid_gray">
+        <TextView
+            android:id="@+id/tv_manage_part_title_two"
+            style="@style/weight_width_1"
+            android:textColor="@color/text_gray"
+            android:layout_marginLeft="15px"
+            android:layout_gravity="center_vertical"
+            android:text="面试管理"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_manage_part_num_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15px"
+            android:text="0"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_manage_part_three"
+        style="@style/weight_width_1_Hmatch"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30px"
+        android:background="@drawable/radius_white_solid_gray">
+        <TextView
+            android:id="@+id/tv_manage_part_title_three"
+            style="@style/weight_width_1"
+            android:layout_marginLeft="15px"
+            android:layout_gravity="center_vertical"
+            android:text="工作结束"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_manage_part_num_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15px"
+            android:text="1"
+            android:textSize="12sp" />
+    </LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

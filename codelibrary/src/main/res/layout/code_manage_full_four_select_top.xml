@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_manage_full"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="210px"
+    android:padding="30px"
+    android:background="@color/line">
+
+    <LinearLayout
+        android:id="@+id/ll_manage_one"
+        style="@style/weight_width_1_Hmatch"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/radius_white_solid_red">
+        <TextView
+            android:id="@+id/tv_manage_title_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="报名管理"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_manage_num_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="15px"
+            android:text="24"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_manage_two"
+        style="@style/weight_width_1_Hmatch"
+        android:orientation="vertical"
+        android:layout_marginLeft="30px"
+        android:gravity="center"
+        android:background="@drawable/radius_white_solid_gray">
+        <TextView
+            android:id="@+id/tv_manage_title_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:text="面试管理"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_manage_num_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:layout_marginTop="15px"
+            android:text="24"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_manage_three"
+        style="@style/weight_width_1_Hmatch"
+        android:orientation="vertical"
+        android:layout_marginLeft="30px"
+        android:gravity="center"
+        android:background="@drawable/radius_white_solid_gray">
+        <TextView
+            android:id="@+id/tv_manage_title_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:text="入职管理"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_manage_num_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:layout_marginTop="15px"
+            android:text="24"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_manage_four"
+        style="@style/weight_width_1_Hmatch"
+        android:orientation="vertical"
+        android:layout_marginLeft="30px"
+        android:gravity="center"
+        android:background="@drawable/radius_white_solid_gray">
+        <TextView
+            android:id="@+id/tv_manage_title_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:text="结算管理"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_manage_num_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_gray"
+            android:layout_marginTop="15px"
+            android:text="24"
+            android:textSize="12sp" />
+    </LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

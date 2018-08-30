@@ -1,6 +1,7 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
@@ -8,6 +9,7 @@ import com.tima.code.R
 import com.tima.code.timaconstracts.IPartTimePresent
 import com.tima.code.timaconstracts.IPartTimeView
 import com.tima.code.timaviewmodels.PartTimeViewModelImpl
+import com.tima.code.views.activitys.ManageFullTimeInfoActivity
 import com.tima.code.views.adapter.part.PartAlreadyDownAdapter
 import com.tima.code.views.adapter.part.PartAuditAdapter
 import com.tima.code.views.adapter.part.PartPublishedAdapter
@@ -122,7 +124,15 @@ class PartTimePresenterImpl : IPartTimePresent , PartPublishedAdapter.OnPublishe
     }
 
     override fun onPublishedClick() {
-        Toast.makeText(activity,"点击已发布", Toast.LENGTH_SHORT).show()
+        if(activity != null) {
+            Toast.makeText(activity,"activity不为空", Toast.LENGTH_SHORT).show()
+
+            var intent = Intent(activity!!, ManageFullTimeInfoActivity::class.java)
+            intent.putExtra("manageType", 2)
+            activity?.startActivity(intent)
+        }else{
+            Toast.makeText(activity,"activity为空null", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onAuditClick() {

@@ -4,10 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        layout="@layout/code_double_select_top" />
+    <include layout="@layout/code_double_select_top" />
 
     <FrameLayout
         android:id="@+id/fl_manage_layout"

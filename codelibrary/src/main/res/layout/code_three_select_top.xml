@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="35dp">
+    android:layout_height="130px">
 
     <TextView
         android:id="@+id/tv_select_one"
@@ -13,7 +13,7 @@
         android:textColor="@color/white"
         android:textSize="12sp"/>
     <View
-        android:layout_width="2dp"
+        android:layout_width="6px"
         android:layout_height="match_parent"
         android:background="@color/line"/>
     <TextView
@@ -25,7 +25,7 @@
         android:textColor="@color/text_black_gray"
         android:textSize="12sp"/>
     <View
-        android:layout_width="2dp"
+        android:layout_width="6px"
         android:layout_height="match_parent"
         android:background="@color/line"/>
     <TextView
@@ -36,4 +36,4 @@
         android:gravity="center"
         android:textColor="@color/text_black_gray"
         android:textSize="12sp"/>
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/radius_white_solid_gray"
-    android:layout_margin="10dp">
+    android:layout_margin="20px">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="10dp"
+            android:paddingLeft="20px"
             android:gravity="center"
             android:textSize="13sp"
             android:text="面试时间"
@@ -31,18 +31,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableRight="@mipmap/ic_back"
-        android:layout_marginRight="10dp"
-        android:padding="5dp"
+        android:layout_marginRight="20px"
+        android:padding="10px"
         android:textSize="11sp"
-        android:drawablePadding="5dp"
+        android:drawablePadding="10px"
         android:text="2018-07-30:14:00"
         android:layout_gravity="right" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
         android:orientation="horizontal">
         <LinearLayout
             style="@style/weight_width_1"
@@ -54,14 +54,14 @@
                 android:text="公司名字"
                 android:textColor="@color/text_black"
                 android:textSize="14sp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="20px" />
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="上海 长宁区 复兴路"
                 android:textSize="11sp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="20px" />
         </LinearLayout>
 
         <TextView
@@ -75,4 +75,4 @@
             android:layout_gravity="center"/>
     </LinearLayout>
 
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

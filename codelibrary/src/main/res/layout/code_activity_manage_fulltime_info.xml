@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/code_manage_full_four_select_top" />
+
+            <include layout="@layout/code_manage_part_three_select_top" />
+
+            <include layout="@layout/code_include_company_info" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_job_describe"
+                android:layout_marginTop="20px"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:paddingTop="20px"
+                android:paddingBottom="20px"
+                android:background="@color/white"
+                android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_marginBottom="20px"
+                        android:textSize="13sp"
+                        android:text="兼职要求"
+                        android:textColor="@color/text_black_gray"
+                        android:textStyle="bold"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_require"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <include layout="@layout/code_layout_select_address_p" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="30px"
+                android:layout_marginTop="15px"
+                android:layout_marginBottom="45px">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="工作时间"
+                    android:textColor="@color/text_black"
+                    android:textSize="13sp"/>
+                <TextView
+                    android:id="@+id/tv_work_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="2012-09-08 18:30:00"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp"/>
+            </RelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </ScrollView>
+</com.zhy.autolayout.AutoLinearLayout>

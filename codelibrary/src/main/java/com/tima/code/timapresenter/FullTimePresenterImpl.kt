@@ -1,12 +1,14 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.tima.code.R
 import com.tima.code.timaconstracts.IFullTimePresent
 import com.tima.code.timaconstracts.IFullTimeView
 import com.tima.code.timaviewmodels.FullTimeViewModelImpl
+import com.tima.code.views.activitys.ManageFullTimeInfoActivity
 import com.tima.code.views.adapter.full.FullPublishedAdapter
 import com.tima.common.base.IBaseViews
 import com.tima.common.utils.ColorIdUtil
@@ -122,5 +124,8 @@ class FullTimePresenterImpl : IFullTimePresent, FullPublishedAdapter.OnPublished
     }
 
     override fun onPublishedClickItem() {
+        var intent = Intent(activity!!,ManageFullTimeInfoActivity::class.java)
+        intent.putExtra("manageType",1)
+        activity?.startActivity(intent)
     }
 }

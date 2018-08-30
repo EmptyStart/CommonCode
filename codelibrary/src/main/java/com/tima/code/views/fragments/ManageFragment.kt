@@ -87,20 +87,20 @@ class ManageFragment : BaseFragment(),View.OnClickListener{
         hideFragment(position, transaction)
         when (position) {
             0 -> {
+                if (fullTimeFragment == null) {
+                    fullTimeFragment = ARouter.getInstance().build(RoutePaths.manageftfragment).navigation() as FullTimeFragment
+                    transaction.add(R.id.fl_manage_layout, fullTimeFragment)
+                } else {
+                    transaction.show(fullTimeFragment)
+                }
+            }
+            1 -> {
                 if (partTimeFragment == null) {
                     partTimeFragment = ARouter.getInstance().build(RoutePaths.manageptfragment).navigation() as PartTimeFragment
                     transaction.add(R.id.fl_manage_layout, partTimeFragment)
 
                 } else {
                     transaction.show(partTimeFragment)
-                }
-            }
-            1 -> {
-                if (fullTimeFragment == null) {
-                    fullTimeFragment = ARouter.getInstance().build(RoutePaths.manageftfragment).navigation() as FullTimeFragment
-                    transaction.add(R.id.fl_manage_layout, fullTimeFragment)
-                } else {
-                    transaction.show(fullTimeFragment)
                 }
             }
         }

@@ -10,5 +10,7 @@
             android:theme="@style/BaseAppTheme.NoActionBar"/>
         <activity android:name=".views.activitys.ReleaseFulltimeActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.ManageFullTimeInfoActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
     </application>
 </manifest>
