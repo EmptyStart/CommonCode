@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/abv_type2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="交易流水"
+        app:mode_type="type_two"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_trade_flow"

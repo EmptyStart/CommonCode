@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/radius_white_solid_gray_10"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180px"
+        android:background="@color/code_title_barbc"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_centerInParent="true"
+            android:text="支付结果"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:padding="30px"
+            android:src="@mipmap/ic_cansle"/>
+    </com.zhy.autolayout.AutoRelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginLeft="100px"
+        android:layout_marginRight="100px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/weight_width_1"
+            android:background="@null"
+            android:hint="剩余金额"
+            android:textColor="@color/text_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_surplus_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:textColor="@color/text_gray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:text="/元"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:layout_marginLeft="100px"
+        android:layout_marginRight="100px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            style="@style/weight_width_1"
+            android:background="@null"
+            android:hint="需支付"
+            android:textColor="@color/text_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_need_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150"
+            android:textColor="@color/code_title_barbc"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:text="/元"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:background="@color/line"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="100px"
+        android:paddingRight="100px">
+
+        <TextView
+            style="@style/weight_width_1"
+            android:background="@null"
+            android:text="充值金额"
+            android:textColor="@color/text_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_recharge_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:textColor="@color/text_black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:text="/元"
+            android:textColor="@color/text_gray"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="100px"
+        android:paddingRight="100px">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_alipay_light" />
+
+        <TextView
+            style="@style/weight_width_1"
+            android:layout_marginLeft="50px"
+            android:text="支付宝"
+            android:textColor="@color/text_black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_alipay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_back" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="100px"
+        android:paddingRight="100px">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_wechat" />
+
+        <TextView
+            style="@style/weight_width_1"
+            android:text="微信"
+            android:layout_marginLeft="50px"
+            android:textColor="@color/text_black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_wechat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_back" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@color/line"
+        android:paddingLeft="100px"
+        android:paddingRight="100px">
+        <TextView
+            android:id="@+id/tv_sure_recharge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25px"
+            android:layout_marginBottom="25px"
+            android:textColor="@color/white"
+            android:text="确认充值"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:background="@drawable/radius_white_solid_red"/>
+    </LinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

@@ -14,7 +14,6 @@ import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_manage_fulltime_info.*
 import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*
 import kotlinx.android.synthetic.main.code_manage_part_three_select_top.*
-
 /**
  * 全职详情-兼职详情
  * Created by Administrator on 2018/8/29/029.
@@ -33,6 +32,7 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
         manageType = intent.getIntExtra("manageType",-1)
 
         if (manageType == 1) {
+            abv_type2.setTitle("全职详情")
             ll_manage_part.visibility = View.GONE
             ll_manage_one.setOnClickListener(this)
             ll_manage_two.setOnClickListener(this)
@@ -44,6 +44,7 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
             ll_manage_three.tag = false
             ll_manage_four.tag = false
         }else if (manageType == 2) {
+            abv_type2.setTitle("兼职详情")
             ll_manage_full.visibility = View.GONE
             ll_manage_part_one.setOnClickListener(this)
             ll_manage_part_two.setOnClickListener(this)
@@ -53,9 +54,15 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
             ll_manage_part_two.tag = false
             ll_manage_part_three.tag = false
         }
+        abv_type2.setOnRightImageListener(this)
     }
 
     override fun onClick(v: View?) {
+        when(v!!.id){
+            R.id.iv_actionbar_cancle->{
+                finish()
+            }
+        }
         manageFullTimeInfoPresent?.onClick(v)
     }
 

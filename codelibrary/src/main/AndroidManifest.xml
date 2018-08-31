@@ -14,5 +14,12 @@
             android:theme="@style/BaseAppTheme.NoActionBar"/>
         <activity android:name=".views.activitys.WalletActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.TradeFlowActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.PaymentMethodActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.PutForwardActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
+        PutForwardActivity
     </application>
 </manifest>

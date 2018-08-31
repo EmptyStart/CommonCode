@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/line">
 
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/abv_type4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="钱包"
+        app:mode_type="type_three"
+        app:mode_right_title="账户充值"
+        app:mode_right_image="@mipmap/ic_cansle"/>
+
+
     <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/ll_stay_payment"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:paddingLeft="40px"
