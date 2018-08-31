@@ -23,7 +23,8 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginRight="23px">
 
             <TextView
                 android:id="@+id/tv_pro"
@@ -71,7 +72,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140px"
+        android:layout_height="wrap_content"
+        android:minHeight="140px"
         android:layout_marginTop="2px"
         android:background="@android:color/white"
         android:gravity="center_vertical">
@@ -80,14 +82,19 @@
             android:id="@+id/et_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="57px"
+            android:layout_marginLeft="72px"
             android:background="@null"
             android:hint="具体地址"
             android:textSize="12sp" />
     </LinearLayout>
 
-    <com.amap.api.maps.MapView
+    <!--<com.amap.api.maps.MapView-->
+    <!--android:id="@+id/map_view"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="572px" />-->
+    <View
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="572px" />
+        android:layout_height="572px"
+        android:background="@color/code_title_barbc"/>
 </LinearLayout>

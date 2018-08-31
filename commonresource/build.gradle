@@ -5,12 +5,12 @@ apply plugin: 'kotlin-kapt'
 /**
  * 共通类，放置共通方法 给每一个子模块调用
  */
-//---------外网环境---------------------
-//apply from: 'tima_test.gradle'
+//---------测试环境---------------------
+apply from: 'tima_test.gradle'
 //---------外网环境---------------------
 //apply from: 'tima_uat.gradle'
 //---------生产环境---------------------
-apply from: 'tima_pro.gradle'
+//apply from: 'tima_pro.gradle'
 android {
     compileSdkVersion COMPILE_SDK_VERSION
 
@@ -93,9 +93,11 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     api 'com.google.code.gson:gson:2.8.2'
     api 'org.greenrobot:eventbus:3.1.1'
-    api 'com.amap.api:navi-3dmap:latest.integration'
-    api 'com.amap.api:search:latest.integration'
-    api 'com.amap.api:location:latest.integration'
+    api 'com.amap.api:navi-3dmap:6.2.0_3dmap6.4.0'
+    api 'com.amap.api:search:6.1.0'
+    api 'com.amap.api:location:4.2.0'
+    api 'com.github.tbruyelle:rxpermissions:0.10.2'
+
     //    api libraries.values()
 }
 

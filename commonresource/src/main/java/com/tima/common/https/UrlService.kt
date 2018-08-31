@@ -16,8 +16,14 @@ interface UrlService {
      */
     @POST("{path}")
     @FormUrlEncoded
-    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>, @QueryMap
+    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?, @QueryMap
     queryMap: Map<String, String>?): Observable<ResponseBody>
+ /**
+     *post请求
+     */
+    @POST("{path}")
+    @FormUrlEncoded
+    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?): Observable<ResponseBody>
 
     /**
      *get请求

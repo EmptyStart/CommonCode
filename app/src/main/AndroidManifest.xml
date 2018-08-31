@@ -49,6 +49,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <service android:name="com.amap.api.location.APSService"></service>
         <meta-data android:name="design_width" android:value="${DESIGN_WIDTH}"/>
         <meta-data android:name="design_height" android:value="${DESIGN_HEIGHT}"/>
         <meta-data

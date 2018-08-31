@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@color/code_registerbc_color"
+    android:orientation="vertical">
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <ScrollView
         android:layout_width="match_parent"
-        android:scrollbars="none"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/rl_work_type"
                 android:layout_width="match_parent"
@@ -70,10 +76,12 @@
                     android:background="@null"
                     android:gravity="right"
                     android:hint="请填写"
-                    android:maxLines="1"
+                    android:singleLine="true"
                     android:textSize="12sp" />
             </RelativeLayout>
-            <include layout="@layout/code_layout_select_address_p"/>
+
+            <include layout="@layout/code_layout_select_address_p" />
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="140px"
@@ -90,30 +98,383 @@
 
 
                 <LinearLayout
-                    android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
                     android:gravity="center_vertical">
+
                     <TextView
                         android:id="@+id/tv_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="35px"
+                        android:paddingRight="35px"
                         android:text="-"
-                        android:textSize="25sp"
                         android:textColor="@color/code_title_barbc"
-                        />
+                        android:textSize="25sp" />
+
                     <EditText
                         android:id="@+id/et_count"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/code_release_count_bc"
+                        android:gravity="center"
+                        android:paddingBottom="15px"
+                        android:paddingLeft="30px"
+                        android:paddingRight="30px"
+                        android:paddingTop="15px"
+                        android:text="0"
+                        android:textSize="12sp" />
+
                     <TextView
                         android:id="@+id/tv_minus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="35px"
+                        android:paddingRight="35px"
                         android:text="+"
-                        android:textSize="25sp"
-                        android:textColor="@color/code_title_barbc"/>
+                        android:textColor="@color/code_title_barbc"
+                        android:textSize="25sp" />
                 </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="72px"
+                    android:text="兼职周期"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_cycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:hint="周期"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/iv_cycle"
+                        android:layout_width="26px"
+                        android:layout_height="26px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="45px"
+
+                        android:src="@mipmap/code_register_list_close" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_cycle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/ll_cycle"
+                    android:background="@drawable/code_release_count_bc"
+                    android:gravity="center"
+                    android:paddingBottom="15px"
+                    android:paddingLeft="30px"
+                    android:paddingRight="30px"
+                    android:paddingTop="15px"
+                    android:text="0"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="72px"
+                    android:text="兼职周期"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_wage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="72px"
+                    android:text="元/人"
+
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_wage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_wage"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/code_release_count_bc"
+                    android:gravity="center"
+                    android:paddingBottom="15px"
+                    android:paddingLeft="30px"
+                    android:paddingRight="30px"
+                    android:paddingTop="15px"
+                    android:singleLine="true"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:id="@+id/tv_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="72px"
+                    android:text="技能标签"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="2dp"
+                    android:layout_toRightOf="@+id/tv_sign"
+                    android:text="最多3个"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="10sp" />
+
+                <EditText
+                    android:id="@+id/et_introduce"
+                    android:layout_width="600px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="72px"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请添加"
+                    android:singleLine="true"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="260px"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:layout_marginTop="30px"
+                >
+
+                <LinearLayout
+                    android:id="@+id/ll_wages"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="60px"
+                        android:layout_height="60px"
+                        android:src="@mipmap/code_main_company_pre" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18px"
+                        android:text="到场时间/日期"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_wages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12px"
+                        android:hint="请选择"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="200px"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/code_linebc" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:id="@+id/ll_educat"
+                    >
+
+                    <ImageView
+                        android:layout_width="60px"
+                        android:layout_height="60px"
+                        android:src="@mipmap/code_main_company_pre" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18px"
+                        android:text="最低学历"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_educat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12px"
+                        android:hint="请选择"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="200px"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/code_linebc" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/ll_work"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="60px"
+                        android:layout_height="60px"
+                        android:src="@mipmap/code_main_company_pre" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="18px"
+                        android:text="工作经验"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_work"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12px"
+                        android:hint="请选择"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30px"
+                android:background="@android:color/white"
+                >
+
+                <TextView
+                    android:id="@+id/tv_work_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="140px"
+                    android:layout_marginLeft="72px"
+                    android:text="职位描述"
+                    android:textSize="12sp"
+                    android:gravity="center_vertical"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_right"
+                    android:layout_width="26px"
+                    android:layout_height="15px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="72px"
+                    android:src="@mipmap/code_register_list_open"
+                    android:layout_marginTop="62px"
+                    />
+                <EditText
+                    android:id="@+id/et_work_desc"
+                    android:layout_width="940px"
+                    android:layout_height="wrap_content"
+                    android:hint="请填写"
+                    android:textSize="12sp"
+                    android:background="@null"
+                    android:layout_below="@+id/tv_work_desc"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="2dp"
+                    android:paddingBottom="10dp"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="72px"
+                    android:text="平台服务费"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/et_poundage"
+                    android:layout_width="600px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="72px"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请填写"
+                    android:singleLine="true"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="72px"
+                    android:text="合计金额"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_count_pay"
+                    android:layout_width="600px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="72px"
+                    android:gravity="right"
+                    android:hint="自动生成"
+                    android:textSize="12sp" />
             </RelativeLayout>
         </com.zhy.autolayout.AutoLinearLayout>
     </ScrollView>

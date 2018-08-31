@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 ext{
-    SERVICE_URL="\"http://jmcradartest.timanetwork.com/sp/\""
+    SERVICE_URL="\"https://api4b-dev.mowei.net/api/v1/\""
 }

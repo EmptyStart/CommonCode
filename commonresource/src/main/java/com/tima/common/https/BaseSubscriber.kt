@@ -45,7 +45,7 @@ class BaseSubscriber(listener : IDataListener) : ResourceObserver<ResponseBody>(
     }
 
     override fun onError(e: Throwable) {
-        LogUtils.i(TAG,"error")
+        LogUtils.i(TAG,"error"+e.message)
         //这里做错误的共通处理
         listener.errorData("error")
         e.printStackTrace()
