@@ -14,8 +14,7 @@ import com.tima.common.BusEvents.SelectPos1
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
-import com.tima.common.base.RoutePaths.minefragment
-import com.tima.common.utils.ColorIdUtil
+import com.tima.common.utils.ResourceUtil
 import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.code_activity_main.*
 import org.greenrobot.eventbus.EventBus
@@ -97,22 +96,22 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         if (iv_tab1.tag as Boolean) {
             iv_tab1.tag = false
             iv_tab1.setImageResource(R.mipmap.code_main_release_nor)
-            tv_tab1.setTextColor(ColorIdUtil.getColorId(R.color.code_main_textcolor))
+            tv_tab1.setTextColor(ResourceUtil.getColorId(R.color.code_main_textcolor))
         }
         if (iv_tab2.tag as Boolean) {
             iv_tab2.tag = false
             iv_tab2.setImageResource(R.mipmap.code_main_manage_nor)
-            tv_tab2.setTextColor(ColorIdUtil.getColorId(R.color.code_main_textcolor))
+            tv_tab2.setTextColor(ResourceUtil.getColorId(R.color.code_main_textcolor))
         }
         if (iv_tab3.tag as Boolean) {
             iv_tab3.tag = false
             iv_tab3.setImageResource(R.mipmap.code_main_message_nor)
-            tv_tab3.setTextColor(ColorIdUtil.getColorId(R.color.code_main_textcolor))
+            tv_tab3.setTextColor(ResourceUtil.getColorId(R.color.code_main_textcolor))
         }
         if (iv_tab4.tag as Boolean) {
             iv_tab4.tag = false
             iv_tab4.setImageResource(R.mipmap.code_main_my_nor)
-            tv_tab4.setTextColor(ColorIdUtil.getColorId(R.color.code_main_textcolor))
+            tv_tab4.setTextColor(ResourceUtil.getColorId(R.color.code_main_textcolor))
         }
 
         when (position) {
@@ -120,28 +119,28 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
                 if (!(iv_tab1.getTag() as Boolean)) {
                     iv_tab1.tag = true
                     iv_tab1.setImageResource(R.mipmap.code_main_release_pre)
-                    tv_tab1.setTextColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
+                    tv_tab1.setTextColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                 }
             }
             1 -> {
                 if (!(iv_tab2.getTag() as Boolean)) {
                     iv_tab2.tag = true
                     iv_tab2.setImageResource(R.mipmap.code_main_manage_pre)
-                    tv_tab2.setTextColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
+                    tv_tab2.setTextColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                 }
             }
             2 -> {
                 if (!(iv_tab3.getTag() as Boolean)) {
                     iv_tab3.tag = true
                     iv_tab3.setImageResource(R.mipmap.code_main_message_pre)
-                    tv_tab3.setTextColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
+                    tv_tab3.setTextColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                 }
             }
             3 -> {
                 if (!(iv_tab4.getTag() as Boolean)) {
                     iv_tab4.tag = true
                     iv_tab4.setImageResource(R.mipmap.code_main_my_pre)
-                    tv_tab4.setTextColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
+                    tv_tab4.setTextColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                 }
             }
         }

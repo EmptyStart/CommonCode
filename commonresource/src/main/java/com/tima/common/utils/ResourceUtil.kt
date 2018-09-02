@@ -1,8 +1,12 @@
 package com.tima.common.utils
 
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.support.annotation.ColorInt
+import android.support.annotation.IdRes
 import android.support.annotation.RequiresApi
+import com.amap.api.maps.model.BitmapDescriptor
+import com.amap.api.maps.model.BitmapDescriptorFactory
 import com.tima.common.base.App
 
 /**
@@ -10,7 +14,7 @@ import com.tima.common.base.App
  *   email : zhijun.li@timanetworks.com
  *
  */
-object ColorIdUtil {
+object ResourceUtil {
 
     fun getColorId(colorId: Int): Int {
 
@@ -19,5 +23,9 @@ object ColorIdUtil {
         } else {
             return App.app.resources.getColor(colorId);
         }
+    }
+
+    fun getBitmapDescriptorFactory(imageIdRes: Int): BitmapDescriptor {
+        return BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(App.app.resources, imageIdRes))
     }
 }

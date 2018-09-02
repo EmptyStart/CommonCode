@@ -20,6 +20,8 @@
             android:theme="@style/BaseAppTheme.NoActionBar"/>
         <activity android:name=".views.activitys.PutForwardActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.RegisterCreateCompanyActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
         PutForwardActivity
     </application>
 </manifest>

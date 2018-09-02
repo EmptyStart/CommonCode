@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,26 +13,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:text="职位类型"
-            android:textSize="15sp"
             android:textColor="@color/text_black"
-            android:layout_marginLeft="20dp"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_job_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="请选择"
             android:layout_alignParentRight="true"
-            android:padding="30px"
-            android:textSize="12sp"
             android:drawablePadding="20px"
+            android:drawableRight="@mipmap/ic_back"
+            android:padding="30px"
+            android:text="请选择"
             android:textColor="@color/text_gray"
-            android:drawableRight="@mipmap/ic_back"/>
+            android:textSize="12sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
-        android:background="@color/line"/>
+        android:background="@color/line" />
 </LinearLayout>

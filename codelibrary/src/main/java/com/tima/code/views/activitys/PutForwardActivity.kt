@@ -2,13 +2,10 @@ package com.tima.code.views.activitys
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.graphics.ColorUtils
 import android.view.View
 import com.tima.code.R
-import com.tima.code.R.id.iv_actionbar_cancle
-import com.tima.code.R.id.tv_actionbar_right_title
 import com.tima.common.base.BaseActivity
-import com.tima.common.utils.ColorIdUtil
+import com.tima.common.utils.ResourceUtil
 import kotlinx.android.synthetic.main.code_activity_put_foward.*
 import org.jetbrains.anko.toast
 
@@ -64,8 +61,8 @@ class PutForwardActivity : BaseActivity(), View.OnClickListener{
     }
 
     fun toSelect(position : Int){
-        var white = ColorIdUtil.getColorId(R.color.white)
-        var gray = ColorIdUtil.getColorId(R.color.text_gray)
+        var white = ResourceUtil.getColorId(R.color.white)
+        var gray = ResourceUtil.getColorId(R.color.text_gray)
         ll_alipay.setBackgroundResource(if(position == 0) R.drawable.radius_white_solid_red else R.drawable.radius_white_solid_gray)
         iv_alipay_logo.setImageResource(if(position == 0) R.mipmap.ic_alipay_dark else R.mipmap.ic_alipay_light)
         tv_alipay_name.setTextColor(if(position == 0) white else gray)

@@ -9,7 +9,7 @@ import com.tima.code.views.fragments.news.CommunicateFragment
 import com.tima.code.views.fragments.news.InteractionFragment
 import com.tima.common.base.BaseFragment
 import com.tima.common.base.RoutePaths
-import com.tima.common.utils.ColorIdUtil
+import com.tima.common.utils.ResourceUtil
 import kotlinx.android.synthetic.main.code_double_select_top.*
 
 /**
@@ -52,26 +52,26 @@ class NewsFragment : BaseFragment() , View.OnClickListener{
     fun tabSelect(position: Int) {
         if (ll_one.tag as Boolean) {
             ll_one.tag = false
-            tv_one.setTextColor(ColorIdUtil.getColorId(R.color.text_gray))
+            tv_one.setTextColor(ResourceUtil.getColorId(R.color.text_gray))
             line_one.visibility = View.GONE
         }
         if (ll_two.tag as Boolean) {
             ll_two.tag = false
-            tv_two.setTextColor(ColorIdUtil.getColorId(R.color.text_gray))
+            tv_two.setTextColor(ResourceUtil.getColorId(R.color.text_gray))
             line_two.visibility = View.GONE
         }
         when(position){
             0->{
                 if (!(ll_one.tag as Boolean)) {
                     ll_one.tag = true
-                    tv_one.setTextColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
+                    tv_one.setTextColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                     line_one.visibility = View.VISIBLE
                 }
             }
             1->{
                 if (!(ll_two.tag as Boolean)) {
                     ll_two.tag = true
-                    tv_two.setTextColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
+                    tv_two.setTextColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                     line_two.visibility = View.VISIBLE
                 }
             }

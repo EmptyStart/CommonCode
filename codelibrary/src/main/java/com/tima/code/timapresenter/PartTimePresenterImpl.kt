@@ -14,7 +14,7 @@ import com.tima.code.views.adapter.part.PartAlreadyDownAdapter
 import com.tima.code.views.adapter.part.PartAuditAdapter
 import com.tima.code.views.adapter.part.PartPublishedAdapter
 import com.tima.common.base.IBaseViews
-import com.tima.common.utils.ColorIdUtil
+import com.tima.common.utils.ResourceUtil
 
 /**
  *
@@ -58,41 +58,41 @@ class PartTimePresenterImpl : IPartTimePresent , PartPublishedAdapter.OnPublishe
     override fun toSelect(position: Int) {
         if ( view?.getTextSelectOneView()?.tag as Boolean) {
             view?.getTextSelectOneView()?.tag = false
-            view?.getTextSelectOneView()?.setBackgroundColor(ColorIdUtil.getColorId(R.color.code_linebc))
-            view?.getTextSelectOneView()?.setTextColor(ColorIdUtil.getColorId(R.color.text_black_gray))
+            view?.getTextSelectOneView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_linebc))
+            view?.getTextSelectOneView()?.setTextColor(ResourceUtil.getColorId(R.color.text_black_gray))
         }
         if ( view?.getTextSelectTwoView()?.tag as Boolean) {
             view?.getTextSelectTwoView()?.tag = false
-            view?.getTextSelectTwoView()?.setBackgroundColor(ColorIdUtil.getColorId(R.color.code_linebc))
-            view?.getTextSelectTwoView()?.setTextColor(ColorIdUtil.getColorId(R.color.text_black_gray))
+            view?.getTextSelectTwoView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_linebc))
+            view?.getTextSelectTwoView()?.setTextColor(ResourceUtil.getColorId(R.color.text_black_gray))
         }
         if ( view?.getTextSelectThreeView()?.tag as Boolean) {
             view?.getTextSelectThreeView()?.tag = false
-            view?.getTextSelectThreeView()?.setBackgroundColor(ColorIdUtil.getColorId(R.color.code_linebc))
-            view?.getTextSelectThreeView()?.setTextColor(ColorIdUtil.getColorId(R.color.text_black_gray))
+            view?.getTextSelectThreeView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_linebc))
+            view?.getTextSelectThreeView()?.setTextColor(ResourceUtil.getColorId(R.color.text_black_gray))
         }
         when(position){
             0->{
                 if (!(view?.getTextSelectOneView()?.tag as Boolean)) {
                     view?.getTextSelectOneView()?.tag = true
-                    view?.getTextSelectOneView()?.setBackgroundColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
-                    view?.getTextSelectOneView()?.setTextColor(ColorIdUtil.getColorId(R.color.white))
+                    view?.getTextSelectOneView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_title_barbc))
+                    view?.getTextSelectOneView()?.setTextColor(ResourceUtil.getColorId(R.color.white))
                     refreshPublishedAdapter()
                 }
             }
             1->{
                 if (!(view?.getTextSelectTwoView()?.tag as Boolean)) {
                     view?.getTextSelectTwoView()?.tag = true
-                    view?.getTextSelectTwoView()?.setBackgroundColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
-                    view?.getTextSelectTwoView()?.setTextColor(ColorIdUtil.getColorId(R.color.white))
+                    view?.getTextSelectTwoView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_title_barbc))
+                    view?.getTextSelectTwoView()?.setTextColor(ResourceUtil.getColorId(R.color.white))
                     refreshAuditAdapter()
                 }
             }
             2->{
                 if (!(view?.getTextSelectThreeView()?.tag as Boolean)) {
                     view?.getTextSelectThreeView()?.tag = true
-                    view?.getTextSelectThreeView()?.setBackgroundColor(ColorIdUtil.getColorId(R.color.code_title_barbc))
-                    view?.getTextSelectThreeView()?.setTextColor(ColorIdUtil.getColorId(R.color.white))
+                    view?.getTextSelectThreeView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_title_barbc))
+                    view?.getTextSelectThreeView()?.setTextColor(ResourceUtil.getColorId(R.color.white))
                     refreshAlreadyDownAdapter()
                 }
             }

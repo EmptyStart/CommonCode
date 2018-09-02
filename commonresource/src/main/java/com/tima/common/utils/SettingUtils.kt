@@ -1,6 +1,10 @@
 package com.tima.common.utils
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
+import android.os.Build
 import android.preference.PreferenceManager
 import com.tima.common.base.App
 
@@ -95,5 +99,26 @@ object SettingUtils{
 
     fun setDayStartMinute(dayStartMinute: String) {
         setting.edit().putString("day_startMinute", dayStartMinute).apply()
+    }
+    /**
+     *    跳转到设置开启权限
+     */
+    fun goPermisionSetting(context: Context){
+        var settingIntent = context.packageManager.getLaunchIntentForPackage("com.iqoo.secure")
+        settingIntent?.let {
+            context.startActivity(settingIntent)
+            return
+        }
+        settingIntent=context.packageManager.getLaunchIntentForPackage("com.oppo.safe")
+        settingIntent?.let {
+            context.startActivity(settingIntent)
+            return
+        }
+        settingIntent = Intent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setAction("android.settings.APPLICATION_DETAILS_SETTINGS")
+                .setData(Uri.fromParts("package", context.packageName, null))
+        settingIntent?.let {
+            context.startActivity(settingIntent)
+        }
     }
 }

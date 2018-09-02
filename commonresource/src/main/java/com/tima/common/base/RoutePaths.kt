@@ -14,6 +14,8 @@ object RoutePaths{
     const val welcome="/login/welcomepage"
     //登录界面
     const val login="/login/loginpage"
+    //注册/创建公司
+    const val createcompany="/register/createcompany"
     //主界面
     const val mainpage="/mainpage/mainpage"
     //发布/全职

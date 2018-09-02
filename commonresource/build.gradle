@@ -21,7 +21,7 @@ android {
         targetSdkVersion TARGET_SDK_VERSION
         versionCode VERSION_CODE
         versionName VERSION_NAME
-
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -97,6 +97,7 @@ dependencies {
     api 'com.amap.api:search:6.1.0'
     api 'com.amap.api:location:4.2.0'
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
+    api 'com.android.support:multidex:1.0.2'
 
     //    api libraries.values()
 }

@@ -21,9 +21,12 @@ object Constant {
         val set by SpHelper("position", 0)
         return set
     }
+    //纬度
+    var latitude : Double=-1.0
+    //经度
+    var longitude : Double=-1.0
 
-
-
+     var locAddress : String?=null
     /**
      * cookie
      */

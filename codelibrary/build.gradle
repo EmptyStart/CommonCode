@@ -17,7 +17,7 @@ android {
         targetSdkVersion TARGET_SDK_VERSION
         versionCode VERSION_CODE
         versionName VERSION_NAME
-
+        multiDexEnabled true
         testInstrumentationRunner "android.support.tima_test.runner.AndroidJUnitRunner"
         kapt {
             arguments {

@@ -9,8 +9,7 @@ import com.tima.code.timaconstracts.IManageFullTimeInfoPresent
 import com.tima.code.timaconstracts.IManageFullTimeInfoView
 import com.tima.code.views.adapter.full.ManageFullInfoJobAdapter
 import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
-import com.tima.common.utils.ColorIdUtil
-import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*
+import com.tima.common.utils.ResourceUtil
 
 /**
  * Created by Administrator on 2018/8/29/029.
@@ -70,8 +69,8 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
     }
 
     fun toSelect(position : Int){
-        var gray = ColorIdUtil.getColorId(R.color.text_gray)
-        var white = ColorIdUtil.getColorId(R.color.white)
+        var gray = ResourceUtil.getColorId(R.color.text_gray)
+        var white = ResourceUtil.getColorId(R.color.white)
         var bgGray = R.drawable.radius_white_solid_gray
         var bgRed = R.drawable.radius_white_solid_red
 

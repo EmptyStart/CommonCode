@@ -3,7 +3,9 @@ package com.tima.common.base
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.support.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
+import com.amap.api.location.AMapLocationClient
 import com.tima.common.BuildConfig
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.OnlySetOnce
@@ -13,7 +15,7 @@ import com.tima.common.utils.OnlySetOnce
  *   email : zhijun.li@timanetworks.com
  *
  */
-class App :Application(){
+class App :MultiDexApplication(){
 
     companion object {
         var app :Application by OnlySetOnce.OnlySetOnceExt()
