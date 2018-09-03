@@ -67,6 +67,7 @@ android {
         TimaTest{
             dimension "color"
             applicationId "com.zhishen.test"
+
 //            buildConfigField("String", "ServiceUrl", "\"http://jmcradartest.timanetwork.com/sp/\"")
         }
         TimaUat{

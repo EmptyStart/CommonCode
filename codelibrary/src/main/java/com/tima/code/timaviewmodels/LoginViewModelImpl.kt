@@ -20,6 +20,8 @@ class LoginViewModelImpl : ILoginViewModel{
     }
 
     override fun addOnLoginListener(listener: IDataListener) {
+        val requestData = listener.requestData()
+        RetrofitHelper.service.executeGet("url",requestData)
     }
 
 }

@@ -97,7 +97,8 @@ dependencies {
     api 'com.amap.api:search:6.1.0'
     api 'com.amap.api:location:4.2.0'
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
-    api 'com.android.support:multidex:1.0.2'
+    api 'com.android.support:multidex:1.0.3'
+    api 'com.zhihu.android:matisse:0.5.2-beta2'
 
     //    api libraries.values()
 }
