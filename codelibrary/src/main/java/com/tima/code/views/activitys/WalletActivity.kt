@@ -39,6 +39,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener, DialogUtils.OnDialo
             }
             R.id.ll_stay_payment->{
                 var intent = Intent(this,TradeFlowActivity::class.java)
+                intent.putExtra("tradeType",2)
                 startActivity(intent)
             }
             R.id.iv_actionbar_cancle->{

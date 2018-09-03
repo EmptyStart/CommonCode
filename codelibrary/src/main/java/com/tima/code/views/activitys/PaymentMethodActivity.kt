@@ -25,7 +25,7 @@ class PaymentMethodActivity : BaseActivity(), View.OnClickListener{
             finish()
         }else if (paymentType == 2){
             tv_payment_name.text = "微信"
-            iv_payment_logo.setBackgroundResource(R.mipmap.ic_wechat)
+            iv_payment_logo.setImageResource(R.mipmap.ic_wechat)
         }
 
         abv_type4.setOnRightTextListener(this)
