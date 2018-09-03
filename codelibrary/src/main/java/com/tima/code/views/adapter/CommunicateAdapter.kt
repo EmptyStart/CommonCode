@@ -13,7 +13,7 @@ import com.tima.code.R
  * 消息-沟通-适配器
  * Created by Administrator on 2018/8/28/028.
  */
-class CommunicateAdapter (var context : Context,var listener : OnCommunicateListener): RecyclerView.Adapter<CommunicateAdapter.ViewHolder>(){
+class CommunicateAdapter(var context : Context,var listener : OnCommunicateListener): RecyclerView.Adapter<CommunicateAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.code_recycler_communicate_item,parent,false)

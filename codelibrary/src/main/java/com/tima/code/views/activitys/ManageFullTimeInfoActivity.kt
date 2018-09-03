@@ -134,4 +134,5 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
     override fun getInfoActivity(): Activity {
         return this
     }
+
 }

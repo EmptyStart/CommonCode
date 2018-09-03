@@ -24,5 +24,8 @@
             android:theme="@style/BaseAppTheme.NoActionBar"/>
         <activity android:name=".views.activitys.PersonnelRosterActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.ManageSetActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
+
     </application>
 </manifest>

@@ -43,6 +43,7 @@ interface IManageFullTimeInfoView : IBaseViews {
     fun getRecyclerRequireView() : RecyclerView
 
     fun getInfoActivity() : Activity
+
 }
 interface IManageFullTimeInfoPresent : IBasePresenter{
     fun onRefreshJobAdapter()
