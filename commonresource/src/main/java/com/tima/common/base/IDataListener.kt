@@ -8,7 +8,7 @@ import okhttp3.ResponseBody
  *
  */
 interface IDataListener{
-    fun successData(success : ResponseBody)
+    fun successData(success : String)
     fun errorData(error : String)
     fun requestData() : Map<String,String>?
 }

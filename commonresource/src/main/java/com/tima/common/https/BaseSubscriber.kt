@@ -9,6 +9,7 @@ import io.reactivex.functions.Consumer
 import io.reactivex.observers.ResourceObserver
 import io.reactivex.subscribers.ResourceSubscriber
 import okhttp3.ResponseBody
+import retrofit2.HttpException
 import kotlin.properties.Delegates
 
 /**
@@ -16,39 +17,39 @@ import kotlin.properties.Delegates
  *   email : zhijun.li@timanetworks.com
  *
  */
-class BaseSubscriber(listener : IDataListener) : ResourceObserver<ResponseBody>() {
-    val TAG ="HttpUtils"
-    var listener : IDataListener by Delegates.notNull()
+class BaseSubscriber(listener: IDataListener) : ResourceObserver<ResponseBody>() {
+    val TAG = "HttpUtils"
+    var listener: IDataListener by Delegates.notNull()
 
     init {
-        this.listener=listener
+        this.listener = listener
     }
 
     override fun onComplete() {
-        LogUtils.i(TAG,"onComplete")
+        LogUtils.i(TAG, "请求完成" + System.currentTimeMillis())
     }
 
 
     override fun onStart() {
         super.onStart()
-        LogUtils.i(TAG,"start")
+        LogUtils.i(TAG, "请求开始" + System.currentTimeMillis())
     }
+
     override fun onNext(t: ResponseBody) {
-        LogUtils.i(TAG,t.string())
-        //这里做共通处理
-        if (true) {
-            listener.successData(t)
-        }else{
-            //这里做错误的共通处理
-            listener.errorData("error")
+        val string = t.string();
+        string?.let {
+            listener.successData(it)
         }
     }
 
     override fun onError(e: Throwable) {
-        LogUtils.i(TAG,"error"+e.message)
         //这里做错误的共通处理
-        listener.errorData("error")
-        e.printStackTrace()
+        if (e is HttpException) {
+            val errorBody = e.response().errorBody()
+            errorBody?.apply {
+                listener.errorData(string())
+            }
+        }
     }
 
 }

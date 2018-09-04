@@ -172,7 +172,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
     fun onCreate(owner: LifecycleOwner) {
         view?.showLoading()
         viewMode?.addOnBodyDataListener(object : IDataListener {
-            override fun successData(success: ResponseBody) {
+            override fun successData(success: String) {
                 //成功返回
                 view?.hideLoading()
             }
@@ -180,7 +180,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             override fun errorData(error: String) {
                 //错误返回
                 view?.hideLoading()
-                ExceptionDeal.handleException(ApiException(error))
+                ExceptionDeal.handleException(error)
             }
 
             override fun requestData(): Map<String, String>? {

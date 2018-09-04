@@ -14,6 +14,12 @@ object RoutePaths{
     const val welcome="/login/welcomepage"
     //登录界面
     const val login="/login/loginpage"
+    //注册/选择个人注册方式
+    const val registerSelect="/register/select"
+    //注册/个人注册
+    const val registerPrivate="/register/private"
+    //注册/公司注册
+    const val registerCompany="/register/company"
     //注册/创建公司
     const val createcompany="/register/createcompany"
     //主界面

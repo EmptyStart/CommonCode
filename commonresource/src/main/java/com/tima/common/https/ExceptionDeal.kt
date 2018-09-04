@@ -2,6 +2,7 @@ package com.tima.common.https
 
 import android.widget.Toast
 import com.tima.common.utils.ActivityManage
+import com.tima.common.utils.GsonUtils
 import org.jetbrains.anko.toast
 
 /**
@@ -10,10 +11,12 @@ import org.jetbrains.anko.toast
  *
  */
 object ExceptionDeal {
-    fun handleException(exception: ApiException) {
+    fun handleException(error: String) {
         val currentActivity = ActivityManage.instance.getCurrentActivity()
-        currentActivity.let {
-            Toast.makeText(it, exception.errorMessage, Toast.LENGTH_SHORT).show()
+        currentActivity?.let {
+            val exception = GsonUtils.getGson.fromJson(error, ApiException::class.java)
+            val detail = exception?.detail;
+            it.toast(detail?:"未知错误")
         }
     }
 }

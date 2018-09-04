@@ -125,6 +125,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_login"
         android:layout_width="match_parent"
         android:layout_height="172px"
         android:background="@color/code_title_barbc"

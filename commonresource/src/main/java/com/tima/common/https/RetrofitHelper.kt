@@ -63,9 +63,9 @@ object RetrofitHelper {
                 .cache(cache)
                 .sslSocketFactory(sslSocketFactory)
                 .hostnameVerifier(hostnameVerifier)
-                .connectTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(Constant.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(CookiesUtil.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(CookiesUtil.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(CookiesUtil.DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)//错误重连
         return builder.build()
     }
@@ -148,8 +148,8 @@ object RetrofitHelper {
             val domain = request.url().host()
             // set-cookie maybe has multi, login to save cookie
             if (1 > 2) {
-                val cookies = response.headers(Constant.SET_COOKIE_KEY)
-                val cooke = Constant.encodeCookie(cookies)
+                val cookies = response.headers(CookiesUtil.SET_COOKIE_KEY)
+                val cooke = CookiesUtil.encodeCookie(cookies)
                 saveCookie(requestUrl, domain, cooke)
             }
             response
@@ -170,7 +170,7 @@ object RetrofitHelper {
                 val spDomain: String by SpHelper(domain, "")
                 val cookie: String = if (spDomain.isNotEmpty()) spDomain else ""
                 if (cookie.isNotEmpty()) {
-                    builder.addHeader(Constant.COOKIE_NAME, cookie)
+                    builder.addHeader(CookiesUtil.COOKIE_NAME, cookie)
                 }
             }
             it.proceed(builder.build())

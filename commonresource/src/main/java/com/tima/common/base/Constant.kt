@@ -14,46 +14,20 @@ object Constant {
 //    lateinit var baseUrl: String
 
 
-    val token : String by SpHelper("token","")
+    var token: String by SpHelper("token", "")
 
     //获取当前角色   1 表示个人  2表示公司  0表示 默认值
     fun getPosition(): Int {
         val set by SpHelper("position", 0)
         return set
     }
+
     //纬度
-    var latitude : Double=-1.0
+    var latitude: Double = -1.0
     //经度
-    var longitude : Double=-1.0
+    var longitude: Double = -1.0
 
-     var locAddress : String?=null
-    /**
-     * cookie
-     */
-    const val DEFAULT_TIMEOUT :Long=15
-    const val SET_COOKIE_KEY = "set-cookie"
-    const val COOKIE_NAME = "Cookie"
+    var locAddress: String? = null
 
-    fun encodeCookie(cookies: List<String>): String {
-        val sb = StringBuilder()
-        val set = HashSet<String>()
-        cookies
-                .map { cookie ->
-                    cookie.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                }
-                .forEach {
-                    it.filterNot { set.contains(it) }.forEach { set.add(it) }
-                }
-        val ite = set.iterator()
-        while (ite.hasNext()) {
-            val cookie = ite.next()
-            sb.append(cookie).append(";")
-        }
-        val last = sb.lastIndexOf(";")
-        if (sb.length - 1 == last) {
-            sb.deleteCharAt(last)
-        }
-        return sb.toString()
-    }
 
 }
