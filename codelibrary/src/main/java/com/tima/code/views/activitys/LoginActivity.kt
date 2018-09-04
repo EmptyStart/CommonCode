@@ -51,7 +51,7 @@ class LoginActivity : BaseActivity(), ILoginView, View.OnClickListener {
 
                     override fun onSubscribe(s: Subscription?) {
                         tv_vaild.isEnabled = false
-                        tv_vaild.setTextColor(ResourceUtil.getColorId(Color.GRAY))
+                        tv_vaild.setTextColor(Color.GRAY)
                         mSubscription = s
                         s?.request(Long.MAX_VALUE)//设置请求事件的数量，重要，必须调用
                     }

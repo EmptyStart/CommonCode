@@ -12,7 +12,7 @@ import com.tima.common.base.RoutePaths
  *
  */
 @Route(path = RoutePaths.registerPrivate)
-class RegisterCreatePrivateActivity : BaseActivity(){
+class RegisterPrivateActivity : BaseActivity(){
     override fun getLayoutId(): Int {
 
         return R.layout.code_activity_register_private

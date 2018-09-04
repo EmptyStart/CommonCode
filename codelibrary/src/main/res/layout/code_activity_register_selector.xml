@@ -6,6 +6,7 @@
     android:background="@color/code_title_barbc"
     android:orientation="vertical">
     <com.tima.common.views.ActionBarView
+        android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mode_type="type_two"
