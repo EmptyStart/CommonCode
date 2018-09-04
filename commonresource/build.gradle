@@ -99,8 +99,7 @@ dependencies {
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
     api 'com.android.support:multidex:1.0.3'
     api 'com.zhihu.android:matisse:0.5.2-beta2'
-    //noinspection NotInterpolated
-    implementation 'com.zhihu.android:matisse:$latest_version'
+
     //    api libraries.values()
 }
 
