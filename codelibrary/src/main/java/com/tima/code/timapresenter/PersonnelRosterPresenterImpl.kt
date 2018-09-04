@@ -1,11 +1,15 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.OnLifecycleEvent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.tima.code.R
 import com.tima.code.timaconstracts.IPersonnelRosterPresent
 import com.tima.code.timaconstracts.IPersonnelRosterView
+import com.tima.code.timaviewmodels.PersonnelRosterViewModelImpl
 import com.tima.code.views.adapter.mine.PersonnelRosterAdapter
 import kotlinx.android.synthetic.main.code_activity_personnel_roster.*
 import org.jetbrains.anko.toast
@@ -18,6 +22,7 @@ class PersonnelRosterPresenterImpl : IPersonnelRosterPresent,PersonnelRosterAdap
     var personView : IPersonnelRosterView
     var activity : Activity
     var personnelAdapter : PersonnelRosterAdapter? = null
+    val mViewMode by lazy(LazyThreadSafetyMode.NONE) { PersonnelRosterViewModelImpl() }
     constructor(view : IPersonnelRosterView){
         personView = view
         activity = personView.getPersonnelActivity()
@@ -48,5 +53,9 @@ class PersonnelRosterPresenterImpl : IPersonnelRosterPresent,PersonnelRosterAdap
     }
 
     override fun onPersonnelRosterClick() {
+    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(owner: LifecycleOwner) {
+        mViewMode.detachView()
     }
 }

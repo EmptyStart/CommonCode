@@ -1,6 +1,9 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -8,6 +11,7 @@ import com.tima.code.R
 import com.tima.code.R.id.recycler_trade_flow
 import com.tima.code.timaconstracts.ITradeFlowPresent
 import com.tima.code.timaconstracts.ITradeFlowView
+import com.tima.code.timaviewmodels.TradeFlowViewModelImpl
 import com.tima.code.views.activitys.PersonnelRosterActivity
 import com.tima.code.views.activitys.TradeFlowActivity
 import com.tima.code.views.adapter.mine.PendingPeymentAdapter
@@ -23,6 +27,7 @@ class TradeFlowPresenterImpl : ITradeFlowPresent ,TradeFlowAdapter.OnTradeFlowLi
     var tradeflowAdapter : TradeFlowAdapter? = null
     var activity : Activity
     var view : ITradeFlowView
+    val mViewMode by lazy(LazyThreadSafetyMode.NONE) { TradeFlowViewModelImpl() }
     constructor(view : ITradeFlowView){
         this.view = view
         activity = view?.getTradeActivity()
@@ -79,5 +84,9 @@ class TradeFlowPresenterImpl : ITradeFlowPresent ,TradeFlowAdapter.OnTradeFlowLi
     override fun onPendingPeymentClick() {
         var intent = Intent(activity,PersonnelRosterActivity::class.java)
         activity.startActivity(intent)
+    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(owner: LifecycleOwner) {
+        mViewMode.detachView()
     }
 }

@@ -3,6 +3,7 @@ package com.tima.code.timaviewmodels
 import com.tima.code.timaconstracts.IMainPageViewModel
 import com.tima.common.base.IDataListener
 import com.tima.code.timaconstracts.IWelcomeViewModel
+import com.tima.common.base.BaseViewModel
 import com.tima.common.https.BaseSubscriber
 import com.tima.common.https.RetrofitHelper
 import com.tima.common.rx.SchedulerUtils
@@ -12,7 +13,7 @@ import com.tima.common.rx.SchedulerUtils
  *   email : zhijun.li@timanetworks.com
  *
  */
-class MainPageViewModelImpl : IMainPageViewModel {
+class MainPageViewModelImpl : BaseViewModel(), IMainPageViewModel {
 //    override fun addOnBodyDataListener(listener: IDataListener) {
 //        val requestData = listener.requestData()
 //        RetrofitHelper.service.executeGet("user/login", requestData).compose(SchedulerUtils

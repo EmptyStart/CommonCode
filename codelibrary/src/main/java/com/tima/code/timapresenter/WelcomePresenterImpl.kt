@@ -24,12 +24,10 @@ class WelcomePresenterImpl : IWelcomePresent {
 
 
     var view: IWelcomeView? = null
-    var viewMode: IWelcomeViewModel? = null
-
+    val mViewMode by lazy(LazyThreadSafetyMode.NONE) { WelcomeViewModelImpl() }
 
     constructor(view: IBaseViews?) {
         this.view = view as IWelcomeView?
-        viewMode = WelcomeViewModelImpl()
     }
 
 
@@ -42,26 +40,11 @@ class WelcomePresenterImpl : IWelcomePresent {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate(owner: LifecycleOwner) {
         Log.i("tag", "onCreate")
-//        Super calls to java default methods are prohibited in JVM target 1.6 Recompile with '-jvm-target 1.8'
-//        view?.showLoading()
-//        viewMode?.addOnBodyDataListener(object : IDataListener {
-//            override fun successData(success: ResponseBody) {
-//                //成功返回
-//                view?.hideLoading()
-//
-//            }
-//
-//            override fun errorData(error: String) {
-//                //错误返回
-//                view?.hideLoading()
-//                ExceptionDeal.handleException(ApiException(error))
-//            }
-//
-//            override fun requestData(): Map<String, String>? {
-//                //请求参数
-//                return null
-//            }
-//
-//        })
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(owner: LifecycleOwner) {
+        mViewMode.detachView()
+    }
+
 }

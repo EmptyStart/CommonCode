@@ -52,4 +52,5 @@ class BaseSubscriber(listener: IDataListener) : ResourceObserver<ResponseBody>()
         }
     }
 
+
 }

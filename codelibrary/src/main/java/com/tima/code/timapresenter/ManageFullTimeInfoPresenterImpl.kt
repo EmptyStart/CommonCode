@@ -1,6 +1,9 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -8,6 +11,7 @@ import com.tima.code.R
 import com.tima.code.bean.jobInfo
 import com.tima.code.timaconstracts.IManageFullTimeInfoPresent
 import com.tima.code.timaconstracts.IManageFullTimeInfoView
+import com.tima.code.timaviewmodels.ManageFullTimeInfoModelImpl
 import com.tima.code.views.activitys.ManageSetActivity
 import com.tima.code.views.adapter.full.ManageFullInfoJobAdapter
 import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
@@ -25,7 +29,7 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
     var jobAdapter : ManageFullInfoJobAdapter? = null
     var requireAdapter : ManageFullInfoRequireAdapter? = null
     var infoActivity : Activity?= null
-
+    val mViewMode by lazy(LazyThreadSafetyMode.NONE) { ManageFullTimeInfoModelImpl() }
     constructor(view : IManageFullTimeInfoView){
         this.view = view
         infoActivity = view?.getInfoActivity()
@@ -134,5 +138,9 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
     }
 
     override fun onFullInfoRequireClickItem() {
+    }
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(owner: LifecycleOwner) {
+        mViewMode.detachView()
     }
 }

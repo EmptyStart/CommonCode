@@ -2,11 +2,13 @@ package com.tima.code.timaviewmodels
 
 import android.database.Observable
 import com.tima.code.timaconstracts.ILoginViewModel
+import com.tima.common.base.BaseViewModel
 import com.tima.common.base.IDataListener
 import com.tima.common.https.BaseSubscriber
 import com.tima.common.https.CommonUrls
 import com.tima.common.https.RetrofitHelper
 import com.tima.common.rx.SchedulerUtils
+import io.reactivex.disposables.CompositeDisposable
 import okhttp3.ResponseBody
 
 /**
@@ -14,18 +16,22 @@ import okhttp3.ResponseBody
  *   email : zhijun.li@timanetworks.com
  *
  */
-class LoginViewModelImpl : ILoginViewModel{
+class LoginViewModelImpl() : BaseViewModel(),ILoginViewModel{
+
     override fun addOnVerifyListener(listener: IDataListener) {
         val requestData = listener.requestData()
-        val compose = RetrofitHelper.service.executePost(CommonUrls.loginVerify, requestData).compose(SchedulerUtils
-                .ioToMain())
-        compose.subscribe(BaseSubscriber(listener))
+        val baseSubscriber = BaseSubscriber(listener);
+        RetrofitHelper.service.executePost(CommonUrls.loginVerify, requestData).compose(SchedulerUtils
+                .ioToMain()).subscribe(baseSubscriber)
+        addSubscription(baseSubscriber)
     }
 
     override fun addOnLoginListener(listener: IDataListener) {
         val requestData = listener.requestData()
+        val baseSubscriber = BaseSubscriber(listener);
         RetrofitHelper.service.executePost(CommonUrls.login,requestData).compose(SchedulerUtils
-                .ioToMain()).subscribe(BaseSubscriber(listener))
+                .ioToMain()).subscribe(baseSubscriber)
+        addSubscription(baseSubscriber)
     }
 
 }

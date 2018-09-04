@@ -1,11 +1,15 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.view.View
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMinePresent
 import com.tima.code.timaconstracts.IMineView
+import com.tima.code.timaviewmodels.MineViewModelImpl
 import com.tima.code.views.activitys.WalletActivity
 import com.tima.common.base.IBaseViews
 
@@ -15,7 +19,7 @@ import com.tima.common.base.IBaseViews
 class MinePresenterImpl : IMinePresent {
     var view : IMineView? = null
     var mineActivity : Activity? = null
-
+    val mViewMode by lazy(LazyThreadSafetyMode.NONE) { MineViewModelImpl() }
     constructor(view : IBaseViews){
         this.view = view as IMineView
         mineActivity = view?.getMineActivity()
@@ -40,6 +44,9 @@ class MinePresenterImpl : IMinePresent {
             }
         }
     }
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(owner: LifecycleOwner) {
+        mViewMode.detachView()
+    }
 
 }

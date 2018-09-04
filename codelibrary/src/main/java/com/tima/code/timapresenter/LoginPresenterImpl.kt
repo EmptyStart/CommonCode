@@ -1,5 +1,8 @@
 package com.tima.code.timapresenter
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.OnLifecycleEvent
 import android.view.View
 import com.tima.code.R
 import com.tima.code.ResponseBody.LoginResponseBody
@@ -62,6 +65,7 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                                 Constant.token = it
                             }
                         }
+
                         override fun errorData(error: String) {
                             ExceptionDeal.handleException(error)
                         }
@@ -82,5 +86,8 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
 
     }
 
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy(owner: LifecycleOwner) {
+        mViewMode.detachView()
+    }
 }

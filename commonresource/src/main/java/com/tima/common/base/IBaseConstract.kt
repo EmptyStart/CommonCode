@@ -2,6 +2,7 @@ package com.tima.common.base
 
 import android.arch.lifecycle.LifecycleObserver
 import android.view.View
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * @author : zhijun.li on 2018/6/29
@@ -19,4 +20,6 @@ interface IBaseViews {
 interface IBasePresenter : LifecycleObserver {
     fun onClick(view :View?)
 }
-interface IBaseViewModel
+interface IBaseViewModel{
+
+}
