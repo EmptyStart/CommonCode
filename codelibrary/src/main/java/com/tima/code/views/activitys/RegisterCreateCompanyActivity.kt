@@ -1,6 +1,7 @@
 package com.tima.code.views.activitys
 
 import android.os.Bundle
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdate
@@ -34,6 +35,10 @@ class RegisterCreateCompanyActivity : BaseActivity() {
     }
 
     override fun inits(savedInstanceState: Bundle?) {
+        actionbar.setOnRightImageListener(View.OnClickListener {
+            finish()
+        })
+
         val geocodeSearch = GeocodeSearch(this)
         if (Constant.latitude != -1.0) {
             val latLng = LatLng(Constant.latitude, Constant.longitude)

@@ -30,6 +30,8 @@
             android:theme="@style/BaseAppTheme.NoActionBar"/>
         <activity android:name=".views.activitys.RegisterPrivateActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
+        <activity android:name=".views.activitys.RegisterCompanyActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
 
     </application>
 </manifest>

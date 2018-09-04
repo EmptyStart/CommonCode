@@ -33,8 +33,8 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
         when (view?.id) {
             R.id.tv_vaild -> {
                 mView?.apply {
-                    val valid = valid()
-                    if (valid.isNullOrEmpty()) {
+                    val mobile = mobile()
+                    if (mobile.isNullOrEmpty()) {
                         showError("请输入手机号码")
                         return
                     }
@@ -55,7 +55,7 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
 
                         override fun requestData(): Map<String, String>? {
 
-                            return mapOf(Pair("mobile", valid!!))
+                            return mapOf(Pair("mobile", mobile!!))
                         }
                     })
                 }

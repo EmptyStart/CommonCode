@@ -20,11 +20,9 @@ class RegisterSelectActivity : BaseActivity(), View.OnClickListener {
         when(v?.id){
             R.id.register_company->{
                 ARouter.getInstance().build(RoutePaths.registerCompany).navigation()
-
             }
             R.id.register_private->{
                 ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
-
             }
         }
     }

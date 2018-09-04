@@ -17,8 +17,10 @@ import kotlinx.android.synthetic.main.code_activity_register_company.*
 @Route(path = RoutePaths.registerCompany)
 class RegisterCompanyActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
-        when(v?.id){
-
+        when (v?.id) {
+            R.id.rl_my_company->{
+                ARouter.getInstance().build(RoutePaths.createcompany).navigation()
+            }
         }
     }
 
@@ -28,7 +30,14 @@ class RegisterCompanyActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun inits(savedInstanceState: Bundle?) {
+        actionbar.setOnRightTextListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+                finish()
+            }
 
+        })
+        rl_my_company.setOnClickListener(this)
     }
 
 }

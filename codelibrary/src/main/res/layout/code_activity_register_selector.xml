@@ -13,15 +13,15 @@
         app:mode_title="申请成为"/>
     <ImageView
         android:id="@+id/register_company"
-        android:layout_width="630px"
-        android:layout_height="246px"
+        android:layout_width="690px"
+        android:layout_height="306px"
         android:layout_marginTop="300px"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/code_register_company"/>
     <ImageView
         android:id="@+id/register_private"
-        android:layout_width="630px"
-        android:layout_height="246px"
+        android:layout_width="690px"
+        android:layout_height="306px"
         android:layout_marginTop="235px"
         android:layout_gravity="center_horizontal"
         android:src="@mipmap/code_register_private"/>

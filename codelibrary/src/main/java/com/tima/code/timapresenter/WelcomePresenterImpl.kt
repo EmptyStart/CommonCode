@@ -1,5 +1,6 @@
 package com.tima.code.timapresenter
 
+import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
@@ -33,7 +34,9 @@ class WelcomePresenterImpl : IWelcomePresent {
 
     override fun onClick(view: View?) {
         Log.i("tag", "onclick event")
-        ARouter.getInstance().build(RoutePaths.createcompany).navigation()
+        ARouter.getInstance().build(RoutePaths.login).navigation()
+        val activity = view?.context as? Activity
+        activity?.finish()
 //        EventBus.getDefault().postSticky(SelectPos1(true))
     }
 
