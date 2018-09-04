@@ -13,6 +13,7 @@ import com.zhihu.matisse.engine.ImageEngine
  * Created by Administrator on 2018/9/4.
  */
 class Glide4Engine : ImageEngine {
+
     override fun loadThumbnail(context: Context, resize: Int, placeholder: Drawable, imageView: ImageView, uri: Uri) {
         Glide.with(context)
                 .asBitmap() // some .jpeg files are actually gif

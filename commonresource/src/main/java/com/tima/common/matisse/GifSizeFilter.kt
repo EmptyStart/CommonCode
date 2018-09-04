@@ -13,6 +13,7 @@ import java.util.HashSet
  * Created by Administrator on 2018/9/4.
  */
 class GifSizeFilter : Filter{
+
     var mMinWidth: Int = 0
     var mMinHeight: Int = 0
     var mMaxSize: Int = 0
