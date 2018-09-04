@@ -8,4 +8,6 @@ package com.tima.common.https
 object CommonUrls {
     //登录验证
     const val loginVerify="login/verify/"
+
+
 }

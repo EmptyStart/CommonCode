@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
@@ -13,6 +14,17 @@ import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.FileProvider
 import android.text.TextUtils
+import android.util.Log
+import com.tima.common.R
+import com.tima.common.matisse.GifSizeFilter
+import com.tima.common.matisse.Glide4Engine
+import com.zhihu.matisse.Matisse
+import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.engine.impl.PicassoEngine
+import com.zhihu.matisse.filter.Filter
+import com.zhihu.matisse.internal.entity.CaptureStrategy
+import com.zhihu.matisse.listener.OnCheckedListener
+import com.zhihu.matisse.listener.OnSelectedListener
 import java.io.*
 
 /**
@@ -22,8 +34,53 @@ import java.io.*
 object CameraUtils {
     val REQUEST_PICK_PICTURE = 0x1955                                          //相册
     val REQUEST_TAKE_PICTURE = 0x1956                                          //相机
+    val REQUEST_CODE_CHOOSE = 0x1957                                           //Matisse - 调用相机、相册
     val REQUEST_EDIT_PICTURE = 0x1957                                          //裁剪后的图
     val AUTHORITY = "com.tima.mainmodul.lj.jjy.fileprovider"                   //过滤存储 路径
+
+    /**
+     * 调用 Matisse 相机并且相册
+     */
+    fun matisseCameraOrAlbum(activity: Activity){
+        Matisse.from(activity)
+                .choose(MimeType.ofAll(), false)
+                .countable(true)
+                .capture(true)
+                .captureStrategy(
+                        CaptureStrategy(true, AUTHORITY))
+                .maxSelectable(9)
+                .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                .gridExpectedSize(activity.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                .thumbnailScale(0.85f)
+                .imageEngine(Glide4Engine())    // for glide-V4
+                .setOnSelectedListener(OnSelectedListener { uriList, pathList ->
+                    LogUtils.e("CameraUtils", "onSelected: pathList=" + pathList)
+                })
+                .originalEnable(true)
+                .maxOriginalSize(10)
+                .setOnCheckedListener(OnCheckedListener { isChecked ->
+                    LogUtils.i("CameraUtils", "onCheck: isChecked=" + isChecked)
+                })
+                .forResult(REQUEST_CODE_CHOOSE)
+    }
+
+    /**
+     * 调用 Matisse 相册
+     */
+    fun matisseAlbum(activity: Activity){
+        Matisse.from(activity)
+                .choose(MimeType.ofImage())
+                .theme(R.style.Matisse_Dracula)
+                .countable(false)
+                .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                .maxSelectable(9)
+                .originalEnable(true)
+                .maxOriginalSize(10)
+                .imageEngine(PicassoEngine())
+                .forResult(REQUEST_CODE_CHOOSE)
+    }
+
     /**
      * 调用相册
      * @param activity
