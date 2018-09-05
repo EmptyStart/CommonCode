@@ -84,7 +84,7 @@ object CameraUtils {
                     LogUtils.e("CameraUtils", "onSelected: pathList=" + pathList)
                 })
                 .originalEnable(true)
-                .maxOriginalSize(10)
+                .maxOriginalSize(1)
                 .setOnCheckedListener(OnCheckedListener { isChecked ->
                     LogUtils.i("CameraUtils", "onCheck: isChecked=" + isChecked)
                 })
