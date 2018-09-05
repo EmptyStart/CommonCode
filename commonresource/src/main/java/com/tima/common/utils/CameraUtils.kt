@@ -64,6 +64,32 @@ object CameraUtils {
                 })
                 .forResult(REQUEST_CODE_CHOOSE)
     }
+    /**
+     * 调用 Matisse 相机并且相册  可以传入自定义请求Code
+     */
+    fun matisseCameraOrAlbum(activity: Activity,requestCode: Int){
+        Matisse.from(activity)
+                .choose(MimeType.ofAll(), false)
+                .countable(true)
+                .capture(true)
+                .captureStrategy(
+                        CaptureStrategy(true, AUTHORITY))
+                .maxSelectable(9)
+                .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
+                .gridExpectedSize(activity.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+                .thumbnailScale(0.85f)
+                .imageEngine(Glide4Engine())    // for glide-V4
+                .setOnSelectedListener(OnSelectedListener { uriList, pathList ->
+                    LogUtils.e("CameraUtils", "onSelected: pathList=" + pathList)
+                })
+                .originalEnable(true)
+                .maxOriginalSize(10)
+                .setOnCheckedListener(OnCheckedListener { isChecked ->
+                    LogUtils.i("CameraUtils", "onCheck: isChecked=" + isChecked)
+                })
+                .forResult(requestCode)
+    }
 
     /**
      * 调用 Matisse 相册

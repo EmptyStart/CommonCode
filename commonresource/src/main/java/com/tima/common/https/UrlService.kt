@@ -18,12 +18,14 @@ interface UrlService {
     @FormUrlEncoded
     fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?, @QueryMap
     queryMap: Map<String, String>?): Observable<ResponseBody>
- /**
+
+    /**
      *post请求
      */
     @POST("{path}")
     @FormUrlEncoded
-    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?): Observable<ResponseBody>
+    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?):
+            Observable<ResponseBody>
 
     /**
      *get请求
@@ -37,5 +39,35 @@ interface UrlService {
      */
     @POST("{path}")
     @Multipart
-    fun upFile(@Path("path") path: String, @PartMap file: Array<MultipartBody.Part>?)
+    fun upFile(@Path("path") path: String, @PartMap file: Array<MultipartBody.Part>?): Observable<ResponseBody>
+
+    /**
+     * patch请求
+     */
+    @PATCH("{path}")
+    @Multipart
+    fun executePatch(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?):
+            Observable<ResponseBody>
+
+    /**
+     * patch请求
+     */
+    @PATCH("{path}")
+    @Multipart
+    fun executePatch(@Path("path") path: String, @PartMap file: Array<MultipartBody.Part>?): Observable<ResponseBody>
+    /**
+     * patch请求
+     */
+    @PATCH("{path}")
+    @Multipart
+    fun executePatch(@Path("path") path: String, @Part file: MultipartBody.Part?, @QueryMap
+    queryMap: Map<String, String>?): Observable<ResponseBody>
+
+    /**
+     * patch请求
+     */
+    @PATCH("{path}")
+    @Multipart
+    fun executePatch(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?, @QueryMap
+    queryMap: Map<String, String>?): Observable<ResponseBody>
 }

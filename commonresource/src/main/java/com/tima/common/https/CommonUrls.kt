@@ -12,4 +12,18 @@ object CommonUrls {
      * login
      */
     const val login="login/"
+
+    /**
+     * hr info 需拼接{id}/
+     */
+    const val hrInfo="hr/"
+    /**
+     * common info/
+     */
+    const val companyInfo="company/photo/"
+
+
+    const val manageFull="position/"
+
+
 }

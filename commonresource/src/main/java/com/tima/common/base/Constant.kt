@@ -16,11 +16,13 @@ object Constant {
 
     var token: String by SpHelper("token", "")
 
+    var hrId: String by SpHelper("hrId", "")
+
+    var companyId: String by SpHelper("companyId", "")
+
     //获取当前角色   1 表示个人  2表示公司  0表示 默认值
-    fun getPosition(): Int {
-        val set by SpHelper("position", 0)
-        return set
-    }
+    var position by SpHelper("position", 0)
+
 
     //纬度
     var latitude: Double = -1.0

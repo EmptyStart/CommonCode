@@ -15,6 +15,7 @@ import com.tima.code.timaviewmodels.ManageFullTimeInfoModelImpl
 import com.tima.code.views.activitys.ManageSetActivity
 import com.tima.code.views.adapter.full.ManageFullInfoJobAdapter
 import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
+import com.tima.common.base.IDataListener
 import com.tima.common.utils.ResourceUtil
 
 /**
@@ -36,6 +37,24 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
         initJob()
         onRefreshJobAdapter()
         onRefreshRequireAdapter()
+        fullData()
+    }
+
+    private fun fullData(){
+        mViewMode.addFullTimeListener(object : IDataListener{
+            override fun successData(success: String) {
+
+
+            }
+
+            override fun errorData(error: String) {
+
+            }
+
+            override fun requestData(): Map<String, String>? {
+                return mapOf(Pair("page","1"))
+            }
+        })
     }
 
     override fun onClick(view: View?) {

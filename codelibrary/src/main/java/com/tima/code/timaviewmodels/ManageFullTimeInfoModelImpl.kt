@@ -1,10 +1,10 @@
 package com.tima.code.timaviewmodels
 
-import com.tima.code.timaconstracts.IMainPageViewModel
-import com.tima.common.base.IDataListener
-import com.tima.code.timaconstracts.IWelcomeViewModel
+import com.tima.code.timaconstracts.IManageFullTimeInfoModel
 import com.tima.common.base.BaseViewModel
+import com.tima.common.base.IDataListener
 import com.tima.common.https.BaseSubscriber
+import com.tima.common.https.CommonUrls
 import com.tima.common.https.RetrofitHelper
 import com.tima.common.rx.SchedulerUtils
 
@@ -13,6 +13,13 @@ import com.tima.common.rx.SchedulerUtils
  *   email : zhijun.li@timanetworks.com
  *
  */
-class ManageFullTimeInfoModelImpl : BaseViewModel(),IMainPageViewModel {
+class ManageFullTimeInfoModelImpl : BaseViewModel(), IManageFullTimeInfoModel {
+    override fun addFullTimeListener(listener: IDataListener) {
+        val baseSubscriber = BaseSubscriber(listener)
+        RetrofitHelper.service.executeGet(CommonUrls.manageFull, listener.requestData())
+                .compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
+        addSubscription(baseSubscriber)
+
+    }
 
 }

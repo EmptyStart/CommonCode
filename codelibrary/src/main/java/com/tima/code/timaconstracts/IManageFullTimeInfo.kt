@@ -7,11 +7,14 @@ import android.widget.TextView
 import com.tima.common.base.IBasePresenter
 import com.tima.common.base.IBaseViewModel
 import com.tima.common.base.IBaseViews
+import com.tima.common.base.IDataListener
 
 /**
  * Created by Administrator on 2018/8/29/029.
  */
-interface IManageFullTimeInfoModel : IBaseViewModel
+interface IManageFullTimeInfoModel : IBaseViewModel{
+    fun addFullTimeListener(listener: IDataListener)
+}
 
 interface IManageFullTimeInfoView : IBaseViews {
     fun getManageOneView() : LinearLayout
