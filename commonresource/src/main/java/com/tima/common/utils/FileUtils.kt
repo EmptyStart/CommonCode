@@ -5,6 +5,10 @@ import android.net.Uri
 import android.os.Environment
 import android.support.v4.content.FileProvider
 import java.io.*
+import android.R.attr.path
+import android.provider.MediaStore
+import com.tima.common.base.App
+
 
 /**
  * @author : zhijun.li on 2018/8/20
@@ -440,5 +444,32 @@ object FileUtils {
                         e.printStackTrace()
                     }
                 }
+    }
+
+    fun uriToFile(uri: Uri?) : File?{
+        var path=""
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = App.app.getContentResolver().query(uri, proj, null, null, null)
+        if (cursor.moveToFirst()) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            path = cursor.getString(columnIndex)
+        }
+        cursor.close()
+        if (path.isEmpty()){
+            return null
+        }else{
+            return File(path)
+        }
+    }
+
+    fun picTailName(picName: String?) : String?{
+        picName?:return null
+        val length = picName.length
+        var subSequence = picName.subSequence(length - 4, length)
+        if (subSequence.contains(".")){
+            val length1 = subSequence.length
+            subSequence=subSequence.subSequence(length1-1,length1)
+        }
+        return subSequence.toString()
     }
 }

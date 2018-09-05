@@ -53,7 +53,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     }
 
     override fun inits(savedInstanceState: Bundle?) {
-        office = Constant.getPosition()
+//        office = Constant.getPosition()
         present = MainPagePresenterImpl(this)
         LogUtils.i("MainPageActivity", office.toString());
         defaultTab()

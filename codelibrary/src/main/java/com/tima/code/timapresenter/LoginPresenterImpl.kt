@@ -76,15 +76,15 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                     }
                     mViewMode.addOnLoginListener(object : IDataListener {
                         override fun successData(success: String) {
-                            val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
-                            responseBody?.apply {
-                                Constant.token=token
-                                if ("N".equals(company)){
-                                    ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
-                                }else{
-                                    ARouter.getInstance().build(RoutePaths.mainpage).navigation()
-                                }
-                            }
+//                            val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
+//                            responseBody?.apply {
+//                                Constant.token=token
+//                                if ("N".equals(company)){
+//                                    ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
+//                                }else{
+//                                    ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+//                                }
+//                            }
                         }
 
                         override fun errorData(error: String) {

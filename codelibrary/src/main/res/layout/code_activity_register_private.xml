@@ -93,6 +93,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="35px"
         android:layout_marginTop="220px"
+        android:scaleType="centerCrop"
         android:src="@mipmap/code_register_addphoto"
         android:id="@+id/ivPicHead" />
 </com.zhy.autolayout.AutoRelativeLayout>

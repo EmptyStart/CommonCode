@@ -69,12 +69,12 @@ object CameraUtils {
      */
     fun matisseCameraOrAlbum(activity: Activity,requestCode: Int){
         Matisse.from(activity)
-                .choose(MimeType.ofAll(), false)
+                .choose(MimeType.of(MimeType.JPEG,MimeType.PNG,MimeType.GIF), false)
                 .countable(true)
                 .capture(true)
                 .captureStrategy(
                         CaptureStrategy(true, AUTHORITY))
-                .maxSelectable(9)
+                .maxSelectable(1)
                 .addFilter(GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                 .gridExpectedSize(activity.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -84,7 +84,7 @@ object CameraUtils {
                     LogUtils.e("CameraUtils", "onSelected: pathList=" + pathList)
                 })
                 .originalEnable(true)
-                .maxOriginalSize(1)
+                .maxOriginalSize(10)
                 .setOnCheckedListener(OnCheckedListener { isChecked ->
                     LogUtils.i("CameraUtils", "onCheck: isChecked=" + isChecked)
                 })

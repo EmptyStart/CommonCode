@@ -11,7 +11,8 @@ import okio.BufferedSource
  *
  */
 
-data class LoginResponseBody (
+
+data class LoginResponseBody(
     val hr: Hr,
     val company: String,
     val token: String,
@@ -21,6 +22,7 @@ data class LoginResponseBody (
 
 data class Hr(
     val id: Int,
+    val company: Company,
     val created_on: String,
     val mobile: String,
     val name: Any,
@@ -48,8 +50,27 @@ data class Hr(
     val id_card: Any,
     val id_verified: String,
     val push_id: Any,
-    val im_id: Any,
-    val company: Int
+    val im_id: Any
+)
+
+data class Company(
+    val id: Int,
+    val full_name: String,
+    val short_name: Any,
+    val logo: Any,
+    val type: String,
+    val province: String,
+    val city: String,
+    val region: String,
+    val verify: String,
+    val status: String,
+    val priority: Any,
+    val tags: Any,
+    val created_on: String,
+    val fulltime_amt: String,
+    val fulltime_window: Int,
+    val fulltime_unit: String,
+    val margin: String
 )
 
 data class RegisterValidResponseBody(
