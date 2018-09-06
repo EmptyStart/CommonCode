@@ -4,10 +4,15 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.contrarywind.adapter.WheelAdapter
+import com.contrarywind.listener.OnItemSelectedListener
 import com.tima.code.R
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timapresenter.RegisterPrivatePresentImpl
+import com.tima.code.views.adapter.ArrayWheelAdapter
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
@@ -66,7 +71,11 @@ class RegisterPrivateActivity : BaseActivity(), IRegisterPrivateView ,View.OnCli
 //
 //        }
         wv_select.setCyclic(false)
-
+        val list = arrayListOf("item1", "item2", "item3")
+        wv_select.adapter=ArrayWheelAdapter<String>(list)
+        wv_select.setOnItemSelectedListener { position->{
+            toast(list.get(position))
+        }}
     }
 
 
