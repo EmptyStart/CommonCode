@@ -1,5 +1,10 @@
 package com.tima.code.views.adapter.mine
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.ColorFilter
+import android.graphics.ColorMatrix
+import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.ColorUtils
 import android.support.v7.widget.RecyclerView
@@ -8,13 +13,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
 
 /**
  * 人员名单-适配器
  * Created by Administrator on 2018/9/1/001.
  */
-class PersonnelRosterAdapter(var context : android.content.Context, var listener : OnPersonnelRosterListener): RecyclerView.Adapter<PersonnelRosterAdapter.ViewHolder>(){
+
+class PersonnelRosterAdapter(var layoutId : Int, var datas: List<String>): BaseQuickAdapter<String, BaseViewHolder>(layoutId,datas){
+    @SuppressLint("ResourceAsColor")
+    override fun convert(helper: BaseViewHolder?, item: String?) {
+        var position = helper?.layoutPosition
+        if (position == 0 || position!! % 2 == 0){
+            helper?.setText(R.id.tv_quit,"离职")
+            helper?.setBackgroundRes(R.id.tv_quit,R.drawable.radius_solid_black)
+            helper?.setTextColor(R.id.tv_quit, R.color.white)
+            helper?.setVisible(R.id.tv_quit,false)
+        }else{
+            helper?.setText(R.id.tv_quit,"已离职")
+            helper?.setBackgroundRes(R.id.tv_quit,R.drawable.radius_solid_gray)
+            helper?.setTextColor(R.id.tv_quit, R.color.text_gray)
+            helper?.setVisible(R.id.tv_quit,true)
+        }
+    }
+
+    interface OnPersonnelRosterListener{
+        fun onPersonnelRosterClick()
+    }
+}
+
+/*class PersonnelRosterAdapter(var context : Context, var listener : OnPersonnelRosterListener): RecyclerView.Adapter<PersonnelRosterAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var view = LayoutInflater.from(parent.getContext()).inflate(R.layout.code_recycler_personnel_roster_item,parent,false)
@@ -56,4 +86,4 @@ class PersonnelRosterAdapter(var context : android.content.Context, var listener
     interface OnPersonnelRosterListener{
         fun onPersonnelRosterClick()
     }
-}
+}*/

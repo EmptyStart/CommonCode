@@ -7,12 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
 
 /**
  *  全职要求
  * Created by Administrator on 2018/8/29/029.
  */
+
+class ManageFullInfoRequireAdapter(layoutId : Int,  datas: List<String>): BaseQuickAdapter<String, BaseViewHolder>(layoutId,datas){
+    override fun convert(helper: BaseViewHolder?, item: String?) {
+        helper?.setText(R.id.tv_position,(helper?.layoutPosition+1).toString()+". ")
+        helper?.setText(R.id.tv_require_content,item)
+    }
+}
+
+
+/*
 class ManageFullInfoRequireAdapter(var context : Context, var listener : OnFullInfoRequireListener, var requires :  ArrayList<String>): RecyclerView.Adapter<ManageFullInfoRequireAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,4 +53,4 @@ class ManageFullInfoRequireAdapter(var context : Context, var listener : OnFullI
     interface OnFullInfoRequireListener {
         fun onFullInfoRequireClickItem()
     }
-}
+}*/

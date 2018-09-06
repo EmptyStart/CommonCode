@@ -11,70 +11,49 @@ import okio.BufferedSource
  *
  */
 
-
-data class LoginResponseBody(
-    val hr: Hr,
-    val company: String,
-    val token: String,
-    val img_base: String,
-    val parttime_commition: Double
+data class LoginResponseBody (
+        val hr: Hr,
+        val company: String,
+        val token: String,
+        val img_base: String,
+        val parttime_commition: Double
 )
 
 data class Hr(
-    val id: Int,
-    val company: Company,
-    val created_on: String,
-    val mobile: String,
-    val name: Any,
-    val nick_name: Any,
-    val password: Any,
-    val avatar: Any,
-    val type: String,
-    val gender: String,
-    val address: Any,
-    val province: Any,
-    val city: Any,
-    val region: Any,
-    val email: Any,
-    val birthday: Any,
-    val rating: Any,
-    val status: String,
-    val register_ip: Any,
-    val last_login_ip: String,
-    val last_login_on: Any,
-    val last_login_device: Any,
-    val tel: Any,
-    val img1: Any,
-    val img2: Any,
-    val img3: Any,
-    val id_card: Any,
-    val id_verified: String,
-    val push_id: Any,
-    val im_id: Any
-)
-
-data class Company(
-    val id: Int,
-    val full_name: String,
-    val short_name: Any,
-    val logo: Any,
-    val type: String,
-    val province: String,
-    val city: String,
-    val region: String,
-    val verify: String,
-    val status: String,
-    val priority: Any,
-    val tags: Any,
-    val created_on: String,
-    val fulltime_amt: String,
-    val fulltime_window: Int,
-    val fulltime_unit: String,
-    val margin: String
+        val id: Int,
+        val created_on: String,
+        val mobile: String,
+        val name: Any,
+        val nick_name: Any,
+        val password: Any,
+        val avatar: Any,
+        val type: String,
+        val gender: String,
+        val address: Any,
+        val province: Any,
+        val city: Any,
+        val region: Any,
+        val email: Any,
+        val birthday: Any,
+        val rating: Any,
+        val status: String,
+        val register_ip: Any,
+        val last_login_ip: String,
+        val last_login_on: Any,
+        val last_login_device: Any,
+        val tel: Any,
+        val img1: Any,
+        val img2: Any,
+        val img3: Any,
+        val id_card: Any,
+        val id_verified: String,
+        val push_id: Any,
+        val im_id: Any,
+        val company: Int
 )
 
 data class RegisterValidResponseBody(
-    val detail: String
+        val detail: String
 )
 
 /**
@@ -84,7 +63,7 @@ data class Position(
         val id: Int,
         val created_no: String,                                          //创建时间
         var name : String,                                               //职位名称
-        var provice : String,                                            //省份
+        var province : String,                                            //省份
         var city : String,                                               //市
         var region : String,                                             //区
         var address : String,                                            //工作地址

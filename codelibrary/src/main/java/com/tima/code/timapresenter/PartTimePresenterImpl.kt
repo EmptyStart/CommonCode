@@ -8,6 +8,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
 import com.tima.code.timaconstracts.IPartTimePresent
 import com.tima.code.timaconstracts.IPartTimeView
@@ -18,13 +19,13 @@ import com.tima.code.views.adapter.part.PartAuditAdapter
 import com.tima.code.views.adapter.part.PartPublishedAdapter
 import com.tima.common.base.IBaseViews
 import com.tima.common.utils.ResourceUtil
+import org.jetbrains.anko.toast
 
 /**
- *
+ * 管理-兼职
  * Created by Administrator on 2018/8/28/028.
  */
-class PartTimePresenterImpl : IPartTimePresent, PartPublishedAdapter.OnPublishedListener, PartAuditAdapter.OnAuditListener, PartAlreadyDownAdapter.OnAlreadyDownListener {
-
+class PartTimePresenterImpl : IPartTimePresent {
     var activity: Activity? = null
     var view: IPartTimeView? = null
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { PartTimeViewModelImpl() }
@@ -105,30 +106,47 @@ class PartTimePresenterImpl : IPartTimePresent, PartPublishedAdapter.OnPublished
      * 刷新已发布配器
      */
     override fun refreshPublishedAdapter() {
-        var publishedAdapter = PartPublishedAdapter(activity!!, this)
+        var datas = listOf<String>("11","","","","","","","")
+        var publishedAdapter = PartPublishedAdapter(R.layout.code_recycler_published_item, datas)
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = publishedAdapter
+        publishedAdapter.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener(){
+            adapter, view, position ->publishedClick(position)
+        })
     }
 
     /**
      * 刷新审核中
      */
     override fun refreshAuditAdapter() {
-        var auditAdapter = PartAuditAdapter(activity!!, this)
+        var datas = listOf<String>("11","","","","","","","")
+        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, datas)
+        //var auditAdapter = PartAuditAdapter(activity!!, this)
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
+        auditAdapter.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener(){
+            adapter, view, position ->onAuditClick(position)
+        })
     }
 
+    /**
+     * 刷新已下架适配器
+     */
     override fun refreshAlreadyDownAdapter() {
-        var alreadyDownAdapter = PartAlreadyDownAdapter(activity!!, this)
+        var datas = listOf<String>("11","","","","","","","")
+        var alreadyDownAdapter = PartAlreadyDownAdapter(R.layout.code_recycler_published_item, datas)
+        //var alreadyDownAdapter = PartAlreadyDownAdapter(activity!!, this)
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter
+        alreadyDownAdapter.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener(){
+            adapter, view, position ->onAlreadyDownClick(position)
+        })
     }
 
-    override fun onPublishedClick() {
+    fun publishedClick(position : Int){
+        activity?.toast("点击----"+position)
         if (activity != null) {
             Toast.makeText(activity, "activity不为空", Toast.LENGTH_SHORT).show()
-
             var intent = Intent(activity!!, ManageFullTimeInfoActivity::class.java)
             intent.putExtra("manageType", 2)
             activity?.startActivity(intent)
@@ -137,11 +155,11 @@ class PartTimePresenterImpl : IPartTimePresent, PartPublishedAdapter.OnPublished
         }
     }
 
-    override fun onAuditClick() {
+    fun onAuditClick(position : Int) {
         Toast.makeText(activity, "点击审核中", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onAlreadyDownClick() {
+     fun onAlreadyDownClick(position : Int) {
         Toast.makeText(activity, "点击已下架", Toast.LENGTH_SHORT).show()
     }
 

@@ -7,6 +7,7 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
 import com.tima.code.R.id.recycler_trade_flow
 import com.tima.code.timaconstracts.ITradeFlowPresent
@@ -16,12 +17,13 @@ import com.tima.code.views.activitys.PersonnelRosterActivity
 import com.tima.code.views.activitys.TradeFlowActivity
 import com.tima.code.views.adapter.mine.PendingPeymentAdapter
 import com.tima.code.views.adapter.mine.TradeFlowAdapter
+import com.tima.code.views.adapter.part.PartPublishedAdapter
 import kotlinx.android.synthetic.main.code_activity_trade_flow.*
 
 /**
  * Created by Administrator on 2018/9/1/001.
  */
-class TradeFlowPresenterImpl : ITradeFlowPresent ,TradeFlowAdapter.OnTradeFlowListener,PendingPeymentAdapter.OnPendingPeymentListener{
+class TradeFlowPresenterImpl : ITradeFlowPresent ,PendingPeymentAdapter.OnPendingPeymentListener{
 
 
     var tradeflowAdapter : TradeFlowAdapter? = null
@@ -54,9 +56,14 @@ class TradeFlowPresenterImpl : ITradeFlowPresent ,TradeFlowAdapter.OnTradeFlowLi
      */
     fun onRefreshTradeFlowAdapter(){
         if (tradeflowAdapter == null){
-            tradeflowAdapter = TradeFlowAdapter(activity,this)
+            var datas = listOf<String>("11","","","","","","","")
+            tradeflowAdapter = TradeFlowAdapter(R.layout.code_recycler_trade_flow_item, datas)
+            //tradeflowAdapter = TradeFlowAdapter(activity,this)
             view?.getRecyclerTradeFlowView().layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
             view?.getRecyclerTradeFlowView().adapter = tradeflowAdapter
+            tradeflowAdapter?.setOnItemClickListener({
+                adapter, view, position ->onClickTradeFlowItem(position)
+            })
         }else{
             tradeflowAdapter?.notifyDataSetChanged()
         }
@@ -68,15 +75,20 @@ class TradeFlowPresenterImpl : ITradeFlowPresent ,TradeFlowAdapter.OnTradeFlowLi
     var paymentAdpater : PendingPeymentAdapter? =null
     fun onRefreshPendingPeymentAdapter(){
         if (paymentAdpater == null){
-            paymentAdpater = PendingPeymentAdapter(activity,this)
+            var datas = listOf<String>("11","","","","","","","")
+            paymentAdpater = PendingPeymentAdapter(R.layout.code_recycler_pending_payment_item, datas)
+            //paymentAdpater = PendingPeymentAdapter(activity,this)
             view?.getRecyclerTradeFlowView().layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
             view?.getRecyclerTradeFlowView().adapter = paymentAdpater
+            paymentAdpater?.setOnItemClickListener({
+                adapter, view, position ->onPendingPeymentClick()
+            })
         }else{
             paymentAdpater?.notifyDataSetChanged()
         }
     }
 
-    override fun onClickTradeFlowItem() {
+    fun onClickTradeFlowItem(position : Int) {
         var intent = Intent(activity,PersonnelRosterActivity::class.java)
         activity.startActivity(intent)
     }

@@ -6,20 +6,19 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
 import com.tima.code.timaconstracts.IManageSetPresent
 import com.tima.code.timaconstracts.IManageSetView
 import com.tima.code.timaviewmodels.ManageSetViewModelImpl
 import com.tima.code.views.adapter.manage.ManageSetAdapter
 import com.tima.common.utils.ResourceUtil
-import kotlinx.android.synthetic.main.code_activity_manage_set.*
-import kotlinx.android.synthetic.main.code_three_select_top.*
+import org.jetbrains.anko.toast
 
 /**
  * Created by Administrator on 2018/9/3/003.
  */
-class ManageSetPresenterImpl : IManageSetPresent, ManageSetAdapter.OnManageSetListener {
-
+class ManageSetPresenterImpl : IManageSetPresent,BaseQuickAdapter.OnItemChildClickListener {
 
     var view: IManageSetView
     var activity: Activity
@@ -105,21 +104,38 @@ class ManageSetPresenterImpl : IManageSetPresent, ManageSetAdapter.OnManageSetLi
 
     override fun onRefreshAdapter() {
         if (manageSetAdapter == null) {
-            manageSetAdapter = ManageSetAdapter(activity, this)
+            var datas = listOf<String>("11","","","","","","","")
+            manageSetAdapter = ManageSetAdapter(R.layout.code_recycler_manage_set_item, datas)
+            //manageSetAdapter = ManageSetAdapter(activity, this)
             view.getManageSetRecyclerView().layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             view.getManageSetRecyclerView().adapter = manageSetAdapter
+            manageSetAdapter?.setOnItemChildClickListener(this)
         } else {
             manageSetAdapter?.notifyDataSetChanged()
         }
     }
 
-    override fun onManageSetOneClick() {
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+        when(view!!.id){
+            R.id.iv_manage_set_check->{
+                activity.toast("点击----iv_manage_set_check")
+            }
+            R.id.tv_manage_set_two->{
+                activity.toast("点击----tv_manage_set_two")
+            }
+            R.id.tv_manage_set_one->{
+                activity.toast("点击----tv_manage_set_two")
+            }
+        }
     }
 
-    override fun onManageSetTwoClick() {
+    fun onManageSetOneClick() {
     }
 
-    override fun onManageSetCheckClick() {
+    fun onManageSetTwoClick() {
+    }
+
+    fun onManageSetCheckClick() {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

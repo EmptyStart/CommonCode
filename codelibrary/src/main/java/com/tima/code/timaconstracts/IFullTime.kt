@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.tima.common.base.IBasePresenter
 import com.tima.common.base.IBaseViewModel
 import com.tima.common.base.IBaseViews
+import com.tima.common.base.IDataListener
 
 /**
  * Created by Administrator on 2018/8/29/029.
@@ -14,7 +15,9 @@ import com.tima.common.base.IBaseViews
  *  兼职
  * Created by Administrator on 2018/8/28/028.
  */
-interface IFullTimeViewModel : IBaseViewModel
+interface IFullTimeViewModel : IBaseViewModel{
+    fun addFullTimeListener(listener: IDataListener)
+}
 
 interface IFullTimeView : IBaseViews {
     fun getRecyclerFullTimeView() : RecyclerView

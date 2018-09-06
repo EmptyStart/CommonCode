@@ -7,12 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
+import com.tima.common.utils.LogUtils
 
 /**
  * 管理-集合-适配器
  * Created by Administrator on 2018/9/3/003.
  */
+
+class ManageSetAdapter(var layoutId : Int, var datas: List<String>): BaseQuickAdapter<String, BaseViewHolder>(layoutId,datas) {
+
+    override fun convert(helper: BaseViewHolder?, item: String?) {
+        helper?.addOnClickListener(R.id.iv_manage_set_check)
+        helper?.addOnClickListener(R.id.tv_manage_set_two)
+        helper?.addOnClickListener(R.id.tv_manage_set_one)
+    }
+}
+/*
 class ManageSetAdapter(var context : Context, var listener : OnManageSetListener): RecyclerView.Adapter<ManageSetAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -59,3 +72,4 @@ class ManageSetAdapter(var context : Context, var listener : OnManageSetListener
         fun onManageSetTwoClick()
     }
 }
+*/

@@ -7,6 +7,8 @@ import android.text.TextUtils
  */
 object StringUtils{
 
+    var SPACE_ONE = "\\u3000"
+    var SPACE_TWO = "\u3000"
     /**
      * 判断两个字符串是否相等
      * @return

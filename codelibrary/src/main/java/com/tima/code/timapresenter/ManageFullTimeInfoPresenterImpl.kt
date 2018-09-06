@@ -1,6 +1,7 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.app.job.JobInfo
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
@@ -8,7 +9,9 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.tima.code.R
-import com.tima.code.bean.jobInfo
+import com.tima.code.ResponseBody.LoginResponseBody
+import com.tima.code.ResponseBody.Position
+import com.tima.code.bean.JobType
 import com.tima.code.timaconstracts.IManageFullTimeInfoPresent
 import com.tima.code.timaconstracts.IManageFullTimeInfoView
 import com.tima.code.timaviewmodels.ManageFullTimeInfoModelImpl
@@ -16,21 +19,23 @@ import com.tima.code.views.activitys.ManageSetActivity
 import com.tima.code.views.adapter.full.ManageFullInfoJobAdapter
 import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
 import com.tima.common.base.IDataListener
+import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.ResourceUtil
+import org.json.JSONArray
+import org.json.JSONObject
 
 /**
  * Created by Administrator on 2018/8/29/029.
  */
-class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullInfoJobAdapter.OnFullInfoJodListener,ManageFullInfoRequireAdapter.OnFullInfoRequireListener{
-
-
-    var jobs = ArrayList<jobInfo>()
+class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
+    var jobs = ArrayList<JobType>()
     var requires = ArrayList<String>()
     var view : IManageFullTimeInfoView
     var jobAdapter : ManageFullInfoJobAdapter? = null
     var requireAdapter : ManageFullInfoRequireAdapter? = null
     var infoActivity : Activity?= null
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { ManageFullTimeInfoModelImpl() }
+
     constructor(view : IManageFullTimeInfoView){
         this.view = view
         infoActivity = view?.getInfoActivity()
@@ -43,7 +48,6 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
     private fun fullData(){
         mViewMode.addFullTimeListener(object : IDataListener{
             override fun successData(success: String) {
-
 
             }
 
@@ -97,9 +101,9 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
     }
 
     fun initJob(){
-        jobs.add(jobInfo("职位类型",null))
-        jobs.add(jobInfo("最低学历",null))
-        jobs.add(jobInfo("工作类型",null))
+        jobs.add(JobType("职位类型",null))
+        jobs.add(JobType("最低学历",null))
+        jobs.add(JobType("工作类型",null))
 
         requires.add("兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市")
         requires.add("兼职短发鞍山市兼")
@@ -135,9 +139,14 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
 
     override fun onRefreshJobAdapter() {
         if (jobAdapter == null){
-            jobAdapter = ManageFullInfoJobAdapter(infoActivity!!,this,jobs)
+            var datas = listOf<String>("11","","","","","","","")
+            jobAdapter = ManageFullInfoJobAdapter(R.layout.code_recycler_manage_full_info_item, datas)
+            //jobAdapter = ManageFullInfoJobAdapter(infoActivity!!,this,jobs)
             view?.getRecyclerJobDescribeView().layoutManager = LinearLayoutManager(infoActivity, LinearLayoutManager.VERTICAL,false)
             view?.getRecyclerJobDescribeView().adapter = jobAdapter
+            jobAdapter?.setOnItemClickListener({
+                adapter, view, position ->onFullInfoJodClickItem()
+            })
         }else{
             jobAdapter!!.notifyDataSetChanged()
         }
@@ -145,19 +154,24 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent ,ManageFullIn
 
     override fun onRefreshRequireAdapter() {
         if (requireAdapter == null){
-            requireAdapter = ManageFullInfoRequireAdapter(infoActivity!!,this,requires)
+            requireAdapter = ManageFullInfoRequireAdapter(R.layout.code_recycler_manage_full_info_require_item, requires)
+            //requireAdapter = ManageFullInfoRequireAdapter(infoActivity!!,this,requires)
             view?.getRecyclerRequireView().layoutManager = LinearLayoutManager(infoActivity, LinearLayoutManager.VERTICAL,false)
             view?.getRecyclerRequireView().adapter = requireAdapter
+            requireAdapter?.setOnItemClickListener({
+                adapter, view, position ->onFullInfoRequireClickItem()
+            })
         }else{
             requireAdapter!!.notifyDataSetChanged()
         }
     }
 
-    override fun onFullInfoJodClickItem() {
+    fun onFullInfoJodClickItem() {
     }
 
-    override fun onFullInfoRequireClickItem() {
+    fun onFullInfoRequireClickItem() {
     }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
         mViewMode.detachView()
