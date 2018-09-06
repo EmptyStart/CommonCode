@@ -8,6 +8,6 @@ package com.tima.common.https
  */
 
 data class ApiException(
-    val code: Int,
-    val detail: String
+    val code: Any?,
+    val detail: String?
 )

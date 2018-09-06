@@ -468,7 +468,7 @@ object FileUtils {
         var subSequence = picName.subSequence(length - 4, length)
         if (subSequence.contains(".")){
             val length1 = subSequence.length
-            subSequence=subSequence.subSequence(length1-1,length1)
+            subSequence=subSequence.subSequence(1,length1)
         }
         return subSequence.toString()
     }

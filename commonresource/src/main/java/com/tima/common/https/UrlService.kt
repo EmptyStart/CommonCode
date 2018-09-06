@@ -2,6 +2,7 @@ package com.tima.common.https
 
 import io.reactivex.Observable
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -24,8 +25,7 @@ interface UrlService {
      */
     @POST("{path}")
     @FormUrlEncoded
-    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?):
-            Observable<ResponseBody>
+    fun executePost(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?): Observable<ResponseBody>
 
     /**
      *get请求
@@ -49,19 +49,20 @@ interface UrlService {
     fun executePatch(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?):
             Observable<ResponseBody>
 
+//    /**
+//     * patch请求
+//     */
+//    @PATCH("{path}")
+//    @Multipart
+//    fun executePatchFiles(@Path("path") path: String, @PartMap file: Map<String,RequestBody>): Observable<ResponseBody>
+
     /**
      * patch请求
      */
     @PATCH("{path}")
     @Multipart
-    fun executePatch(@Path("path") path: String, @PartMap file: Array<MultipartBody.Part>?): Observable<ResponseBody>
-    /**
-     * patch请求
-     */
-    @PATCH("{path}")
-    @Multipart
-    fun executePatch(@Path("path") path: String, @Part file: MultipartBody.Part?, @QueryMap
-    queryMap: Map<String, String>?): Observable<ResponseBody>
+    fun executePatch(@Path("path") path: String, @Part file: MultipartBody.Part?, @Part("type")
+    type: Int?, @Part ext: MultipartBody.Part?): Observable<ResponseBody>
 
     /**
      * patch请求

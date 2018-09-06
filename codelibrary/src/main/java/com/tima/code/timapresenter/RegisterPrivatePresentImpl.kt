@@ -45,10 +45,12 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
     private fun upPic() {
         mView?.apply {
             val headImage = headImage() ?: return
-            val file = FileUtils.uriToFile(headImage)?:return
+            val file = FileUtils.uriToFile(headImage) ?: return
             val name = file.name
-            val ext = FileUtils.picTailName(file.name)?:return
+            val ext = FileUtils.picTailName(name) ?: return
             mViewMode.addOnUpPicListener(object : IDataFileListener {
+
+
                 override fun successData(success: String) {
 
 
@@ -58,14 +60,14 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                     ExceptionDeal.handleException(error)
                 }
 
-                override fun requestData(): Map<String, String>? {
+                override fun requestType(): Int? = 1
 
-                    return mapOf(Pair("type", "1"), Pair("ext", ext))
-                }
+                override fun requestExt(): MultipartBody.Part? = MultipartBody.Part.createFormData("ext", ext)
 
                 override fun requestFileData(): MultipartBody.Part {
                     val part = MultipartBody.Part.createFormData("img_file", name, RequestBody
                             .create(MediaType.parse("multipart/form-data"), file))
+
                     return part
                 }
 

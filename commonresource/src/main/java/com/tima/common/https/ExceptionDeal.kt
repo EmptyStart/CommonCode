@@ -15,7 +15,8 @@ object ExceptionDeal {
         val currentActivity = ActivityManage.instance.getCurrentActivity()
         currentActivity?.let {
             val exception = GsonUtils.getGson.fromJson(error, ApiException::class.java)
-            val detail = exception?.detail;
+            val detail = exception?.detail.toString();
+            val code = exception?.code.toString()
             it.toast(detail?:"未知错误")
         }
     }
