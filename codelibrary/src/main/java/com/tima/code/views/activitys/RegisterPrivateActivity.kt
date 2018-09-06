@@ -5,15 +5,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timapresenter.RegisterPrivatePresentImpl
 import com.tima.common.base.BaseActivity
+import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.CameraUtils
+import com.tima.common.utils.IAMapLocationSuccessListener
 import com.zhihu.matisse.Matisse
 import kotlinx.android.synthetic.main.code_activity_register_private.*
+import kotlinx.android.synthetic.main.code_layout_select_address.*
 import org.jetbrains.anko.toast
 
 /**
@@ -23,6 +25,10 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.registerPrivate)
 class RegisterPrivateActivity : BaseActivity(), IRegisterPrivateView ,View.OnClickListener{
+    override fun location(listener: IAMapLocationSuccessListener) {
+
+    }
+
     override fun onClick(v: View?) {
         mPresent.onClick(v)
     }
@@ -55,7 +61,14 @@ class RegisterPrivateActivity : BaseActivity(), IRegisterPrivateView ,View.OnCli
     override fun inits(savedInstanceState: Bundle?) {
         actionbar.setOnRightTextListener(this)
         ivPicHead.setOnClickListener(this)
+//        tv_select_address.text=Constant.aMapLocation?.address
+//        if (Constant.aMapLocation==null){
+//
+//        }
+        wv_select.setCyclic(false)
+
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -67,4 +80,6 @@ class RegisterPrivateActivity : BaseActivity(), IRegisterPrivateView ,View.OnCli
             }
         }
     }
+
+
 }

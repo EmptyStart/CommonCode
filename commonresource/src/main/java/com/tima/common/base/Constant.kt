@@ -1,5 +1,8 @@
 package com.tima.common.base
 
+import com.amap.api.location.AMapLocation
+import com.tima.common.utils.FileUtils
+import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.SpHelper
 
 
@@ -23,6 +26,7 @@ object Constant {
     //获取当前角色   1 表示个人  2表示公司  0表示 默认值
     var position by SpHelper("position", 0)
 
+    var aMapLocation : AMapLocation?=null
 
     //纬度
     var latitude: Double = -1.0
@@ -31,5 +35,8 @@ object Constant {
 
     var locAddress: String? = null
 
+    val province by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        GsonUtils.getGson.fromJson(FileUtils.readProvince(), ProvinceBody::class.java)
+    }
 
 }

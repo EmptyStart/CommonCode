@@ -96,4 +96,10 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/code_register_addphoto"
         android:id="@+id/ivPicHead" />
+
+    <com.contrarywind.view.WheelView
+        android:id="@+id/wv_select"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 </com.zhy.autolayout.AutoRelativeLayout>

@@ -1,24 +1,19 @@
 package com.tima.code.timapresenter
 
-import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.view.View
-import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.timaconstracts.IRegisterPrivatePresent
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timaviewmodels.RegisterPrivateViewModelImpl
 import com.tima.common.base.IDataFileListener
-import com.tima.common.base.RoutePaths
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.FileUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.File
-import java.net.URI
 
 /**
  * @author : zhijun.li on 2018/9/5
@@ -50,9 +45,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
             val ext = FileUtils.picTailName(name) ?: return
             mViewMode.addOnUpPicListener(object : IDataFileListener {
 
-
                 override fun successData(success: String) {
-
 
                 }
 

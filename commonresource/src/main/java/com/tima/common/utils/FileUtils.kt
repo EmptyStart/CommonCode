@@ -32,7 +32,7 @@ object FileUtils {
      */
     fun getDirectory(fileName: String): String {
         //return  getCacheDownloadDir() + "/" + FILEPATH + fileName
-        return  getCacheDownloadDir() + "/" + fileName
+        return getCacheDownloadDir() + "/" + fileName
     }
 
     /**
@@ -446,8 +446,8 @@ object FileUtils {
                 }
     }
 
-    fun uriToFile(uri: Uri?) : File?{
-        var path=""
+    fun uriToFile(uri: Uri?): File? {
+        var path = ""
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val cursor = App.app.getContentResolver().query(uri, proj, null, null, null)
         if (cursor.moveToFirst()) {
@@ -455,21 +455,55 @@ object FileUtils {
             path = cursor.getString(columnIndex)
         }
         cursor.close()
-        if (path.isEmpty()){
+        if (path.isEmpty()) {
             return null
-        }else{
+        } else {
             return File(path)
         }
     }
 
-    fun picTailName(picName: String?) : String?{
-        picName?:return null
+    fun picTailName(picName: String?): String? {
+        picName ?: return null
         val length = picName.length
         var subSequence = picName.subSequence(length - 4, length)
-        if (subSequence.contains(".")){
+        if (subSequence.contains(".")) {
             val length1 = subSequence.length
-            subSequence=subSequence.subSequence(1,length1)
+            subSequence = subSequence.subSequence(1, length1)
         }
         return subSequence.toString()
+    }
+
+    fun readAssetFiles(fileName: String): String? {
+        val assets = App.app.assets
+        val stringBuilder = StringBuilder()
+        BufferedReader(InputStreamReader(assets.open(fileName), "UTF-8")).run {
+            var line: String? = ""
+            do {
+                line = readLine()
+                if (line.isNullOrEmpty()) {
+                    close()
+                    break
+                } else {
+                    stringBuilder.append(line)
+                }
+            } while (true)
+            assets.close()
+            return stringBuilder.toString()
+        }
+
+    }
+
+    /**
+     * 获取省市区数据
+     */
+    fun readProvince(): String? {
+        var province : String? =""
+        try {
+            province = readAssetFiles("province.json")
+            province="{\n\"districts\":"+province+"}"
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+        return  province
     }
 }

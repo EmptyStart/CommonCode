@@ -30,44 +30,52 @@
                 android:id="@+id/tv_pro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="省" />
+                android:text="     省" />
 
             <ImageView
                 android:id="@+id/iv_pro"
-                android:layout_width="25px"
-                android:layout_height="14px"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="126px"
+                android:layout_width="71px"
+                android:layout_height="64px"
+                android:paddingTop="25px"
+                android:paddingBottom="25px"
+                android:paddingLeft="20px"
+                android:paddingRight="26px"
                 android:src="@mipmap/code_register_list_close" />
 
             <TextView
                 android:id="@+id/tv_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="市" />
+                android:text="       市" />
 
             <ImageView
                 android:id="@+id/iv_city"
-                android:layout_width="25px"
-                android:layout_height="14px"
-                android:layout_marginLeft="20px"
-                android:layout_marginRight="126px"
+                android:layout_width="71px"
+                android:layout_height="64px"
+                android:paddingTop="25px"
+                android:paddingBottom="25px"
+                android:paddingLeft="20px"
+                android:paddingRight="26px"
                 android:src="@mipmap/code_register_list_close" />
 
             <TextView
                 android:id="@+id/tv_county"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="区" />
+                android:text="       区" />
 
             <ImageView
                 android:id="@+id/iv_county"
-                android:layout_width="25px"
-                android:layout_height="14px"
-                android:layout_marginLeft="20px"
+                android:layout_width="71px"
+                android:layout_height="64px"
+                android:paddingTop="25px"
+                android:paddingBottom="25px"
+                android:paddingLeft="20px"
+                android:paddingRight="26px"
                 android:src="@mipmap/code_register_list_close" />
 
         </LinearLayout>
+
     </RelativeLayout>
 
     <LinearLayout

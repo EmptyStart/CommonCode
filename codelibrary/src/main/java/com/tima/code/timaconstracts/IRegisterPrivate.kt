@@ -3,6 +3,7 @@ package com.tima.code.timaconstracts
 import android.database.Observable
 import android.net.Uri
 import com.tima.common.base.*
+import com.tima.common.utils.IAMapLocationSuccessListener
 import okhttp3.ResponseBody
 
 /**
@@ -21,4 +22,5 @@ interface IRegisterPrivatePresent : IBasePresenter
 interface IRegisterPrivateView : IBaseViews {
     fun headImage() : Uri?
     fun selectImage()
+    fun location(listener: IAMapLocationSuccessListener)
 }
