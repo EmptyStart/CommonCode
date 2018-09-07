@@ -18,5 +18,4 @@ interface IWelcomeViewModel : IBaseViewModel{
 interface IWelcomePresent : IBasePresenter
 
 interface IWelcomeView : IBaseViews{
-    fun location(listener: IAMapLocationSuccessListener)
 }

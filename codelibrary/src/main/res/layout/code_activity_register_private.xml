@@ -17,7 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="250px"
         android:layout_below="@+id/actionbar"
-        android:background="@color/code_title_barbc">
+        android:background="@color/code_title_barbc"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:id="@+id/tv_name"
@@ -89,7 +91,7 @@
 
     <ImageView
         android:layout_width="230px"
-        android:layout_height="230px"
+        android:layout_height="240px"
         android:layout_alignParentRight="true"
         android:layout_marginRight="35px"
         android:layout_marginTop="220px"
@@ -97,9 +99,4 @@
         android:src="@mipmap/code_register_addphoto"
         android:id="@+id/ivPicHead" />
 
-    <com.contrarywind.view.WheelView
-        android:id="@+id/wv_select"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
 </com.zhy.autolayout.AutoRelativeLayout>

@@ -36,9 +36,6 @@ import kotlinx.android.synthetic.main.code_activity_welcome.*
 @Route(path = RoutePaths.welcome)
 class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
 
-    override fun location(listener: IAMapLocationSuccessListener) {
-        MapGaoDe.getLocation(this,listener)
-    }
 
     override fun onClick(v: View?) {
         var pos: Int by SpHelper("position",0)

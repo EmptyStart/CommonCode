@@ -36,10 +36,10 @@
                 android:id="@+id/iv_pro"
                 android:layout_width="71px"
                 android:layout_height="64px"
-                android:paddingTop="25px"
                 android:paddingBottom="25px"
                 android:paddingLeft="20px"
                 android:paddingRight="26px"
+                android:paddingTop="25px"
                 android:src="@mipmap/code_register_list_close" />
 
             <TextView
@@ -52,10 +52,10 @@
                 android:id="@+id/iv_city"
                 android:layout_width="71px"
                 android:layout_height="64px"
-                android:paddingTop="25px"
                 android:paddingBottom="25px"
                 android:paddingLeft="20px"
                 android:paddingRight="26px"
+                android:paddingTop="25px"
                 android:src="@mipmap/code_register_list_close" />
 
             <TextView
@@ -68,10 +68,10 @@
                 android:id="@+id/iv_county"
                 android:layout_width="71px"
                 android:layout_height="64px"
-                android:paddingTop="25px"
                 android:paddingBottom="25px"
                 android:paddingLeft="20px"
                 android:paddingRight="26px"
+                android:paddingTop="25px"
                 android:src="@mipmap/code_register_list_close" />
 
         </LinearLayout>
@@ -79,10 +79,13 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/llAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2px"
         android:background="@android:color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center_vertical"
         android:minHeight="140px">
 
@@ -96,13 +99,14 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <com.amap.api.maps.MapView
-        android:id="@+id/map_view"
+    <com.tima.code.views.DiyViews.MapContainer
+        android:id="@+id/mapContainer"
         android:layout_width="match_parent"
-        android:layout_height="572px" />
-    <!--<View-->
-    <!--android:id="@+id/map_view"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="572px"-->
-    <!--android:background="@color/code_title_barbc"/>-->
+        android:layout_height="wrap_content">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="572px" />
+    </com.tima.code.views.DiyViews.MapContainer>
 </LinearLayout>

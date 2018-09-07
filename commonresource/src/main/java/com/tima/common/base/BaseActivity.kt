@@ -5,6 +5,8 @@ import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.maps.AMap
 import com.amap.api.maps.MapView
+import com.tima.common.utils.IAMapLocationSuccessListener
+import com.tima.common.utils.MapGaoDe
 import com.zhy.autolayout.AutoLayoutActivity
 import org.greenrobot.eventbus.EventBus
 
@@ -38,7 +40,9 @@ abstract class BaseActivity : AutoLayoutActivity(){
         inits(savedInstanceState)
     }
 
-
+    open fun location(listener: IAMapLocationSuccessListener) {
+        MapGaoDe.getLocation(this,listener)
+    }
 
     open fun getRootView() : View?=rootView
     //default is not use EventBus
