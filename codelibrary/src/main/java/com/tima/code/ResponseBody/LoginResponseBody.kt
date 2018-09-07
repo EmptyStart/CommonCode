@@ -63,29 +63,29 @@ data class Position(
         val id: Int,
         val created_no: String,                                          //创建时间
         var name : String,                                               //职位名称
-        var province : String,                                            //省份
+        var province : String,                                           //省份
         var city : String,                                               //市
         var region : String,                                             //区
         var address : String,                                            //工作地址
         var longitude : Any,                                             //经度
         var latitude : Any,                                              //纬度
-        var type : String,                                               //工作性质
+        var type : String,                                               //工作性质         0 全职，1兼职
         var salary_type : String,                                        //薪水类型
         var salary_begin : String,                                       //起薪
         var salary_end : String,                                         //满新
-        var salary_unit : String,                                        //薪水单位
+        var salary_unit : String,                                        //薪水单位         0 次，1 小时，2 天，3 月，4 年
         var salary_qty : Int,                                            //薪水数量
         var exp_year_beg : Int,                                          //经验要求起始年
         var exp_year_end : Int,                                          //经验要求结束年
         var on_site_time : String,                                       //到场时间
-        var education : String,                                          //要求最低学历
-        var status : String,                                             //状态
-        var verify : String,                                             //审核状态
+        var education : String,                                          //要求最低学历    0 不限，1 初中及以下，2 中专/中技，3 高中，4 大专，5 本科，6 硕士，7 博士
+        var status : String,                                             //状态            1 正常 2 禁用 3 删除
+        var verify : String,                                             //审核状态        0 审核中，1 审核成功，2 审核失败，3 下架
         var priority : Int,                                              //优先级
         var descriptions : String,                                       //职位描述
         var remark : String,                                             //备注
-        var interview_day : String,                                      //面试星期
-        var interview_time : String,                                     //面试时间
+        var interview_day : String,                                      //面试星期        星期几可以面试？如1,2,3,4,5,6
+        var interview_time : String,                                     //面试时间        上午面试时间可以面试时间列表，小时为单位 如：7,9,10,16,17
         var interview_from : String,                                     //面试起始日期
         var interview_to : String,                                       //面试结束日期
         var qty : Int,                                                   //需求人数
@@ -218,4 +218,31 @@ class ApplyList(
         var quit_remark : Int                                            //放弃理由
 )
 
+/**
+ * 待付款信息
+ */
+class Fund(
+        var count : Int,                                                  //个人信息
+        var amount : Double,                                              //总额
+        var position : Int,                                               //职位
+        var name : String                                                 //职位名称
+)
 
+/**
+ * 申请
+ */
+class Apply(
+        val id: Int,
+        var onboard_date : String,                                          //入职日期
+        var quit_date : String                                              //离职日期
+)
+
+class FundDetail(
+    val id: Int,
+    var user : User,                                                    //用户详情
+    var apply : Apply,                                                  //职位详情
+    var position : Any,                                                 //职位
+    var status : Any,                                                   //状态
+    var amt : Double,                                                   //
+    var fund_date_est : String                                          //
+)

@@ -13,7 +13,7 @@
         app:mode_title="类型2"
         app:mode_type="type_two"/>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
@@ -85,5 +85,5 @@
                     android:textSize="12sp"/>
             </RelativeLayout>
         </com.zhy.autolayout.AutoLinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </com.zhy.autolayout.AutoLinearLayout>

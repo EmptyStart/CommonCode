@@ -100,31 +100,30 @@
             android:textColor="@color/text_gray"
             android:textSize="11sp" />
     </LinearLayout>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/line"
+        android:fillViewport="true"
+        android:scrollbars="none">
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/reycler_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/line"
-            android:fillViewport="true"
-            android:scrollbars="none">
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/reycler_chat"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                     />
-            </android.support.v4.widget.SwipeRefreshLayout>
-        </ScrollView>
 
         <LinearLayout
             android:id="@+id/id_buttom"

@@ -16,31 +16,37 @@ import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
+import com.tima.code.ResponseBody.FundDetail
+import com.tima.common.utils.ResourceUtil
 
 /**
  * 人员名单-适配器
  * Created by Administrator on 2018/9/1/001.
  */
 
-class PersonnelRosterAdapter(var layoutId : Int, var datas: List<String>): BaseQuickAdapter<String, BaseViewHolder>(layoutId,datas){
+class PersonnelRosterAdapter(var layoutId : Int, var datas: List<FundDetail>): BaseQuickAdapter<FundDetail, BaseViewHolder>(layoutId,datas){
     @SuppressLint("ResourceAsColor")
-    override fun convert(helper: BaseViewHolder?, item: String?) {
+    override fun convert(helper: BaseViewHolder?, item: FundDetail?) {
         var position = helper?.layoutPosition
-        if (position == 0 || position!! % 2 == 0){
+        if (item?.apply?.quit_date == null){
             helper?.setText(R.id.tv_quit,"离职")
             helper?.setBackgroundRes(R.id.tv_quit,R.drawable.radius_solid_black)
-            helper?.setTextColor(R.id.tv_quit, R.color.white)
-            helper?.setVisible(R.id.tv_quit,false)
+            helper?.setTextColor(R.id.tv_quit, ResourceUtil.getColorId(R.color.white))
+            helper?.setVisible(R.id.ll_departure_time,false)
+            helper?.setText(R.id.tv_departure_time,item?.apply?.quit_date)
+
+            helper?.addOnClickListener(R.id.tv_quit)
         }else{
             helper?.setText(R.id.tv_quit,"已离职")
             helper?.setBackgroundRes(R.id.tv_quit,R.drawable.radius_solid_gray)
-            helper?.setTextColor(R.id.tv_quit, R.color.text_gray)
-            helper?.setVisible(R.id.tv_quit,true)
+            helper?.setTextColor(R.id.tv_quit, ResourceUtil.getColorId(R.color.text_gray))
+            helper?.setVisible(R.id.ll_departure_time,true)
         }
-    }
 
-    interface OnPersonnelRosterListener{
-        fun onPersonnelRosterClick()
+        helper?.setText(R.id.tv_position_name,item?.user?.name)
+        helper?.setText(R.id.tv_phone,item?.user?.mobile)
+        helper?.setText(R.id.tv_entry_time,item?.apply?.onboard_date)
+        helper?.setText(R.id.tv_money,"￥"+item?.amt)
     }
 }
 

@@ -85,10 +85,11 @@
 
                 <TextView
                     android:id="@+id/tv_quit"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200px"
                     android:layout_height="wrap_content"
                     android:background="@drawable/radius_solid_gray"
                     android:text="离职"
+                    android:gravity="center"
                     android:layout_marginLeft="40px"
                     style="@style/padding_15_5_15_5"
                     android:textSize="12sp"

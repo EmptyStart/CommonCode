@@ -25,5 +25,9 @@ object CommonUrls {
 
     const val manageFull="position/"
 
+    const val wallet="fund/"
 
+    const val walletDetail = "fund/detail/"
+
+    const val walletPay = "fund/pay/"
 }

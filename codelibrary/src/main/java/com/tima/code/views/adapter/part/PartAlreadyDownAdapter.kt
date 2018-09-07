@@ -8,14 +8,25 @@ import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
+import com.tima.code.ResponseBody.Position
+import com.tima.common.utils.LogUtils
+import com.tima.common.utils.StringUtils
 
 /**
  * 管理-兼职-已下架
  * Created by Administrator on 2018/8/29/029.
  */
 
-class PartAlreadyDownAdapter(var layoutId : Int, var datas: List<String>): BaseQuickAdapter<String, BaseViewHolder>(layoutId,datas){
-    override fun convert(helper: BaseViewHolder?, item: String?) {
+class PartAlreadyDownAdapter(var layoutId : Int, var datas: List<Position>): BaseQuickAdapter<Position, BaseViewHolder>(layoutId,datas){
+    override fun convert(helper: BaseViewHolder?, item: Position?) {
+        LogUtils.i(TAG,"位置=="+helper?.layoutPosition+"    item=="+item.toString())
+        helper?.setText(R.id.tv_describe,item?.name)
+        helper?.setText(R.id.tv_interview_time,item?.interview_time)
+        helper?.setText(R.id.tv_company_name,item?.company)
+        var location = (if (item?.province == item?.city) item?.province else item?.province + StringUtils.SPACE_TWO + item?.city) + StringUtils.SPACE_TWO + item?.region + StringUtils.SPACE_TWO +item?.address
+        helper?.setText(R.id.tv_address,location)
+
+        helper?.addOnClickListener(R.id.tv_release_status)
     }
 }
 

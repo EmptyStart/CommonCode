@@ -1,20 +1,31 @@
 package com.tima.code.views.adapter.part
 
-import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
+import com.tima.code.ResponseBody.Position
+import com.tima.common.utils.LogUtils
+import com.tima.common.utils.StringUtils
 
 /**
  * 管理-兼职-审核中
  * Created by Administrator on 2018/8/29/029.
  */
-class PartAuditAdapter(var layoutId : Int, var datas: List<String>): BaseQuickAdapter<String, BaseViewHolder>(layoutId,datas){
-    override fun convert(helper: BaseViewHolder?, item: String?) {
+class PartAuditAdapter(var layoutId : Int, var datas: List<Position>): BaseQuickAdapter<Position, BaseViewHolder>(layoutId,datas){
+
+    override fun convert(helper: BaseViewHolder?, item: Position?) {
+        LogUtils.i(TAG,"位置=="+helper?.layoutPosition+"    item=="+item.toString())
+        helper?.setText(R.id.tv_describe,item?.name)
+
+        var qty = if(item?.qty == null) "0/" else (item?.qty.toString() + "/")
+        var qty_var = if(item?.qty_var == null) "0人" else (item?.qty_var.toString() + "人")
+        helper?.setText(R.id.tv_number,qty+qty_var)
+
+        helper?.setText(R.id.tv_release_time,item?.created_no)
+        var location = (if (item?.province == item?.city) item?.province else item?.province + StringUtils.SPACE_TWO + item?.city) + StringUtils.SPACE_TWO + item?.region + StringUtils.SPACE_TWO +item?.address
+        helper?.setText(R.id.tv_address,location)
+
+        helper?.addOnClickListener(R.id.tv_release_status)
     }
 }
 

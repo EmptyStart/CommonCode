@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
 import com.tima.code.R
 import com.tima.code.timaconstracts.IPersonnelRosterView
 import com.tima.code.timapresenter.PersonnelRosterPresenterImpl
@@ -18,11 +19,15 @@ import kotlinx.android.synthetic.main.code_activity_personnel_roster.*
 class PersonnelRosterActivity : BaseActivity() ,IPersonnelRosterView, View.OnClickListener,SwipeRefreshLayout.OnRefreshListener{
 
     var personnelRoster : PersonnelRosterPresenterImpl? = null
+    var position : Int = -1                                                                         //职位
+
     override fun getLayoutId(): Int {
         return R.layout.code_activity_personnel_roster
     }
 
     override fun inits(savedInstanceState: Bundle?) {
+        position = intent.getIntExtra("position",-1)
+
         personnelRoster = PersonnelRosterPresenterImpl(this)
         personnelRoster?.init()
         abv_type2.setOnRightImageListener(this)
@@ -57,5 +62,13 @@ class PersonnelRosterActivity : BaseActivity() ,IPersonnelRosterView, View.OnCli
 
     override fun onRefresh() {
         swipe_personnel_roster.isRefreshing = false
+    }
+
+    override fun getPositionInt(): Int {
+        return position
+    }
+
+    override fun getTvTotalMoneyView(): TextView {
+        return tv_total_money
     }
 }

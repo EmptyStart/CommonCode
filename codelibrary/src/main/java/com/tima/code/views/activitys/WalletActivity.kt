@@ -1,20 +1,36 @@
 package com.tima.code.views.activitys
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import com.tima.code.R
+import com.tima.code.ResponseBody.Position
+import com.tima.code.timaconstracts.IWalletView
+import com.tima.code.timapresenter.WalletPresenterImpl
 import com.tima.code.views.dialog.DialogUtils
 import com.tima.code.views.dialog.PaymentResultDialog
 import com.tima.common.base.BaseActivity
+import com.tima.common.base.IDataListener
+import com.tima.common.https.BaseSubscriber
+import com.tima.common.https.CommonUrls
+import com.tima.common.https.ExceptionDeal
+import com.tima.common.https.RetrofitHelper
+import com.tima.common.rx.SchedulerUtils
+import com.tima.common.utils.GsonUtils
+import com.tima.common.utils.IAMapLocationSuccessListener
+import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.code_activity_wallet.*
+import org.json.JSONObject
 
 /**
  * 钱包-界面
  * Created by Administrator on 2018/8/30/030.
  */
-class WalletActivity : BaseActivity(), View.OnClickListener, DialogUtils.OnDialogListener{
+class WalletActivity : BaseActivity(), View.OnClickListener,IWalletView{
 
+    var walletPresent : WalletPresenterImpl? = null
     override fun getLayoutId(): Int {
         return R.layout.code_activity_wallet
     }
@@ -25,32 +41,28 @@ class WalletActivity : BaseActivity(), View.OnClickListener, DialogUtils.OnDialo
         ll_stay_payment.setOnClickListener(this)
         tv_withdraw_cash.setOnClickListener(this)
         tv_account_recharge.setOnClickListener(this)
+
+        walletPresent = WalletPresenterImpl(this)
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
-            R.id.tv_withdraw_cash->{
-                //DialogUtils.showPaymentResultDialog(this)
-                var intent = Intent(this,PutForwardActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.tv_account_recharge->{
-                DialogUtils.showAccountRecharge(this,this)
-            }
-            R.id.ll_stay_payment->{
-                var intent = Intent(this,TradeFlowActivity::class.java)
-                intent.putExtra("tradeType",2)
-                startActivity(intent)
-            }
-            R.id.iv_actionbar_cancle->{
-                finish()
-            }
-            R.id.tv_actionbar_right_title->{
-                DialogUtils.showAccountRecharge(this,this)
-            }
-        }
+        walletPresent?.onClick(v)
     }
 
-    override fun onDialogClick() {
+    override fun hideLoading() {
+    }
+
+    override fun showError(errorMsg: String) {
+    }
+
+    override fun showLoading() {
+    }
+
+    override fun getWalletActvity(): Activity {
+        return this
+    }
+
+    override fun getTvPaymentNumView(): TextView {
+        return tv_payment_num
     }
 }

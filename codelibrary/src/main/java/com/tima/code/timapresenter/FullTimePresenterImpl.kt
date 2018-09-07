@@ -13,6 +13,8 @@ import com.tima.code.timaviewmodels.FullTimeViewModelImpl
 import com.tima.code.timaviewmodels.ManageFullTimeInfoModelImpl
 import com.tima.code.views.activitys.ManageFullTimeInfoActivity
 import com.tima.code.views.adapter.full.FullPublishedAdapter
+import com.tima.code.views.adapter.part.PartAlreadyDownAdapter
+import com.tima.code.views.adapter.part.PartAuditAdapter
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.IDataListener
 import com.tima.common.https.ExceptionDeal
@@ -31,6 +33,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
     var view: IFullTimeView? = null
     var viewMode: FullTimeViewModelImpl? = null
     var positions = ArrayList<Position>()
+    var currentPosition = 0
 
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { FullTimeViewModelImpl() }
 
@@ -42,11 +45,6 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
 
     override fun init() {
         activity = view?.getFullActivity()
-        view?.getTextSelectOneView()?.tag = false
-        view?.getTextSelectTwoView()?.tag = false
-        view?.getTextSelectThreeView()?.tag = false
-
-        toSelect(0)
         fullData()
     }
 
@@ -62,7 +60,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
                     positions.add(position)
                 }
                 view?.hideLoading()
-                refreshPublishedAdapter()
+                toSelect(currentPosition)
                 LogUtils.i(TAG,"返回发布职位  数量=="+positions.size)
             }
 
@@ -81,15 +79,16 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
     override fun onClick(view: View?) {
         when(view!!.id){
             R.id.tv_select_one->{
-                toSelect(0)
+                currentPosition = 0
             }
             R.id.tv_select_two->{
-                toSelect(1)
+                currentPosition = 1
             }
             R.id.tv_select_three->{
-                toSelect(2)
+                currentPosition = 2
             }
         }
+        toSelect(currentPosition)
     }
 
     override fun toSelect(position: Int) {
@@ -114,7 +113,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
                     view?.getTextSelectOneView()?.tag = true
                     view?.getTextSelectOneView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                     view?.getTextSelectOneView()?.setTextColor(ResourceUtil.getColorId(R.color.white))
-                    //refreshPublishedAdapter()
+                    refreshPublishedAdapter()
                 }
             }
             1->{
@@ -122,7 +121,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
                     view?.getTextSelectTwoView()?.tag = true
                     view?.getTextSelectTwoView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                     view?.getTextSelectTwoView()?.setTextColor(ResourceUtil.getColorId(R.color.white))
-                    //refreshAuditAdapter()
+                    refreshAuditAdapter()
                 }
             }
             2->{
@@ -130,7 +129,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
                     view?.getTextSelectThreeView()?.tag = true
                     view?.getTextSelectThreeView()?.setBackgroundColor(ResourceUtil.getColorId(R.color.code_title_barbc))
                     view?.getTextSelectThreeView()?.setTextColor(ResourceUtil.getColorId(R.color.white))
-                    //refreshAlreadyDownAdapter()
+                    refreshAlreadyDownAdapter()
                 }
             }
         }
@@ -140,8 +139,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
      * 刷新已发布配器
      */
     override fun refreshPublishedAdapter() {
-        var publishedAdapter = FullPublishedAdapter(R.layout.code_recycler_full_published_item, positions)
-        //var publishedAdapter = FullPublishedAdapter(activity!!, this,positionInfos)
+        var publishedAdapter = FullPublishedAdapter(R.layout.code_recycler_full_published_item, getPositionData("0","1"))
         view?.getRecyclerFullTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         view?.getRecyclerFullTimeView()!!.adapter = publishedAdapter
         publishedAdapter.setOnItemChildClickListener(this)
@@ -154,15 +152,23 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
      * 刷新审核中
      */
     override fun refreshAuditAdapter() {
-        /*var auditAdapter = PartAuditAdapter(activity!!,this)
-        view?.getRecyclerPartTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-        view?.getRecyclerPartTimeView()!!.adapter = auditAdapter*/
+        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_full_published_item, getPositionData("0","0"))
+        view?.getRecyclerFullTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+        view?.getRecyclerFullTimeView()!!.adapter = auditAdapter
+        auditAdapter.setOnItemChildClickListener(this)
+        auditAdapter?.setOnItemClickListener({
+            adapter, view, position ->onPublishedClickItem()
+        })
     }
 
     override fun refreshAlreadyDownAdapter() {
-        /*var alreadyDownAdapter = PartAlreadyDownAdapter(activity!!,this)
-        view?.getRecyclerPartTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
-        view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter*/
+        var alreadyAdapter = PartAlreadyDownAdapter(R.layout.code_recycler_full_published_item, getPositionData("0","3"))
+        view?.getRecyclerFullTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
+        view?.getRecyclerFullTimeView()!!.adapter = alreadyAdapter
+        alreadyAdapter.setOnItemChildClickListener(this)
+        alreadyAdapter?.setOnItemClickListener({
+            adapter, view, position ->onPublishedClickItem()
+        })
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
@@ -182,4 +188,14 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
         activity?.startActivity(intent)
     }
 
+    fun getPositionData(type : String, verify : String) : ArrayList<Position>{
+        var positions = ArrayList<Position>()
+        for (i in 0..this.positions.size - 1){
+            var position = this.positions[i]
+            if (type == position.type && verify == position.verify){
+                positions.add(position)
+            }
+        }
+        return positions
+    }
 }

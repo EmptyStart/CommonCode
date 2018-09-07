@@ -3,6 +3,7 @@ package com.tima.code.views.dialog
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.support.v4.app.DialogFragment
 import android.view.Display
 import android.view.View
 import android.view.WindowManager

@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Toast
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
+import com.tima.code.ResponseBody.Position
 import com.tima.code.timaconstracts.IPartTimePresent
 import com.tima.code.timaconstracts.IPartTimeView
 import com.tima.code.timaviewmodels.PartTimeViewModelImpl
@@ -18,16 +19,25 @@ import com.tima.code.views.adapter.part.PartAlreadyDownAdapter
 import com.tima.code.views.adapter.part.PartAuditAdapter
 import com.tima.code.views.adapter.part.PartPublishedAdapter
 import com.tima.common.base.IBaseViews
+import com.tima.common.base.IDataListener
+import com.tima.common.https.ExceptionDeal
+import com.tima.common.utils.GsonUtils
+import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
 import org.jetbrains.anko.toast
+import org.json.JSONObject
 
 /**
  * 管理-兼职
  * Created by Administrator on 2018/8/28/028.
  */
 class PartTimePresenterImpl : IPartTimePresent {
+    var TAG = "PartTimePresenterImpl"
     var activity: Activity? = null
     var view: IPartTimeView? = null
+    var positions = ArrayList<Position>()
+    var currentPosition = 0
+
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { PartTimeViewModelImpl() }
 
     constructor(view: IBaseViews?) {
@@ -37,25 +47,22 @@ class PartTimePresenterImpl : IPartTimePresent {
 
     override fun init() {
         activity = view?.getPartActivity()
-        view?.getTextSelectOneView()?.tag = false
-        view?.getTextSelectTwoView()?.tag = false
-        view?.getTextSelectThreeView()?.tag = false
-
-        toSelect(0)
+        fullData()
     }
 
     override fun onClick(view: View?) {
         when (view!!.id) {
             R.id.tv_select_one -> {
-                toSelect(0)
+                currentPosition = 0
             }
             R.id.tv_select_two -> {
-                toSelect(1)
+                currentPosition = 1
             }
             R.id.tv_select_three -> {
-                toSelect(2)
+                currentPosition = 2
             }
         }
+        toSelect(currentPosition)
     }
 
     override fun toSelect(position: Int) {
@@ -102,15 +109,39 @@ class PartTimePresenterImpl : IPartTimePresent {
         }
     }
 
+    fun fullData(){
+        view?.showLoading()
+        mViewMode.addPartTimeListener(object : IDataListener {
+            override fun successData(success: String) {
+                var arrays = JSONObject(success).getJSONArray("results")
+                for (i in 0..arrays.length() - 1){
+                    val position = GsonUtils.getGson.fromJson(arrays[i].toString(), Position::class.java)
+                    positions.add(position)
+                }
+                view?.hideLoading()
+                toSelect(currentPosition)
+                LogUtils.i(TAG,"返回发布职位  数量=="+positions.size)
+            }
+
+            override fun errorData(error: String) {
+                view?.hideLoading()
+                ExceptionDeal.handleException(error)
+            }
+
+            override fun requestData(): Map<String, String>? {
+                return mapOf(Pair("page","1"))
+            }
+        })
+    }
+
     /**
      * 刷新已发布配器
      */
     override fun refreshPublishedAdapter() {
-        var datas = listOf<String>("11","","","","","","","")
-        var publishedAdapter = PartPublishedAdapter(R.layout.code_recycler_published_item, datas)
+        var publishedAdapter = PartPublishedAdapter(R.layout.code_recycler_published_item, getPositionData("0","0"))
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = publishedAdapter
-        publishedAdapter.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener(){
+        publishedAdapter.setOnItemClickListener({
             adapter, view, position ->publishedClick(position)
         })
     }
@@ -119,12 +150,10 @@ class PartTimePresenterImpl : IPartTimePresent {
      * 刷新审核中
      */
     override fun refreshAuditAdapter() {
-        var datas = listOf<String>("11","","","","","","","")
-        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, datas)
-        //var auditAdapter = PartAuditAdapter(activity!!, this)
+        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, getPositionData("0","0"))
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
-        auditAdapter.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener(){
+        auditAdapter.setOnItemClickListener({
             adapter, view, position ->onAuditClick(position)
         })
     }
@@ -133,12 +162,10 @@ class PartTimePresenterImpl : IPartTimePresent {
      * 刷新已下架适配器
      */
     override fun refreshAlreadyDownAdapter() {
-        var datas = listOf<String>("11","","","","","","","")
-        var alreadyDownAdapter = PartAlreadyDownAdapter(R.layout.code_recycler_published_item, datas)
-        //var alreadyDownAdapter = PartAlreadyDownAdapter(activity!!, this)
+        var alreadyDownAdapter = PartAlreadyDownAdapter(R.layout.code_recycler_published_item, getPositionData("0","3"))
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter
-        alreadyDownAdapter.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener(){
+        alreadyDownAdapter.setOnItemClickListener({
             adapter, view, position ->onAlreadyDownClick(position)
         })
     }
@@ -153,6 +180,17 @@ class PartTimePresenterImpl : IPartTimePresent {
         } else {
             Toast.makeText(activity, "activity为空null", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun getPositionData(type : String, verify : String) : ArrayList<Position>{
+        var positions = ArrayList<Position>()
+        for (i in 0..this.positions.size - 1){
+            var position = this.positions[i]
+            if (type == position.type && verify == position.verify){
+                positions.add(position)
+            }
+        }
+        return positions
     }
 
     fun onAuditClick(position : Int) {

@@ -67,4 +67,8 @@ class TradeFlowActivity : BaseActivity(),SwipeRefreshLayout.OnRefreshListener,IT
     override fun getTradeActivity(): Activity {
         return this
     }
+
+    override fun getTradeTypeInt(): Int {
+        return tradeType
+    }
 }
