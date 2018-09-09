@@ -17,10 +17,16 @@ object CommonUrls {
      * hr info 需拼接{id}/
      */
     const val hrInfo="hr/"
+
     /**
      * common info/
      */
-    const val companyInfo="company/photo/"
+    const val companyInfo="hr/"
+
+    /**
+     * 提交图片
+     */
+    const val upPhoto="company/photo/"
 
 
     const val manageFull="position/"

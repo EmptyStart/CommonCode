@@ -40,7 +40,7 @@ object MapGaoDe{
                         mLocationClient.setLocationListener(object : AMapLocationListener {
                             override fun onLocationChanged(p0: AMapLocation?) {
                                 if (p0?.errorCode == 0) {
-                                    LogUtils.i(TAG, p0?.address)
+                                    LogUtils.i(TAG, p0?.toStr())
                                     Constant.latitude = p0.latitude
                                     Constant.longitude = p0.longitude
                                     Constant.locAddress=p0.address

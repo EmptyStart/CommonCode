@@ -73,7 +73,7 @@
             android:layout_marginRight="12px"
             android:layout_toLeftOf="@+id/iv_right_point"
             android:gravity="right"
-            android:text="请选择"
+            android:text="请填写"
             android:textSize="12sp" />
     </RelativeLayout>
 

@@ -25,7 +25,7 @@ import okhttp3.RequestBody
  *   email : zhijun.li@timanetworks.com
  *
  */
-class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivatePresent {
+class RegisterCreateCompanyPresentImpl(mView: IRegisterPrivateView) : IRegisterPrivatePresent {
     var mView: IRegisterPrivateView? = mView
     var count = 2;
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { RegisterPrivateViewModelImpl() }

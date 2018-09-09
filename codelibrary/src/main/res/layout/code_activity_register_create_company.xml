@@ -103,15 +103,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="140px"
+                android:layout_height="230px"
                 android:layout_marginTop="2px"
-                android:background="@android:color/white"
-                android:gravity="center_vertical">
+                android:background="@android:color/white">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="72px"
+                    android:layout_marginTop="45px"
                     android:text="公司介绍"
                     android:textSize="12sp" />
 
@@ -121,11 +121,55 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="72px"
+                    android:layout_marginTop="45px"
                     android:background="@null"
                     android:gravity="right"
                     android:hint="请填写"
+                    android:maxHeight="180px"
                     android:maxLines="1"
                     android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="230px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="45px"
+                    android:text="上传公司介绍" />
+
+                <ImageView
+                    android:id="@+id/iv_add_img1"
+                    android:layout_width="172px"
+                    android:layout_height="172px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35px"
+                    android:src="@mipmap/code_register_addphoto" />
+
+                <ImageView
+                    android:id="@+id/iv_add_img2"
+                    android:layout_width="172px"
+                    android:layout_height="172px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35px"
+                    android:layout_toLeftOf="@+id/iv_add_img1"
+                    android:src="@mipmap/code_register_addphoto" />
+
+                <ImageView
+                    android:id="@+id/iv_add_img3"
+                    android:layout_width="172px"
+                    android:layout_height="172px"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35px"
+                    android:layout_toLeftOf="@+id/iv_add_img2"
+                    android:src="@mipmap/code_register_addphoto" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -176,6 +220,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
                     android:src="@mipmap/code_register_addphoto" />
+
             </RelativeLayout>
 
             <include layout="@layout/code_layout_select_address" />

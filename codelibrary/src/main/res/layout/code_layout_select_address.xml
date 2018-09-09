@@ -30,7 +30,7 @@
                 android:id="@+id/tv_pro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="     省" />
+                android:text="@string/code_register_pro" />
 
             <ImageView
                 android:id="@+id/iv_pro"
@@ -46,7 +46,7 @@
                 android:id="@+id/tv_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="       市" />
+                android:text="@string/code_register_city" />
 
             <ImageView
                 android:id="@+id/iv_city"
@@ -62,7 +62,7 @@
                 android:id="@+id/tv_county"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="       区" />
+                android:text="@string/code_register_county" />
 
             <ImageView
                 android:id="@+id/iv_county"

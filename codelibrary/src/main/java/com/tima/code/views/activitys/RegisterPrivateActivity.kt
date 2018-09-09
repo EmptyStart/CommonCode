@@ -5,15 +5,27 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.amap.api.location.AMapLocation
+import com.amap.api.maps.AMap
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
+import com.amap.api.services.core.LatLonPoint
+import com.amap.api.services.geocoder.GeocodeResult
+import com.amap.api.services.geocoder.GeocodeSearch
+import com.amap.api.services.geocoder.RegeocodeResult
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
+import com.tima.code.ResponseBody.LocationBean
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timapresenter.RegisterPrivatePresentImpl
+import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.CameraUtils
+import com.tima.common.utils.LogUtils
 import com.zhihu.matisse.Matisse
 import kotlinx.android.synthetic.main.code_activity_register_private.*
+import kotlinx.android.synthetic.main.code_layout_select_address.*
+import kotlinx.android.synthetic.main.code_recycler_pop_item.*
 import org.jetbrains.anko.toast
 
 /**
@@ -23,21 +35,9 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.registerPrivate)
 class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivateView, View.OnClickListener {
-    override fun onMarkerDragEnd(p0: Marker?) {
 
 
-    }
-
-    override fun onMarkerDragStart(p0: Marker?) {
-    }
-
-    override fun onMarkerDrag(p0: Marker?) {
-    }
-
-    override fun onMapClick(p0: LatLng?) {
-
-    }
-
+    val mPresent by lazy(LazyThreadSafetyMode.NONE) { RegisterPrivatePresentImpl(this) }
 
     override fun onClick(v: View?) {
         mPresent.onClick(v)
@@ -45,6 +45,33 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
 
     override fun selectImage() {
         CameraUtils.matisseCameraOrAlbum(this, CameraUtils.REQUEST_CODE_CHOOSE)
+    }
+
+    override fun getName(): String? {
+        val trim = et_name.text.toString().trim()
+        if (trim.isEmpty()){
+            toast("请输入姓名！")
+            return null
+        }
+        return trim
+    }
+
+    override fun getLocationBean(): LocationBean? {
+        val pro = resources.getString(R.string.code_register_pro)
+        val citys = resources.getString(R.string.code_register_city)
+        val county = resources.getString(R.string.code_register_county)
+        if (pro.equals(tv_pro.text.toString())||citys.equals(tv_city.text.toString())||citys.equals(tv_county.text.toString())){
+            toast("请输入地址!")
+            return null
+        }
+        if (selectPosition!=-1){
+            return locations.get(selectPosition)
+        }
+        val aMapLocation = Constant.aMapLocation
+        aMapLocation?.apply {
+            return LocationBean(latitude,longitude,address,province,city,district,street+streetNum+poiName)
+        }
+        return null
     }
 
     var imageUri: Uri? = null
@@ -62,7 +89,6 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
         toast(errorMsg)
     }
 
-    val mPresent by lazy(LazyThreadSafetyMode.NONE) { RegisterPrivatePresentImpl(this) }
 
     override fun getLayoutId(): Int {
 
@@ -73,7 +99,7 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
         actionbar.setOnRightTextListener(this)
         ivPicHead.setOnClickListener(this)
         defaultLoaction()
-//        proPicker()
+        defaultMarkerDrag()
     }
 
 

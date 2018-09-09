@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CodeLibrary</string>
     <string name="code_login_contract_tv"><![CDATA[您阅读并同意<职神用户使用协议>]]></string>
+    <string name="code_register_pro">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;省</string>
+    <string name="code_register_city">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;市</string>
+    <string name="code_register_county">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;区</string>
 </resources>

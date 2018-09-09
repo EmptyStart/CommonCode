@@ -7,8 +7,11 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
+import com.tima.code.timaconstracts.IRegisterCompanyPresent
+import com.tima.code.timaconstracts.IRegisterCompanyView
 import com.tima.code.timaconstracts.IRegisterPrivatePresent
 import com.tima.code.timaconstracts.IRegisterPrivateView
+import com.tima.code.timaviewmodels.RegisterCompanyViewModelImpl
 import com.tima.code.timaviewmodels.RegisterPrivateViewModelImpl
 import com.tima.common.base.IDataFileListener
 import com.tima.common.base.IDataListener
@@ -25,10 +28,10 @@ import okhttp3.RequestBody
  *   email : zhijun.li@timanetworks.com
  *
  */
-class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivatePresent {
-    var mView: IRegisterPrivateView? = mView
+class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompanyPresent {
+    var mView: IRegisterCompanyView? = mView
     var count = 2;
-    val mViewMode by lazy(LazyThreadSafetyMode.NONE) { RegisterPrivateViewModelImpl() }
+    val mViewMode by lazy(LazyThreadSafetyMode.NONE) { RegisterCompanyViewModelImpl() }
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.tv_actionbar_right_title -> {
@@ -37,7 +40,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 patchHr()
             }
             R.id.ivPicHead -> {
-                mView?.selectImage()
+                mView?.selectImage(201)
             }
         }
     }
@@ -75,7 +78,6 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 override fun requestFileData(): MultipartBody.Part {
                     val part = MultipartBody.Part.createFormData("img_file", name, RequestBody
                             .create(MediaType.parse("multipart/form-data"), file))
-
                     return part
                 }
 

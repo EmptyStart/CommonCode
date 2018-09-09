@@ -6,11 +6,13 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import android.widget.ScrollView
 import com.amap.api.location.AMapLocation
 import com.amap.api.maps.AMap
@@ -20,7 +22,11 @@ import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
+import com.amap.api.services.core.LatLonPoint
+import com.amap.api.services.geocoder.GeocodeResult
 import com.amap.api.services.geocoder.GeocodeSearch
+import com.amap.api.services.geocoder.RegeocodeQuery
+import com.amap.api.services.geocoder.RegeocodeResult
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
@@ -28,6 +34,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
+import com.tima.code.ResponseBody.LocationBean
 import com.tima.common.base.*
 import com.tima.common.utils.CameraUtils
 import com.tima.common.utils.IAMapLocationSuccessListener
@@ -42,7 +49,7 @@ import org.jetbrains.anko.toast
  *   email : zhijun.li@timanetworks.com
  *
  */
-abstract class AbstractAddressAndMapActivity : BaseActivity(), AMap.OnMapClickListener, AMap.OnMarkerDragListener {
+abstract class AbstractAddressAndMapActivity : BaseActivity() {
     protected var pickerPro: OptionsPickerView<String>? = null
     protected var pickerCity: OptionsPickerView<String>? = null
     protected var pickerCounty: OptionsPickerView<String>? = null
@@ -53,13 +60,21 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), AMap.OnMapClickLi
     protected val countys = ArrayList<String>()
     protected var proBean: District? = null
     protected var cityBean: City? = null
-    protected var marker :Marker?=null
-
-    protected var popSa : PopupWindow?=null
-    protected val searchs = ArrayList<String>()
-
+    protected var marker: Marker? = null
+    protected var popSa: PopupWindow? = null
+    private var adapter: BaseQuickAdapter<LocationBean, BaseViewHolder>? = null
+    val locations = ArrayList<LocationBean>()
     protected val geoSearch by lazy(LazyThreadSafetyMode.NONE) {
         GeocodeSearch(this)
+    }
+    var selectPosition = -1
+    /**
+     * 使用逆地图编码
+     */
+    protected fun geoSearch(latLng: LatLonPoint, listener: GeocodeSearch.OnGeocodeSearchListener) {
+        geoSearch.setOnGeocodeSearchListener(listener)
+        val query = RegeocodeQuery(latLng, 2000f, GeocodeSearch.AMAP)
+        geoSearch.getFromLocationAsyn(query)
     }
 
     /**
@@ -85,20 +100,30 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), AMap.OnMapClickLi
         markerOptions.draggable(true)
         markerOptions.icon(ResourceUtil.getBitmapDescriptorFactory(R.mipmap.ic_map))
         markerOptions.isFlat = true
-        title?.let {
-            markerOptions.title(it)
-        }
+        markerOptions.setInfoWindowOffset(-54, -69)
+//        title?.let {
+//            markerOptions.title(it)
+//        }
         return markerOptions
     }
 
+    /**
+     * 加入mapView
+     */
     override fun setMap(): MapView? {
         return map_view
     }
 
+    /**
+     * 使用地图
+     */
     override fun useMap(): Boolean {
         return true
     }
 
+    /**
+     * 地图定位初始化
+     */
     fun defaultLoaction() {
         val aMapLocation = Constant.aMapLocation
         if (aMapLocation == null) {
@@ -114,46 +139,131 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), AMap.OnMapClickLi
         }
         setLocation(aMapLocation)
     }
-    protected fun searchAddress(){
-        val view = LayoutInflater.from(this).inflate(R.layout.code_layout_pop_recycler, null)
-        val recyclerView = view.find(R.id.rvPop) as RecyclerView
-        recyclerView.layoutManager=LinearLayoutManager(this)
-        val adapter=object :BaseQuickAdapter<String,BaseViewHolder>(R.layout
-                .code_recycler_pop_item,searchs){
-            override fun convert(helper: BaseViewHolder?, item: String?) {
 
+    /**
+     * 拖动定位蓝点，显示点周围的定位信息
+     */
+    protected fun showAddressPop() {
+        if (adapter == null) {
+            val view = LayoutInflater.from(this).inflate(R.layout.code_layout_pop_recycler, null)
+            val recyclerView = view.find(R.id.rvPop) as RecyclerView
+            val rl_pop = view.find(R.id.rl_pop) as RelativeLayout
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            adapter = object : BaseQuickAdapter<LocationBean, BaseViewHolder>(R.layout
+                    .code_recycler_pop_item, locations) {
+                override fun convert(helper: BaseViewHolder?, item: LocationBean?) {
+                    helper?.setText(R.id.selectAddress, item?.locAddress)
+                }
             }
-
+            rl_pop.setOnClickListener { popSa?.dismiss() }
+            recyclerView.adapter = adapter
+            popSa = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams
+                    .MATCH_PARENT, true)
+            popSa?.isFocusable = true
+            popSa?.isOutsideTouchable = true;
+            popSa?.isTouchable = true;
+            popSa?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
+            popSa?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+        } else {
+            adapter?.setNewData(locations)
         }
-        recyclerView.adapter=adapter
-        popSa= PopupWindow(view,LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams
-                .MATCH_PARENT,true)
-        popSa?.isFocusable=true
-        popSa?.setOutsideTouchable(true);
-        popSa?.setTouchable(true);
-        popSa?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        popSa?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-        popSa?.showAsDropDown(getRootView(),0,0)
+        adapter?.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                selectPosition = position
+                upDataLocation(locations[position])
+                popSa?.dismiss()
+            }
+        }
+        popSa?.showAtLocation(getRootView(), Gravity.BOTTOM, 0, 0)
     }
+
+    /**
+     * 设置定位数据
+     */
     protected fun setLocation(it: AMapLocation) {
         tv_pro.text = it.province
         tv_city.text = it.city
         tv_county.text = it.district
-        val s = it.street + it.streetNum
+        val s = it.street + it.streetNum + it.poiName
         et_address.setText(s)
         val latLng = LatLng(it.latitude, it.longitude)
         marker?.let {
-            if (!it.isRemoved){
+            if (!it.isRemoved) {
                 it.remove()
             }
         }
-        marker=aMap.addMarker(setMarker(latLng, it.address))
+        marker = aMap.addMarker(setMarker(latLng, it.address))
         val newLatLng = CameraUpdateFactory.newLatLng(latLng)
         aMap.moveCamera(newLatLng)
-        aMap.minZoomLevel=12f
-        aMap.maxZoomLevel=18f
-        aMap.setOnMapClickListener(this)
-        aMap.setOnMarkerDragListener(this)
+        aMap.minZoomLevel = 12f
+        aMap.maxZoomLevel = 18f
+    }
+
+    /**
+     * 更新定位数据
+     */
+    protected fun upDataLocation(it: LocationBean) {
+        tv_pro.text = it.province
+        tv_city.text = it.city
+        tv_county.text = it.district
+        et_address.setText(it.snippet)
+    }
+
+    /**
+     * 设置点击监听
+     */
+    protected fun setOnMapClick(listener: AMap.OnMapClickListener) {
+        aMap.setOnMapClickListener(listener)
+
+    }
+
+    /**
+     * 设置自定义拖动监听
+     */
+    protected fun setOnMarkerDrag(listener: AMap.OnMarkerDragListener) {
+        aMap.setOnMarkerDragListener(listener)
+    }
+
+    /**
+     * 设置默认拖动监听
+     */
+    protected fun defaultMarkerDrag() {
+        aMap.setOnMarkerDragListener(object : AMap.OnMarkerDragListener {
+            override fun onMarkerDragEnd(p0: Marker?) {
+                val latLng = p0?.position
+                latLng?.let {
+                    geoSearch(LatLonPoint(it.latitude, it.longitude), object : GeocodeSearch.OnGeocodeSearchListener {
+                        override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
+                            locations.clear()
+                            val regeocodeAddress = p0?.regeocodeAddress
+                            regeocodeAddress?.apply {
+                                val point = streetNumber.latLonPoint
+                                val split1 = formatAddress.split(district)
+                                if (split1.size > 1) {
+                                    locations.add(LocationBean(point.latitude, point.longitude, formatAddress, province, city, district, split1[1]))
+                                }
+                                pois?.forEach {
+                                    val latLonPoint = it.latLonPoint
+                                    val s = city + district + it.snippet
+                                    locations.add(LocationBean(latLonPoint.latitude, latLonPoint.longitude, s, province, city, district, it.snippet))
+                                }
+                            }
+                            showAddressPop()
+                        }
+
+                        override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+                        }
+                    })
+
+                }
+            }
+
+            override fun onMarkerDragStart(p0: Marker?) {
+            }
+
+            override fun onMarkerDrag(p0: Marker?) {
+            }
+        })
     }
 
     /**
@@ -172,6 +282,8 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), AMap.OnMapClickLi
             pickerPro = OptionsPickerBuilder(this, object : OnOptionsSelectListener {
                 override fun onOptionsSelect(options1: Int, options2: Int, options3: Int, v: View?) {
                     tv_pro.text = pros.get(options1)
+                    tv_city.setText(R.string.code_register_city)
+                    tv_county.setText(R.string.code_register_city)
                     proBean = it.districts.get(options1)
                     proBean?.run {
                         citys.clear()
@@ -213,6 +325,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), AMap.OnMapClickLi
         pickerCity = OptionsPickerBuilder(this, object : OnOptionsSelectListener {
             override fun onOptionsSelect(options1: Int, options2: Int, options3: Int, v: View?) {
                 tv_city.text = citys.get(options1)
+                tv_county.setText(R.string.code_register_city)
                 cityBean = proBean?.city?.get(options1)
                 cityBean?.run {
                     countys.clear()
@@ -273,13 +386,17 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), AMap.OnMapClickLi
         llAddress.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 et_address.isFocusable = true
-                et_address.setSelection(et_address.getText().length)
+                et_address.setSelection(et_address.text.length)
             }
 
         })
-        et_address.setOnClickListener{v->
-            et_address.setSelection(et_address.getText().length)
+        et_address.setOnClickListener {
+            et_address.setSelection(et_address.text.length)
         }
+        iv_pro.setOnClickListener { proPicker() }
+        iv_city.setOnClickListener { cityPicker() }
+        iv_county.setOnClickListener { countyPicker() }
+
 
     }
 

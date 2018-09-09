@@ -1,28 +1,25 @@
 package com.tima.code.timaconstracts
 
-import android.database.Observable
 import android.net.Uri
 import com.tima.code.ResponseBody.LocationBean
 import com.tima.common.base.*
 import com.tima.common.utils.IAMapLocationSuccessListener
-import okhttp3.ResponseBody
 
 /**
- * @author : zhijun.li on 2018/6/28
- *   email : zhijun.li@timanetworks.com
- *
+ * @author : lzj on 2018/9/9 5:12
+ *         # Email
  */
-interface IRegisterPrivateViewModel : IBaseViewModel {
+interface IRegisterCompanyViewModel : IBaseViewModel {
     fun addOnUpPicListener(listener: IDataFileListener)
     fun addOnUpHrListener(listener: IDataListener)
-//    fun addOnUpHrListener(listener: IDataListener)
+    fun addOnUpCompanyListener(listener: IDataListener)
 }
 
-interface IRegisterPrivatePresent : IBasePresenter
+interface IRegisterCompanyPresent : IBasePresenter
 
-interface IRegisterPrivateView : IBaseViews {
+interface IRegisterCompanyView : IBaseViews {
     fun headImage() : Uri?
-    fun selectImage()
+    fun selectImage(code : Int)
     fun location(listener: IAMapLocationSuccessListener)
     fun getName() : String?
     fun getLocationBean() : LocationBean?
