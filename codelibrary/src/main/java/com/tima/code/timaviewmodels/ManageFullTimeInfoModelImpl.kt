@@ -14,9 +14,9 @@ import com.tima.common.rx.SchedulerUtils
  *
  */
 class ManageFullTimeInfoModelImpl : BaseViewModel(), IManageFullTimeInfoModel {
-    override fun addFullTimeListener(listener: IDataListener) {
+    override fun addFullTimeListener(listener: IDataListener,url : String) {
         val baseSubscriber = BaseSubscriber(listener)
-        RetrofitHelper.service.executeGet(CommonUrls.manageFull, listener.requestData())
+        RetrofitHelper.service.executeGet(url)
                 .compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
         addSubscription(baseSubscriber)
 

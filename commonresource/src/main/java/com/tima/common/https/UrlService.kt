@@ -35,6 +35,12 @@ interface UrlService {
             Observable<ResponseBody>
 
     /**
+     *get请求
+     */
+    @GET("{path}")
+    fun executeGet(@Path("path") path: String): Observable<ResponseBody>
+
+    /**
      * 文件上传
      */
     @POST("{path}")
@@ -71,4 +77,10 @@ interface UrlService {
     @Multipart
     fun executePatch(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?, @QueryMap
     queryMap: Map<String, String>?): Observable<ResponseBody>
+}
+
+enum class HttpRequest {
+    POST,
+    GET,
+    DELETE
 }

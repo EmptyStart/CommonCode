@@ -22,14 +22,16 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
 
     var manageFullTimeInfoPresent : IManageFullTimeInfoPresent? = null
     var manageType  = -1                                                                            //1、全职   2、兼职
+    var id : Int = -1                                                                               //
 
     override fun getLayoutId(): Int {
         return R.layout.code_activity_manage_fulltime_info
     }
 
     override fun inits(savedInstanceState: Bundle?) {
-        manageFullTimeInfoPresent = ManageFullTimeInfoPresenterImpl(this)
         manageType = intent.getIntExtra("manageType",-1)
+        id = intent.getIntExtra("id",-1)
+        manageFullTimeInfoPresent = ManageFullTimeInfoPresenterImpl(this)
 
         if (manageType == 1) {
             abv_type2.setTitle("全职详情")
@@ -135,4 +137,7 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
         return this
     }
 
+    override fun getPositionId(): Int {
+        return id
+    }
 }

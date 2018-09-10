@@ -36,4 +36,6 @@ object CommonUrls {
     const val walletDetail = "fund/detail/"
 
     const val walletPay = "fund/pay/"
+
+    const val apply = "apply/"
 }

@@ -13,7 +13,7 @@ import com.tima.common.base.IDataListener
  * Created by Administrator on 2018/8/29/029.
  */
 interface IManageFullTimeInfoModel : IBaseViewModel{
-    fun addFullTimeListener(listener: IDataListener)
+    fun addFullTimeListener(listener: IDataListener,url : String)
 }
 
 interface IManageFullTimeInfoView : IBaseViews {
@@ -47,6 +47,7 @@ interface IManageFullTimeInfoView : IBaseViews {
 
     fun getInfoActivity() : Activity
 
+    fun getPositionId() : Int
 }
 interface IManageFullTimeInfoPresent : IBasePresenter{
     fun onRefreshJobAdapter()

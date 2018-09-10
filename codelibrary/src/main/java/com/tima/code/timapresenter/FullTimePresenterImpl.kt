@@ -144,7 +144,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
         view?.getRecyclerFullTimeView()!!.adapter = publishedAdapter
         publishedAdapter.setOnItemChildClickListener(this)
         publishedAdapter?.setOnItemClickListener({
-            adapter, view, position ->onPublishedClickItem()
+            adapter, view, position ->onPublishedClickItem(positions[position].id)
         })
     }
 
@@ -152,12 +152,12 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
      * 刷新审核中
      */
     override fun refreshAuditAdapter() {
-        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_full_published_item, getPositionData("0","0"))
+        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, getPositionData("0","0"))
         view?.getRecyclerFullTimeView()!!.layoutManager =  LinearLayoutManager(activity, LinearLayoutManager.VERTICAL,false)
         view?.getRecyclerFullTimeView()!!.adapter = auditAdapter
         auditAdapter.setOnItemChildClickListener(this)
         auditAdapter?.setOnItemClickListener({
-            adapter, view, position ->onPublishedClickItem()
+            adapter, view, position ->onPublishedClickItem(positions[position].id)
         })
     }
 
@@ -167,7 +167,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
         view?.getRecyclerFullTimeView()!!.adapter = alreadyAdapter
         alreadyAdapter.setOnItemChildClickListener(this)
         alreadyAdapter?.setOnItemClickListener({
-            adapter, view, position ->onPublishedClickItem()
+            adapter, view, position ->onPublishedClickItem(positions[position].id)
         })
     }
 
@@ -182,9 +182,10 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
     fun onPublishClickRelase() {
     }
 
-    fun onPublishedClickItem() {
+    fun onPublishedClickItem(id : Int) {
         var intent = Intent(activity!!,ManageFullTimeInfoActivity::class.java)
         intent.putExtra("manageType",1)
+        intent.putExtra("id",id)
         activity?.startActivity(intent)
     }
 

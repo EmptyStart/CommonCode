@@ -20,12 +20,7 @@ class PartAuditAdapter(var layoutId : Int, var datas: List<Position>): BaseQuick
         var qty = if(item?.qty == null) "0/" else (item?.qty.toString() + "/")
         var qty_var = if(item?.qty_var == null) "0人" else (item?.qty_var.toString() + "人")
         helper?.setText(R.id.tv_number,qty+qty_var)
-
         helper?.setText(R.id.tv_release_time,item?.created_no)
-        var location = (if (item?.province == item?.city) item?.province else item?.province + StringUtils.SPACE_TWO + item?.city) + StringUtils.SPACE_TWO + item?.region + StringUtils.SPACE_TWO +item?.address
-        helper?.setText(R.id.tv_address,location)
-
-        helper?.addOnClickListener(R.id.tv_release_status)
     }
 }
 

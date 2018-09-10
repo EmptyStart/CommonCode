@@ -1,24 +1,16 @@
 package com.tima.code.views.adapter.full
 
-import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.tima.code.R
 import com.tima.code.bean.JobType
 
 /**
  * 职业类型等适配器
  * Created by Administrator on 2018/8/29/029.
  */
-class ManageFullInfoJobAdapter(var layoutId : Int, var datas: List<String>): BaseQuickAdapter<String, BaseViewHolder>(layoutId,datas) {
+class ManageFullInfoJobAdapter(var layoutId : Int, var datas: List<JobType>): BaseQuickAdapter<JobType, BaseViewHolder>(layoutId,datas) {
 
-    override fun convert(helper: BaseViewHolder?, item: String?) {
+    override fun convert(helper: BaseViewHolder?, item: JobType?) {
     }
 }
 

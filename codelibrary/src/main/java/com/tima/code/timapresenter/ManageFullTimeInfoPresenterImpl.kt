@@ -19,6 +19,7 @@ import com.tima.code.views.activitys.ManageSetActivity
 import com.tima.code.views.adapter.full.ManageFullInfoJobAdapter
 import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
 import com.tima.common.base.IDataListener
+import com.tima.common.https.CommonUrls
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.ResourceUtil
 import org.json.JSONArray
@@ -34,7 +35,9 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
     var jobAdapter : ManageFullInfoJobAdapter? = null
     var requireAdapter : ManageFullInfoRequireAdapter? = null
     var infoActivity : Activity?= null
+
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { ManageFullTimeInfoModelImpl() }
+
 
     constructor(view : IManageFullTimeInfoView){
         this.view = view
@@ -56,9 +59,9 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
             }
 
             override fun requestData(): Map<String, String>? {
-                return mapOf(Pair("page","1"))
+                return null
             }
-        })
+        },CommonUrls.manageFull+view.getPositionId()+"/")
     }
 
     override fun onClick(view: View?) {
@@ -139,9 +142,7 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
 
     override fun onRefreshJobAdapter() {
         if (jobAdapter == null){
-            var datas = listOf<String>("11","","","","","","","")
-            jobAdapter = ManageFullInfoJobAdapter(R.layout.code_recycler_manage_full_info_item, datas)
-            //jobAdapter = ManageFullInfoJobAdapter(infoActivity!!,this,jobs)
+            jobAdapter = ManageFullInfoJobAdapter(R.layout.code_recycler_manage_full_info_item, jobs)
             view?.getRecyclerJobDescribeView().layoutManager = LinearLayoutManager(infoActivity, LinearLayoutManager.VERTICAL,false)
             view?.getRecyclerJobDescribeView().adapter = jobAdapter
             jobAdapter?.setOnItemClickListener({

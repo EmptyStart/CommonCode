@@ -142,7 +142,7 @@ class PartTimePresenterImpl : IPartTimePresent {
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = publishedAdapter
         publishedAdapter.setOnItemClickListener({
-            adapter, view, position ->publishedClick(position)
+            adapter, view, position ->publishedClick(positions[position].id)
         })
     }
 
@@ -154,7 +154,7 @@ class PartTimePresenterImpl : IPartTimePresent {
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
         auditAdapter.setOnItemClickListener({
-            adapter, view, position ->onAuditClick(position)
+            adapter, view, position ->onAuditClick(positions[position].id)
         })
     }
 
@@ -166,16 +166,15 @@ class PartTimePresenterImpl : IPartTimePresent {
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter
         alreadyDownAdapter.setOnItemClickListener({
-            adapter, view, position ->onAlreadyDownClick(position)
+            adapter, view, position ->onAlreadyDownClick(positions[position].id)
         })
     }
 
-    fun publishedClick(position : Int){
-        activity?.toast("点击----"+position)
+    fun publishedClick(id : Int){
         if (activity != null) {
-            Toast.makeText(activity, "activity不为空", Toast.LENGTH_SHORT).show()
             var intent = Intent(activity!!, ManageFullTimeInfoActivity::class.java)
             intent.putExtra("manageType", 2)
+            intent.putExtra("id", id)
             activity?.startActivity(intent)
         } else {
             Toast.makeText(activity, "activity为空null", Toast.LENGTH_SHORT).show()
