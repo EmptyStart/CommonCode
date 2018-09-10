@@ -246,3 +246,19 @@ class FundDetail(
     var amt : Double,                                                   //
     var fund_date_est : String                                          //
 )
+
+
+data class CompanyStaffsBody(
+    val count: Int,
+    val next: Any,
+    val previous: Any,
+    val results: List<Result>
+)
+
+data class Result(
+    val id: Int,
+    val created_on: String,
+    val type: String,
+    val key: String,
+    val value: String
+)

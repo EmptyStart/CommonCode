@@ -29,42 +29,9 @@
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/rl_company_list"
-                android:layout_width="match_parent"
-                android:layout_height="140px"
-                android:layout_marginTop="2px"
-                android:background="@android:color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="72px"
-                    android:text="公司行业"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:id="@+id/iv_right_point"
-                    android:layout_width="15px"
-                    android:layout_height="26px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="45px"
-                    android:src="@mipmap/code_register_point_right" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="12px"
-                    android:layout_toLeftOf="@+id/iv_right_point"
-                    android:gravity="right"
-                    android:text="请选择"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <RelativeLayout
                 android:id="@+id/rl_company_size"
@@ -91,6 +58,7 @@
                     android:src="@mipmap/code_register_point_right" />
 
                 <TextView
+                    android:id="@+id/tv_company_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -150,6 +118,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
+                    android:scaleType="fitCenter"
                     android:src="@mipmap/code_register_addphoto" />
 
                 <ImageView
@@ -158,6 +127,7 @@
                     android:layout_height="172px"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
+                    android:scaleType="fitCenter"
                     android:layout_toLeftOf="@+id/iv_add_img1"
                     android:src="@mipmap/code_register_addphoto" />
 
@@ -167,6 +137,7 @@
                     android:layout_height="172px"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
+                    android:scaleType="fitCenter"
                     android:layout_toLeftOf="@+id/iv_add_img2"
                     android:src="@mipmap/code_register_addphoto" />
 
@@ -216,6 +187,7 @@
                     android:id="@+id/iv_add_photo"
                     android:layout_width="172px"
                     android:layout_height="172px"
+                    android:scaleType="fitCenter"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
@@ -228,10 +200,12 @@
     </com.tima.code.views.DiyViews.CommonScrollView>
 
     <ImageView
+        android:id="@+id/iv_head"
         android:layout_width="230px"
         android:layout_height="230px"
         android:layout_alignParentRight="true"
         android:layout_marginRight="35px"
         android:layout_marginTop="220px"
+        android:scaleType="fitCenter"
         android:src="@mipmap/code_register_addphoto" />
 </com.zhy.autolayout.AutoRelativeLayout>

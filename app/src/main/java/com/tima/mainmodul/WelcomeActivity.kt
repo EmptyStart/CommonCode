@@ -2,12 +2,9 @@ package com.tima.mainmodul
 
 import android.os.Bundle
 import com.tima.common.base.BaseActivity
-import com.tima.common.https.BaseSubscriber
-import com.tima.common.https.RetrofitHelper
-import com.tima.common.rx.SchedulerUtils
 import com.tima.common.utils.LogUtils
-import org.jetbrains.anko.doAsync
 import kotlinx.android.synthetic.main.activity_tima_welcome.*
+import org.jetbrains.anko.doAsync
 
 class WelcomeActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_tima_welcome

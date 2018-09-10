@@ -55,15 +55,9 @@ interface UrlService {
     fun executePatch(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?):
             Observable<ResponseBody>
 
-//    /**
-//     * patch请求
-//     */
-//    @PATCH("{path}")
-//    @Multipart
-//    fun executePatchFiles(@Path("path") path: String, @PartMap file: Map<String,RequestBody>): Observable<ResponseBody>
-
     /**
      * patch请求
+     * 上传图片
      */
     @PATCH("{path}")
     @Multipart

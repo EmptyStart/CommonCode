@@ -38,6 +38,11 @@ object CameraUtils {
     val REQUEST_EDIT_PICTURE = 0x1957                                          //裁剪后的图
     val AUTHORITY = "com.tima.mainmodul.lj.jjy.fileprovider"                   //过滤存储 路径
 
+    val HEAD_PICTION = 0x2001
+    val IMAGE_21 = 0x2002
+    val IMAGE_22 = 0x2003
+    val IMAGE_23 = 0x2004
+    val IMAGE_LOGO = 0x2005
     /**
      * 调用 Matisse 相机并且相册
      */

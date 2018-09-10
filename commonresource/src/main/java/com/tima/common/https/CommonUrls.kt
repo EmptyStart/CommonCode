@@ -19,9 +19,18 @@ object CommonUrls {
     const val hrInfo="hr/"
 
     /**
-     * common info/
+     * company info/
      */
-    const val companyInfo="hr/"
+    const val companyInfo="company/"
+
+    /**
+     * 配置信息查询
+     */
+    const val configInfo="config/"
+    /**
+     *职位类型查询
+     */
+    const val careerType="careertype/"
 
     /**
      * 提交图片

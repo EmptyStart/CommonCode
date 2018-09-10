@@ -133,6 +133,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="35px"
+            android:scaleType="fitCenter"
             android:src="@mipmap/code_register_addphoto" />
     </RelativeLayout>
 

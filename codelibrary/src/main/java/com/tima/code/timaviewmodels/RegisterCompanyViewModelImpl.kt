@@ -17,16 +17,11 @@ import io.reactivex.schedulers.Schedulers
  *   email : zhijun.li@timanetworks.com
  *
  */
-class RegisterCompanyViewModelImpl : BaseViewModel(), IRegisterCompanyViewModel {
+open class RegisterCompanyViewModelImpl : ConfigInfoViewModelImpl(), IRegisterCompanyViewModel {
     override fun addOnUpCompanyListener(listener: IDataListener) {
         val baseSubscriber = BaseSubscriber(listener)
         RetrofitHelper.service.executePatch(CommonUrls.hrInfo + "/6/", listener.requestData())
                 .compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
-
-        val observable = RetrofitHelper.service.executePatch(CommonUrls.hrInfo + "/6/", listener.requestData())
-                .compose(SchedulerUtils.ioToMain())
-        Observable.merge(observable,observable,observable).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(baseSubscriber)
         addSubscription(baseSubscriber)
     }
 
