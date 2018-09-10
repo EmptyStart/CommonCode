@@ -68,7 +68,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                     ExceptionDeal.handleException(error)
                 }
 
-                override fun requestType(): Int? = 1
+                override fun requestType(): MultipartBody.Part? = MultipartBody.Part.createFormData("type", "1")
 
                 override fun requestExt(): MultipartBody.Part? = MultipartBody.Part.createFormData("ext", ext)
 

@@ -95,7 +95,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="35px"
         android:layout_marginTop="220px"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
+        app:layout_auto_basewidth="height"
         android:src="@mipmap/code_register_addphoto"
         android:id="@+id/ivPicHead" />
 

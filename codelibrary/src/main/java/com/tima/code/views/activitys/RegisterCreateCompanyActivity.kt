@@ -63,7 +63,7 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
     }
 
     override fun getName(): String? {
-        return null
+        return et_name.text.toString().trim()
     }
 
     override fun getLocationBean(): LocationBean? {
@@ -104,9 +104,8 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         putScrollView(svCreate)
         defaultLoaction()
         defaultMarkerDrag()
-        actionbar.setOnRightImageListener(View.OnClickListener {
-            finish()
-        })
+        actionbar.setOnRightImageListener(this)
+        actionbar.setOnRightTextListener(this)
         rl_company_size.setOnClickListener(this)
         iv_add_img1.setOnClickListener(this)
         iv_add_img2.setOnClickListener(this)

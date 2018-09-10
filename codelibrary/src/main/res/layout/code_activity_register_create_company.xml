@@ -32,7 +32,32 @@
             android:orientation="vertical"
             android:focusable="true"
             android:focusableInTouchMode="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="140px"
+                android:layout_marginTop="2px"
+                android:background="@android:color/white"
+                android:gravity="center_vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="72px"
+                    android:text="公司名称"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    android:layout_width="600px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="72px"
+                    android:background="@null"
+                    android:gravity="right"
+                    android:hint="请填写"
+                    android:maxLines="1"
+                    android:textSize="12sp" />
+            </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_company_size"
                 android:layout_width="match_parent"
@@ -102,6 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="230px"
                 android:layout_marginTop="2px"
+                app:layout_auto_basewidth="height"
                 android:background="@android:color/white">
 
                 <TextView
@@ -118,7 +144,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
+                    app:layout_auto_basewidth="height"
                     android:src="@mipmap/code_register_addphoto" />
 
                 <ImageView
@@ -127,7 +154,8 @@
                     android:layout_height="172px"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
+                    app:layout_auto_basewidth="height"
                     android:layout_toLeftOf="@+id/iv_add_img1"
                     android:src="@mipmap/code_register_addphoto" />
 
@@ -137,7 +165,8 @@
                     android:layout_height="172px"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
+                    app:layout_auto_basewidth="height"
                     android:layout_toLeftOf="@+id/iv_add_img2"
                     android:src="@mipmap/code_register_addphoto" />
 
@@ -174,6 +203,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="230px"
                 android:layout_marginTop="2px"
+                app:layout_auto_basewidth="height"
                 android:background="@android:color/white">
 
                 <TextView
@@ -185,9 +215,10 @@
 
                 <ImageView
                     android:id="@+id/iv_add_photo"
+                    app:layout_auto_basewidth="height"
                     android:layout_width="172px"
                     android:layout_height="172px"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
@@ -201,11 +232,12 @@
 
     <ImageView
         android:id="@+id/iv_head"
+        app:layout_auto_basewidth="height"
         android:layout_width="230px"
         android:layout_height="230px"
         android:layout_alignParentRight="true"
         android:layout_marginRight="35px"
         android:layout_marginTop="220px"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@mipmap/code_register_addphoto" />
 </com.zhy.autolayout.AutoRelativeLayout>

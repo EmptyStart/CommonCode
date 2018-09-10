@@ -14,32 +14,7 @@
         app:mode_title="公司注册"
         app:mode_type="type_three" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="140px"
-        android:layout_marginTop="30px"
-        android:background="@android:color/white"
-        android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="72px"
-            android:text="姓名"
-            android:textSize="12sp" />
-
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="600px"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="72px"
-            android:background="@null"
-            android:gravity="right"
-            android:hint="请填写"
-            android:maxLines="1"
-            android:textSize="12sp" />
-    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_my_company"

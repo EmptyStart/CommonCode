@@ -9,7 +9,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.ResponseBody.CompanyStaffsBody
-import com.tima.code.ResponseBody.Result
 import com.tima.code.timaconstracts.IRegisterCreateCompanyPresent
 import com.tima.code.timaconstracts.IRegisterCreateCompanyView
 import com.tima.code.timaviewmodels.RegisterCreateCompanyViewModelImpl
@@ -24,6 +23,7 @@ import com.tima.common.utils.GsonUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.File
 
 /**
  * @author : zhijun.li on 2018/9/5
@@ -41,9 +41,13 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.tv_actionbar_right_title -> {
-                count = 2
-                upPic()
-                patchHr()
+                count = 5
+                upPic(CameraUtils.HEAD_PICTION)
+                upPic(CameraUtils.IMAGE_21)
+                upPic(CameraUtils.IMAGE_22)
+                upPic(CameraUtils.IMAGE_23)
+                patchCompany()
+
             }
             R.id.iv_head -> {
                 mView?.selectImage(CameraUtils.HEAD_PICTION)
@@ -72,19 +76,47 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
         activity?.finish()
     }
 
-    private fun upPic() {
+    private fun upPic(code: Int) {
         mView?.apply {
-            val headImage = headImage() ?: return
-            val file = FileUtils.uriToFile(headImage) ?: return
-            val name = file.name
+            var file: File? = null
+            var type: String = "1"
+            when (code) {
+                CameraUtils.HEAD_PICTION -> {
+                    val headImage = headImage() ?: return
+                    file = FileUtils.uriToFile(headImage) ?: return
+                    type = "1"
+                }
+                CameraUtils.IMAGE_21 -> {
+                    val image21 = image21() ?: return
+                    file = FileUtils.uriToFile(image21) ?: return
+                    type = "2-1"
+                }
+                CameraUtils.IMAGE_22 -> {
+                    val image22 = image22() ?: return
+                    file = FileUtils.uriToFile(image22) ?: return
+                    type = "2-2"
+                }
+                CameraUtils.IMAGE_23 -> {
+                    val image23 = image23() ?: return
+                    file = FileUtils.uriToFile(image23) ?: return
+                    type = "2-3"
+                }
+//                CameraUtils.IMAGE_LOGO -> {
+//                    val imageLogo = imageLogo() ?: return
+//                    file = FileUtils.uriToFile(imageLogo) ?: return
+//                    type = "logo"
+//                }
+            }
+
+            val name = file?.name
             val ext = FileUtils.picTailName(name) ?: return
             mViewMode.addOnUpPicListener(object : IDataFileListener {
 
                 override fun successData(success: String) {
-                    if (count == 2) {
-                        count--
-                    } else {
+                    if (count == 1) {
                         saved()
+                    } else {
+                        count--
                     }
                 }
 
@@ -92,7 +124,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                     ExceptionDeal.handleException(error)
                 }
 
-                override fun requestType(): Int? = 1
+                override fun requestType(): MultipartBody.Part? = MultipartBody.Part.createFormData("type", type)
 
                 override fun requestExt(): MultipartBody.Part? = MultipartBody.Part.createFormData("ext", ext)
 
@@ -186,6 +218,37 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
         }
     }
 
+    private fun patchCompany(){
+        mView?.apply {
+            val name = getName()
+            val locationBean = getLocationBean()
+            if (name.isNullOrEmpty()) {
+                return
+            }
+            if (locationBean == null) {
+                return
+            }
+            mViewMode.addOnUpCompanyListener(object : IDataListener {
+                override fun requestData(): Map<String, String>? {
+                    return mapOf(Pair("full_name", name!!),Pair("id", "42"), Pair("address", locationBean.snippet), Pair("address", locationBean.snippet)
+                            , Pair("province", locationBean.province), Pair("city", locationBean.city), Pair("region", locationBean.district))
+
+                }
+
+                override fun successData(success: String) {
+                    if (count == 1) {
+                        saved()
+                    } else {
+                        count--
+                    }
+                }
+
+                override fun errorData(error: String) {
+                    ExceptionDeal.handleException(error)
+                }
+            })
+        }
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {

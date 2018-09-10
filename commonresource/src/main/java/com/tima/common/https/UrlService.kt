@@ -33,12 +33,12 @@ interface UrlService {
     @GET("{path}")
     fun executeGet(@Path("path") path: String, @QueryMap queryMap: Map<String, String>?):
             Observable<ResponseBody>
-
-    /**
+/**
      *get请求
      */
     @GET("{path}")
     fun executeGet(@Path("path") path: String): Observable<ResponseBody>
+
 
     /**
      * 文件上传
@@ -51,7 +51,7 @@ interface UrlService {
      * patch请求
      */
     @PATCH("{path}")
-    @Multipart
+    @FormUrlEncoded
     fun executePatch(@Path("path") path: String, @FieldMap fieldMap: Map<String, String>?):
             Observable<ResponseBody>
 
@@ -61,8 +61,8 @@ interface UrlService {
      */
     @PATCH("{path}")
     @Multipart
-    fun executePatch(@Path("path") path: String, @Part file: MultipartBody.Part?, @Part("type")
-    type: Int?, @Part ext: MultipartBody.Part?): Observable<ResponseBody>
+    fun executePatch(@Path("path") path: String, @Part file: MultipartBody.Part?, @Part
+    type: MultipartBody.Part?, @Part ext: MultipartBody.Part?): Observable<ResponseBody>
 
     /**
      * patch请求

@@ -15,7 +15,7 @@ interface IDataListener : IBaseDataListener{
 }
 interface IDataFileListener : IBaseDataListener{
     fun requestFileData() : MultipartBody.Part
-    fun requestType() : Int?
+    fun requestType() : MultipartBody.Part?
     fun requestExt() : MultipartBody.Part?
 }
 interface IBaseDataListener{
