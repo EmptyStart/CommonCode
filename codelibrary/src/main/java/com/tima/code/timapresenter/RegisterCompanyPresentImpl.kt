@@ -71,7 +71,8 @@ class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompany
                     ExceptionDeal.handleException(error)
                 }
 
-                override fun requestType(): Int? = 1
+                override fun requestType(): MultipartBody.Part? = MultipartBody.Part
+                        .createFormData("type", "3")
 
                 override fun requestExt(): MultipartBody.Part? = MultipartBody.Part.createFormData("ext", ext)
 
