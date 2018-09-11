@@ -7,6 +7,7 @@
 
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
+    <color name="gray_white">#FFFAFA</color>
     <!--  浅色的线 -->
     <color name="line">#E5E5E5</color>
     <color name="xmpp_mian">#59a8f7</color>

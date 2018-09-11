@@ -73,7 +73,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
      */
     protected fun geoSearch(latLng: LatLonPoint, listener: GeocodeSearch.OnGeocodeSearchListener) {
         geoSearch.setOnGeocodeSearchListener(listener)
-        val query = RegeocodeQuery(latLng, 2000f, GeocodeSearch.AMAP)
+        val query = RegeocodeQuery(latLng, 500f, GeocodeSearch.AMAP)
         geoSearch.getFromLocationAsyn(query)
     }
 

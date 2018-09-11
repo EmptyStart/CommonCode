@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/code_title_barbc"
+        android:orientation="horizontal">
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:queryHint="输入地址搜索"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:id="@+id/iv_actionbar_cancle"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_marginRight="23px"
+            android:padding="10px"
+            android:src="@mipmap/common_cancle"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</com.zhy.autolayout.AutoLinearLayout>
