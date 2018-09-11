@@ -20,6 +20,8 @@ object RoutePaths{
     const val registerPrivate="/register/private"
     //注册/公司注册
     const val registerCompany="/register/company"
+    //注册/地图选择
+    const val registerMap="/register/map"
     //注册/创建公司
     const val createcompany="/register/createcompany"
     //主界面

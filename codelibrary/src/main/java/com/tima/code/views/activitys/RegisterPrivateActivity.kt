@@ -90,6 +90,7 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
         ivPicHead.setOnClickListener(this)
         defaultLoaction()
         defaultMarkerDrag()
+        defaultMapClick()
     }
 
 

@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.ScrollView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
@@ -23,10 +24,7 @@ import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
 import com.amap.api.services.core.LatLonPoint
-import com.amap.api.services.geocoder.GeocodeResult
-import com.amap.api.services.geocoder.GeocodeSearch
-import com.amap.api.services.geocoder.RegeocodeQuery
-import com.amap.api.services.geocoder.RegeocodeResult
+import com.amap.api.services.geocoder.*
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener
@@ -41,6 +39,9 @@ import com.tima.common.utils.IAMapLocationSuccessListener
 import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
 import kotlinx.android.synthetic.main.code_layout_select_address.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
@@ -76,7 +77,11 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         val query = RegeocodeQuery(latLng, 500f, GeocodeSearch.AMAP)
         geoSearch.getFromLocationAsyn(query)
     }
-
+    protected fun qGeoSearch(name: String,city: String?, listener: GeocodeSearch.OnGeocodeSearchListener) {
+        geoSearch.setOnGeocodeSearchListener(listener)
+        val query = GeocodeQuery(name, city)
+        geoSearch.getFromLocationNameAsyn(query)
+    }
     /**
      * 选择图片
      */
@@ -224,6 +229,13 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         aMap.setOnMarkerDragListener(listener)
     }
 
+    protected fun defaultMapClick(){
+        aMap.setOnMapClickListener(object : AMap.OnMapClickListener {
+            override fun onMapClick(p0: LatLng?) {
+                rGeoSearch(p0)
+            }
+        })
+    }
     /**
      * 设置默认拖动监听
      */
@@ -231,31 +243,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         aMap.setOnMarkerDragListener(object : AMap.OnMarkerDragListener {
             override fun onMarkerDragEnd(p0: Marker?) {
                 val latLng = p0?.position
-                latLng?.let {
-                    geoSearch(LatLonPoint(it.latitude, it.longitude), object : GeocodeSearch.OnGeocodeSearchListener {
-                        override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
-                            locations.clear()
-                            val regeocodeAddress = p0?.regeocodeAddress
-                            regeocodeAddress?.apply {
-                                val point = streetNumber.latLonPoint
-                                val split1 = formatAddress.split(district)
-                                if (split1.size > 1) {
-                                    locations.add(LocationBean(point.latitude, point.longitude, formatAddress, province, city, district, split1[1]))
-                                }
-                                pois?.forEach {
-                                    val latLonPoint = it.latLonPoint
-                                    val s = city + district + it.snippet
-                                    locations.add(LocationBean(latLonPoint.latitude, latLonPoint.longitude, s, province, city, district, it.snippet))
-                                }
-                            }
-                            showAddressPop()
-                        }
-
-                        override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
-                        }
-                    })
-
-                }
+                rGeoSearch(latLng)
             }
 
             override fun onMarkerDragStart(p0: Marker?) {
@@ -264,6 +252,34 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
             override fun onMarkerDrag(p0: Marker?) {
             }
         })
+    }
+
+    fun rGeoSearch(latLng: LatLng?) {
+        latLng?.let {
+            geoSearch(LatLonPoint(it.latitude, it.longitude), object : GeocodeSearch.OnGeocodeSearchListener {
+                override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
+                    locations.clear()
+                    val regeocodeAddress = p0?.regeocodeAddress
+                    regeocodeAddress?.apply {
+                        val point = streetNumber.latLonPoint
+                        val split1 = formatAddress.split(district)
+                        if (split1.size > 1) {
+                            locations.add(LocationBean(point.latitude, point.longitude, formatAddress, province, city, district, split1[1]))
+                        }
+                        pois?.forEach {
+                            val latLonPoint = it.latLonPoint
+                            val s = city + district + it.snippet
+                            locations.add(LocationBean(latLonPoint.latitude, latLonPoint.longitude, s, province, city, district, it.snippet))
+                        }
+                    }
+                    showAddressPop()
+                }
+
+                override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+                }
+            })
+
+        }
     }
 
     /**
@@ -381,23 +397,24 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         pickerCounty?.show()
     }
 
+    override fun useEventBus(): Boolean =true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         llAddress.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                et_address.isFocusable = true
-                et_address.setSelection(et_address.text.length)
+               ARouter.getInstance().build(RoutePaths.registerMap).withString("city",tv_city.text.toString())
             }
-
         })
-        et_address.setOnClickListener {
-            et_address.setSelection(et_address.text.length)
-        }
+
         iv_pro.setOnClickListener { proPicker() }
         iv_city.setOnClickListener { cityPicker() }
         iv_county.setOnClickListener { countyPicker() }
-
-
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true,priority = 1)
+    fun upLocation(event : LocationBean){
+        upDataLocation(event)
+        EventBus.getDefault().removeStickyEvent(event)
     }
 
     override fun onDestroy() {

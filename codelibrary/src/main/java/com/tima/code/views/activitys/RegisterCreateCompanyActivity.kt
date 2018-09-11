@@ -113,6 +113,7 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         putScrollView(svCreate)
         defaultLoaction()
         defaultMarkerDrag()
+        defaultMapClick()
         actionbar.setOnRightImageListener(this)
         actionbar.setOnRightTextListener(this)
         rl_company_size.setOnClickListener(this)

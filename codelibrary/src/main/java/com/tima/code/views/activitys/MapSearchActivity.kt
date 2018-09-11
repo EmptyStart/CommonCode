@@ -13,6 +13,8 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.amap.api.location.AMapLocation
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
@@ -21,26 +23,18 @@ import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
 import com.amap.api.services.core.LatLonPoint
-import com.amap.api.services.geocoder.GeocodeResult
-import com.amap.api.services.geocoder.GeocodeSearch
-import com.amap.api.services.geocoder.RegeocodeQuery
-import com.amap.api.services.geocoder.RegeocodeResult
+import com.amap.api.services.geocoder.*
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
 import com.tima.code.ResponseBody.LocationBean
-import com.tima.code.ResponseBody.TestBody
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
-import com.tima.common.base.IBaseDataListener
-import com.tima.common.https.BaseSubscriber
-import com.tima.common.https.RetrofitHelper
-import com.tima.common.rx.SchedulerUtils
-import com.tima.common.utils.GsonUtils
+import com.tima.common.base.RoutePaths
 import com.tima.common.utils.IAMapLocationSuccessListener
-import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
 import kotlinx.android.synthetic.main.code_activity_mapsearch.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
@@ -49,8 +43,47 @@ import org.jetbrains.anko.toast
  *   email : zhijun.li@timanetworks.com
  *
  */
-class MapSearchActivity : BaseActivity(){
+@Route(path = RoutePaths.registerMap)
+class MapSearchActivity : BaseActivity(), GeocodeSearch.OnGeocodeSearchListener {
+    @Autowired
+    @JvmField
+    var city : String?=Constant.aMapLocation?.city
+
+
+    override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
+        locations.clear()
+        val regeocodeAddress = p0?.regeocodeAddress
+        regeocodeAddress?.apply {
+            val point = streetNumber.latLonPoint
+            val split1 = formatAddress.split(district)
+            if (split1.size > 1) {
+                locations.add(LocationBean(point.latitude, point.longitude, formatAddress, province, city, district, split1[1]))
+            }
+            pois?.forEach {
+                val latLonPoint = it.latLonPoint
+                val s = city + district + it.snippet
+                locations.add(LocationBean(latLonPoint.latitude, latLonPoint.longitude, s, province, city, district, it.snippet))
+            }
+            showAddressPop()
+        }
+
+    }
+
+    override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
+        locations.clear()
+        val geocodeAddressList = p0?.geocodeAddressList
+        geocodeAddressList?.forEach {
+            val formatAddress = it.formatAddress
+            val split = formatAddress.split(it.district)
+            if (split.size > 1) {
+                locations.add(LocationBean(it.latLonPoint.latitude, it.latLonPoint.longitude, formatAddress, it.province, it.city, it.district, split[1]))
+            }
+            showAddressPop()
+        }
+    }
+
     protected var popSa: PopupWindow? = null
+    protected var marker: Marker? = null
     private var adapter: BaseQuickAdapter<LocationBean, BaseViewHolder>? = null
     val locations = ArrayList<LocationBean>()
 
@@ -59,16 +92,14 @@ class MapSearchActivity : BaseActivity(){
     /**
      * 设置定位点
      */
-    protected fun setMarker(latLng: LatLng, title: String?): MarkerOptions {
+    protected fun setMarker(latLng: LatLng): MarkerOptions {
         val markerOptions = MarkerOptions()
         markerOptions.position(latLng)
         markerOptions.draggable(true)
         markerOptions.icon(ResourceUtil.getBitmapDescriptorFactory(R.mipmap.ic_map))
         markerOptions.isFlat = true
         markerOptions.setInfoWindowOffset(-54, -69)
-//        title?.let {
 //            markerOptions.title(it)
-//        }
         return markerOptions
     }
 
@@ -76,28 +107,40 @@ class MapSearchActivity : BaseActivity(){
         GeocodeSearch(this)
     }
 
-    protected fun geoSearch(latLng: LatLonPoint, listener: GeocodeSearch.OnGeocodeSearchListener) {
+    protected fun regeoSearch(latLng: LatLonPoint, listener: GeocodeSearch.OnGeocodeSearchListener) {
         geoSearch.setOnGeocodeSearchListener(listener)
         val query = RegeocodeQuery(latLng, 500f, GeocodeSearch.AMAP)
         geoSearch.getFromLocationAsyn(query)
     }
 
+    protected fun qGeoSearch(name: String, listener: GeocodeSearch.OnGeocodeSearchListener) {
+        geoSearch.setOnGeocodeSearchListener(listener)
+        val query = GeocodeQuery(name, city)
+        geoSearch.getFromLocationNameAsyn(query)
+    }
+
+
     /**
      * 设置定位数据
      */
-    protected fun setLocation(it: AMapLocation) {
+    protected fun setLocation(it: LatLng) {
 //        tv_pro.text = it.province
 //        tv_city.text = it.city
 //        tv_county.text = it.district
 //        val s = it.street + it.streetNum + it.poiName
 //        et_address.setText(s)
-        val latLng = LatLng(it.latitude, it.longitude)
-        aMap.addMarker(setMarker(latLng, it.address))
-        val newLatLng = CameraUpdateFactory.newLatLng(latLng)
+        marker?.let {
+            if (!it.isRemoved) {
+                it.remove()
+            }
+        }
+        marker = aMap.addMarker(setMarker(it))
+        val newLatLng = CameraUpdateFactory.newLatLng(it)
         aMap.moveCamera(newLatLng)
         aMap.minZoomLevel = 12f
         aMap.maxZoomLevel = 18f
     }
+
     /**
      * 拖动定位蓝点，显示点周围的定位信息
      */
@@ -128,7 +171,7 @@ class MapSearchActivity : BaseActivity(){
         adapter?.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
                 selectPosition = position
-                upDataLocation(locations[position])
+                EventBus.getDefault().postSticky(upDataLocation(locations[position]))
                 popSa?.dismiss()
             }
         }
@@ -148,12 +191,13 @@ class MapSearchActivity : BaseActivity(){
 //        tv_county.text = it.district
 //        et_address.setText(it.snippet)
     }
+
     protected fun defaultMarkerDrag() {
         aMap.setOnMarkerDragListener(object : AMap.OnMarkerDragListener {
             override fun onMarkerDragEnd(p0: Marker?) {
                 val latLng = p0?.position
                 latLng?.let {
-                    searchGeoData(it)
+                    searchReGeoData(it)
 
                 }
             }
@@ -166,29 +210,12 @@ class MapSearchActivity : BaseActivity(){
         })
     }
 
-    fun searchGeoData(it: LatLng) {
-        geoSearch(LatLonPoint(it.latitude, it.longitude), object : GeocodeSearch.OnGeocodeSearchListener {
-            override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
-                locations.clear()
-                val regeocodeAddress = p0?.regeocodeAddress
-                regeocodeAddress?.apply {
-                    val point = streetNumber.latLonPoint
-                    val split1 = formatAddress.split(district)
-                    if (split1.size > 1) {
-                        locations.add(LocationBean(point.latitude, point.longitude, formatAddress, province, city, district, split1[1]))
-                    }
-                    pois?.forEach {
-                        val latLonPoint = it.latLonPoint
-                        val s = city + district + it.snippet
-                        locations.add(LocationBean(latLonPoint.latitude, latLonPoint.longitude, s, province, city, district, it.snippet))
-                    }
-                }
-                showAddressPop()
-            }
+    fun searchReGeoData(it: LatLng) {
+        regeoSearch(LatLonPoint(it.latitude, it.longitude), this)
+    }
 
-            override fun onGeocodeSearched(p0: GeocodeResult?, p1: Int) {
-            }
-        })
+    fun searchGeoData(name: String) {
+        qGeoSearch(name, this)
     }
 
     /**
@@ -201,28 +228,34 @@ class MapSearchActivity : BaseActivity(){
                 override fun onLocationChanged(p0: AMapLocation?) {
                     Constant.aMapLocation = p0
                     p0?.let {
-                        setLocation(it)
+                        setLocation(LatLng(it.latitude, it.longitude))
                     }
                 }
             })
             return
         }
-        setLocation(aMapLocation)
+        setLocation(LatLng(aMapLocation.latitude, aMapLocation.longitude))
     }
 
     override fun inits(savedInstanceState: Bundle?) {
         defaultLoaction()
         defaultMarkerDrag()
-        aMap.setOnMapClickListener(object : AMap.OnMapClickListener{
+        aMap.setOnMapClickListener(object : AMap.OnMapClickListener {
             override fun onMapClick(p0: LatLng?) {
                 p0?.let {
-                    searchGeoData(it)
+                    searchReGeoData(it)
+                    setLocation(it)
+                    search_view.clearFocus()
                 }
             }
         })
         search_view.setIconifiedByDefault(false)
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    searchGeoData(query)
+                    search_view.clearFocus()
+                }
                 return false
 
             }
@@ -232,10 +265,8 @@ class MapSearchActivity : BaseActivity(){
                 return false
             }
         })
-        search_view.setOnSearchClickListener {
-            toast("搜索")
-        }
     }
+
     /**
      * 加入mapView
      */
