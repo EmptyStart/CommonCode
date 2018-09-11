@@ -25,13 +25,23 @@ import org.jetbrains.anko.toast
 @Route(path = RoutePaths.createcompany)
 class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         IRegisterCreateCompanyView,View.OnClickListener {
+    override fun getWebAddress(): String? {
+
+        return et_web.text.toString().trim()
+    }
+
+    override fun getIntroduce(): String? {
+
+        return et_introduce.text.toString().trim()
+    }
+
     override fun onClick(v: View?) {
         present.onClick(v)
     }
 
-    var imageLogo: Uri? = null
-    override fun imageLogo(): Uri? {
-        return imageLogo
+    var image3: Uri? = null
+    override fun image3(): Uri? {
+        return image3
     }
 
     var image21: Uri? = null
@@ -70,8 +80,7 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         val pro = resources.getString(R.string.code_register_pro)
         val citys = resources.getString(R.string.code_register_city)
         val county = resources.getString(R.string.code_register_county)
-        if (pro.equals(tv_pro.text.toString())||citys.equals(tv_city.text.toString())||citys.equals(tv_county.text.toString())){
-            toast("请输入地址!")
+        if (pro.equals(tv_pro.text.toString())||citys.equals(tv_city.text.toString())||county.equals(tv_county.text.toString())){
             return null
         }
         if (selectPosition!=-1){
@@ -150,7 +159,7 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
                 CameraUtils.IMAGE_LOGO->{
                     val obtainResult = Matisse.obtainResult(data)
                     for (uri in obtainResult) {
-                        imageLogo = uri
+                        image3 = uri
                         iv_add_photo.setImageURI(uri)
                     }
                 }

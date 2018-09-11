@@ -3,12 +3,14 @@ package com.tima.code.timapresenter
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
+import android.net.Uri
 import android.view.View
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.ResponseBody.CompanyStaffsBody
+import com.tima.code.ResponseBody.LocationBean
 import com.tima.code.timaconstracts.IRegisterCreateCompanyPresent
 import com.tima.code.timaconstracts.IRegisterCreateCompanyView
 import com.tima.code.timaviewmodels.RegisterCreateCompanyViewModelImpl
@@ -35,21 +37,16 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
     var mView: IRegisterCreateCompanyView? = mView
     var selectStaffs: String = ""
 
-
     var count = -1;
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { RegisterCreateCompanyViewModelImpl() }
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.tv_actionbar_right_title -> {
                 count = 5
-                upPic(CameraUtils.HEAD_PICTION)
-                upPic(CameraUtils.IMAGE_21)
-                upPic(CameraUtils.IMAGE_22)
-                upPic(CameraUtils.IMAGE_23)
-                patchCompany()
-
+                patchAll()
             }
             R.id.iv_head -> {
+                //这里是LOGO
                 mView?.selectImage(CameraUtils.HEAD_PICTION)
             }
             R.id.iv_add_img1 -> {
@@ -62,10 +59,77 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 mView?.selectImage(CameraUtils.IMAGE_23)
             }
             R.id.iv_add_photo -> {
+                //这里是营业执照
                 mView?.selectImage(CameraUtils.IMAGE_LOGO)
             }
             R.id.rl_company_size -> {
                 getConfig()
+            }
+        }
+    }
+
+    fun patchAll(){
+        mView?.apply {
+            var pairs= mapOf<String,String>()
+            val name = getName()
+            val locationBean = getLocationBean()
+            val headImage = headImage()
+            val image21 = image21()
+            val image22 = image22()
+            val image23 = image23()
+            val introduce = getIntroduce()
+            val image3 = image3()
+
+
+
+            if (name.isNullOrEmpty()){
+                showError("公司名称是必填项")
+                return
+            }
+
+            if (image3==null){
+                showError("公司营业执照是必填项")
+                return
+            }else{
+                upPic(image3,"3")
+            }
+            if (locationBean==null){
+                showError("公司详细地址是必填项")
+                return
+            }
+
+            if (introduce.isNullOrEmpty()){
+                pairs.plus(Pair("introduction", selectStaffs))
+            }
+
+
+            if (selectStaffs.isNotEmpty()){
+                pairs.plus(Pair("staffs", selectStaffs))
+            }
+            pairs.plus(Pair("id", "42"))
+            pairs.plus(Pair("full_name", name))
+            pairs.plus(Pair("type", "1"))
+            pairs.plus(Pair("address", locationBean.snippet))
+            pairs.plus(Pair("province", locationBean.province))
+            pairs.plus(Pair("city", locationBean.city))
+            pairs.plus(Pair("region", locationBean.district))
+
+            patchCompany(pairs)
+
+            if (image21!=null){
+                upPic(image21,"2-1")
+
+            }
+            if (image22!=null){
+                upPic(image22,"2-2")
+
+            }
+            if (image23!=null){
+                upPic(image23,"2-3")
+            }
+
+            if (headImage!=null){
+                upPic(headImage,"1")
             }
         }
     }
@@ -76,38 +140,9 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
         activity?.finish()
     }
 
-    private fun upPic(code: Int) {
+    private fun upPic(uri: Uri,type: String) {
         mView?.apply {
-            var file: File? = null
-            var type: String = "1"
-            when (code) {
-                CameraUtils.HEAD_PICTION -> {
-                    val headImage = headImage() ?: return
-                    file = FileUtils.uriToFile(headImage) ?: return
-                    type = "1"
-                }
-                CameraUtils.IMAGE_21 -> {
-                    val image21 = image21() ?: return
-                    file = FileUtils.uriToFile(image21) ?: return
-                    type = "2-1"
-                }
-                CameraUtils.IMAGE_22 -> {
-                    val image22 = image22() ?: return
-                    file = FileUtils.uriToFile(image22) ?: return
-                    type = "2-2"
-                }
-                CameraUtils.IMAGE_23 -> {
-                    val image23 = image23() ?: return
-                    file = FileUtils.uriToFile(image23) ?: return
-                    type = "2-3"
-                }
-//                CameraUtils.IMAGE_LOGO -> {
-//                    val imageLogo = imageLogo() ?: return
-//                    file = FileUtils.uriToFile(imageLogo) ?: return
-//                    type = "logo"
-//                }
-            }
-
+            val file: File? = FileUtils.uriToFile(uri)
             val name = file?.name
             val ext = FileUtils.picTailName(name) ?: return
             mViewMode.addOnUpPicListener(object : IDataFileListener {
@@ -178,7 +213,6 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                     return mapOf(Pair("type", "COMPANY_STAFFS"))
 
                 }
-
                 override fun successData(success: String) {
                     val staffsBody = GsonUtils.getGson.fromJson(success, CompanyStaffsBody::class.java)
                     val results = staffsBody.results
@@ -218,20 +252,13 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
         }
     }
 
-    private fun patchCompany(){
+    private fun patchCompany(requestMap : Map<String,String>){
         mView?.apply {
-            val name = getName()
-            val locationBean = getLocationBean()
-            if (name.isNullOrEmpty()) {
-                return
-            }
-            if (locationBean == null) {
-                return
-            }
+
+
             mViewMode.addOnUpCompanyListener(object : IDataListener {
                 override fun requestData(): Map<String, String>? {
-                    return mapOf(Pair("full_name", name!!),Pair("id", "42"), Pair("address", locationBean.snippet), Pair("address", locationBean.snippet)
-                            , Pair("province", locationBean.province), Pair("city", locationBean.city), Pair("region", locationBean.district))
+                    return requestMap
 
                 }
 

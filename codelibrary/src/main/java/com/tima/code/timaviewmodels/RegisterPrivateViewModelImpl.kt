@@ -15,6 +15,12 @@ import com.tima.common.rx.SchedulerUtils
  *
  */
 class RegisterPrivateViewModelImpl : BaseViewModel(), IRegisterPrivateViewModel {
+    override fun addOnUpCompanyListener(listener: IDataListener) {
+        val baseSubscriber = BaseSubscriber(listener)
+        RetrofitHelper.service.executePatch(CommonUrls.companyInfo, listener.requestData())
+                .compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
+        addSubscription(baseSubscriber)
+    }
 
     override fun addOnUpPicListener(listener: IDataFileListener) {
         val baseSubscriber = BaseSubscriber(listener)

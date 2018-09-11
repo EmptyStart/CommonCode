@@ -19,7 +19,7 @@ class RegisterSelectActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.register_company->{
-                ARouter.getInstance().build(RoutePaths.registerCompany).navigation()
+                ARouter.getInstance().build(RoutePaths.createcompany).navigation()
             }
             R.id.register_private->{
                 ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()

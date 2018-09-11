@@ -1,9 +1,9 @@
 package com.tima.code.timapresenter
 
-import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
+import android.net.Uri
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
@@ -33,13 +33,43 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
         when (view?.id) {
             R.id.tv_actionbar_right_title -> {
                 count = 2
-                upPic()
-                patchHr()
+                patchAll()
             }
             R.id.ivPicHead -> {
                 mView?.selectImage()
             }
         }
+    }
+
+    private fun patchAll() {
+        mView?.apply {
+            val pairs = mapOf<String, String>()
+            val headImage = headImage()
+            val name = getName()
+            val locationBean = getLocationBean()
+            if (name.isNullOrEmpty()) {
+                showError("请输入姓名")
+                return
+            }
+            if (locationBean == null) {
+                showError("请输入工作详细地址")
+                return
+            }
+            if (headImage != null) {
+                count = 3
+                upPic(headImage)
+            }
+            patchHr(name!!)
+            pairs.plus(Pair("id", "42"))
+            pairs.plus(Pair("type", "0"))
+            pairs.plus(Pair("address", locationBean.snippet))
+            pairs.plus(Pair("province", locationBean.province))
+            pairs.plus(Pair("city", locationBean.city))
+            pairs.plus(Pair("region", locationBean.district))
+            patchCompany(pairs)
+        }
+
+
     }
 
     private fun saved() {
@@ -48,19 +78,19 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
         activity?.finish()
     }
 
-    private fun upPic() {
+    private fun upPic(headImage: Uri) {
         mView?.apply {
-            val headImage = headImage() ?: return
             val file = FileUtils.uriToFile(headImage) ?: return
             val name = file.name
             val ext = FileUtils.picTailName(name) ?: return
             mViewMode.addOnUpPicListener(object : IDataFileListener {
 
                 override fun successData(success: String) {
-                    if (count == 2) {
-                        count--
-                    } else {
+                    if (count == 1) {
                         saved()
+                    } else {
+                        count--
+
                     }
                 }
 
@@ -84,27 +114,20 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
 
     }
 
-    private fun patchHr() {
+    private fun patchHr(name: String) {
         mView?.apply {
-            val name = getName()
-            val locationBean = getLocationBean()
-            if (name.isNullOrEmpty()) {
-                return
-            }
-            if (locationBean == null) {
-                return
-            }
+
             mViewMode.addOnUpHrListener(object : IDataListener {
                 override fun requestData(): Map<String, String>? {
-                    return mapOf(Pair("name", name!!), Pair("address", locationBean.snippet), Pair("address", locationBean.snippet)
-                            , Pair("province", locationBean.province), Pair("city", locationBean.city), Pair("region", locationBean.district))
+                    return mapOf(Pair("name", name))
                 }
 
                 override fun successData(success: String) {
-                    if (count == 2) {
-                        count--
-                    } else {
+                    if (count == 1) {
                         saved()
+                    } else {
+                        count--
+
                     }
                 }
 
@@ -115,6 +138,29 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
         }
     }
 
+    private fun patchCompany(requestMap: Map<String, String>) {
+        mView?.apply {
+
+            mViewMode.addOnUpCompanyListener(object : IDataListener {
+                override fun requestData(): Map<String, String>? {
+                    return requestMap
+
+                }
+
+                override fun successData(success: String) {
+                    if (count == 1) {
+                        saved()
+                    } else {
+                        count--
+                    }
+                }
+
+                override fun errorData(error: String) {
+                    ExceptionDeal.handleException(error)
+                }
+            })
+        }
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {

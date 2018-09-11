@@ -9,7 +9,7 @@
         android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mode_title="创建公司"
+        app:mode_title="公司注册"
         app:mode_type="type_three" />
 
     <View
@@ -202,28 +202,35 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="230px"
-                android:layout_marginTop="2px"
-                app:layout_auto_basewidth="height"
+                android:layout_marginTop="30px"
                 android:background="@android:color/white">
+
+                <ImageView
+                    android:id="@+id/iv_cer"
+                    android:layout_width="57px"
+                    android:layout_height="57px"
+                    android:layout_marginLeft="45px"
+                    android:layout_marginTop="45px"
+                    android:src="@mipmap/code_register_certify" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30px"
                     android:layout_marginTop="45px"
-                    android:text="上传公司LOGO" />
+                    android:layout_toRightOf="@id/iv_cer"
+                    android:text="上传营业执照" />
 
                 <ImageView
                     android:id="@+id/iv_add_photo"
-                    app:layout_auto_basewidth="height"
                     android:layout_width="172px"
                     android:layout_height="172px"
-                    android:scaleType="centerCrop"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="35px"
+                    android:scaleType="centerCrop"
+                    app:layout_auto_basewidth="height"
                     android:src="@mipmap/code_register_addphoto" />
-
             </RelativeLayout>
 
             <include layout="@layout/code_layout_select_address" />

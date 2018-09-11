@@ -24,7 +24,7 @@ object MapGaoDe{
      */
     fun getLocation(activity : AppCompatActivity,listener: IAMapLocationSuccessListener)  {
         val rxPermissions= RxPermissions(activity)
-        val aMapLocation = rxPermissions.requestEach(
+        val aMapLocation = rxPermissions.requestEachCombined(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,

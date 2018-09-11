@@ -17,7 +17,10 @@ interface IRegisterCreateCompanyView : IRegisterCompanyView {
     fun image21() : Uri?
     fun image22() : Uri?
     fun image23() : Uri?
-    fun imageLogo() : Uri?
+    fun image3() : Uri?
 
     fun getStaffes() : TextView
+
+    fun getIntroduce() : String?
+    fun getWebAddress() : String?
 }

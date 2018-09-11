@@ -15,7 +15,7 @@ import okhttp3.ResponseBody
 interface IRegisterPrivateViewModel : IBaseViewModel {
     fun addOnUpPicListener(listener: IDataFileListener)
     fun addOnUpHrListener(listener: IDataListener)
-//    fun addOnUpHrListener(listener: IDataListener)
+    fun addOnUpCompanyListener(listener: IDataListener)
 }
 
 interface IRegisterPrivatePresent : IBasePresenter
