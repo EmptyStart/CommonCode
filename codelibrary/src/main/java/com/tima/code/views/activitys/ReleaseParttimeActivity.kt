@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
 import com.tima.code.ResponseBody.CareerTypeResult
 import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.ResponseBody.ReleasePopData
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
 import com.tima.code.timapresenter.ReleaseTimePresenterImpl
@@ -33,21 +34,21 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releaseparttime)
 class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickListener, IReleaseTimeView {
-    private var adapter: BaseQuickAdapter<CareerTypeResult, BaseViewHolder>? = null
+    private var adapter: BaseQuickAdapter<ReleasePopData, BaseViewHolder>? = null
     private var popSa2: PopupWindow? = null
-    val carreerTypes = arrayListOf<CareerTypeResult>()
-    override fun showPop(list: ArrayList<CareerTypeResult>, listener: OnSelectListener) {
-        carreerTypes.clear()
-        carreerTypes.addAll(list)
+    val releasePopData = arrayListOf<ReleasePopData>()
+    override fun showPop(list: ArrayList<ReleasePopData>, listener: OnSelectListener) {
+        releasePopData.clear()
+        releasePopData.addAll(list)
         if (adapter == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.code_layout_pop_recycler, null)
             val recyclerView = view.find(R.id.rvPop) as RecyclerView
             val rl_pop = view.find(R.id.rl_pop) as RelativeLayout
             recyclerView.layoutManager = LinearLayoutManager(this)
-            adapter = object : BaseQuickAdapter<CareerTypeResult, BaseViewHolder>(R.layout
-                    .code_recycler_pop_item, carreerTypes) {
-                override fun convert(helper: BaseViewHolder?, item: CareerTypeResult?) {
-                    helper?.setText(R.id.selectAddress, item?.name)
+            adapter = object : BaseQuickAdapter<ReleasePopData, BaseViewHolder>(R.layout
+                    .code_recycler_pop_item, releasePopData) {
+                override fun convert(helper: BaseViewHolder?, item: ReleasePopData?) {
+                    helper?.setText(R.id.selectAddress, item?.value)
                 }
             }
             rl_pop.setOnClickListener { popSa?.dismiss() }
@@ -61,7 +62,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
             popSa2?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
             popSa2?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         } else {
-            adapter?.setNewData(carreerTypes)
+            adapter?.setNewData(releasePopData)
         }
         adapter?.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
             override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
