@@ -22,6 +22,10 @@ object CommonUrls {
      * company info/
      */
     const val companyInfo="company/"
+    /**
+     * 发布职业
+     */
+    const val releaseTime="position/"
 
     /**
      * 配置信息查询

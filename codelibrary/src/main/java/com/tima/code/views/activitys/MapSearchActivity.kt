@@ -36,7 +36,6 @@ import com.tima.common.utils.ResourceUtil
 import kotlinx.android.synthetic.main.code_activity_mapsearch.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
 
 /**
  * @author : zhijun.li on 2018/9/11
@@ -173,6 +172,7 @@ class MapSearchActivity : BaseActivity(), GeocodeSearch.OnGeocodeSearchListener 
                 selectPosition = position
                 EventBus.getDefault().postSticky(upDataLocation(locations[position]))
                 popSa?.dismiss()
+                finish()
             }
         }
         popSa?.showAtLocation(getRootView(), Gravity.BOTTOM, 0, 0)
@@ -265,6 +265,7 @@ class MapSearchActivity : BaseActivity(), GeocodeSearch.OnGeocodeSearchListener 
                 return false
             }
         })
+        iv_actionbar_cancle.setOnClickListener { finish() }
     }
 
     /**

@@ -97,7 +97,6 @@
             android:layout_marginLeft="72px"
             android:background="@null"
             android:hint="具体地址"
-            android:enabled="false"
             android:textSize="12sp" />
     </LinearLayout>
 

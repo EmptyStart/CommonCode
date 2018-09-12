@@ -1,5 +1,6 @@
 package com.tima.code.views.activitys
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
@@ -34,10 +35,8 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
 import com.tima.code.ResponseBody.LocationBean
 import com.tima.common.base.*
-import com.tima.common.utils.CameraUtils
-import com.tima.common.utils.IAMapLocationSuccessListener
-import com.tima.common.utils.LogUtils
-import com.tima.common.utils.ResourceUtil
+import com.tima.common.utils.*
+import com.tima.common.utils.KeyboardUtils.showSoftInput
 import kotlinx.android.synthetic.main.code_layout_select_address.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -74,7 +73,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
      */
     protected fun geoSearch(latLng: LatLonPoint, listener: GeocodeSearch.OnGeocodeSearchListener) {
         geoSearch.setOnGeocodeSearchListener(listener)
-        val query = RegeocodeQuery(latLng, 500f, GeocodeSearch.AMAP)
+        val query = RegeocodeQuery(latLng, 100f, GeocodeSearch.AMAP)
         geoSearch.getFromLocationAsyn(query)
     }
     protected fun qGeoSearch(name: String,city: String?, listener: GeocodeSearch.OnGeocodeSearchListener) {
@@ -136,13 +135,13 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
                 override fun onLocationChanged(p0: AMapLocation?) {
                     Constant.aMapLocation = p0
                     p0?.let {
-                        setLocation(it)
+                        setLocation(LatLng(it.latitude,it.longitude))
                     }
                 }
             })
             return
         }
-        setLocation(aMapLocation)
+        setLocation(LatLng(aMapLocation.latitude,aMapLocation.longitude))
     }
 
     /**
@@ -203,7 +202,24 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         aMap.minZoomLevel = 12f
         aMap.maxZoomLevel = 18f
     }
+    /**
+     * 设置定位数据
+     */
+    protected fun setLocation(it: LatLng?) {
+        it?.let {
+            marker?.let {
+                if (!it.isRemoved) {
+                    it.remove()
+                }
+            }
+            marker = aMap.addMarker(setMarker(it,null))
+            val newLatLng = CameraUpdateFactory.newLatLng(it)
+            aMap.moveCamera(newLatLng)
+            aMap.minZoomLevel = 12f
+            aMap.maxZoomLevel = 18f
+        }
 
+    }
     /**
      * 更新定位数据
      */
@@ -233,6 +249,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         aMap.setOnMapClickListener(object : AMap.OnMapClickListener {
             override fun onMapClick(p0: LatLng?) {
                 rGeoSearch(p0)
+                setLocation(p0)
             }
         })
     }
@@ -271,6 +288,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
                             val s = city + district + it.snippet
                             locations.add(LocationBean(latLonPoint.latitude, latLonPoint.longitude, s, province, city, district, it.snippet))
                         }
+
                     }
                     showAddressPop()
                 }
@@ -401,15 +419,20 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        llAddress.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-               ARouter.getInstance().build(RoutePaths.registerMap).withString("city",tv_city.text.toString())
-            }
-        })
-
-        iv_pro.setOnClickListener { proPicker() }
-        iv_city.setOnClickListener { cityPicker() }
-        iv_county.setOnClickListener { countyPicker() }
+        et_address.setOnClickListener {
+            et_address.setSelection(et_address.text.length)
+        }
+        iv_pro.setOnClickListener {
+            KeyboardUtils.hideInput(iv_pro.context as Activity)
+            proPicker() }
+        iv_city.setOnClickListener {
+            KeyboardUtils.hideInput(iv_city.context as Activity)
+            cityPicker()
+        }
+        iv_county.setOnClickListener {
+            KeyboardUtils.hideInput(iv_county.context as Activity)
+            countyPicker()
+        }
     }
     @Subscribe(threadMode = ThreadMode.MAIN,sticky = true,priority = 1)
     fun upLocation(event : LocationBean){
@@ -430,6 +453,11 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         }
         pickerCounty?.let {
             if (it.isShowing) {
+                it.dismiss()
+            }
+        }
+        popSa?.let {
+            if (it.isShowing){
                 it.dismiss()
             }
         }

@@ -16,7 +16,7 @@ import com.tima.common.rx.SchedulerUtils
 open class ConfigInfoViewModelImpl : BaseViewModel(), IConfigInfoViewModel {
     override fun addCareertype(listener: IDataListener) {
         val baseSubscriber = BaseSubscriber(listener);
-        RetrofitHelper.service.executeGet(CommonUrls.careerType, listener.requestData()).compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
+        RetrofitHelper.service.executeGet(CommonUrls.careerType).compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
         addSubscription(baseSubscriber)
     }
 

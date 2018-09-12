@@ -35,6 +35,9 @@
         <activity android:name=".views.activitys.MapSearchActivity"
             android:theme="@style/MapSearchStyle"
             />
+        <activity android:name=".views.activitys.ReleaseParttimeActivity"
+            android:theme="@style/MapSearchStyle"
+            />
 
     </application>
 </manifest>

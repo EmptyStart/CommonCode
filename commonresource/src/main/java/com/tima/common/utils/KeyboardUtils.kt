@@ -2,8 +2,12 @@ package com.tima.common.utils
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.content.Context.INPUT_METHOD_SERVICE
+
+
 
 /**
  *  键盘工具
@@ -34,5 +38,9 @@ object KeyboardUtils{
             if (activity.currentFocus != null)
                 manager.showSoftInput(activity.currentFocus, InputMethodManager.SHOW_FORCED)
         }
+    }
+    fun hideInput(context: Activity){
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(context.getWindow().getDecorView().getWindowToken(), 0)
     }
 }

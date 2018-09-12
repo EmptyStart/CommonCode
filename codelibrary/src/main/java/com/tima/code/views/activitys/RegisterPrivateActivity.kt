@@ -89,8 +89,8 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
         actionbar.setOnRightTextListener(this)
         ivPicHead.setOnClickListener(this)
         defaultLoaction()
-        defaultMarkerDrag()
         defaultMapClick()
+        defaultMarkerDrag()
     }
 
 

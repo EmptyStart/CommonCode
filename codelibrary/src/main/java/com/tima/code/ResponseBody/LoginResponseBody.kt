@@ -252,13 +252,30 @@ data class CompanyStaffsBody(
     val count: Int,
     val next: Any,
     val previous: Any,
-    val results: List<Result>
+    val results: List<CompanyStaffsResult>
 )
 
-data class Result(
+data class CompanyStaffsResult(
     val id: Int,
     val created_on: String,
     val type: String,
     val key: String,
     val value: String
+)
+
+data class CareerTypeBody(
+    val count: Int,
+    val next: Any,
+    val previous: Any,
+    val results: List<CareerTypeResult>
+)
+
+data class CareerTypeResult(
+    val id: Int,
+    val skills: List<Any>,
+    val created_on: String,
+    val name: String,
+    val status: String,
+    val level: Int,
+    val parent: Int
 )
