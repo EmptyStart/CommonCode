@@ -14,6 +14,11 @@ import com.tima.code.timaviewmodels.ReleaseTimeViewModelImpl
 import com.tima.common.base.IDataListener
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.GsonUtils
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.Observer
+import io.reactivex.functions.Consumer
 
 /**
  * @author : zhijun.li on 2018/9/12
@@ -24,7 +29,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     var mView: IReleaseTimeView? = view
     val popData = arrayListOf<ReleasePopData>()
     val careerTypes = arrayListOf<CareerTypeResult>()
-
+    var selectCareerData : String?=null
     val mViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ReleaseTimeViewModelImpl()
     }
@@ -41,55 +46,60 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         careerType(0)
     }
 
-    private fun careerType(code :Int) {
-        if (careerTypes.isEmpty()) {
-            mViewModel.addCareertype(object : IDataListener {
-                override fun requestData(): Map<String, String>? {
-                    return null
-                }
-
-                override fun successData(success: String) {
-                    val careerTypeBody = GsonUtils.getGson.fromJson(success, CareerTypeBody::class.java)
-                    val results = careerTypeBody?.results
-                    careerTypes.clear()
-                    results?.let {
-                        careerTypes.addAll(it)
+    private fun careerType(code: Int) {
+        Observable.create(ObservableOnSubscribe<ArrayList<CareerTypeResult>> { emitter ->
+            if (careerTypes.isEmpty()) {
+                mViewModel.addCareertype(object : IDataListener {
+                    override fun requestData(): Map<String, String>? {
+                        return null
                     }
-                    careerTypes.forEach {
-                        if (it.parent==code){
-                            popData.add(ReleasePopData(0,"",it.name,it.id,it.parent))
+                    override fun successData(success: String) {
+                        val careerTypeBody = GsonUtils.getGson.fromJson(success, CareerTypeBody::class.java)
+                        val results = careerTypeBody?.results
+                        careerTypes.clear()
+                        results?.let {
+                            careerTypes.addAll(it)
+                            emitter.onNext(careerTypes)
                         }
                     }
-                }
-
-                override fun errorData(error: String) {
-                    ExceptionDeal.handleException(error)
-                }
-            })
-        }else {
-            careerTypes.forEach {
+                    override fun errorData(error: String) {
+                        ExceptionDeal.handleException(error)
+                    }
+                })
+            } else {
+                emitter.onNext(careerTypes)
+            }
+        }).subscribe {
+            popData.clear()
+            it.forEach {
                 if (it.parent == code) {
-                    popData.add(ReleasePopData(0, "", it.name, it.id,it.parent))
+                    popData.add(ReleasePopData(0, "", it.name, it.id, it.parent))
                 }
             }
+            careerDataDeal()
         }
-        if (popData.isNotEmpty()){
-            mView?.showPop(popData,object : OnSelectListener{
+
+
+    }
+
+    fun careerDataDeal() {
+        if (popData.isNotEmpty()) {
+            mView?.showPop(popData, object : OnSelectListener {
                 override fun selected(result: ReleasePopData) {
                     popData.clear()
                     careerTypes.forEach {
-                        if (it.parent==result.parentId){
-                            popData.add(ReleasePopData(0,"",it.name,it.id,it.parent))
+                        if (it.parent == result.parentId) {
+                            popData.add(ReleasePopData(0, "", it.name, it.id, it.parent))
                         }
                     }
-                    if (popData.isNotEmpty()){
-                        mView?.showPop(popData,object : OnSelectListener{
+                    if (popData.isNotEmpty()) {
+                        mView?.showPop(popData, object : OnSelectListener {
                             override fun selected(result: ReleasePopData) {
-
+                                selectCareerData=result.id.toString()
                             }
                         })
-                    }else{
-
+                    } else {
+                        selectCareerData=result.id.toString()
                     }
                 }
             })

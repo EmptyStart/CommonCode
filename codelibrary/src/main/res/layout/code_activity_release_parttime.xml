@@ -32,6 +32,7 @@
                 android:background="@android:color/white">
 
                 <TextView
+                    android:id="@+id/tvWorkTyp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -135,6 +136,7 @@
                         android:paddingRight="30px"
                         android:paddingTop="15px"
                         android:text="0"
+                        android:inputType="number"
                         android:textSize="12sp" />
 
                     <TextView
@@ -175,6 +177,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_cycle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
@@ -207,6 +210,7 @@
                     android:paddingRight="30px"
                     android:paddingTop="15px"
                     android:text="0"
+                    android:inputType="number"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -223,7 +227,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="72px"
-                    android:text="兼职周期"
+                    android:text="薪资"
                     android:textSize="12sp" />
 
                 <TextView
@@ -251,7 +255,7 @@
                     android:paddingRight="30px"
                     android:paddingTop="15px"
                     android:singleLine="true"
-                    android:inputType="number"
+                    android:inputType="number|numberDecimal"
                     android:text="0"
                     android:textSize="12sp" />
             </RelativeLayout>

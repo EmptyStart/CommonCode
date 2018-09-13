@@ -16,14 +16,15 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
-import com.tima.code.ResponseBody.CareerTypeResult
 import com.tima.code.ResponseBody.LocationBean
 import com.tima.code.ResponseBody.ReleasePopData
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
 import com.tima.code.timapresenter.ReleaseTimePresenterImpl
+import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import kotlinx.android.synthetic.main.code_activity_release_parttime.*
+import kotlinx.android.synthetic.main.code_layout_select_address.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
@@ -34,42 +35,89 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releaseparttime)
 class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickListener, IReleaseTimeView {
-    private var adapter: BaseQuickAdapter<ReleasePopData, BaseViewHolder>? = null
-    private var popSa2: PopupWindow? = null
+    override fun recycleTimes(): String? {
+        return tv_cycle.text.toString().trim()
+    }
+
+    override fun salaryUnit(): String? {
+        return et_cycle.text.toString().trim()
+    }
+
+    override fun getWorkName(): String? {
+        return et_work.text.toString().trim()
+    }
+
+    override fun getLocationBean(): LocationBean? {
+        val pro = resources.getString(R.string.code_register_pro)
+        val citys = resources.getString(R.string.code_register_city)
+        val county = resources.getString(R.string.code_register_county)
+        val tvPro = tv_pro.text.toString()
+        val tvCity = tv_city.text.toString()
+        val tvCounty = tv_county.text.toString()
+        val etAddress = et_address.text.toString()
+
+        if (pro.equals(tvPro)||citys.equals(tvCity)||county.equals(tvCounty)||etAddress.isEmpty()){
+            return null
+        }
+        if (selectPosition!=-1){
+            return locations.get(selectPosition)
+        }
+        val aMapLocation = Constant.aMapLocation
+        aMapLocation?.apply {
+            return LocationBean(latitude,longitude,"",tvPro,tvCity,tvCounty,etAddress)
+        }
+        return null
+    }
+
+    override fun getQty(): String? {
+        return et_count.text.toString().trim()
+    }
+
+    override fun getSkillSet(): String? {
+    }
+
+    override fun setWorkType(name: String?) {
+        name?.let{
+            tvWorkTyp.text=name
+        }
+    }
+
+    private var releaseTimeAdapter: BaseQuickAdapter<ReleasePopData, BaseViewHolder>? = null
+    private var popSelect: PopupWindow? = null
     val releasePopData = arrayListOf<ReleasePopData>()
     override fun showPop(list: ArrayList<ReleasePopData>, listener: OnSelectListener) {
         releasePopData.clear()
         releasePopData.addAll(list)
-        if (adapter == null) {
+        if (releaseTimeAdapter == null) {
             val view = LayoutInflater.from(this).inflate(R.layout.code_layout_pop_recycler, null)
             val recyclerView = view.find(R.id.rvPop) as RecyclerView
             val rl_pop = view.find(R.id.rl_pop) as RelativeLayout
             recyclerView.layoutManager = LinearLayoutManager(this)
-            adapter = object : BaseQuickAdapter<ReleasePopData, BaseViewHolder>(R.layout
+            releaseTimeAdapter = object : BaseQuickAdapter<ReleasePopData, BaseViewHolder>(R.layout
                     .code_recycler_pop_item, releasePopData) {
                 override fun convert(helper: BaseViewHolder?, item: ReleasePopData?) {
                     helper?.setText(R.id.selectAddress, item?.value)
                 }
             }
-            rl_pop.setOnClickListener { popSa?.dismiss() }
-            recyclerView.adapter = adapter
-            popSa2 = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout
+            rl_pop.setOnClickListener { popSelect?.dismiss() }
+            recyclerView.adapter = releaseTimeAdapter
+            popSelect = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout
                     .LayoutParams
                     .MATCH_PARENT, true)
-            popSa2?.isFocusable = true
-            popSa2?.isOutsideTouchable = true;
-            popSa2?.isTouchable = true;
-            popSa2?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
-            popSa2?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        } else {
-            adapter?.setNewData(releasePopData)
-        }
-        adapter?.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-                popSa?.dismiss()
+            popSelect?.isFocusable = true
+            popSelect?.isOutsideTouchable = true;
+            popSelect?.isTouchable = true;
+            popSelect?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
+            popSelect?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            releaseTimeAdapter?.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
+                override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
+                    popSelect?.dismiss()
+                }
             }
+        } else {
+            releaseTimeAdapter?.setNewData(releasePopData)
         }
-        popSa?.showAtLocation(getRootView(), Gravity.BOTTOM, 0, 0)
+        popSelect?.showAtLocation(getRootView(), Gravity.BOTTOM, 0, 0)
     }
 
 
@@ -105,7 +153,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     }
 
     override fun onDestroy() {
-        popSa2?.let {
+        popSelect?.let {
             if (it.isShowing) {
                 it.dismiss()
             }

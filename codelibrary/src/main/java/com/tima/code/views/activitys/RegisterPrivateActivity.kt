@@ -39,7 +39,6 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
     override fun getName(): String? {
         val trim = et_name.text.toString().trim()
         if (trim.isEmpty()){
-            toast("请输入姓名！")
             return null
         }
         return trim
@@ -49,8 +48,12 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
         val pro = resources.getString(R.string.code_register_pro)
         val citys = resources.getString(R.string.code_register_city)
         val county = resources.getString(R.string.code_register_county)
-        if (pro.equals(tv_pro.text.toString())||citys.equals(tv_city.text.toString())||county.equals(tv_county.text.toString())){
-            toast("请输入地址!")
+        val tvPro = tv_pro.text.toString()
+        val tvCity = tv_city.text.toString()
+        val tvCounty = tv_county.text.toString()
+        val etAddress = et_address.text.toString()
+
+        if (pro.equals(tvPro)||citys.equals(tvCity)||county.equals(tvCounty)||etAddress.isEmpty()){
             return null
         }
         if (selectPosition!=-1){
@@ -58,7 +61,7 @@ class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivat
         }
         val aMapLocation = Constant.aMapLocation
         aMapLocation?.apply {
-            return LocationBean(latitude,longitude,address,province,city,district,street+streetNum+poiName)
+            return LocationBean(latitude,longitude,"",tvPro,tvCity,tvCounty,etAddress)
         }
         return null
     }
