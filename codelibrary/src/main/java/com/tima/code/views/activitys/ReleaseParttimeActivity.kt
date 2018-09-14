@@ -35,6 +35,18 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releaseparttime)
 class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickListener, IReleaseTimeView {
+    override fun getWage(): String? {
+        return et_wage.text.toString().trim()
+    }
+
+    override fun getWordDec(): String? {
+        return et_work_desc.text.toString().trim()
+    }
+
+    override fun getSalaryBegin(): String? {
+        return null
+    }
+
     override fun recycleTimes(): String? {
         return tv_cycle.text.toString().trim()
     }
@@ -74,6 +86,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     }
 
     override fun getSkillSet(): String? {
+        return null
     }
 
     override fun setWorkType(name: String?) {
