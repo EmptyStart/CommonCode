@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.tima.code.R
 import com.tima.code.timaconstracts.IManageSetView
@@ -23,16 +26,18 @@ class ManageSetActivity : BaseActivity(),IManageSetView, View.OnClickListener,Sw
 
     var manageSet : ManageSetPresenterImpl? = null
     var manageSetType = -1                                                                          //兼职 1、报名管理 2、到场管理3、结算管理   全职 4、报名管理 5、面试管理 6、入职管理 7、结算管理
+    var id = -1
     override fun getLayoutId(): Int {
         return R.layout.code_activity_manage_set
     }
 
     override fun inits(savedInstanceState: Bundle?) {
         manageSetType = intent.getIntExtra("manageSetType",-1)
+        id = intent.getIntExtra("id",-1)
         setLayoutView()
         manageSet = ManageSetPresenterImpl(this)
 
-        swipe_manage_set.setOnRefreshListener(this)
+        //swipe_manage_set.setOnRefreshListener(this)
         iv_search.setOnClickListener(this)
         tv_click_one.setOnClickListener(this)
         tv_click_two.setOnClickListener(this)
@@ -42,11 +47,11 @@ class ManageSetActivity : BaseActivity(),IManageSetView, View.OnClickListener,Sw
         iv_total_check.setOnClickListener(this)
         tv_select_three.setOnClickListener(this)
 
-        tv_select_one.tag = false
+        tv_select_one.tag = true
         tv_select_two.tag = false
         tv_select_three.tag = false
+        iv_total_check.tag = false
 
-        KeyboardUtils.hideSoftInput(this)
         manageSet?.toSelect(0)
     }
 
@@ -67,8 +72,16 @@ class ManageSetActivity : BaseActivity(),IManageSetView, View.OnClickListener,Sw
         return this
     }
 
-    override fun getManageSetRecyclerView() : RecyclerView {
-        return recycler_manage_set
+    override fun getManageSetTwoRecyclerView(): RecyclerView {
+        return recycler_manage_set_two
+    }
+
+    override fun getManageSetThreeRecyclerView(): RecyclerView {
+        return recycler_manage_set_three
+    }
+
+    override fun getManageSetOneRecyclerView(): RecyclerView {
+        return recycler_manage_set_one
     }
 
     override fun getTextSelectTwoView(): TextView {
@@ -83,6 +96,9 @@ class ManageSetActivity : BaseActivity(),IManageSetView, View.OnClickListener,Sw
         return tv_select_one
     }
 
+    override fun getIvTotalCheckView(): ImageView {
+        return iv_total_check
+    }
     fun setLayoutView(){
         if (manageSetType == 1){        //兼职 1、报名管理
             abv_type2.setTitle("报名管理")
@@ -140,6 +156,22 @@ class ManageSetActivity : BaseActivity(),IManageSetView, View.OnClickListener,Sw
     }
 
     override fun onRefresh() {
-        swipe_manage_set.isRefreshing = false
+        //swipe_manage_set.isRefreshing = false
+    }
+
+    override fun getIdInt(): Int {
+        return id
+    }
+
+    override fun getmanageSetTypeInt(): Int {
+        return manageSetType
+    }
+
+    override fun getLlBottomView(): LinearLayout {
+        return ll_bottom
+    }
+
+    override fun getEdSearchView(): EditText {
+        return ed_search
     }
 }

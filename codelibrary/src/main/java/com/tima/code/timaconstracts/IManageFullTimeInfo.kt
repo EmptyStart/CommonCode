@@ -45,9 +45,13 @@ interface IManageFullTimeInfoView : IBaseViews {
 
     fun getRecyclerRequireView() : RecyclerView
 
+    fun setTextAddressTime(province: String?, city: String?, region: String?, address: String?, time: String?)
+
     fun getInfoActivity() : Activity
 
     fun getPositionId() : Int
+
+    fun getManageTypeInt() : Int
 }
 interface IManageFullTimeInfoPresent : IBasePresenter{
     fun onRefreshJobAdapter()

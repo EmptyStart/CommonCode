@@ -2,6 +2,7 @@ package com.tima.code.views.adapter.full
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.tima.code.R
 import com.tima.code.bean.JobType
 
 /**
@@ -11,6 +12,8 @@ import com.tima.code.bean.JobType
 class ManageFullInfoJobAdapter(var layoutId : Int, var datas: List<JobType>): BaseQuickAdapter<JobType, BaseViewHolder>(layoutId,datas) {
 
     override fun convert(helper: BaseViewHolder?, item: JobType?) {
+        helper?.setText(R.id.tv_job_name,item?.jobName)
+        helper?.setText(R.id.tv_job_type,item?.jobType)
     }
 }
 

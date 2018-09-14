@@ -56,7 +56,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="技能标签"
-        android:layout_margin="30px"
+        android:layout_marginBottom="30px"
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="40px"
         android:textColor="@color/text_gray"
         android:textSize="11sp" />
 

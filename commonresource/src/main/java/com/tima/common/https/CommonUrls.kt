@@ -44,11 +44,17 @@ object CommonUrls {
 
     const val manageFull="position/"
 
-    const val wallet="fund/"
+    const val fund="fund/"
 
-    const val walletDetail = "fund/detail/"
+    const val fundDetail = "fund/detail/"
 
-    const val walletPay = "fund/pay/"
+    const val fundPay = "fund/pay/"
+
+    const val wallet = "wallet/"
 
     const val apply = "apply/"
+
+    const val applyBatch = "apply/batch/"
+
+    const val withdraw = "withdraw/"
 }

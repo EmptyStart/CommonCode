@@ -36,7 +36,7 @@ class FullTimeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, I
         tv_select_two.setOnClickListener(this)
         tv_select_three.setOnClickListener(this)
 
-        tv_select_one.tag = false
+        tv_select_one.tag = true
         tv_select_two.tag = false
         tv_select_three.tag = false
     }

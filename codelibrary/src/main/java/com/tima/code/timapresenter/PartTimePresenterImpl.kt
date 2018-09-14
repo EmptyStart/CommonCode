@@ -162,12 +162,18 @@ class PartTimePresenterImpl : IPartTimePresent {
      * 刷新已下架适配器
      */
     override fun refreshAlreadyDownAdapter() {
-        var alreadyDownAdapter = PartAlreadyDownAdapter(R.layout.code_recycler_published_item, getPositionData("0","3"))
+        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, getPositionData("0","0"))
+        view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
+        auditAdapter.setOnItemClickListener({
+            adapter, view, position ->onAuditClick(positions[position].id)
+        })
+        /*var alreadyDownAdapter = PartAlreadyDownAdapter(R.layout.code_recycler_published_item, getPositionData("0","3"))
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter
         alreadyDownAdapter.setOnItemClickListener({
             adapter, view, position ->onAlreadyDownClick(positions[position].id)
-        })
+        })*/
     }
 
     fun publishedClick(id : Int){

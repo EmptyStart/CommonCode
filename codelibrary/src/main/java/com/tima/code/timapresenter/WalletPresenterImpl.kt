@@ -6,6 +6,7 @@ import android.view.View
 import com.tima.code.R
 import com.tima.code.ResponseBody.Fund
 import com.tima.code.ResponseBody.Position
+import com.tima.code.ResponseBody.WalletCo
 import com.tima.code.timaconstracts.IWalletPresent
 import com.tima.code.timaconstracts.IWalletView
 import com.tima.code.timaviewmodels.FullTimeViewModelImpl
@@ -14,7 +15,9 @@ import com.tima.code.views.activitys.PutForwardActivity
 import com.tima.code.views.activitys.TradeFlowActivity
 import com.tima.code.views.dialog.DialogUtils
 import com.tima.common.base.IDataListener
+import com.tima.common.https.CommonUrls
 import com.tima.common.https.ExceptionDeal
+import com.tima.common.https.HttpRequest
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.LogUtils
 import org.json.JSONObject
@@ -29,15 +32,17 @@ class WalletPresenterImpl : IWalletPresent , DialogUtils.OnDialogListener{
     var view : IWalletView
     var viewMode: WalletViewModelImpl
     var funds = ArrayList<Fund>()
+    var walletCo : WalletCo? = null
 
     constructor(view : IWalletView){
         this.view = view
         activity = view.getWalletActvity()
         viewMode = WalletViewModelImpl()
-        fullData()
+        fullFullData()
+        fullWalletData()
     }
 
-    fun fullData(){
+    fun fullFullData(){
         view?.showLoading()
         viewMode.addOnBodyDataListener(object : IDataListener {
             override fun successData(success: String) {
@@ -61,7 +66,28 @@ class WalletPresenterImpl : IWalletPresent , DialogUtils.OnDialogListener{
             override fun requestData(): Map<String, String>? {
                 return null
             }
-        })
+        },CommonUrls.fund,HttpRequest.GET)
+    }
+
+    fun fullWalletData(){
+        view?.showLoading()
+        viewMode.addOnBodyDataListener(object : IDataListener {
+            override fun successData(success: String) {
+                LogUtils.i(TAG,"公司钱包接口=="+success)
+                walletCo = GsonUtils.getGson.fromJson(success, WalletCo::class.java)
+                if(walletCo != null)
+                    view.getTvAccountBalanceView().text = walletCo?.available_amt.toString()
+            }
+
+            override fun errorData(error: String) {
+                view?.hideLoading()
+                ExceptionDeal.handleException(error)
+            }
+
+            override fun requestData(): Map<String, String>? {
+                return null
+            }
+        },CommonUrls.wallet,HttpRequest.GET)
     }
 
     override fun onClick(view: View?) {

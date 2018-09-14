@@ -81,7 +81,7 @@ class PersonnelRosterPresenterImpl : IPersonnelRosterPresent ,BaseQuickAdapter.O
             override fun requestData(): Map<String, String>? {
                 return mapOf(Pair("position", position.toString()))
             }
-        },CommonUrls.walletDetail,HttpRequest.GET)
+        },CommonUrls.fundDetail,HttpRequest.GET)
     }
 
     fun onPayment(position : Int){
@@ -100,7 +100,7 @@ class PersonnelRosterPresenterImpl : IPersonnelRosterPresent ,BaseQuickAdapter.O
             override fun requestData(): Map<String, String>? {
                 return mapOf(Pair("position", position.toString()), Pair("amount", amount.toString()))
             }
-        },CommonUrls.walletPay,HttpRequest.POST)
+        },CommonUrls.fundDetail,HttpRequest.POST)
     }
 
     fun onTotalMoney(){

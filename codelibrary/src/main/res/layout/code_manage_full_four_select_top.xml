@@ -12,19 +12,19 @@
         style="@style/weight_width_1_Hmatch"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@drawable/radius_white_solid_red">
+        android:background="@drawable/radius_white_solid_gray">
         <TextView
             android:id="@+id/tv_manage_title_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/text_gray"
             android:text="报名管理"
             android:textSize="12sp" />
         <TextView
             android:id="@+id/tv_manage_num_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/text_gray"
             android:layout_marginTop="15px"
             android:text="24"
             android:textSize="12sp" />

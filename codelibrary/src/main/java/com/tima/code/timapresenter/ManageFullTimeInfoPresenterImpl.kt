@@ -7,10 +7,10 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.View
 import com.tima.code.R
-import com.tima.code.ResponseBody.LoginResponseBody
-import com.tima.code.ResponseBody.Position
+import com.tima.code.ResponseBody.*
 import com.tima.code.bean.JobType
 import com.tima.code.timaconstracts.IManageFullTimeInfoPresent
 import com.tima.code.timaconstracts.IManageFullTimeInfoView
@@ -21,7 +21,9 @@ import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
 import com.tima.common.base.IDataListener
 import com.tima.common.https.CommonUrls
 import com.tima.common.utils.GsonUtils
+import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
+import com.tima.common.utils.StringUtils
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -29,29 +31,36 @@ import org.json.JSONObject
  * Created by Administrator on 2018/8/29/029.
  */
 class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
+    var TAG = "ManageFullTimeInfoPresenterImpl"
     var jobs = ArrayList<JobType>()
     var requires = ArrayList<String>()
+
     var view : IManageFullTimeInfoView
     var jobAdapter : ManageFullInfoJobAdapter? = null
     var requireAdapter : ManageFullInfoRequireAdapter? = null
     var infoActivity : Activity?= null
+    var position : Position? = null                                                                 //职位详情
+    var count : Count? = null                                                                       //统计数量
 
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { ManageFullTimeInfoModelImpl() }
 
-
     constructor(view : IManageFullTimeInfoView){
         this.view = view
-        infoActivity = view?.getInfoActivity()
-        initJob()
-        onRefreshJobAdapter()
-        onRefreshRequireAdapter()
+        infoActivity = view.getInfoActivity()
         fullData()
     }
 
     private fun fullData(){
         mViewMode.addFullTimeListener(object : IDataListener{
             override fun successData(success: String) {
-
+                var pJson = JSONObject(success).getJSONObject("position")
+                var ops_count = JSONObject(success).getJSONObject("ops_count")
+                if (pJson != null)
+                    position = GsonUtils.getGson.fromJson(pJson.toString(), Position::class.java)
+                if (ops_count != null){
+                    count  = GsonUtils.getGson.fromJson(ops_count.toString(), Count::class.java)
+                }
+                initJob()
             }
 
             override fun errorData(error: String) {
@@ -67,50 +76,70 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
     override fun onClick(view: View?) {
        when(view?.id){
            R.id.ll_manage_one->{
-               toSelect(0)
-               toActivity(4)
+               if (this.view.getManageTypeInt() == 2){
+                   toActivity(1)
+               }else{
+                   toActivity(4)
+               }
            }
            R.id.ll_manage_two->{
-               toSelect(1)
-               toActivity(5)
+               if (this.view.getManageTypeInt() == 2){
+                   toActivity(2)
+               }else{
+                   toActivity(5)
+               }
            }
            R.id.ll_manage_three->{
-               toSelect(2)
-               toActivity(6)
+               if (this.view.getManageTypeInt() == 2){
+                   toActivity(3)
+               }else{
+                   toActivity(6)
+               }
            }
            R.id.ll_manage_four->{
-               toSelect(3)
                toActivity(7)
            }
-           R.id.ll_manage_part_one->{
-               toSelect(0)
-               toActivity(1)
-           }
-           R.id.ll_manage_part_two->{
-               toSelect(1)
-               toActivity(2)
-           }
-           R.id.ll_manage_part_three->{
-               toSelect(2)
-               toActivity(3)
+           R.id.iv_actionbar_cancle->{
+               infoActivity?.finish()
            }
        }
     }
 
     fun toActivity(manageSetType : Int){
-        var intent = Intent(infoActivity,ManageSetActivity::class.java)
-        intent.putExtra("manageSetType",manageSetType)
-        infoActivity?.startActivity(intent)
+        if (position != null) {
+            var intent = Intent(infoActivity, ManageSetActivity::class.java)
+            intent.putExtra("manageSetType", manageSetType)
+            intent.putExtra("id", position?.id)
+            infoActivity?.startActivity(intent)
+        }
     }
 
     fun initJob(){
-        jobs.add(JobType("职位类型",null))
-        jobs.add(JobType("最低学历",null))
+        var pName = "未知"
+        if (position != null){
+            if (position?.career_type != null){
+                pName = JSONObject(position?.career_type.toString()).getString("name")
+            }
+            view.setTextAddressTime(position?.province,position?.city,position?.region,position?.address, position?.created_no)
+        }
+        jobs.add(JobType("职位类型",pName))
+        jobs.add(JobType("最低学历",getEducation(position?.education!!)))
         jobs.add(JobType("工作类型",null))
+        if (!TextUtils.isEmpty(position?.descriptions))
+            requires.add(position?.descriptions!!)
+        onRefreshJobAdapter()
+        onRefreshRequireAdapter()
 
-        requires.add("兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市")
-        requires.add("兼职短发鞍山市兼")
-        requires.add("兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市兼职短发鞍山市")
+        view.getManageNumOneView().text = count?.apply_count.toString()
+        if (view.getManageTypeInt() == 1){
+            view.getManageNumTwoView().text = count?.interview_count.toString()
+            view.getManageNumThreeView().text = count?.onboard_count.toString()
+            view.getManageNumFourView().text = count?.payment_count.toString()
+        }else{
+            view.getManageNumTwoView().text = count?.onsite_count.toString()
+            view.getManageNumThreeView().text = count?.payment_count.toString()
+        }
+
     }
 
     fun toSelect(position : Int){
@@ -156,7 +185,6 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
     override fun onRefreshRequireAdapter() {
         if (requireAdapter == null){
             requireAdapter = ManageFullInfoRequireAdapter(R.layout.code_recycler_manage_full_info_require_item, requires)
-            //requireAdapter = ManageFullInfoRequireAdapter(infoActivity!!,this,requires)
             view?.getRecyclerRequireView().layoutManager = LinearLayoutManager(infoActivity, LinearLayoutManager.VERTICAL,false)
             view?.getRecyclerRequireView().adapter = requireAdapter
             requireAdapter?.setOnItemClickListener({
@@ -167,6 +195,7 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
         }
     }
 
+
     fun onFullInfoJodClickItem() {
     }
 
@@ -176,5 +205,67 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
         mViewMode.detachView()
+    }
+
+    fun getEducation(education : Int) : String{
+        var str = ""
+        when(education){
+            0->{
+                str = "不限"
+            }
+            1->{
+                str = "初中及以下"
+            }
+            2->{
+                str = "中专/中技"
+            }
+            3->{
+                str = "高中"
+            }
+            4->{
+                str = "大专"
+            }
+            5->{
+                str = "本科"
+            }
+            6->{
+                str = "硕士"
+            }
+            7->{
+                str = "博士"
+            }
+        }
+        return  str
+    }
+
+    fun getApplysStatus(status : String) : String{
+        var str = ""
+        when(status){
+            "00"->{
+                str = "申请"
+            }
+            "01"->{
+                str = "HR同意"
+            }
+            "02"->{
+                str = "HR拒绝"
+            }
+            "10"->{
+                str = "到场"
+            }
+            "11"->{
+                str = "HR到场确认"
+            }
+            "12"->{
+                str = "HR到场未确认"
+            }
+            "00"->{
+                str = "硕士"
+            }
+            "00"->{
+                str = "博士"
+            }
+        }
+        return  str
     }
 }

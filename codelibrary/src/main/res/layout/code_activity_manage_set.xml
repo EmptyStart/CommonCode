@@ -23,6 +23,7 @@
         android:orientation="horizontal"
         android:background="@drawable/ed_radius_solid_gray">
         <EditText
+            android:id="@+id/ed_search"
             style="@style/weight_width_1_Hmatch"
             android:background="@null"
             android:layout_marginLeft="50px"
@@ -43,23 +44,35 @@
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:background="@color/line"
+        android:paddingBottom="20px"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <android.support.v4.widget.SwipeRefreshLayout
+        <!--<android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_manage_set"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content">-->
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_manage_set"
+                android:id="@+id/recycler_manage_set_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_manage_set_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_manage_set_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+        <!--</android.support.v4.widget.SwipeRefreshLayout>-->
     </com.zhy.autolayout.AutoLinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:background="@color/line"/>
     <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="140px"
         android:layout_marginRight="40px"

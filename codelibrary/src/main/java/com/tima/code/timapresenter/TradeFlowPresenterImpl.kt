@@ -50,7 +50,7 @@ class TradeFlowPresenterImpl : ITradeFlowPresent,BaseQuickAdapter.OnItemChildCli
             onRefreshTradeFlowAdapter()
         } else if (tradeType == 2) {
             funds = ArrayList()
-            fullData(CommonUrls.wallet)
+            fullData(CommonUrls.fund)
         }
     }
 
@@ -59,7 +59,7 @@ class TradeFlowPresenterImpl : ITradeFlowPresent,BaseQuickAdapter.OnItemChildCli
         mViewMode.addTradeFlowListener(object : IDataListener {
             override fun successData(success: String) {
                 var arrays = JSONObject(success).getJSONArray("results")
-                if (url.equals(CommonUrls.wallet)) {
+                if (url.equals(CommonUrls.fund)) {
                     for (i in 0..arrays.length() - 1) {
                         val position = GsonUtils.getGson.fromJson(arrays[i].toString(), Fund::class.java)
                         funds?.add(position)
@@ -105,7 +105,7 @@ class TradeFlowPresenterImpl : ITradeFlowPresent,BaseQuickAdapter.OnItemChildCli
             override fun requestData(): Map<String, String>? {
                 return mapOf(Pair("position", position.toString()), Pair("amount", amount.toString()))
             }
-        },CommonUrls.walletPay, HttpRequest.POST)
+        },CommonUrls.fundPay, HttpRequest.POST)
     }
 
     /**

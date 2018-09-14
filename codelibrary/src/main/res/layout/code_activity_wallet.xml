@@ -80,6 +80,7 @@
             android:textStyle="bold"/>
 
         <TextView
+            android:id="@+id/tv_account_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/code_title_barbc"

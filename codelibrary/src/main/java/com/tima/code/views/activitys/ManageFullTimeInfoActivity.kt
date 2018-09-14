@@ -12,14 +12,13 @@ import com.tima.code.timaconstracts.IManageFullTimeInfoView
 import com.tima.code.timapresenter.ManageFullTimeInfoPresenterImpl
 import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_manage_fulltime_info.*
+import kotlinx.android.synthetic.main.code_layout_info_address_p.*
 import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*
-import kotlinx.android.synthetic.main.code_manage_part_three_select_top.*
 /**
  * 全职详情-兼职详情
  * Created by Administrator on 2018/8/29/029.
  */
 class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.OnClickListener{
-
     var manageFullTimeInfoPresent : IManageFullTimeInfoPresent? = null
     var manageType  = -1                                                                            //1、全职   2、兼职
     var id : Int = -1                                                                               //
@@ -33,38 +32,23 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
         id = intent.getIntExtra("id",-1)
         manageFullTimeInfoPresent = ManageFullTimeInfoPresenterImpl(this)
 
+        ll_manage_one.setOnClickListener(this)
+        ll_manage_two.setOnClickListener(this)
+        ll_manage_three.setOnClickListener(this)
+        ll_manage_four.setOnClickListener(this)
+
         if (manageType == 1) {
             abv_type2.setTitle("全职详情")
-            ll_manage_part.visibility = View.GONE
-            ll_manage_one.setOnClickListener(this)
-            ll_manage_two.setOnClickListener(this)
-            ll_manage_three.setOnClickListener(this)
-            ll_manage_four.setOnClickListener(this)
-
-            ll_manage_one.tag = false
-            ll_manage_two.tag = false
-            ll_manage_three.tag = false
-            ll_manage_four.tag = false
-        }else if (manageType == 2) {
+        }else{
             abv_type2.setTitle("兼职详情")
-            ll_manage_full.visibility = View.GONE
-            ll_manage_part_one.setOnClickListener(this)
-            ll_manage_part_two.setOnClickListener(this)
-            ll_manage_part_three.setOnClickListener(this)
-
-            ll_manage_part_one.tag = false
-            ll_manage_part_two.tag = false
-            ll_manage_part_three.tag = false
+            tv_manage_title_two.text = "到场管理"
+            tv_manage_title_three.text = "结算管理"
+            ll_manage_four.visibility = View.GONE
         }
         abv_type2.setOnRightImageListener(this)
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
-            R.id.iv_actionbar_cancle->{
-                finish()
-            }
-        }
         manageFullTimeInfoPresent?.onClick(v)
     }
 
@@ -78,15 +62,18 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
     }
 
     override fun getManageOneView(): LinearLayout {
-        return if (manageType == 1) ll_manage_one else ll_manage_part_one
+        return ll_manage_one
+        //return if (manageType == 1) ll_manage_one else ll_manage_part_one
     }
 
     override fun getManageTwoView(): LinearLayout {
-        return if (manageType == 1) ll_manage_two else ll_manage_part_two
+        return ll_manage_two
+        //return if (manageType == 1) ll_manage_two else ll_manage_part_two
     }
 
     override fun getManageThreeView(): LinearLayout {
-        return if (manageType == 1) ll_manage_three else ll_manage_part_three
+        return ll_manage_three
+        //return if (manageType == 1) ll_manage_three else ll_manage_part_three
     }
 
     override fun getManageFourView(): LinearLayout {
@@ -94,15 +81,18 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
     }
 
     override fun getManageTitleOneView(): TextView {
-        return if (manageType == 1) tv_manage_title_one else tv_manage_part_title_one
+        return tv_manage_title_one
+        //return if (manageType == 1) tv_manage_title_one else tv_manage_part_title_one
     }
 
     override fun getManageTitleTwoView(): TextView {
-        return if (manageType == 1) tv_manage_title_two else tv_manage_part_title_two
+        return tv_manage_title_two
+        //return if (manageType == 1) tv_manage_title_two else tv_manage_part_title_two
     }
 
     override fun getManageTitleThreeView(): TextView {
-        return if (manageType == 1) tv_manage_title_three else tv_manage_part_title_three
+        return tv_manage_title_three
+        //return if (manageType == 1) tv_manage_title_three else tv_manage_part_title_three
     }
 
     override fun getManageTitleFourView(): TextView {
@@ -110,15 +100,18 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
     }
 
     override fun getManageNumOneView(): TextView {
-        return if (manageType == 1) tv_manage_num_one else tv_manage_part_num_one
+        return tv_manage_num_one
+       // return if (manageType == 1) tv_manage_num_one else tv_manage_part_num_one
     }
 
     override fun getManageNumTwoView(): TextView {
-        return if (manageType == 1) tv_manage_num_two else tv_manage_part_num_two
+        return tv_manage_num_two
+        //return if (manageType == 1) tv_manage_num_two else tv_manage_part_num_two
     }
 
     override fun getManageNumThreeView(): TextView {
-        return if (manageType == 1) tv_manage_num_three else tv_manage_part_num_three
+        return tv_manage_num_three
+        //return if (manageType == 1) tv_manage_num_three else tv_manage_part_num_three
     }
 
     override fun getManageNumFourView(): TextView {
@@ -139,5 +132,22 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
 
     override fun getPositionId(): Int {
         return id
+    }
+
+    override fun getManageTypeInt(): Int {
+        return manageType
+    }
+
+    override fun setTextAddressTime(province: String?, city: String?, region: String?, address: String?, time: String?) {
+        if (province != null)
+            tv_pro.text = province
+        if (city != null)
+            tv_city.text = city
+        if (region != null)
+            tv_county.text = region
+        if (address != null)
+            tv_address.text = address
+        if (time != null)
+            tv_work_time.text = time
     }
 }

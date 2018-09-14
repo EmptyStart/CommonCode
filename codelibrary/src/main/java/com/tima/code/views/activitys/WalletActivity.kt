@@ -65,4 +65,8 @@ class WalletActivity : BaseActivity(), View.OnClickListener,IWalletView{
     override fun getTvPaymentNumView(): TextView {
         return tv_payment_num
     }
+
+    override fun getTvAccountBalanceView(): TextView {
+        return tv_account_balance
+    }
 }

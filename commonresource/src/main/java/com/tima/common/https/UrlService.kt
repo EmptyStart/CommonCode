@@ -76,5 +76,6 @@ interface UrlService {
 enum class HttpRequest {
     POST,
     GET,
-    DELETE
+    DELETE,
+    PATCH
 }
