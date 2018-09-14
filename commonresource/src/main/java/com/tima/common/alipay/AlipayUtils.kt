@@ -13,13 +13,13 @@ import io.reactivex.schedulers.Schedulers
  *
  */
 object AlipayUtils {
-    fun pay(orderInfo: String, sign: String) {
+    fun pay(orderInfo: String, sign: String,listener :PayBackListener) {
         val currentActivity = ActivityManage.instance.getCurrentActivity()
-        currentActivity?.let { it ->
+        currentActivity?.let { activity ->
             val payInfo = orderInfo + "&sign=\"" + sign + "\"&" + "sign_type=\"RSA\""
             Observable.create(ObservableOnSubscribe<String> { emitter ->
                 run {
-                    val alipay = PayTask(it)
+                    val alipay = PayTask(activity)
                     val result = alipay.pay(payInfo, true)
                     emitter.onNext(result)
                 }
@@ -27,9 +27,12 @@ object AlipayUtils {
                     .observeOn(Schedulers.io())
                     .subscribeOn(Schedulers.newThread())
                     .subscribe {
-
+                        listener.payBack(it)
                     }
         }
 
     }
+}
+interface PayBackListener{
+    fun payBack(result: String)
 }
