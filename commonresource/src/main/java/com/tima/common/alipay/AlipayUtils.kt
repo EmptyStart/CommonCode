@@ -3,6 +3,7 @@ package com.tima.common.alipay
 import android.text.TextUtils
 import com.alipay.sdk.app.PayTask
 import com.tima.common.utils.ActivityManage
+import com.tima.common.utils.SettingUtils
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
@@ -30,13 +31,15 @@ object AlipayUtils {
                     .subscribe {
                         //                        PayResult(it).getResult();// 同步返回需要验证的信息
                         val resultStatus = PayResult(it).getResultStatus()
-                        if (TextUtils.equals(resultStatus, "9000")) {
-                            activity.toast("支付成功")
-                        } else {
-                            if (TextUtils.equals(resultStatus, "8000")) {
-                                activity.toast("支付结果确认中")
+                        if (SettingUtils.isFinished(activity)) {
+                            if (TextUtils.equals(resultStatus, "9000")) {
+                                activity.toast("支付成功")
                             } else {
-                                activity.toast("支付失败")
+                                if (TextUtils.equals(resultStatus, "8000")) {
+                                    activity.toast("支付结果确认中")
+                                } else {
+                                    activity.toast("支付失败")
+                                }
                             }
                         }
                         listener?.payBack(resultStatus)

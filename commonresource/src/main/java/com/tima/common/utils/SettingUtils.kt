@@ -1,5 +1,6 @@
 package com.tima.common.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -13,14 +14,14 @@ import com.tima.common.base.App
  *   email : zhijun.li@timanetworks.com
  *
  */
-object SettingUtils{
+object SettingUtils {
     private val setting = PreferenceManager.getDefaultSharedPreferences(App.app.applicationContext)
     /**
      * 获取是否开启无图模式
      */
     fun getIsNoPhotoMode(): Boolean {
-        val pm : Boolean by SpHelper("switch_noPhotoMode", false)
-        return  pm&& NetWorkUtil.isMobile(App.app.applicationContext)
+        val pm: Boolean by SpHelper("switch_noPhotoMode", false)
+        return pm && NetWorkUtil.isMobile(App.app.applicationContext)
     }
 
 //    /**
@@ -100,16 +101,17 @@ object SettingUtils{
     fun setDayStartMinute(dayStartMinute: String) {
         setting.edit().putString("day_startMinute", dayStartMinute).apply()
     }
+
     /**
      *    跳转到设置开启权限
      */
-    fun goPermisionSetting(context: Context){
+    fun goPermisionSetting(context: Context) {
         var settingIntent = context.packageManager.getLaunchIntentForPackage("com.iqoo.secure")
         settingIntent?.let {
             context.startActivity(settingIntent)
             return
         }
-        settingIntent=context.packageManager.getLaunchIntentForPackage("com.oppo.safe")
+        settingIntent = context.packageManager.getLaunchIntentForPackage("com.oppo.safe")
         settingIntent?.let {
             context.startActivity(settingIntent)
             return
@@ -120,5 +122,9 @@ object SettingUtils{
         settingIntent?.let {
             context.startActivity(settingIntent)
         }
+    }
+
+    fun isFinished(activity: Activity): Boolean {
+        return activity.isDestroyed || isFinished(activity)
     }
 }

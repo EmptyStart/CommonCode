@@ -8,6 +8,12 @@
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="gray_white">#FFFAFA</color>
+
+    <color name="text_unselect">#979797</color>
+    <color name="text_select">#007AFF</color>
+
+    <color name="pop_back">#F8F8F8</color>
+
     <!--  浅色的线 -->
     <color name="line">#E5E5E5</color>
     <color name="xmpp_mian">#59a8f7</color>

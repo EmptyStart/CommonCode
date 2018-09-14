@@ -163,6 +163,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
             finish()
         })
         actionbar.setOnRightTextListener(View.OnClickListener { presenter.saveRelease() })
+
     }
 
     override fun onDestroy() {
