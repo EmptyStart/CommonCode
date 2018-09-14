@@ -26,6 +26,14 @@ import io.reactivex.functions.Consumer
  *
  */
 class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
+    override fun selectRecTime() {
+
+
+    }
+
+    override fun selectEdu() {
+    }
+
     var mView: IReleaseTimeView? = view
     val popData = arrayListOf<ReleasePopData>()
     val careerTypes = arrayListOf<CareerTypeResult>()
