@@ -488,14 +488,14 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                                     }
                                     3->{
                                         setWage(its?.get(selectedIndex))
-                                        workExpResult=workSalaryResults.get(selectedIndex)
+                                        workSalaryResult=workSalaryResults.get(selectedIndex)
                                     }
                                 }
                             }
 
                         }
                     })
-            if (code != 1) {
+            if (code != 1&&code!=3) {
                 onPositive.items(items)
             } else {
                 onPositive.items(its!!)
@@ -544,7 +544,11 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             it?.forEach { workExpResult ->
                 exp.add(workExpResult.value)
             }
-            otherPicker(1, exp)
+            if (code==1){
+                otherPicker(3, exp)
+            }else {
+                otherPicker(1, exp)
+            }
         }
 
     }
