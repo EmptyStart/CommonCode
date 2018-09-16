@@ -1,5 +1,6 @@
 package com.tima.code.timapresenter
 
+import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
@@ -12,10 +13,12 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
+import com.afollestad.materialdialogs.DialogAction
+import com.afollestad.materialdialogs.MaterialDialog
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.tima.code.R
-import com.tima.code.ResponseBody.CareerTypeBody
-import com.tima.code.ResponseBody.CareerTypeResult
-import com.tima.code.ResponseBody.ReleasePopData
+import com.tima.code.ResponseBody.*
 import com.tima.code.timaconstracts.IReleaseTimePresent
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
@@ -24,17 +27,18 @@ import com.tima.common.base.BaseActivity
 import com.tima.common.base.IDataListener
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.ActivityManage
+import com.tima.common.utils.DateUtils
 import com.tima.common.utils.GsonUtils
+import com.tima.common.utils.KeyboardUtils
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
 import io.reactivex.Observable
-import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.Observer
-import io.reactivex.functions.Consumer
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author : zhijun.li on 2018/9/12
@@ -42,33 +46,233 @@ import org.jetbrains.anko.toast
  *
  */
 class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
-    override fun selectRecTime() {
-
-
-    }
-
-    override fun selectEdu() {
-    }
 
     var mView: IReleaseTimeView? = view
     val popData = arrayListOf<ReleasePopData>()
+    //职位类型
     val careerTypes = arrayListOf<CareerTypeResult>()
+    //选中的职位类型
     var selectCareerData: String? = null
-    val mViewModel by lazy(LazyThreadSafetyMode.NONE) {
+
+    //标签类型（职位类型下的子表）  （有就有值 无就为空）
+    val tagList = arrayListOf<String>()
+    val skillSet: String? = null
+    //全职工做时间选择弹窗
+    var popFullDateWindow: PopupWindow? = null
+    //工作经验
+    val workExpResults = arrayListOf<WorkExpResult>()
+    //工作经验选中
+    var workExpResult: WorkExpResult? = null
+
+    //薪资范围
+    val workSalaryResults = arrayListOf<WorkExpResult>()
+    //薪资范围选中
+    var workSalaryResult: WorkExpResult? = null
+
+    //兼职时间
+    var partTimeSelect: String = ""
+    private val mViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ReleaseTimeViewModelImpl()
     }
+    //星期选择的结果
+    private var selectWeeksData = ""
+    //小时选择的结果
+    private var selectTimesData = ""
+    //薪水单位
+    private var salaryUnit = ""
+    //最低学历
+    private var edu = ""
 
     override fun onClick(view: View?) {
         view?.let {
             when (it.id) {
+                R.id.tv_actionbar_right_title -> {
+                    saveRelease()
+                }
+                R.id.iv_actionbar_cancle->{
+                    (view.context as Activity).finish()
+                }
 
+                R.id.rl_work_type -> {
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    careerType(0)
+                }
+                R.id.ll_cycle -> {
+                    //周期选择
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    otherPicker(2, null)
+                }
+                R.id.ll_time -> {
+                    //时间选择
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    timePickerSelect()
+                }
+                R.id.ll_educat -> {
+                    //学历选择
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    otherPicker(0, null)
+                }
+                R.id.ll_work -> {
+                    //工作经验选择
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    pickWorkExp(0)
+                }
+                R.id.tv_add -> {
+                    //增加人数
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    try {
+                        var qty = 0
+                        mView?.getQty()?.toInt()?.let {
+                            qty = it
+                            qty++
+                            mView?.setQty(qty)
+                        }
+
+                    } catch (e: NumberFormatException) {
+                        e.printStackTrace()
+                    }
+                }
+                R.id.tv_minus -> {
+                    //减少人数
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    try {
+                        var qty = 0
+                        mView?.getQty()?.toInt()?.let {
+                            if (it == 0) return
+                            qty = it
+                            qty--
+                            mView?.setQty(qty)
+                        }
+
+                    } catch (e: NumberFormatException) {
+                        e.printStackTrace()
+                    }
+                }
+                R.id.ll_wages -> {
+                    //薪资范围
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    pickWorkExp(1)
+                }
+                R.id.ll_interview_date->{
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    popDataSelect(0)
+                }
+                R.id.ll_interview_time->{
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    popDataSelect(1)
+                }
+                else -> {
+
+                }
             }
         }
     }
 
-    override fun saveRelease() {
-//        careerType(0)
-        popDataSelect()
+    private fun saveRelease() {
+        mView?.apply {
+            var pairs = mutableMapOf<String, String>()
+            val workName = getWorkName()
+            if (workName.isNullOrEmpty()) {
+                showError("职位名称是必填项")
+                return
+            } else {
+                pairs["name"] = workName!!
+            }
+            if (selectCareerData.isNullOrEmpty()) {
+
+            } else {
+                pairs["career_type"] = selectCareerData!!
+            }
+
+            val locationBean = getLocationBean()
+            if (locationBean == null) {
+                showError("详细地址是必填项")
+                return
+            } else {
+                pairs["address"] = locationBean.snippet
+                pairs["province"] = locationBean.province
+                pairs["city"] = locationBean.city
+                pairs["region"] = locationBean.district
+                pairs["latitude"] = locationBean.latitude.toString()
+                pairs["longitude"] = locationBean.longitude.toString()
+            }
+            val wordDec = getWordDec()
+            if (!wordDec.isNullOrEmpty()) {
+                pairs["descriptions"] = wordDec!!
+            }
+            workExpResult?.apply {
+                val split = key.split("-")
+                if (split.size > 1) {
+                    pairs["exp_year_beg"] = split[0]
+                    pairs["exp_year_end"] = split[1]
+                }
+            }
+            if (!skillSet.isNullOrEmpty()) {
+                pairs["skill_set"] = skillSet!!
+            }
+            val qty = getQty()
+            if (qty.isNullOrEmpty()) {
+                showError("兼职周期没填")
+            } else {
+                pairs["salary_qty"] = qty!!
+            }
+            if (selectWeeksData.isNotEmpty()) {
+                pairs["interview_day"] = selectWeeksData
+            }
+            if (selectTimesData.isNotEmpty()) {
+                pairs["interview_time"] = selectTimesData
+            }
+            if (partTimeSelect.isEmpty()) {
+                //判断是否是兼职
+                val partMs = getPartMs()
+                if (partMs.isNullOrEmpty()) {
+                    showError("请选择到场时间")
+                }
+                if ("0" == partMs) {
+                    pairs["type"] = "0"
+                } //表示是全职
+            } else {
+                pairs["on_site_time"] = partTimeSelect
+                pairs["type"] = "1"
+            }
+
+            if (workSalaryResult != null) {
+                workSalaryResult?.apply {
+                    val split = key.split("-")
+                    if (split.size > 1) {
+                        pairs["salary_begin"] = split[0]
+                        pairs["salary_end"] = split[1]
+                    }
+                }
+            } else {
+                pairs["salary_begin"] = "10"
+                pairs["salary_end"] = "10"
+            }
+
+            if (salaryUnit.isNotEmpty()) {
+                pairs["salary_unit"] = salaryUnit
+            }
+            if (edu.isNotEmpty()) {
+                pairs["education"] = edu
+            }
+            upRelease(pairs)
+        }
+    }
+
+    fun upRelease(requestData: Map<String, String>) {
+        mViewModel.addOnReleaseTimeListener(object : IDataListener {
+            override fun requestData(): Map<String, String>? {
+                return requestData
+            }
+
+            override fun successData(success: String) {
+
+            }
+
+            override fun errorData(error: String) {
+                ExceptionDeal.handleException(error)
+            }
+        })
     }
 
     private fun careerType(code: Int) {
@@ -100,7 +304,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             popData.clear()
             it.forEach {
                 if (it.parent == code) {
-                    popData.add(ReleasePopData(0, "", it.name, it.id, it.parent))
+                    popData.add(ReleasePopData(0, "", it.name, it.id, it.parent, it.skills))
                 }
             }
             careerDataDeal()
@@ -109,86 +313,251 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
     }
 
-    fun careerDataDeal() {
+    private fun careerDataDeal() {
         if (popData.isNotEmpty()) {
             mView?.showPop(popData, object : OnSelectListener {
                 override fun selected(result: ReleasePopData) {
                     popData.clear()
                     careerTypes.forEach {
-                        if (it.parent == result.parentId) {
-                            popData.add(ReleasePopData(0, "", it.name, it.id, it.parent))
+                        if (it.parent == result.id) {
+                            popData.add(ReleasePopData(0, "", it.name, it.id, it.parent, it.skills))
                         }
                     }
                     if (popData.isNotEmpty()) {
                         mView?.showPop(popData, object : OnSelectListener {
                             override fun selected(result: ReleasePopData) {
                                 selectCareerData = result.id.toString()
+                                mView?.setWorkType(result.value)
+                                tagList.clear()
+                                result.skills?.forEach {
+                                    tagList.add(it.toString())
+                                }
                             }
                         })
                     } else {
                         selectCareerData = result.id.toString()
+                        mView?.setWorkType(result.value)
+                        result.skills?.forEach {
+                            tagList.add(it.toString())
+                        }
                     }
                 }
             })
         }
     }
 
-    private fun popDataSelect() {
+    //全职的时间选择 0/星期  1/时间
+    private fun popDataSelect(code: Int) {
         val weeks = arrayListOf("周一", "周二", "周三", "周四", "周五", "周六", "周七")
         val dates = arrayListOf("8:00-9:00", "9:00-10:00", "10:00-11:00", "11:00-12:00"
                 , "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00",
                 "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00", "21:00-22:00")
+        val popDatas = arrayListOf<String>()
+        when (code) {
+            0 -> popDatas.addAll(weeks)
+            1 -> popDatas.addAll(dates)
+        }
         val currentActivity = ActivityManage.instance.getCurrentActivity()
         currentActivity?.let { activity ->
-                val view = LayoutInflater.from(activity).inflate(R.layout.code_layout_pop_flowlayout, null)
-                val popTvCancel = view.find(R.id.popTvCancel) as TextView
-                val popTvSure = view.find(R.id.popTvSure) as TextView
-                val popTvTitle = view.find(R.id.popTvTitle) as TextView
-                val popTfl = view.find(R.id.popTfl) as TagFlowLayout
-                val popupWindow = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams
-                        .MATCH_PARENT, true)
+            val view = LayoutInflater.from(activity).inflate(R.layout.code_layout_pop_flowlayout, null)
+            val popTvCancel = view.find(R.id.popTvCancel) as TextView
+            val popTvSure = view.find(R.id.popTvSure) as TextView
+            val popTvTitle = view.find(R.id.popTvTitle) as TextView
+            val popTfl = view.find(R.id.popTfl) as TagFlowLayout
+            popFullDateWindow = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams
+                    .MATCH_PARENT, true)
 
-                val clickListener = View.OnClickListener { v ->
-                    when (v?.id) {
-                        R.id.popTvCancel -> {
-                            popupWindow.dismiss()
+            val clickListener = View.OnClickListener { v ->
+                when (v?.id) {
+                    R.id.popTvCancel -> {
+                        popFullDateWindow?.dismiss()
+                    }
+                    R.id.popTvSure -> {
+                        activity.toast(popTfl.selectedList.toString())
+                        val sb = StringBuilder()
+                        popTfl.selectedList.forEach {
+                            if (code == 0) {
+                                sb.append(it)
+                            } else {
+                                sb.append(it + 8)
+                            }
+                            sb.append(",")
                         }
-                        R.id.popTvSure -> {
-                            activity.toast(popTfl.selectedList.toString())
-                            popupWindow.dismiss()
-
+                        val length = sb.length
+                        if (length > 1) {
+                            val toString = sb.substring(0, length - 1).toString()
+                            if (code == 0) {
+                                selectWeeksData = toString
+                            } else {
+                                selectTimesData = toString
+                            }
                         }
+                        popFullDateWindow?.dismiss()
                     }
                 }
-                popTvCancel.setOnClickListener(clickListener)
-                popTvSure.setOnClickListener(clickListener)
-                popTfl.adapter = object : TagAdapter<String>(dates) {
-                    override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
-                        val textView = LayoutInflater.from(activity).inflate(R.layout.code_flowlayout_item, parent, false)
-                                as TextView
-                        textView.text = t
-                        return textView
-                    }
+            }
+            popTvCancel.setOnClickListener(clickListener)
+            popTvSure.setOnClickListener(clickListener)
+            popTfl.adapter = object : TagAdapter<String>(popDatas) {
+                override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
+                    val textView = LayoutInflater.from(activity).inflate(R.layout.code_flowlayout_item, parent, false)
+                            as TextView
+                    textView.text = t
+                    return textView
                 }
-                popTfl.setOnSelectListener {
-//                    activity.toast(it.toString())
-                }
+            }
+            popFullDateWindow?.isFocusable = true
+            popFullDateWindow?.isOutsideTouchable = true;
+            popFullDateWindow?.isTouchable = true;
+            popFullDateWindow?.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
+            popFullDateWindow?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-                popupWindow.isFocusable = true
-                popupWindow.isOutsideTouchable = true;
-                popupWindow.isTouchable = true;
-                popupWindow.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE;
-                popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-                popupWindow.showAtLocation((activity as BaseActivity).getRootView(), Gravity
-                        .BOTTOM, 0, 0)
+            popFullDateWindow?.showAtLocation((activity as BaseActivity).getRootView(), Gravity
+                    .BOTTOM, 0, 0)
         }
+    }
+
+    //兼职时间选择
+    private fun timePickerSelect() {
+        val currentActivity = ActivityManage.instance.getCurrentActivity()
+        currentActivity?.let { activity ->
+            val pickerView = TimePickerBuilder(activity, object : OnTimeSelectListener {
+                override fun onTimeSelect(date: Date?, v: View?) {
+                    date?.let {
+                        val s = DateUtils.getDateYMDHMS_(it)
+                        mView?.setPartMs(s)
+                        partTimeSelect = s
+                    }
+                }
+
+            })
+                    .isCyclic(true)
+                    .setType(booleanArrayOf(true, true, true, true, true, false))
+                    .build()
+
+            pickerView.show()
+        }
+    }
+
+    //0/学历选择 1/工作经验选择 2/周期选择 3/薪资范围
+    private fun otherPicker(code: Int, its: ArrayList<String>?) {
+        var text = "最低学历"
+        var items = R.array.edus
+        if (code == 1) {
+            text = "工作经验"
+        }
+        if (code == 2) {
+            text = "周期选择"
+            items = R.array.cycle_time
+        }
+
+        if (code==3){
+            text="薪资范围"
+        }
+
+        val currentActivity = ActivityManage.instance.getCurrentActivity()
+        currentActivity?.let { activity ->
+            val onPositive = MaterialDialog.Builder(activity)
+                    .title(text)
+                    .canceledOnTouchOutside(true)
+                    .positiveText("确定")
+                    .itemsCallbackSingleChoice(-1, object : MaterialDialog.ListCallbackSingleChoice {
+                        override fun onSelection(dialog: MaterialDialog?, itemView: View?, which: Int, text: CharSequence?): Boolean {
+                            return true
+                        }
+                    })
+                    .onPositive(object : MaterialDialog.SingleButtonCallback {
+                        override fun onClick(dialog: MaterialDialog, which: DialogAction) {
+                            dialog.dismiss()
+                            val selectedIndex = dialog.selectedIndex
+                            mView?.apply {
+                                when (code) {
+                                    0 -> {
+                                        edu = selectedIndex.toString()
+                                        setEdu(activity.resources.getStringArray(items).get(selectedIndex))
+                                    }
+
+                                    1 -> {
+                                        setExp(its?.get(selectedIndex))
+                                        workExpResult = workExpResults.get(selectedIndex)
+                                    }
+
+                                    2 -> {
+                                        setSalaryUnit(activity.resources.getStringArray(items).get(selectedIndex))
+                                        salaryUnit = selectedIndex.toString()
+                                    }
+                                    3->{
+                                        setWage(its?.get(selectedIndex))
+                                        workExpResult=workSalaryResults.get(selectedIndex)
+                                    }
+                                }
+                            }
+
+                        }
+                    })
+            if (code != 1) {
+                onPositive.items(items)
+            } else {
+                onPositive.items(its!!)
+            }
+            onPositive.show()
+        }
+    }
+
+    private fun pickWorkExp(code: Int) {
+        Observable.create(ObservableOnSubscribe<ArrayList<WorkExpResult>> { emitter ->
+            if (code == 0 && workExpResults.isNotEmpty()) {
+                emitter.onNext(workExpResults)
+            }else if (code==1 && workSalaryResults.isNotEmpty()){
+                emitter.onNext(workSalaryResults)
+            }else {
+                mViewModel.addConfigInfo(object : IDataListener {
+                    override fun requestData(): Map<String, String>? {
+                        if (code == 1) {
+                            return mapOf(Pair("type", "EXPECTED_SALARY "))
+                        }
+                        return mapOf(Pair("type", "WORK_EXPERIENCE"))
+                    }
+
+                    override fun successData(success: String) {
+                        val workExpResponse = GsonUtils.getGson.fromJson(success, WorkExpResponse::class.java)
+                        val results = workExpResponse.results
+                        if (code == 1) {
+                            workSalaryResults.clear()
+                            workSalaryResults.addAll(results)
+                            emitter.onNext(workSalaryResults)
+                        } else {
+                            workExpResults.clear()
+                            workExpResults.addAll(results)
+                            emitter.onNext(workExpResults)
+                        }
+                    }
+
+
+                    override fun errorData(error: String) {
+                        ExceptionDeal.handleException(error)
+                    }
+                })
+            }
+        }).subscribe {
+            val exp = arrayListOf<String>()
+            it?.forEach { workExpResult ->
+                exp.add(workExpResult.value)
+            }
+            otherPicker(1, exp)
+        }
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
         mViewModel.detachView()
         mView == null
+        popFullDateWindow?.let {
+            if (it.isShowing) {
+                it.dismiss()
+            }
+        }
     }
 
 }

@@ -21,6 +21,9 @@ object Constant {
 
     var hrId: String by SpHelper("hrId", "")
 
+
+    var partCommit: Double by SpHelper("parttime_commition", 0.1)
+
     var companyId: String by SpHelper("companyId", "")
 
     //获取当前角色   1 表示个人  2表示公司  0表示 默认值

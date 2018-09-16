@@ -43,7 +43,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
 
     private fun patchAll() {
         mView?.apply {
-            val pairs = mapOf<String, String>()
+            val pairs = mutableMapOf<String, String>()
             val headImage = headImage()
             val name = getName()
             val locationBean = getLocationBean()
@@ -60,12 +60,15 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 upPic(headImage)
             }
             patchHr(name!!)
-            pairs.plus(Pair("id", "42"))
-            pairs.plus(Pair("type", "0"))
-            pairs.plus(Pair("address", locationBean.snippet))
-            pairs.plus(Pair("province", locationBean.province))
-            pairs.plus(Pair("city", locationBean.city))
-            pairs.plus(Pair("region", locationBean.district))
+            pairs.put("id", "42")
+            pairs.put("type", "0")
+            pairs.put("address", locationBean.snippet)
+            pairs.put("province", locationBean.province)
+            pairs.put("city", locationBean.city)
+            pairs.put("region", locationBean.district)
+            pairs.put("latitude", locationBean.latitude.toString())
+            pairs.put("longitude", locationBean.longitude.toString())
+
             patchCompany(pairs)
         }
 

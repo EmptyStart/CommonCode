@@ -325,5 +325,21 @@ data class ReleasePopData(
         val key : String,
         val value: String,
         val id: Int,
-        val parentId : Int
+        val parentId : Int,
+        val skills: List<Any>?
+)
+
+data class WorkExpResponse(
+    val count: Int,
+    val next: Any,
+    val previous: Any,
+    val results: List<WorkExpResult>
+)
+
+data class WorkExpResult(
+    val id: Int,
+    val created_on: String,
+    val type: String,
+    val key: String,
+    val value: String
 )

@@ -111,7 +111,7 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
     override fun getLayoutId(): Int {
         return R.layout.code_activity_register_create_company
     }
-    val present by lazy(LazyThreadSafetyMode.NONE){
+    private val present by lazy(LazyThreadSafetyMode.NONE){
         RegisterCreateCompanyPresentImpl(this)
     }
     override fun inits(savedInstanceState: Bundle?) {

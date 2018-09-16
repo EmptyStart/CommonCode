@@ -35,21 +35,57 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releaseparttime)
 class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickListener, IReleaseTimeView {
+
+
+    override fun setSalaryUnit(salary: String?) {
+        salary?.let {
+            tv_cycle.text = it
+        }
+    }
+
+    override fun setEdu(edu: String?) {
+        edu?.let {
+            tv_educat.text=it
+        }
+    }
+
+    override fun setExp(exp: String?) {
+        exp?.let {
+            tv_work.text=it
+        }
+    }
+
+    override fun setPartMs(exp: String?) {
+        exp?.let{
+            tv_time.text=exp
+        }
+    }
+
+    override fun getPartMs(): String? {
+        return tv_time.text.toString().trim()
+    }
+
     override fun getWage(): String? {
         return et_wage.text.toString().trim()
     }
+    override fun setWage(exp: String?) {
 
+    }
     override fun getWordDec(): String? {
         return et_work_desc.text.toString().trim()
     }
 
-    override fun getSalaryBegin(): String? {
-        return null
-    }
 
-    override fun recycleTimes(): String? {
+    override fun cycleTimes(): String? {
         return tv_cycle.text.toString().trim()
     }
+
+    override fun setCycleTimes(value: Any?){
+        value?.let {
+            tv_cycle.text = it.toString()
+        }
+    }
+
 
     override fun salaryUnit(): String? {
         return et_cycle.text.toString().trim()
@@ -83,6 +119,12 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
 
     override fun getQty(): String? {
         return et_count.text.toString().trim()
+    }
+
+    override fun setQty(value: Any?) {
+        value?.let {
+            et_count.setText(it.toString())
+        }
     }
 
     override fun getSkillSet(): String? {
@@ -125,6 +167,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
             releaseTimeAdapter?.onItemClickListener = object : BaseQuickAdapter.OnItemClickListener {
                 override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
                     popSelect?.dismiss()
+                    listener.selected(releasePopData.get(position))
                 }
             }
         } else {
@@ -159,13 +202,46 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         defaultMarkerDrag()
         defaultMapClick()
         putScrollView(svCreate)
-        actionbar.setOnRightImageListener(View.OnClickListener {
-            finish()
-        })
-        actionbar.setOnRightTextListener(View.OnClickListener { presenter.saveRelease() })
+        actionbar.setOnRightImageListener(this)
+        actionbar.setOnRightTextListener(this)
+        et_count.addTextChangedListener(this)
+        et_cycle.addTextChangedListener(this)
+        et_wage.addTextChangedListener(this)
+        rl_work_type.setOnClickListener(this)
+        tv_minus.setOnClickListener(this)
+        tv_add.setOnClickListener(this)
+        ll_cycle.setOnClickListener(this)
+        ll_educat.setOnClickListener(this)
+        ll_work.setOnClickListener(this)
+        ll_time.setOnClickListener(this)
 
     }
 
+    override fun dealMoney(s: CharSequence?) {
+        super.dealMoney(s)
+        val wage = et_wage.text.toString()
+        val cycle = et_cycle.text.toString()
+        val count = et_count.text.toString()
+        if (wage.isEmpty()||cycle.isEmpty()||count.isEmpty()){
+            return
+        }
+        if ("0" == wage &&"0" == cycle &&"0" == count ){
+            return
+        }
+        try {
+            val wi : Int = wage.toInt()
+            val ci : Int = cycle.toInt()
+            val ti : Int = count.toInt()
+            val i = wi * ci * ti
+            val poundage =i*Constant.partCommit
+            val d = poundage + i
+            tv_poundage.text=poundage.toString()
+            tv_count_pay.text=d.toString()
+        }catch (e:NumberFormatException){
+            e.printStackTrace()
+        }
+
+    }
     override fun onDestroy() {
         popSelect?.let {
             if (it.isShowing) {

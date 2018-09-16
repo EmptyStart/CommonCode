@@ -1,5 +1,6 @@
 package com.tima.code.timapresenter
 
+import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
@@ -45,6 +46,9 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 count = 5
                 patchAll()
             }
+            R.id.iv_actionbar_cancle->{
+                (view.context as Activity).finish()
+            }
             R.id.iv_head -> {
                 //这里是LOGO
                 mView?.selectImage(CameraUtils.HEAD_PICTION)
@@ -70,7 +74,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
 
     fun patchAll(){
         mView?.apply {
-            var pairs= mapOf<String,String>()
+            var pairs= mutableMapOf<String,String>()
             val name = getName()
             val locationBean = getLocationBean()
             val headImage = headImage()
@@ -98,21 +102,23 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 return
             }
 
-            if (introduce.isNullOrEmpty()){
-                pairs.plus(Pair("introduction", selectStaffs))
+            if (!introduce.isNullOrEmpty()){
+                pairs.put("introduction", introduce!!)
             }
 
 
             if (selectStaffs.isNotEmpty()){
-                pairs.plus(Pair("staffs", selectStaffs))
+                pairs.put("staffs", selectStaffs)
             }
-            pairs.plus(Pair("id", "42"))
-            pairs.plus(Pair("full_name", name))
-            pairs.plus(Pair("type", "1"))
-            pairs.plus(Pair("address", locationBean.snippet))
-            pairs.plus(Pair("province", locationBean.province))
-            pairs.plus(Pair("city", locationBean.city))
-            pairs.plus(Pair("region", locationBean.district))
+            pairs["id"] = "42"
+            pairs["full_name"] = name!!
+            pairs["type"] = "1"
+            pairs["address"] = locationBean.snippet
+            pairs["province"] = locationBean.province
+            pairs["city"] = locationBean.city
+            pairs["region"] = locationBean.district
+            pairs["latitude"] = locationBean.latitude.toString()
+            pairs["longitude"] = locationBean.longitude.toString()
 
             patchCompany(pairs)
 

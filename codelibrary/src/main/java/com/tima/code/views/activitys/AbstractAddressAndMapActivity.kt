@@ -1,12 +1,12 @@
 package com.tima.code.views.activitys
 
 import android.app.Activity
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,12 +15,10 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.ScrollView
-import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
-import com.amap.api.maps.model.CameraPosition
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
@@ -36,7 +34,6 @@ import com.tima.code.R
 import com.tima.code.ResponseBody.LocationBean
 import com.tima.common.base.*
 import com.tima.common.utils.*
-import com.tima.common.utils.KeyboardUtils.showSoftInput
 import kotlinx.android.synthetic.main.code_layout_select_address.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -49,7 +46,7 @@ import org.jetbrains.anko.toast
  *   email : zhijun.li@timanetworks.com
  *
  */
-abstract class AbstractAddressAndMapActivity : BaseActivity() {
+abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
     protected var pickerPro: OptionsPickerView<String>? = null
     protected var pickerCity: OptionsPickerView<String>? = null
     protected var pickerCounty: OptionsPickerView<String>? = null
@@ -64,6 +61,9 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
     protected var popSa: PopupWindow? = null
     private var adapter: BaseQuickAdapter<LocationBean, BaseViewHolder>? = null
     val locations = ArrayList<LocationBean>()
+
+    protected var latLngDefault: LatLng?=null
+
     protected val geoSearch by lazy(LazyThreadSafetyMode.NONE) {
         GeocodeSearch(this)
     }
@@ -76,11 +76,13 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         val query = RegeocodeQuery(latLng, 100f, GeocodeSearch.AMAP)
         geoSearch.getFromLocationAsyn(query)
     }
-    protected fun qGeoSearch(name: String,city: String?, listener: GeocodeSearch.OnGeocodeSearchListener) {
+
+    protected fun qGeoSearch(name: String, city: String?, listener: GeocodeSearch.OnGeocodeSearchListener) {
         geoSearch.setOnGeocodeSearchListener(listener)
         val query = GeocodeQuery(name, city)
         geoSearch.getFromLocationNameAsyn(query)
     }
+
     /**
      * 选择图片
      */
@@ -135,13 +137,17 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
                 override fun onLocationChanged(p0: AMapLocation?) {
                     Constant.aMapLocation = p0
                     p0?.let {
-                        setLocation(LatLng(it.latitude,it.longitude))
+                        val latLng = LatLng(it.latitude, it.longitude)
+                        setLocation(latLng)
+                        latLngDefault=latLng
                     }
                 }
             })
             return
         }
-        setLocation(LatLng(aMapLocation.latitude,aMapLocation.longitude))
+        val latLng = LatLng(aMapLocation.latitude, aMapLocation.longitude)
+        setLocation(latLng)
+        latLngDefault=latLng
     }
 
     /**
@@ -202,6 +208,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         aMap.minZoomLevel = 12f
         aMap.maxZoomLevel = 18f
     }
+
     /**
      * 设置定位数据
      */
@@ -212,7 +219,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
                     it.remove()
                 }
             }
-            marker = aMap.addMarker(setMarker(it,null))
+            marker = aMap.addMarker(setMarker(it, null))
             val newLatLng = CameraUpdateFactory.newLatLng(it)
             aMap.moveCamera(newLatLng)
             aMap.minZoomLevel = 12f
@@ -220,6 +227,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         }
 
     }
+
     /**
      * 更新定位数据
      */
@@ -245,7 +253,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         aMap.setOnMarkerDragListener(listener)
     }
 
-    protected fun defaultMapClick(){
+    protected fun defaultMapClick() {
         aMap.setOnMapClickListener(object : AMap.OnMapClickListener {
             override fun onMapClick(p0: LatLng?) {
                 rGeoSearch(p0)
@@ -253,6 +261,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
             }
         })
     }
+
     /**
      * 设置默认拖动监听
      */
@@ -415,7 +424,6 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         pickerCounty?.show()
     }
 
-    override fun useEventBus(): Boolean =true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -424,7 +432,8 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
         }
         iv_pro.setOnClickListener {
             KeyboardUtils.hideInput(iv_pro.context as Activity)
-            proPicker() }
+            proPicker()
+        }
         iv_city.setOnClickListener {
             KeyboardUtils.hideInput(iv_city.context as Activity)
             cityPicker()
@@ -434,12 +443,37 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
             countyPicker()
         }
     }
-    @Subscribe(threadMode = ThreadMode.MAIN,sticky = true,priority = 1)
-    fun upLocation(event : LocationBean){
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
+    fun upLocation(event: LocationBean) {
         upDataLocation(event)
         EventBus.getDefault().removeStickyEvent(event)
     }
 
+    override fun afterTextChanged(s: Editable?) {
+        var text = s.toString()
+        if (text.isEmpty()){
+            s?.append("0")
+            return
+        }
+        val len = text.length
+        if (len > 1&&text.startsWith("0")) {
+            s?.replace(0,1,"")
+            text=s.toString()
+        }
+        dealMoney(text)
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+    }
+    open fun dealMoney(s: CharSequence?){
+
+    }
     override fun onDestroy() {
         pickerPro?.let {
             if (it.isShowing) {
@@ -457,7 +491,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity() {
             }
         }
         popSa?.let {
-            if (it.isShowing){
+            if (it.isShowing) {
                 it.dismiss()
             }
         }

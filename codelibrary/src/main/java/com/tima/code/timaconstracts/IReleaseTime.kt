@@ -17,33 +17,44 @@ interface IReleaseTimeViewModel : IBaseViewModel {
 }
 
 interface IReleaseTimePresent : IBasePresenter {
-    fun saveRelease()
-    //选择单位
-    fun selectRecTime()
-    //选择学历
-    fun selectEdu()
 }
 
 interface IReleaseTimeView : IBaseViews {
     fun showPop(list: ArrayList<ReleasePopData>, listener: OnSelectListener)
-    fun setWorkType(name : String?)
-    fun getWorkName() : String?
-    fun getLocationBean() : LocationBean?
+    fun setWorkType(name: String?)
+    fun getWorkName(): String?
+    fun getLocationBean(): LocationBean?
     //需求人数
     fun getQty(): String?
-    //兼职周期
-    fun recycleTimes() :String?
-    //薪资单位
-    fun salaryUnit() :String?
-    //技能
-    fun getSkillSet() : String?
-    //薪资
-    fun getWage() : String?
-    //职位描述
-    fun getWordDec() : String?
-    //起薪
-    fun getSalaryBegin() :String?
 
+    fun setQty(value: Any?)
+    //兼职周期
+    fun cycleTimes(): String?
+
+    fun setCycleTimes(value: Any?)
+    //薪资单位
+    fun salaryUnit(): String?
+
+    fun setSalaryUnit(salary: String?)
+    //技能
+    fun getSkillSet(): String?
+
+    //薪资
+    fun getWage(): String?
+    fun setWage(exp: String?)
+
+    //职位描述
+    fun getWordDec(): String?
+
+    //设置最低学历
+    fun setEdu(edu: String?)
+
+    //设置工作经验
+    fun setExp(exp: String?)
+    //兼职到场时间
+    fun setPartMs(exp: String?)
+    //获取兼职到场时间
+    fun getPartMs(): String?
 
 }
 
