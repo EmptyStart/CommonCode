@@ -43,7 +43,7 @@
         android:name="com.tima.common.base.App"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.tima.code.views.activitys.RegisterSelectActivity">
+        <activity android:name="com.tima.code.views.activitys.MainPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +55,7 @@
         <meta-data android:name="design_height" android:value="${DESIGN_HEIGHT}"/>
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="82b0ff68273fa4717fe97d0a31fed840"/>
+            android:value="e925d8b66f0d1b4c23bfc60a01b638d7"/>
         <service android:name="com.amap.api.location.APSService"/>
 
         <!-- 设置环信应用的AppKey -->

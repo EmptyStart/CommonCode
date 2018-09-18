@@ -24,3 +24,9 @@ class SelectPos5{
 
 }
 
+class CanSelectTag{
+    val tagList= arrayListOf<String>()
+}
+class SelectedTag{
+    val tagList= arrayListOf<String>()
+}

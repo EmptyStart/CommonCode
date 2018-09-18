@@ -2,6 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="选择标签"
+        app:mode_type="type_three"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已选择标签(最多3个)"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/text_select"/>
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/selectedTag"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </com.zhy.view.flowlayout.TagFlowLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/code_linebc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="待选择标签"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/code_linebc"/>
+
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:layout_marginTop="5dp"
+        android:id="@+id/unselectTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/code_linebc" />
+
+    <EditText
+        android:id="@+id/etTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="手动输入标签"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:textColor="@color/code_linebc"/>
+
+    <Button
+        android:id="@+id/inputTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"/>
 </LinearLayout>

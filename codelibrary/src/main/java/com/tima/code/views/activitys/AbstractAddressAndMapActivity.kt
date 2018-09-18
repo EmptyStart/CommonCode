@@ -19,6 +19,7 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
+import com.amap.api.maps.model.BitmapDescriptor
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
@@ -59,10 +60,11 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
     protected var cityBean: City? = null
     protected var marker: Marker? = null
     protected var popSa: PopupWindow? = null
+    var bitmapDescriptor: BitmapDescriptor? = null
     private var adapter: BaseQuickAdapter<LocationBean, BaseViewHolder>? = null
     val locations = ArrayList<LocationBean>()
 
-    protected var latLngDefault: LatLng?=null
+    protected var latLngDefault: LatLng? = null
 
     protected val geoSearch by lazy(LazyThreadSafetyMode.NONE) {
         GeocodeSearch(this)
@@ -101,10 +103,13 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
      * 设置定位点
      */
     protected fun setMarker(latLng: LatLng, title: String?): MarkerOptions {
+        if(bitmapDescriptor==null) {
+            bitmapDescriptor = ResourceUtil.getBitmapDescriptorFactory(R.mipmap.ic_map)
+        }
         val markerOptions = MarkerOptions()
         markerOptions.position(latLng)
         markerOptions.draggable(true)
-        markerOptions.icon(ResourceUtil.getBitmapDescriptorFactory(R.mipmap.ic_map))
+        markerOptions.icon(bitmapDescriptor)
         markerOptions.isFlat = true
         markerOptions.setInfoWindowOffset(-54, -69)
 //        title?.let {
@@ -139,7 +144,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
                     p0?.let {
                         val latLng = LatLng(it.latitude, it.longitude)
                         setLocation(latLng)
-                        latLngDefault=latLng
+                        latLngDefault = latLng
                     }
                 }
             })
@@ -147,7 +152,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
         }
         val latLng = LatLng(aMapLocation.latitude, aMapLocation.longitude)
         setLocation(latLng)
-        latLngDefault=latLng
+        latLngDefault = latLng
     }
 
     /**
@@ -452,14 +457,14 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
 
     override fun afterTextChanged(s: Editable?) {
         var text = s.toString()
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             s?.append("0")
             return
         }
         val len = text.length
-        if (len > 1&&text.startsWith("0")) {
-            s?.replace(0,1,"")
-            text=s.toString()
+        if (len > 1 && text.startsWith("0")) {
+            s?.replace(0, 1, "")
+            text = s.toString()
         }
         dealMoney(text)
     }
@@ -471,9 +476,11 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
     }
-    open fun dealMoney(s: CharSequence?){
+
+    open fun dealMoney(s: CharSequence?) {
 
     }
+
     override fun onDestroy() {
         pickerPro?.let {
             if (it.isShowing) {
@@ -495,6 +502,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
                 it.dismiss()
             }
         }
+        bitmapDescriptor?.recycle()
         super.onDestroy()
 
     }

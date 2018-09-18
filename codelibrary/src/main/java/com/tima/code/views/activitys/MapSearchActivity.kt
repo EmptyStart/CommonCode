@@ -19,6 +19,7 @@ import com.amap.api.location.AMapLocation
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.MapView
+import com.amap.api.maps.model.BitmapDescriptor
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Marker
 import com.amap.api.maps.model.MarkerOptions
@@ -48,6 +49,8 @@ class MapSearchActivity : BaseActivity(), GeocodeSearch.OnGeocodeSearchListener 
     @JvmField
     var city : String?=Constant.aMapLocation?.city
 
+
+    var bitmapDescriptor: BitmapDescriptor? = null
 
     override fun onRegeocodeSearched(p0: RegeocodeResult?, p1: Int) {
         locations.clear()
@@ -92,10 +95,13 @@ class MapSearchActivity : BaseActivity(), GeocodeSearch.OnGeocodeSearchListener 
      * 设置定位点
      */
     protected fun setMarker(latLng: LatLng): MarkerOptions {
+        if(bitmapDescriptor==null) {
+            bitmapDescriptor = ResourceUtil.getBitmapDescriptorFactory(R.mipmap.ic_map)
+        }
         val markerOptions = MarkerOptions()
         markerOptions.position(latLng)
         markerOptions.draggable(true)
-        markerOptions.icon(ResourceUtil.getBitmapDescriptorFactory(R.mipmap.ic_map))
+        markerOptions.icon(bitmapDescriptor)
         markerOptions.isFlat = true
         markerOptions.setInfoWindowOffset(-54, -69)
 //            markerOptions.title(it)
@@ -280,5 +286,10 @@ class MapSearchActivity : BaseActivity(), GeocodeSearch.OnGeocodeSearchListener 
      */
     override fun useMap(): Boolean {
         return true
+    }
+
+    override fun onDestroy() {
+        bitmapDescriptor?.recycle()
+        super.onDestroy()
     }
 }

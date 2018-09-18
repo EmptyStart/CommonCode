@@ -36,9 +36,7 @@ import com.zhy.view.flowlayout.TagFlowLayout
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * @author : zhijun.li on 2018/9/12
@@ -86,10 +84,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     override fun onClick(view: View?) {
         view?.let {
             when (it.id) {
-                R.id.tv_actionbar_right_title -> {
-                    saveRelease()
-                }
-                R.id.iv_actionbar_cancle->{
+                R.id.iv_actionbar_cancle -> {
                     (view.context as Activity).finish()
                 }
 
@@ -153,13 +148,18 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     KeyboardUtils.hideInput(it.context as Activity)
                     pickWorkExp(1)
                 }
-                R.id.ll_interview_date->{
+                R.id.ll_interview_date -> {
                     KeyboardUtils.hideInput(it.context as Activity)
                     popDataSelect(0)
                 }
-                R.id.ll_interview_time->{
+                R.id.ll_interview_time -> {
                     KeyboardUtils.hideInput(it.context as Activity)
                     popDataSelect(1)
+                }
+
+                R.id.tv_introduce -> {
+                    KeyboardUtils.hideInput(it.context as Activity)
+                    mView?.selectTag(tagList)
                 }
                 else -> {
 
@@ -168,9 +168,11 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         }
     }
 
-    private fun saveRelease() {
+    //0/全职 1/兼职
+    override fun saveRelease(code: Int) {
         mView?.apply {
             var pairs = mutableMapOf<String, String>()
+            pairs["type"] = code.toString()
             val workName = getWorkName()
             if (workName.isNullOrEmpty()) {
                 showError("职位名称是必填项")
@@ -183,6 +185,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             } else {
                 pairs["career_type"] = selectCareerData!!
             }
+
 
             val locationBean = getLocationBean()
             if (locationBean == null) {
@@ -210,44 +213,53 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             if (!skillSet.isNullOrEmpty()) {
                 pairs["skill_set"] = skillSet!!
             }
-            val qty = getQty()
-            if (qty.isNullOrEmpty()) {
-                showError("兼职周期没填")
-            } else {
-                pairs["salary_qty"] = qty!!
-            }
-            if (selectWeeksData.isNotEmpty()) {
-                pairs["interview_day"] = selectWeeksData
-            }
-            if (selectTimesData.isNotEmpty()) {
-                pairs["interview_time"] = selectTimesData
-            }
-            if (partTimeSelect.isEmpty()) {
-                //判断是否是兼职
-                val partMs = getPartMs()
-                if (partMs.isNullOrEmpty()) {
-                    showError("请选择到场时间")
-                }
-                if ("0" == partMs) {
-                    pairs["type"] = "0"
-                } //表示是全职
-            } else {
-                pairs["on_site_time"] = partTimeSelect
-                pairs["type"] = "1"
-            }
-
-            if (workSalaryResult != null) {
-                workSalaryResult?.apply {
-                    val split = key.split("-")
-                    if (split.size > 1) {
-                        pairs["salary_begin"] = split[0]
-                        pairs["salary_end"] = split[1]
-                    }
-                }
-            } else {
+            if (code == 1) {
                 pairs["salary_begin"] = "10"
                 pairs["salary_end"] = "10"
+                if (partTimeSelect.isEmpty()) {
+                    showError("请选择到场时间")
+                    return
+                } else {
+                    pairs["on_site_time"] = partTimeSelect
+                }
+                val wagePart = getWage()
+                if (wagePart.isNullOrEmpty()) {
+                    showError("请输入单位薪水")
+                    return
+                } else {
+                    pairs["salary_qty"] = wagePart!!
+                }
+                val qty = getQty()
+                if (qty.isNullOrEmpty()) {
+                    showError("请输入需求人数")
+                } else {
+                    pairs["qty"] = qty!!
+                    pairs["qty_var"] = qty!!
+                }
             }
+
+            if (code == 0) {
+                if (workSalaryResult != null) {
+                    workSalaryResult?.apply {
+                        val split = key.split("-")
+                        if (split.size > 1) {
+                            pairs["salary_begin"] = split[0]
+                            pairs["salary_end"] = split[1]
+                        }
+                    }
+                } else {
+                    showError("请选择薪资范围！")
+                    return
+                }
+                if (selectWeeksData.isEmpty() || selectTimesData.isEmpty()) {
+                    showError("请选择面试日期！")
+                    return
+                } else {
+                    pairs["interview_day"] = selectWeeksData
+                    pairs["interview_time"] = selectTimesData
+                }
+            }
+
 
             if (salaryUnit.isNotEmpty()) {
                 pairs["salary_unit"] = salaryUnit
@@ -266,7 +278,9 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             }
 
             override fun successData(success: String) {
-
+                mView?.showError("发布成功")
+                val currentActivity = ActivityManage.instance.getCurrentActivity()
+                currentActivity?.finish()
             }
 
             override fun errorData(error: String) {
@@ -373,7 +387,6 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                         popFullDateWindow?.dismiss()
                     }
                     R.id.popTvSure -> {
-                        activity.toast(popTfl.selectedList.toString())
                         val sb = StringBuilder()
                         popTfl.selectedList.forEach {
                             if (code == 0) {
@@ -388,8 +401,16 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                             val toString = sb.substring(0, length - 1).toString()
                             if (code == 0) {
                                 selectWeeksData = toString
+                                mView?.setInWeek(1)
                             } else {
                                 selectTimesData = toString
+                                mView?.setInTime(1)
+                            }
+                        } else {
+                            if (code == 0) {
+                                mView?.setInWeek(0)
+                            } else {
+                                mView?.setInTime(0)
                             }
                         }
                         popFullDateWindow?.dismiss()
@@ -451,8 +472,8 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             items = R.array.cycle_time
         }
 
-        if (code==3){
-            text="薪资范围"
+        if (code == 3) {
+            text = "薪资范围"
         }
 
         val currentActivity = ActivityManage.instance.getCurrentActivity()
@@ -461,11 +482,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     .title(text)
                     .canceledOnTouchOutside(true)
                     .positiveText("确定")
-                    .itemsCallbackSingleChoice(-1, object : MaterialDialog.ListCallbackSingleChoice {
-                        override fun onSelection(dialog: MaterialDialog?, itemView: View?, which: Int, text: CharSequence?): Boolean {
-                            return true
-                        }
-                    })
+                    .itemsCallbackSingleChoice(0) { dialog, itemView, which, text -> true }
                     .onPositive(object : MaterialDialog.SingleButtonCallback {
                         override fun onClick(dialog: MaterialDialog, which: DialogAction) {
                             dialog.dismiss()
@@ -486,16 +503,16 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                                         setSalaryUnit(activity.resources.getStringArray(items).get(selectedIndex))
                                         salaryUnit = selectedIndex.toString()
                                     }
-                                    3->{
+                                    3 -> {
                                         setWage(its?.get(selectedIndex))
-                                        workSalaryResult=workSalaryResults.get(selectedIndex)
+                                        workSalaryResult = workSalaryResults.get(selectedIndex)
                                     }
                                 }
                             }
 
                         }
                     })
-            if (code != 1&&code!=3) {
+            if (code != 1 && code != 3) {
                 onPositive.items(items)
             } else {
                 onPositive.items(its!!)
@@ -508,9 +525,9 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         Observable.create(ObservableOnSubscribe<ArrayList<WorkExpResult>> { emitter ->
             if (code == 0 && workExpResults.isNotEmpty()) {
                 emitter.onNext(workExpResults)
-            }else if (code==1 && workSalaryResults.isNotEmpty()){
+            } else if (code == 1 && workSalaryResults.isNotEmpty()) {
                 emitter.onNext(workSalaryResults)
-            }else {
+            } else {
                 mViewModel.addConfigInfo(object : IDataListener {
                     override fun requestData(): Map<String, String>? {
                         if (code == 1) {
@@ -544,9 +561,9 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             it?.forEach { workExpResult ->
                 exp.add(workExpResult.value)
             }
-            if (code==1){
+            if (code == 1) {
                 otherPicker(3, exp)
-            }else {
+            } else {
                 otherPicker(1, exp)
             }
         }

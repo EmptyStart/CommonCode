@@ -17,6 +17,7 @@ interface IReleaseTimeViewModel : IBaseViewModel {
 }
 
 interface IReleaseTimePresent : IBasePresenter {
+    fun saveRelease(code : Int)
 }
 
 interface IReleaseTimeView : IBaseViews {
@@ -55,7 +56,12 @@ interface IReleaseTimeView : IBaseViews {
     fun setPartMs(exp: String?)
     //获取兼职到场时间
     fun getPartMs(): String?
-
+    //选择标签
+    fun selectTag(array: ArrayList<String>)
+    //面试日期
+    fun setInWeek(code: Int)
+    //面试时间
+    fun setInTime(code: Int)
 }
 
 interface OnSelectListener {

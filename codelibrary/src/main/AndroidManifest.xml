@@ -39,6 +39,9 @@
         <activity android:name=".views.activitys.ReleaseParttimeActivity"
             android:theme="@style/MapSearchStyle"
             />
+        <activity android:name=".views.activitys.TagSelectActivity"
+            android:theme="@style/MapSearchStyle"
+            />
 
     </application>
 </manifest>

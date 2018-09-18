@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
@@ -21,10 +22,15 @@ import com.tima.code.ResponseBody.ReleasePopData
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
 import com.tima.code.timapresenter.ReleaseTimePresenterImpl
+import com.tima.common.BusEvents.CanSelectTag
+import com.tima.common.BusEvents.SelectedTag
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import kotlinx.android.synthetic.main.code_activity_release_parttime.*
 import kotlinx.android.synthetic.main.code_layout_select_address.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
 
@@ -35,7 +41,22 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releaseparttime)
 class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickListener, IReleaseTimeView {
+    override fun setInWeek(code: Int) {
+    }
 
+    override fun setInTime(code: Int) {
+    }
+
+    override fun selectTag(array: ArrayList<String>) {
+        if (array.size>0) {
+            val canSelectTag = CanSelectTag()
+            canSelectTag.tagList.addAll(array)
+            EventBus.getDefault().postSticky(canSelectTag)
+        }
+        ARouter.getInstance().build(RoutePaths.releasetag).navigation()
+    }
+
+    val tagData = arrayListOf<String>()
 
     override fun setSalaryUnit(salary: String?) {
         salary?.let {
@@ -45,19 +66,19 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
 
     override fun setEdu(edu: String?) {
         edu?.let {
-            tv_educat.text=it
+            tv_educat.text = it
         }
     }
 
     override fun setExp(exp: String?) {
         exp?.let {
-            tv_work.text=it
+            tv_work.text = it
         }
     }
 
     override fun setPartMs(exp: String?) {
-        exp?.let{
-            tv_time.text=exp
+        exp?.let {
+            tv_time.text = exp
         }
     }
 
@@ -68,9 +89,11 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     override fun getWage(): String? {
         return et_wage.text.toString().trim()
     }
+
     override fun setWage(exp: String?) {
 
     }
+
     override fun getWordDec(): String? {
         return et_work_desc.text.toString().trim()
     }
@@ -80,7 +103,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         return tv_cycle.text.toString().trim()
     }
 
-    override fun setCycleTimes(value: Any?){
+    override fun setCycleTimes(value: Any?) {
         value?.let {
             tv_cycle.text = it.toString()
         }
@@ -104,15 +127,15 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         val tvCounty = tv_county.text.toString()
         val etAddress = et_address.text.toString()
 
-        if (pro.equals(tvPro)||citys.equals(tvCity)||county.equals(tvCounty)||etAddress.isEmpty()){
+        if (pro.equals(tvPro) || citys.equals(tvCity) || county.equals(tvCounty) || etAddress.isEmpty()) {
             return null
         }
-        if (selectPosition!=-1){
+        if (selectPosition != -1) {
             return locations.get(selectPosition)
         }
         val aMapLocation = Constant.aMapLocation
         aMapLocation?.apply {
-            return LocationBean(latitude,longitude,"",tvPro,tvCity,tvCounty,etAddress)
+            return LocationBean(latitude, longitude, "", tvPro, tvCity, tvCounty, etAddress)
         }
         return null
     }
@@ -132,8 +155,8 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     }
 
     override fun setWorkType(name: String?) {
-        name?.let{
-            tvWorkTyp.text=name
+        name?.let {
+            tvWorkTyp.text = name
         }
     }
 
@@ -203,7 +226,9 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         defaultMapClick()
         putScrollView(svCreate)
         actionbar.setOnRightImageListener(this)
-        actionbar.setOnRightTextListener(this)
+        actionbar.setOnRightTextListener(View.OnClickListener {
+            presenter.saveRelease(1)
+        })
         et_count.addTextChangedListener(this)
         et_cycle.addTextChangedListener(this)
         et_wage.addTextChangedListener(this)
@@ -214,7 +239,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         ll_educat.setOnClickListener(this)
         ll_work.setOnClickListener(this)
         ll_time.setOnClickListener(this)
-
+        tv_introduce.setOnClickListener(this)
     }
 
     override fun dealMoney(s: CharSequence?) {
@@ -222,26 +247,42 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         val wage = et_wage.text.toString()
         val cycle = et_cycle.text.toString()
         val count = et_count.text.toString()
-        if (wage.isEmpty()||cycle.isEmpty()||count.isEmpty()){
+        if (wage.isEmpty() || cycle.isEmpty() || count.isEmpty()) {
             return
         }
-        if ("0" == wage &&"0" == cycle &&"0" == count ){
+        if ("0" == wage && "0" == cycle && "0" == count) {
             return
         }
         try {
-            val wi : Int = wage.toInt()
-            val ci : Int = cycle.toInt()
-            val ti : Int = count.toInt()
+            val wi: Int = wage.toInt()
+            val ci: Int = cycle.toInt()
+            val ti: Int = count.toInt()
             val i = wi * ci * ti
-            val poundage =i*Constant.partCommit
+            val poundage = i * Constant.partCommit
             val d = poundage + i
-            tv_poundage.text=poundage.toString()
-            tv_count_pay.text=d.toString()
-        }catch (e:NumberFormatException){
+            tv_poundage.text = poundage.toString()
+            tv_count_pay.text = d.toString()
+        } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
-
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getTagList(array: SelectedTag) {
+        tagData.clear()
+        tagData.addAll(array.tagList)
+        val sb = StringBuilder()
+        tagData.forEach {
+            sb.append(it)
+            sb.append(";")
+        }
+        tv_introduce.setText(sb.subSequence(0, sb.length - 1))
+    }
+
+    override fun useEventBus(): Boolean {
+        return true
+    }
+
     override fun onDestroy() {
         popSelect?.let {
             if (it.isShowing) {

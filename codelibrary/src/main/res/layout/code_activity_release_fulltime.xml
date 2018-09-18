@@ -113,14 +113,13 @@
                     android:textColor="@android:color/holo_red_light"
                     android:textSize="10sp" />
 
-                <EditText
-                    android:id="@+id/et_introduce"
+                <TextView
+                    android:id="@+id/tv_introduce"
                     android:layout_width="600px"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="72px"
-                    android:background="@null"
                     android:gravity="right"
                     android:hint="请添加"
                     android:singleLine="true"
@@ -304,6 +303,7 @@
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/tv_interview_week"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12px"

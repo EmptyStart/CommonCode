@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
@@ -21,12 +22,18 @@ import com.tima.code.ResponseBody.ReleasePopData
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
 import com.tima.code.timapresenter.ReleaseTimePresenterImpl
+import com.tima.common.BusEvents.CanSelectTag
+import com.tima.common.BusEvents.SelectedTag
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import kotlinx.android.synthetic.main.code_activity_release_fulltime.*
 import kotlinx.android.synthetic.main.code_layout_select_address.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.find
 import org.jetbrains.anko.toast
+import java.lang.StringBuilder
 
 /**
  * @author : zhijun.li on 2018/8/29
@@ -35,6 +42,32 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releasefulltime)
 class ReleaseFulltimeActivity : AbstractAddressAndMapActivity() , IReleaseTimeView ,View.OnClickListener{
+    override fun setInWeek(code: Int) {
+        if (code==0){
+            tv_interview_week.setText("请选择")
+            return
+        }
+        tv_interview_week.setText("已选择")
+    }
+
+    override fun setInTime(code: Int) {
+        if (code==0){
+            tv_interview_time.setText("请选择")
+            return
+        }
+        tv_interview_time.setText("已选择")
+    }
+
+    override fun selectTag(array: ArrayList<String>) {
+        if (array.size>0) {
+            val canSelectTag = CanSelectTag()
+            canSelectTag.tagList.addAll(array)
+            EventBus.getDefault().postSticky(canSelectTag)
+        }
+        ARouter.getInstance().build(RoutePaths.releasetag).navigation()
+    }
+
+    val tagData= arrayListOf<String>()
     override fun onClick(v: View?) {
         presenter.onClick(v)
     }
@@ -191,13 +224,29 @@ class ReleaseFulltimeActivity : AbstractAddressAndMapActivity() , IReleaseTimeVi
         defaultMapClick()
         putScrollView(svCreate)
         actionbar.setOnRightImageListener(this)
-        actionbar.setOnRightTextListener(this)
+        actionbar.setOnRightTextListener(View.OnClickListener {
+            presenter.saveRelease(0)
+        })
         rl_work_type.setOnClickListener(this)
         ll_educat.setOnClickListener(this)
         ll_work.setOnClickListener(this)
         ll_wages.setOnClickListener(this)
         ll_interview_date.setOnClickListener(this)
         ll_interview_time.setOnClickListener(this)
+        tv_introduce.setOnClickListener(this)
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun getTagList(array : SelectedTag){
+        tagData.clear()
+        tagData.addAll(array.tagList)
+        val sb = StringBuilder()
+        tagData.forEach {
+            sb.append(it)
+            sb.append(";")
+        }
+        tv_introduce.setText(sb.subSequence(0,sb.length-1))
+    }
+    override fun useEventBus(): Boolean {
+        return true
+    }
 }

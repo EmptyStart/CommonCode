@@ -30,6 +30,8 @@ object RoutePaths{
     const val releasefulltime="/release/fulltime"
     //发布/兼职
     const val releaseparttime="/release/parttime"
+    //技能标签选择
+    const val releasetag="/release/tag"
 
 
 

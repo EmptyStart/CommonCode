@@ -72,12 +72,12 @@ android {
         }
         TimaUat{
             dimension "color"
-            applicationId "com.tima.mainmodul"
+            applicationId "com.zhishen.uat"
 //            buildConfigField("String", "ServiceUrl", "\"https://radar.jmc.com.cn/sp/\"")
         }
         TimaReport{
             dimension "color"
-            applicationId "com.tima.mainmodul"
+            applicationId "com.zhishen.report"
 //            buildConfigField("String", "ServiceUrl", "\"https://radar.jmc.com.cn/sp/\"")
         }
     }
