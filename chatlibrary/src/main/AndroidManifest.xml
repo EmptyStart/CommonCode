@@ -29,9 +29,12 @@
         android:theme="@style/AppTheme">
 
         <!-- 设置环信应用的AppKey -->
+        <!--<meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1107180820253561#com-tima-mainmodul" />-->
         <meta-data
             android:name="EASEMOB_APPKEY"
-            android:value="1107180820253561#com-tima-mainmodul" />
+            android:value="newbryan#zs-test" />
         <!-- 声明SDK所需的service SDK核心功能 -->
         <!-- 声明SDK所需的service SDK核心功能 -->
         <service
@@ -42,5 +45,7 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <!-- 声明SDK所需的receiver -->
+        <activity android:name=".ui.activity.ChatActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar"/>
     </application>
 </manifest>

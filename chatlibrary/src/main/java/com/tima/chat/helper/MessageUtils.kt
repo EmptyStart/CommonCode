@@ -39,11 +39,11 @@ object MessageUtils{
     /**
      * 发送语音
      */
-     fun sendVoiceMessage(filePath: String, length: Int) {
+     fun sendVoiceMessage(filePath: String, length: Int,friendId : String) {
         if (TextUtils.isEmpty(filePath)) {
             return
         }
-        val message = EMMessage.createVoiceSendMessage(filePath, length, ChatUtils.FRIENDID)
+        val message = EMMessage.createVoiceSendMessage(filePath, length, friendId)
         //attachMessageAttrs(message)
         EMClient.getInstance().chatManager().sendMessage(message)
         //messageList.refreshSelectLast()

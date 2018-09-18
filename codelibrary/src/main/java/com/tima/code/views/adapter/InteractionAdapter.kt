@@ -2,17 +2,49 @@ package com.tima.code.views.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.BaseViewHolder
+import com.hyphenate.util.ImageUtils
+import com.tima.chat.bean.PresonInfo
 import com.tima.code.R
+import com.tima.code.ResponseBody.Position
+import com.tima.common.utils.ImageLoader
+import com.tima.common.utils.LogUtils
+import com.tima.common.utils.StringUtils
 
 /**
  * 消息-互动-适配器
  * Created by Administrator on 2018/8/28/028.
  */
+
+class InteractionAdapter(layoutId : Int, datas: List<PresonInfo>,var context: Context): BaseQuickAdapter<PresonInfo, BaseViewHolder>(layoutId,datas) {
+    var TAG = "InteractionAdapter"
+    override fun convert(helper: BaseViewHolder?, item: PresonInfo?) {
+        LogUtils.i(TAG,"位置=="+helper?.layoutPosition+"    item=="+item.toString())
+        helper?.setText(R.id.tv_name,item?.name)
+        if (item?.newsCount == 0){
+            helper?.setVisible(R.id.tv_news_num,false)
+        }else{
+            helper?.setVisible(R.id.tv_news_num,true)
+            if(item?.newsCount!! > 99){
+                helper?.setText(R.id.tv_news_num,"99+")
+            }else{
+                helper?.setText(R.id.tv_news_num,item?.newsCount.toString())
+            }
+        }
+        if (!TextUtils.isEmpty(item?.headUrl) && item?.headUrl?.length!! > 0){
+            ImageLoader.load(context,item?.headUrl,helper?.itemView?.findViewById(R.id.iv_head))
+        }
+    }
+}
+
+/*
 class InteractionAdapter(var context : Context,var listener:OnInteractionListener) : RecyclerView.Adapter<InteractionAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,4 +74,4 @@ class InteractionAdapter(var context : Context,var listener:OnInteractionListene
     interface OnInteractionListener{
         fun onInteractionClick()
     }
-}
+}*/

@@ -77,7 +77,7 @@ object RetrofitHelper {
 //            if (token.isNotEmpty()){
 //                builder.addHeader("Authorization","Bearer "+token)
 //            }
-            builder.addHeader("Authorization","Bearer c40fa101b168b7a66d91041346c5c012")
+            builder.addHeader("Authorization","Bearer d55b58db5227358b556bf321e9b78c4a")
             val request = builder.addHeader("Content-type", "application/json;charset=utf-8")
                     .build()
             it.proceed(request)

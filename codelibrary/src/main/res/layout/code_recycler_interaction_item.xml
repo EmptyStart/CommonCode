@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -28,21 +28,19 @@
             android:textColor="@color/text_black" />
         <TextView
             android:id="@+id/tv_news_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="9"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
+            android:layout_width="90px"
+            android:layout_height="90px"
+            android:text="99+"
+            android:gravity="center"
             android:layout_gravity="center_vertical"
             android:background="@drawable/round_red_bg"
             android:textColor="@color/white"
-            android:textSize="13sp"/>
+            android:textSize="11dp"
+            android:visibility="visible"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/line"/>
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

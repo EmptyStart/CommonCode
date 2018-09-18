@@ -16,7 +16,6 @@ import com.tima.chat.bean.MsgInfo
 import com.tima.chat.constracts.IChatPresent
 import com.tima.chat.constracts.IChatView
 import com.tima.chat.helper.ChatUtils
-import com.tima.chat.helper.ChatUtils.FRIENDID
 import com.tima.chat.helper.ChatUtils.NAME
 import com.tima.chat.helper.ChatUtils.PASSWORD
 import com.tima.chat.helper.ChatUtils.TYPE_SEND
@@ -25,13 +24,9 @@ import com.tima.chat.ui.model.ChatViewModelImpl
 import com.tima.chat.weight.RecordVoiceBtnController
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.IDataListener
-import com.tima.common.https.ApiException
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.*
-import kotlinx.android.synthetic.main.chat_activity_chat_layout.*
-import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.*
-import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.view.*
-import okhttp3.ResponseBody
+import org.jetbrains.anko.toast
 
 /**
  * Created by Administrator on 2018/8/22/022.
@@ -46,6 +41,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
     var msgInfos = ArrayList<MsgInfo>()                                                             //聊天信息
     var chatActivity : AppCompatActivity? = null
 
+
     constructor(view: IBaseViews?) {
         this.view = view as IChatView?
         viewMode = ChatViewModelImpl()
@@ -55,19 +51,28 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
     override fun init() {
         if (view != null){
             chatActivity = view?.getActivity()
-            var result = ChatUtils.init(chatActivity!!)
-            if (result) {
-                var result = ChatUtils.login(NAME, PASSWORD, chatActivity!!)
-            }else{
-                Toast.makeText(chatActivity,"初始化环信",Toast.LENGTH_SHORT).show()
-            }
-            /*chatActivity!!.runOnUiThread(Runnable {
-
-            })*/
+            initChat()
         }
         refreshChatAdapter()
         view?.getVoiceBtView()?.initConv(chatActivity!!, chatAdapter!!)
         view?.getVoiceBtView()?.setAudioFinishRecorderListener(this)
+    }
+
+    /**
+     * 初始化环信聊天
+     */
+    fun initChat(){
+        if(!ChatUtils.isConnected()){
+            var result = ChatUtils.init(chatActivity!!)
+            if (result) {
+                var result = ChatUtils.login(NAME, PASSWORD, chatActivity!!)
+                if (!result){
+                    chatActivity?.toast("登陆环信失败")
+                }
+            }else{
+                chatActivity?.toast("初始化环信失败")
+            }
+        }
     }
 
     override fun onRefreshChatAdapter(msgInfos: ArrayList<MsgInfo>) {
@@ -102,6 +107,9 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             R.id.reycler_chat -> {
                 this.view!!.getGvAddChatView().visibility = View.GONE
             }
+            R.id.iv_actionbar_cancle->{
+                chatActivity?.finish()
+            }
         }
     }
 
@@ -111,17 +119,18 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
     }
 
     override fun sendMsg(content: String, msgType: EMMessage.Type) {
-        var message = ChatUtils.sendMsgTxt(content,FRIENDID)
+        var message = ChatUtils.sendMsgTxt(content,view?.getFRIENDID()!!)
         if (message != null){
             var msgInfo = MsgInfo()
             msgInfo.content = content
             msgInfo.acceptTime = DateUtils.getDateYMDHMS(System.currentTimeMillis())
             msgInfo.msgType = msgType
             msgInfo.type = TYPE_SEND
-            msgInfo.from = FRIENDID
+            msgInfo.from = view?.getFRIENDID()!!
+            msgInfo.save()
             msgInfos.add(msgInfo)
 
-            LogUtils.i(TAG,ChatUtils.NAME+"--发送--"+ChatUtils.FRIENDID+"--消息--"+msgInfo.toString())
+            LogUtils.i(TAG,ChatUtils.NAME+"--发送--"+view?.getFRIENDID()+"--消息--"+msgInfo.toString())
             refreshChatAdapter()
         }else{
             if (chatActivity != null)
@@ -210,17 +219,20 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
      * 录音结束
      */
     override fun onFinish(seconds: Float, filePath: String) {
-        var message = ChatUtils.sendMsgVoice(filePath, seconds.toInt(), ChatUtils.FRIENDID)
-
-        var msgInfo = MsgInfo()
-        msgInfo.content = filePath
-        msgInfo.acceptTime = DateUtils.getDateYMDHMS(System.currentTimeMillis())
-        msgInfo.msgType = EMMessage.Type.VOICE
-        msgInfo.type = TYPE_SEND
-        msgInfo.from = FRIENDID
-        msgInfo.voiceLeght = seconds.toInt()
-        msgInfos.add(msgInfo)
-        LogUtils.i(TAG,ChatUtils.NAME+"--发送--"+ChatUtils.FRIENDID+"--消息--"+msgInfo.toString())
-        refreshChatAdapter()
+        var message = ChatUtils.sendMsgVoice(filePath, seconds.toInt(), view?.getFRIENDID()!!)
+        if (message != null) {
+            var msgInfo = MsgInfo()
+            msgInfo.content = filePath
+            msgInfo.acceptTime = DateUtils.getDateYMDHMS(System.currentTimeMillis())
+            msgInfo.msgType = EMMessage.Type.VOICE
+            msgInfo.type = TYPE_SEND
+            msgInfo.from = view?.getFRIENDID()!!
+            msgInfo.voiceLeght = seconds.toInt()
+            msgInfos.add(msgInfo)
+            LogUtils.i(TAG, ChatUtils.NAME + "--发送--" + view?.getFRIENDID()!! + "--消息--" + msgInfo.toString())
+            refreshChatAdapter()
+        }else{
+            chatActivity?.toast("发送语言失败")
+        }
     }
 }

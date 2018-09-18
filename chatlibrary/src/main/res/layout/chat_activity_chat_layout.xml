@@ -2,13 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
+
+    <com.tima.common.views.ActionBarView
+        android:id="@+id/abv_type2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mode_title="类型2"
+        app:mode_type="type_two"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -29,7 +38,8 @@
     <RelativeLayout
         style="@style/margin_15_0_15_0"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_work_type"
@@ -57,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <TextView

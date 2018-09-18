@@ -47,5 +47,5 @@ interface IChatView : IBaseViews{
 
     fun getVoiceBtView() : RecordVoiceBtnController
 
-
+    fun getFRIENDID() : String                                                                      //聊天对象Id
 }

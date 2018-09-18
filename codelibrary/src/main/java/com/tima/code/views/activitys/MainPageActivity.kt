@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.tima.chat.helper.ChatUtils
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
@@ -57,8 +58,20 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         present = MainPagePresenterImpl(this)
         LogUtils.i("MainPageActivity", office.toString());
         defaultTab()
+        initChat()
     }
 
+    /**
+     * 初始化环信聊天
+     */
+    fun initChat(){
+        var result = ChatUtils.init(this)
+        if (result) {
+            ChatUtils.login(ChatUtils.NAME, ChatUtils.PASSWORD, this!!)
+        }else{
+            toast("初始化环信失败")
+        }
+    }
 
     override fun onClick(v: View?) {
         present?.onClick(v)
@@ -224,5 +237,14 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
 
     override fun showError(errorMsg: String) {
         toast(errorMsg)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            ChatUtils.loginOut(this)
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
     }
 }

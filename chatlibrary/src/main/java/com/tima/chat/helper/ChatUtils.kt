@@ -26,6 +26,7 @@ import java.io.File
 import com.hyphenate.chat.EMClient
 import com.hyphenate.helpdesk.easeui.recorder.MediaManager
 import com.hyphenate.helpdesk.easeui.widget.AlertDialog
+import org.jetbrains.anko.toast
 
 
 /**
@@ -37,8 +38,8 @@ object ChatUtils{
     val TYPE_SEND = 1                                               //消息的类型:发送
     var msgInfos = ArrayList<MsgInfo>()                             //接受到----聊天信息
 
-    val FRIENDID = "test1"                                          //发送人Id
-    val NAME = "test2"                                              //账号
+    //val FRIENDID = "13764217962"                                    //发送人Id
+    val NAME = "18390317131"                                        //账号
     val PASSWORD = "123456"                                         //密码
     var REFRESH_CHAT = "refresh_chat"                               //刷新聊天信息
     /**
@@ -81,7 +82,7 @@ object ChatUtils{
             override fun onSuccess() {
                 EMClient.getInstance().groupManager().loadAllGroups()
                 EMClient.getInstance().chatManager().loadAllConversations()
-                LogUtils.i(TAG,"登陆成功——---"+name)
+                LogUtils.i(TAG,"环信登陆成功——---"+name)
                 /*activity.runOnUiThread(Runnable {
                     activity.startActivity(Intent(activity, ChatActivity::class.java))
                     activity.finish()
@@ -93,8 +94,7 @@ object ChatUtils{
             }
 
             override fun onError(code: Int, message: String) {
-                LogUtils.i(TAG,"登陆失败——---"+name+"  message=="+message)
-                //Toast.makeText(activity,"登陆失败---"+message,Toast.LENGTH_SHORT).show()
+                LogUtils.i(TAG,"环信登陆失败——---"+name+"  报错信息=="+message)
                 if (!TextUtils.isEmpty(message) && message.equals("User is already login")){
                     loginOut(activity)
                 }
@@ -144,21 +144,37 @@ object ChatUtils{
     /**
      * 退出登录
      */
-    fun loginOut(activity: Activity) {
+    fun loginOut(activity: Activity)  : Boolean {
+        var result  = true
         EMClient.getInstance().logout(true, object : EMCallBack {
 
             override fun onSuccess() {
-                activity.runOnUiThread { Toast.makeText(activity, "您已退出登录！", Toast.LENGTH_SHORT).show() }
+                result = true
+                activity.runOnUiThread {
+                    //activity.toast("您已退出登录")
+                    LogUtils.i(TAG,"退出环信成功")
+                }
             }
 
             override fun onProgress(progress: Int, status: String) {}
 
             override fun onError(code: Int, message: String) {
-                activity.runOnUiThread { Toast.makeText(activity, "退出失败，" + message, Toast.LENGTH_SHORT).show() }
+                result = false
+                activity.runOnUiThread {
+                    //activity.toast("退出环信失败")
+                    LogUtils.i(TAG,"退出环信失败")
+                }
             }
         })
+        return result
     }
 
+    /**
+     * 判断是否连接
+     */
+    fun isConnected() : Boolean{
+        return  EMClient.getInstance().isConnected
+    }
 
     /**
      * 上传文件
@@ -201,12 +217,12 @@ object ChatUtils{
     /**
      * 点击清空聊天记录
      */
-    fun emptyHistory(activity: Activity) {
+    fun emptyHistory(activity: Activity,friendId: String) {
         val msg = "情况聊天记录"
         AlertDialog(activity, null, msg, null, AlertDialog.AlertDialogUser { confirmed, bundle ->
             if (confirmed) {
                 MediaManager.release()
-                ChatClient.getInstance().chatManager().clearConversation(FRIENDID)
+                ChatClient.getInstance().chatManager().clearConversation(friendId)
             }
         }, true).show()
     }
