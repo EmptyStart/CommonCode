@@ -5,18 +5,20 @@ import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
+import com.amap.api.location.AMapLocation
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
 import com.tima.code.timapresenter.MainPagePresenterImpl
 import com.tima.code.views.fragments.*
-import com.tima.common.BusEvents.SelectPos1
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.services.IChatManage
+import com.tima.common.utils.IAMapLocationSuccessListener
 import com.tima.common.utils.ResourceUtil
 import com.tima.common.utils.LogUtils
+import com.tima.common.utils.MapGaoDe
 import kotlinx.android.synthetic.main.code_activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -48,10 +50,13 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         ARouter.getInstance().build(RoutePaths
                 .chatManager).navigation() as IChatManage
     }
-
-    override fun useEventBus(): Boolean = true
-
-
+    fun getLoc(){
+        MapGaoDe.getLocation(this,object :IAMapLocationSuccessListener{
+            override fun onLocationChanged(p0: AMapLocation?) {
+                Constant.aMapLocation=p0
+            }
+        })
+    }
     override fun getLayoutId(): Int {
 
         return R.layout.code_activity_main
@@ -64,6 +69,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         LogUtils.i("MainPageActivity", office.toString());
         defaultTab()
         initChat()
+        getLoc()
     }
 
     /**
@@ -92,13 +98,6 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         present?.onClick(v)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun reciviceBus(event: SelectPos1) {
-        if (event.isPos1) {
-//            tabSelect(3)
-        }
-        EventBus.getDefault().removeStickyEvent(event)
-    }
 
 
     /**

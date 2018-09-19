@@ -18,6 +18,7 @@ class ActivityManage private constructor() {
             ActivityManage()
         }
     }
+
     /**
      * Each created Activity adds an array, and if you delete the previous one repeatedly,
      * add the latest Activity to the top of the stack
@@ -48,6 +49,29 @@ class ActivityManage private constructor() {
         }
         stackActivity.clear()
     }
-    fun getCurrentActivity() : Activity?= stackActivity.lastElement()
+    fun exitExcept(activityName : String){
+        stackActivity.forEach {
+            val localClassName = it?.localClassName
+            localClassName?.apply {
+                if (contains(activityName)) {
+                    return@forEach
+                }
+            }
+            it?.finish()
+            stackActivity.remove(it)
+        }
+    }
+    fun exitCurrentActivity(){
+        val currentActivity = getCurrentActivity()
+        currentActivity?.finish()
+    }
+
+    fun getCurrentActivity(): Activity? {
+        if (stackActivity.isNotEmpty()) {
+            return stackActivity.lastElement()
+        }
+        return null
+    }
+
 
 }

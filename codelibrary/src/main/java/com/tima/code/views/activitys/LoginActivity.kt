@@ -102,6 +102,7 @@ class LoginActivity : BaseActivity(), ILoginView, View.OnClickListener {
     }
 
     override fun inits(savedInstanceState: Bundle?) {
+        lifecycle.addObserver(mPresent)
         tv_vaild.setOnClickListener(this)
         tv_login.setOnClickListener(this)
     }

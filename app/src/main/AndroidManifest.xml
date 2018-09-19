@@ -43,7 +43,7 @@
         android:name="com.tima.common.base.App"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.tima.code.views.activitys.MainPageActivity">
+        <activity android:name="com.tima.code.views.activitys.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -107,7 +107,6 @@ class TagSelectActivity : BaseActivity(), View.OnClickListener {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun dataTag(array: CanSelectTag) {
-        toast("收到了信息")
         data2.addAll(array.tagList)
         if (data2.size>0){
             unSelectedTagAdapter?.notifyDataChanged()

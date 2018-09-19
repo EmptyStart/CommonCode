@@ -16,8 +16,10 @@ import com.tima.common.base.IDataListener
 import com.tima.common.base.RoutePaths
 import com.tima.common.https.ApiException
 import com.tima.common.https.ExceptionDeal
+import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.LogUtils
+import com.tima.common.utils.SpHelper
 import okhttp3.ResponseBody
 
 /**
@@ -76,15 +78,23 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                     }
                     mViewMode.addOnLoginListener(object : IDataListener {
                         override fun successData(success: String) {
-//                            val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
-//                            responseBody?.apply {
-//                                Constant.token=token
-//                                if ("N".equals(company)){
-//                                    ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
-//                                }else{
-//                                    ARouter.getInstance().build(RoutePaths.mainpage).navigation()
-//                                }
-//                            }
+                            val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
+                            responseBody?.apply {
+                                SpHelper(Constant.LOGENINFO, success)
+                                Constant.token = token
+                                Constant.mobile = hr.mobile
+                                Constant.chatPassword = huanxin_password
+                                Constant.companyId = hr.company.id.toString()
+                                Constant.hrId = hr.id.toString()
+                                Constant.partCommit = parttime_commition
+
+                                if ("N".equals(company)) {
+                                    ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
+                                } else {
+                                    ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+                                }
+                                ActivityManage.instance.exitCurrentActivity()
+                            }
                         }
 
                         override fun errorData(error: String) {

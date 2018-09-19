@@ -12,8 +12,10 @@ import com.tima.code.timaconstracts.IWelcomeView
 import com.tima.code.timaconstracts.IWelcomeViewModel
 import com.tima.code.timaviewmodels.WelcomeViewModelImpl
 import com.tima.common.BusEvents.SelectPos1
+import com.tima.common.base.Constant
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.RoutePaths
+import com.tima.common.utils.ActivityManage
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -21,32 +23,33 @@ import org.greenrobot.eventbus.EventBus
  *   email : zhijun.li@timanetworks.com
  *
  */
-class WelcomePresenterImpl : IWelcomePresent {
+class WelcomePresenterImpl(view: IBaseViews?) : IWelcomePresent {
 
 
     var view: IWelcomeView? = null
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { WelcomeViewModelImpl() }
 
-    constructor(view: IBaseViews?) {
+    init {
         this.view = view as IWelcomeView?
     }
 
 
     override fun onClick(view: View?) {
-        Log.i("tag", "onclick event")
-        ARouter.getInstance().build(RoutePaths.login).navigation()
-        val activity = view?.context as? Activity
-        activity?.finish()
-//        EventBus.getDefault().postSticky(SelectPos1(true))
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate(owner: LifecycleOwner) {
-        Log.i("tag", "onCreate")
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume(owner: LifecycleOwner) {
+        if (Constant.token.isNotEmpty()){
+            ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+        }else {
+            ARouter.getInstance().build(RoutePaths.login).navigation()
+        }
+        ActivityManage.instance.exitExcept("LoginActivity")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
+
         mViewMode.detachView()
     }
 

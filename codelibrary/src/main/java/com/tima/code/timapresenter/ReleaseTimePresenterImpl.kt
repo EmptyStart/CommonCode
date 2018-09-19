@@ -171,7 +171,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     //0/全职 1/兼职
     override fun saveRelease(code: Int) {
         mView?.apply {
-            var pairs = mutableMapOf<String, String>()
+            val pairs = mutableMapOf<String, String>()
             pairs["type"] = code.toString()
             val workName = getWorkName()
             if (workName.isNullOrEmpty()) {

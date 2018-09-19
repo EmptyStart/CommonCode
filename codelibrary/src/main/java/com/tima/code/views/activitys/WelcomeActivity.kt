@@ -48,14 +48,6 @@ class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
     override fun inits(savedInstanceState: Bundle?) {
         iWelcomePresent = WelcomePresenterImpl(this)
         lifecycle.addObserver(iWelcomePresent as WelcomePresenterImpl)
-
-        tv_hello.setOnClickListener(this)
-        location(object : IAMapLocationSuccessListener{
-            override fun onLocationChanged(p0: AMapLocation?) {
-
-            }
-
-        })
     }
 
 

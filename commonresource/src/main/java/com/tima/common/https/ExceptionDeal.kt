@@ -3,6 +3,7 @@ package com.tima.common.https
 import android.widget.Toast
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.GsonUtils
+import com.tima.common.utils.SpHelper
 import org.jetbrains.anko.toast
 
 /**
@@ -19,6 +20,10 @@ object ExceptionDeal {
                 val detail = exception?.detail.toString();
                 val code = exception?.code.toString()
                 it.toast(detail?:"未知错误")
+                if ("token失效，请重新登陆！"==exception?.detail){
+                    SpHelper.clearPreference()
+                    ActivityManage.instance.exitExcept("LoginActivity")
+                }
             }catch (e:Exception){
                 e.printStackTrace()
             }

@@ -17,16 +17,19 @@ object Constant {
 //    lateinit var baseUrl: String
 
 
+    const val LOGENINFO="LONGIN_BEAN_ZHISHEN"
+
     var token: String by SpHelper("token", "")
 
     var hrId: String by SpHelper("hrId", "")
 
 
-    var partCommit: Double by SpHelper("parttime_commition", 0.1)
+    var partCommit: Double by SpHelper("parttime_commition", 0.0)
 
     var companyId: String by SpHelper("companyId", "")
 
     var mobile: String by SpHelper("mobile", "")
+
     var chatPassword: String by SpHelper("mobilePassword", "")
 
     //获取当前角色   1 表示个人  2表示公司  0表示 默认值

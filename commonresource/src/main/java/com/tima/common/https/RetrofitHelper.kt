@@ -73,11 +73,11 @@ object RetrofitHelper {
     private fun addHeadInterceptor(): Interceptor {
         return Interceptor {
             val builder = it.request().newBuilder()
-//            val token = Constant.token
-//            if (token.isNotEmpty()){
-//                builder.addHeader("Authorization","Bearer "+token)
-//            }
-            builder.addHeader("Authorization","Bearer d55b58db5227358b556bf321e9b78c4a")
+            val token = Constant.token
+            if (token.isNotEmpty()){
+                builder.addHeader("Authorization","Bearer "+token)
+            }
+//            builder.addHeader("Authorization","Bearer d55b58db5227358b556bf321e9b78c4a")
             val request = builder.addHeader("Content-type", "application/json;charset=utf-8")
                     .build()
             it.proceed(request)
