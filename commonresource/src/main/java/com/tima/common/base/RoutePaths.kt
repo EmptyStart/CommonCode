@@ -60,5 +60,8 @@ object RoutePaths{
     const val manageptfragment="/mainpage/manage/parttimefragment"
 
 
-
+    /**
+     * service
+     */
+    const val chatManager="/service/chat"
 }
