@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.tima.chat.helper.ChatUtils
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
@@ -15,6 +14,7 @@ import com.tima.common.BusEvents.SelectPos1
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
+import com.tima.common.services.IChatManage
 import com.tima.common.utils.ResourceUtil
 import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.code_activity_main.*
@@ -44,6 +44,10 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     var manageFragment: ManageFragment? = null
     var newsFragment: NewsFragment? = null
     var minefragment: MineFragment? = null
+    val iChatManage by lazy(LazyThreadSafetyMode.NONE) {
+        ARouter.getInstance().build(RoutePaths
+                .chatManager).navigation() as IChatManage
+    }
 
     override fun useEventBus(): Boolean = true
 
@@ -56,6 +60,7 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     override fun inits(savedInstanceState: Bundle?) {
 //        office = Constant.getPosition()
         present = MainPagePresenterImpl(this)
+        lifecycle.addObserver(present!!)
         LogUtils.i("MainPageActivity", office.toString());
         defaultTab()
         initChat()
@@ -64,13 +69,23 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     /**
      * 初始化环信聊天
      */
-    fun initChat(){
-        var result = ChatUtils.init(this)
-        if (result) {
-            ChatUtils.login(ChatUtils.NAME, ChatUtils.PASSWORD, this!!)
-        }else{
-            toast("初始化环信失败")
+    fun initChat() {
+//        var result = ChatUtils.init(this)
+        val initChat = iChatManage.initChat()
+        if (initChat) {
+            val mobile = Constant.mobile
+            val chatPassword = Constant.chatPassword
+            if (mobile.isNotEmpty()&&chatPassword.isNotEmpty()) {
+                iChatManage.login(mobile, chatPassword)
+            }
         }
+//        val iChatManage = navigation as IChatManage
+//        iChatManage.toast(this)
+//        if (result) {
+//            ChatUtils.login(ChatUtils.NAME, ChatUtils.PASSWORD, this!!)
+//        }else{
+//            toast("初始化环信失败")
+//        }
     }
 
     override fun onClick(v: View?) {
@@ -242,8 +257,9 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     override fun onDestroy() {
         super.onDestroy()
         try {
-            ChatUtils.loginOut(this)
-        }catch (e : Exception){
+            iChatManage.loginOut()
+//            ChatUtils.loginOut(this)
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }

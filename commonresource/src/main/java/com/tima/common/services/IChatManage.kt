@@ -11,7 +11,6 @@ import com.alibaba.android.arouter.facade.template.IProvider
  */
 interface IChatManage :IProvider{
     fun initChat(): Boolean
-    fun login(name : String,password : String, activity : Activity) : Boolean
-    fun loginOut(activity: Activity)  : Boolean
-    fun toast()
+    fun login(name : String,password : String) : Boolean
+    fun loginOut()  : Boolean
 }

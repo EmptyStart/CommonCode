@@ -25,10 +25,6 @@ class ChatMangeImpl : IChatManage {
        this.context=context
     }
 
-    override fun toast() {
-        context?.toast("我已经找到了！")
-    }
-
     override fun initChat(): Boolean {
         try {
             val options = EMOptions()
@@ -54,7 +50,7 @@ class ChatMangeImpl : IChatManage {
         return true
     }
 
-    override fun login(name: String, password: String, activity: Activity): Boolean {
+    override fun login(name: String, password: String): Boolean {
         var result = false
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(password)) {
             return result
@@ -77,7 +73,10 @@ class ChatMangeImpl : IChatManage {
             override fun onError(code: Int, message: String) {
                 LogUtils.i(ChatUtils.TAG,"环信登陆失败——---"+name+"  报错信息=="+message)
                 if (!TextUtils.isEmpty(message) && message.equals("User is already login")){
-                    ChatUtils.loginOut(activity)
+                    val activity = context as? Activity
+                    activity?.let {
+                        ChatUtils.loginOut(it)
+                    }
                 }
                 result = false
             }
@@ -85,13 +84,13 @@ class ChatMangeImpl : IChatManage {
         return result
     }
 
-    override fun loginOut(activity: Activity): Boolean {
+    override fun loginOut(): Boolean {
         var result  = true
         EMClient.getInstance().logout(true, object : EMCallBack {
 
             override fun onSuccess() {
                 result = true
-                activity.runOnUiThread {
+                (context as? Activity)?.runOnUiThread {
                     //activity.toast("您已退出登录")
                     LogUtils.i(ChatUtils.TAG,"退出环信成功")
                 }
@@ -101,7 +100,7 @@ class ChatMangeImpl : IChatManage {
 
             override fun onError(code: Int, message: String) {
                 result = false
-                activity.runOnUiThread {
+                (context as? Activity)?.runOnUiThread {
                     //activity.toast("退出环信失败")
                     LogUtils.i(ChatUtils.TAG,"退出环信失败")
                 }

@@ -26,10 +26,13 @@ object Constant {
 
     var companyId: String by SpHelper("companyId", "")
 
+    var mobile: String by SpHelper("mobile", "")
+    var chatPassword: String by SpHelper("mobilePassword", "")
+
     //获取当前角色   1 表示个人  2表示公司  0表示 默认值
     var position by SpHelper("position", 0)
 
-    var aMapLocation : AMapLocation?=null
+    var aMapLocation: AMapLocation? = null
 
     //纬度
     var latitude: Double = -1.0
