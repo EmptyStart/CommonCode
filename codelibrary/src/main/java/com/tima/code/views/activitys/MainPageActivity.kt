@@ -15,10 +15,7 @@ import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.services.IChatManage
-import com.tima.common.utils.IAMapLocationSuccessListener
-import com.tima.common.utils.ResourceUtil
-import com.tima.common.utils.LogUtils
-import com.tima.common.utils.MapGaoDe
+import com.tima.common.utils.*
 import kotlinx.android.synthetic.main.code_activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

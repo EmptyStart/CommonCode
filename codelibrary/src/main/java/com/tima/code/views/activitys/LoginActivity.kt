@@ -9,6 +9,7 @@ import com.tima.code.timaconstracts.ILoginView
 import com.tima.code.timapresenter.LoginPresenterImpl
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.RoutePaths
+import com.tima.common.utils.LoadingBarManage
 import com.tima.common.utils.ResourceUtil
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -85,11 +86,11 @@ class LoginActivity : BaseActivity(), ILoginView, View.OnClickListener {
     }
 
     override fun showLoading() {
-
+        loadingBar.show()
     }
 
     override fun hideLoading() {
-
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {

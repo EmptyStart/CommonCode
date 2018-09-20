@@ -41,8 +41,10 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                         return
                     }
                     getValidSuccess()
+                    showLoading()
                     mViewMode.addOnVerifyListener(object : IDataListener {
                         override fun successData(success: String) {
+                            hideLoading()
                             val validResponseBody = GsonUtils.getGson.fromJson(success, RegisterValidResponseBody::class.java)
                             val detail = validResponseBody?.detail
                             detail?.let {
@@ -51,6 +53,7 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                         }
 
                         override fun errorData(error: String) {
+                            hideLoading()
                             mView?.cancelValid()
                             ExceptionDeal.handleException(error)
                         }
@@ -76,8 +79,10 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                         showError("请输入验证码")
                         return
                     }
+                    showLoading()
                     mViewMode.addOnLoginListener(object : IDataListener {
                         override fun successData(success: String) {
+                            hideLoading()
                             val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
                             responseBody?.apply {
                                 SpHelper(Constant.LOGENINFO, success)
@@ -98,6 +103,7 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                         }
 
                         override fun errorData(error: String) {
+                            hideLoading()
                             ExceptionDeal.handleException(error)
                         }
 
