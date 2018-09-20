@@ -1,6 +1,5 @@
 package com.tima.code.views.activitys
 
-import android.app.Activity
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -103,7 +102,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
      * 设置定位点
      */
     protected fun setMarker(latLng: LatLng, title: String?): MarkerOptions {
-        if(bitmapDescriptor==null) {
+        if (bitmapDescriptor == null) {
             bitmapDescriptor = ResourceUtil.getBitmapDescriptorFactory(R.mipmap.ic_map)
         }
         val markerOptions = MarkerOptions()
@@ -436,15 +435,15 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
             et_address.setSelection(et_address.text.length)
         }
         iv_pro.setOnClickListener {
-            KeyboardUtils.hideInput(iv_pro.context as Activity)
+            KeyboardUtils.hideInput(SettingUtils.getActivity(iv_pro.context))
             proPicker()
         }
         iv_city.setOnClickListener {
-            KeyboardUtils.hideInput(iv_city.context as Activity)
+            KeyboardUtils.hideInput(SettingUtils.getActivity(iv_city.context))
             cityPicker()
         }
         iv_county.setOnClickListener {
-            KeyboardUtils.hideInput(iv_county.context as Activity)
+            KeyboardUtils.hideInput(SettingUtils.getActivity(iv_county.context))
             countyPicker()
         }
     }

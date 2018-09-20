@@ -3,11 +3,12 @@ package com.tima.common.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
-import android.os.Build
 import android.preference.PreferenceManager
 import com.tima.common.base.App
+import android.content.ContextWrapper
+
+
 
 /**
  * @author : zhijun.li on 2018/8/14
@@ -126,5 +127,16 @@ object SettingUtils {
 
     fun isFinished(activity: Activity): Boolean {
         return activity.isDestroyed || isFinished(activity)
+    }
+
+    fun getActivity(mContext: Context): Activity {
+        var context=mContext
+        while (context is ContextWrapper) {
+            if (context is Activity) {
+                return context
+            }
+            context = (context as ContextWrapper).baseContext
+        }
+        throw IllegalStateException("The view's Context is not an Activity.")
     }
 }
