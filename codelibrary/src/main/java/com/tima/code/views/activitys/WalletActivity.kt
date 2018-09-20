@@ -64,10 +64,6 @@ class WalletActivity : BaseActivity(), View.OnClickListener,IWalletView{
         toast(errorMsg)
     }
 
-    override fun showLoading() {
-        loadingBar.show()
-    }
-
     override fun getWalletActvity(): Activity {
         return this
     }
