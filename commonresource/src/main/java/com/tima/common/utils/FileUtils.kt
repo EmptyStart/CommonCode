@@ -487,7 +487,7 @@ object FileUtils {
                     stringBuilder.append(line)
                 }
             } while (true)
-            assets.close()
+//            assets.close()
             return stringBuilder.toString()
         }
 
