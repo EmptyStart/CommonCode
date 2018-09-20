@@ -15,8 +15,8 @@ import org.greenrobot.eventbus.EventBus
  *   email : zhijun.li@timanetworks.com
  *
  */
-abstract class BaseFragment : Fragment{
-    constructor()
+abstract class BaseFragment() : Fragment(){
+
     /**
      * 视图是否加载完毕
      */
@@ -53,6 +53,10 @@ abstract class BaseFragment : Fragment{
      */
     open fun useEventBus(): Boolean = false
 
+    val loadingManage by lazy(LazyThreadSafetyMode.SYNCHRONIZED){
+        (activity as BaseActivity).loaderManager
+    }
+
     private fun lazyLoadDataIfPrepared() {
         if (userVisibleHint && isViewPrepare && !hasLoadData) {
             lazyLoad()
@@ -86,6 +90,7 @@ abstract class BaseFragment : Fragment{
         //多种状态切换的view 重试点击事件
         mLayoutStatusView?.setOnClickListener(mRetryClickListener)
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
