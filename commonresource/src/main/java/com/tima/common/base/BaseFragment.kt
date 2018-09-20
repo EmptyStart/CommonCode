@@ -54,7 +54,7 @@ abstract class BaseFragment() : Fragment(){
     open fun useEventBus(): Boolean = false
 
     val loadingManage by lazy(LazyThreadSafetyMode.SYNCHRONIZED){
-        (activity as BaseActivity).loaderManager
+        (activity as BaseActivity).loadingBar
     }
 
     private fun lazyLoadDataIfPrepared() {

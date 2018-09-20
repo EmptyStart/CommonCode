@@ -23,7 +23,7 @@ abstract class BaseActivity : AutoLayoutActivity() {
     private lateinit var rootView: View
     protected lateinit var mapView: MapView
     protected lateinit var aMap: AMap
-    protected val loadingBar by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+    val loadingBar by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         LoadingBarManage(this)
     }
 
