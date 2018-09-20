@@ -151,6 +151,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
             val file: File? = FileUtils.uriToFile(uri)
             val name = file?.name
             val ext = FileUtils.picTailName(name) ?: return
+            showLoading()
             mViewMode.addOnUpPicListener(object : IDataFileListener {
 
                 override fun successData(success: String) {
@@ -260,8 +261,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
 
     private fun patchCompany(requestMap : Map<String,String>){
         mView?.apply {
-
-
+            showLoading()
             mViewMode.addOnUpCompanyListener(object : IDataListener {
                 override fun requestData(): Map<String, String>? {
                     return requestMap
@@ -269,6 +269,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 }
 
                 override fun successData(success: String) {
+                    mView?.hideLoading()
                     if (count == 1) {
                         saved()
                     } else {
@@ -277,6 +278,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
             })

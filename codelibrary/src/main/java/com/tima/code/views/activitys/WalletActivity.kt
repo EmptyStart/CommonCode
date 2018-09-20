@@ -52,6 +52,10 @@ class WalletActivity : BaseActivity(), View.OnClickListener,IWalletView{
         walletPresent?.onClick(v)
     }
 
+    override fun showLoading() {
+        loadingBar.show()
+    }
+
     override fun hideLoading() {
         loadingBar.dismiss()
     }

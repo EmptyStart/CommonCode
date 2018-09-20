@@ -11,6 +11,7 @@ import com.tima.code.timaconstracts.IPersonnelRosterView
 import com.tima.code.timapresenter.PersonnelRosterPresenterImpl
 import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_personnel_roster.*
+import org.jetbrains.anko.toast
 
 /**
  * 人员名单-界面
@@ -36,12 +37,15 @@ class PersonnelRosterActivity : BaseActivity() ,IPersonnelRosterView, View.OnCli
     }
 
     override fun showLoading() {
+        loadingBar.show()
     }
 
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
+        toast(errorMsg)
     }
 
     override fun onFinish() {
