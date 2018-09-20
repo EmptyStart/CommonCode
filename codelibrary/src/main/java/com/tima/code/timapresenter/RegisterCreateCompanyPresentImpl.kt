@@ -215,12 +215,14 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
 
     private fun getConfig() {
         mView?.apply {
+            showLoading()
             mViewMode.addConfigInfo(object : IDataListener {
                 override fun requestData(): Map<String, String>? {
                     return mapOf(Pair("type", "COMPANY_STAFFS"))
 
                 }
                 override fun successData(success: String) {
+                    mView?.hideLoading()
                     val staffsBody = GsonUtils.getGson.fromJson(success, CompanyStaffsBody::class.java)
                     val results = staffsBody.results
                     val list = arrayListOf<String>()
@@ -253,6 +255,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
             })

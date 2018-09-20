@@ -83,12 +83,14 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
 
     private fun upPic(headImage: Uri) {
         mView?.apply {
+            showLoading()
             val file = FileUtils.uriToFile(headImage) ?: return
             val name = file.name
             val ext = FileUtils.picTailName(name) ?: return
             mViewMode.addOnUpPicListener(object : IDataFileListener {
 
                 override fun successData(success: String) {
+                    mView?.hideLoading()
                     if (count == 1) {
                         saved()
                     } else {
@@ -98,6 +100,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
 
@@ -119,13 +122,14 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
 
     private fun patchHr(name: String) {
         mView?.apply {
-
+            showLoading()
             mViewMode.addOnUpHrListener(object : IDataListener {
                 override fun requestData(): Map<String, String>? {
                     return mapOf(Pair("name", name))
                 }
 
                 override fun successData(success: String) {
+                    mView?.hideLoading()
                     if (count == 1) {
                         saved()
                     } else {
@@ -135,6 +139,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
             })
@@ -143,7 +148,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
 
     private fun patchCompany(requestMap: Map<String, String>) {
         mView?.apply {
-
+            showLoading()
             mViewMode.addOnUpCompanyListener(object : IDataListener {
                 override fun requestData(): Map<String, String>? {
                     return requestMap
@@ -151,6 +156,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 }
 
                 override fun successData(success: String) {
+                    mView?.hideLoading()
                     if (count == 1) {
                         saved()
                     } else {
@@ -159,6 +165,7 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
             })

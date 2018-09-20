@@ -57,9 +57,11 @@ class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompany
             val file = FileUtils.uriToFile(headImage) ?: return
             val name = file.name
             val ext = FileUtils.picTailName(name) ?: return
+            showLoading()
             mViewMode.addOnUpPicListener(object : IDataFileListener {
 
                 override fun successData(success: String) {
+                    mView?.hideLoading()
                     if (count == 2) {
                         count--
                     } else {
@@ -68,6 +70,7 @@ class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompany
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
 
@@ -97,6 +100,7 @@ class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompany
             if (locationBean == null) {
                 return
             }
+            showLoading()
             mViewMode.addOnUpHrListener(object : IDataListener {
                 override fun requestData(): Map<String, String>? {
                     return mapOf(Pair("name", name!!), Pair("address", locationBean.snippet), Pair("address", locationBean.snippet)
@@ -104,6 +108,7 @@ class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompany
                 }
 
                 override fun successData(success: String) {
+                    mView?.hideLoading()
                     if (count == 2) {
                         count--
                     } else {
@@ -112,6 +117,7 @@ class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompany
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
             })

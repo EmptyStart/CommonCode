@@ -2,6 +2,7 @@ package com.tima.code.timaviewmodels
 
 import com.tima.code.timaconstracts.IRegisterPrivateViewModel
 import com.tima.common.base.BaseViewModel
+import com.tima.common.base.Constant
 import com.tima.common.base.IDataFileListener
 import com.tima.common.base.IDataListener
 import com.tima.common.https.BaseSubscriber
@@ -31,8 +32,7 @@ class RegisterPrivateViewModelImpl : BaseViewModel(), IRegisterPrivateViewModel 
 
     override fun addOnUpHrListener(listener: IDataListener) {
         val baseSubscriber = BaseSubscriber(listener)
-//        RetrofitHelper.service.executePatch(CommonUrls.hrInfo + "/${Constant.hrId}/", listener.requestData())
-        RetrofitHelper.service.executePatch(CommonUrls.hrInfo + "/6/", listener.requestData())
+        RetrofitHelper.service.executePatch(CommonUrls.hrInfo + "/${Constant.hrId}/", listener.requestData())
                 .compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
         addSubscription(baseSubscriber)
     }

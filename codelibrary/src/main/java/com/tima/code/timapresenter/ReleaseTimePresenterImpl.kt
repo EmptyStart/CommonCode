@@ -272,18 +272,21 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     }
 
     fun upRelease(requestData: Map<String, String>) {
+        mView?.showLoading()
         mViewModel.addOnReleaseTimeListener(object : IDataListener {
             override fun requestData(): Map<String, String>? {
                 return requestData
             }
 
             override fun successData(success: String) {
+                mView?.hideLoading()
                 mView?.showError("发布成功")
                 val currentActivity = ActivityManage.instance.getCurrentActivity()
                 currentActivity?.finish()
             }
 
             override fun errorData(error: String) {
+                mView?.hideLoading()
                 ExceptionDeal.handleException(error)
             }
         })
@@ -292,6 +295,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     private fun careerType(code: Int) {
         Observable.create(ObservableOnSubscribe<ArrayList<CareerTypeResult>> { emitter ->
             if (careerTypes.isEmpty()) {
+                mView?.showLoading()
                 mViewModel.addCareertype(object : IDataListener {
                     override fun requestData(): Map<String, String>? {
                         return null
@@ -308,6 +312,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     }
 
                     override fun errorData(error: String) {
+                        mView?.hideLoading()
                         ExceptionDeal.handleException(error)
                     }
                 })
@@ -315,6 +320,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                 emitter.onNext(careerTypes)
             }
         }).subscribe {
+            mView?.hideLoading()
             popData.clear()
             it.forEach {
                 if (it.parent == code) {
@@ -528,6 +534,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             } else if (code == 1 && workSalaryResults.isNotEmpty()) {
                 emitter.onNext(workSalaryResults)
             } else {
+                mView?.showLoading()
                 mViewModel.addConfigInfo(object : IDataListener {
                     override fun requestData(): Map<String, String>? {
                         if (code == 1) {
@@ -537,6 +544,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     }
 
                     override fun successData(success: String) {
+                        mView?.hideLoading()
                         val workExpResponse = GsonUtils.getGson.fromJson(success, WorkExpResponse::class.java)
                         val results = workExpResponse.results
                         if (code == 1) {
@@ -549,9 +557,8 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                             emitter.onNext(workExpResults)
                         }
                     }
-
-
                     override fun errorData(error: String) {
+                        mView?.hideLoading()
                         ExceptionDeal.handleException(error)
                     }
                 })

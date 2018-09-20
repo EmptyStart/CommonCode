@@ -9,13 +9,11 @@ import com.tima.code.timaconstracts.ILoginView
 import com.tima.code.timapresenter.LoginPresenterImpl
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.RoutePaths
-import com.tima.common.utils.LoadingBarManage
 import com.tima.common.utils.ResourceUtil
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import org.jetbrains.anko.toast
-
 import kotlinx.android.synthetic.main.code_activity_login.*
+import org.jetbrains.anko.toast
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 import java.util.concurrent.TimeUnit
