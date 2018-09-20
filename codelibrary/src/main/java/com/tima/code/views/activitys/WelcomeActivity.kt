@@ -27,6 +27,7 @@ import com.tima.common.utils.SpHelper
 import io.reactivex.Observer
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.code_activity_welcome.*
+import org.jetbrains.anko.toast
 
 /**
  * @author : zhijun.li on 2018/8/22
@@ -52,15 +53,15 @@ class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
 
 
     override fun showLoading() {
-
+        loadingBar.show()
     }
 
     override fun hideLoading() {
-
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
-
+        toast(errorMsg)
     }
 
     override fun useEventBus(): Boolean = false

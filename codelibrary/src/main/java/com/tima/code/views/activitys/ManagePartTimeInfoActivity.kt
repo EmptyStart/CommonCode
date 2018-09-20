@@ -12,6 +12,7 @@ import com.tima.code.timaconstracts.IManagePartTimeInfoView
 import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_manage_fulltime_info.*
 import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*
+import org.jetbrains.anko.toast
 
 /**
  * 兼职详情
@@ -41,12 +42,15 @@ class ManagePartTimeInfoActivity : BaseActivity(),IManagePartTimeInfoView , View
     }
 
     override fun showLoading() {
+        loadingBar.show()
     }
 
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
+        toast(errorMsg)
     }
 
     override fun getManageOneView(): LinearLayout {

@@ -22,6 +22,7 @@ import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.IAMapLocationSuccessListener
 import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.code_activity_wallet.*
+import org.jetbrains.anko.toast
 import org.json.JSONObject
 
 /**
@@ -49,13 +50,16 @@ class WalletActivity : BaseActivity(), View.OnClickListener,IWalletView{
         walletPresent?.onClick(v)
     }
 
+    override fun showLoading() {
+        loadingBar.show()
+    }
+
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
-    }
-
-    override fun showLoading() {
+        toast(errorMsg)
     }
 
     override fun getWalletActvity(): Activity {

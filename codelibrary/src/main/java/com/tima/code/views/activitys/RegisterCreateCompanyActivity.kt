@@ -99,9 +99,11 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
     }
 
     override fun showLoading() {
+        loadingBar.show()
     }
 
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
@@ -115,6 +117,7 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         RegisterCreateCompanyPresentImpl(this)
     }
     override fun inits(savedInstanceState: Bundle?) {
+        lifecycle.addObserver(present)
         putScrollView(svCreate)
         defaultLoaction()
         defaultMarkerDrag()

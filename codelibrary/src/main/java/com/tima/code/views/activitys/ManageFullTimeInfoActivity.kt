@@ -14,6 +14,8 @@ import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_manage_fulltime_info.*
 import kotlinx.android.synthetic.main.code_layout_info_address_p.*
 import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*
+import org.jetbrains.anko.toast
+
 /**
  * 全职详情-兼职详情
  * Created by Administrator on 2018/8/29/029.
@@ -31,7 +33,7 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
         manageType = intent.getIntExtra("manageType",-1)
         id = intent.getIntExtra("id",-1)
         manageFullTimeInfoPresent = ManageFullTimeInfoPresenterImpl(this)
-
+        lifecycle.addObserver(manageFullTimeInfoPresent!!)
         ll_manage_one.setOnClickListener(this)
         ll_manage_two.setOnClickListener(this)
         ll_manage_three.setOnClickListener(this)
@@ -53,12 +55,15 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
     }
 
     override fun showLoading() {
+        loadingBar.show()
     }
 
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
+        toast(errorMsg)
     }
 
     override fun getManageOneView(): LinearLayout {

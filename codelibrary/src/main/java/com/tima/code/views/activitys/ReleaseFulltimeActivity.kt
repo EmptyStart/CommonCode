@@ -203,9 +203,11 @@ class ReleaseFulltimeActivity : AbstractAddressAndMapActivity() , IReleaseTimeVi
     }
 
     override fun showLoading() {
+        loadingBar.show()
     }
 
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {

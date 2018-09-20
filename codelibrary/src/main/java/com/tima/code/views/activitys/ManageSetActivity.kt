@@ -60,12 +60,15 @@ class ManageSetActivity : BaseActivity(),IManageSetView, View.OnClickListener,Sw
     }
 
     override fun showLoading() {
+        loadingBar.show()
     }
 
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
+        toast(errorMsg)
     }
 
     override fun getManageActivity(): Activity {
