@@ -3,24 +3,17 @@ package com.tima.code.views.fragments.news
 import android.content.Intent
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
-import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.tima.chat.bean.PresonInfo
+import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.chat.helper.ChatUtils
 import com.tima.chat.ui.activity.ChatActivity
 import com.tima.code.R
 import com.tima.code.views.adapter.InteractionAdapter
-import com.tima.common.base.BaseFragment
-import com.tima.common.base.MsgEventData
-import com.tima.common.base.RoutePaths
-import com.tima.common.utils.LogUtils
+import com.tima.common.base.*
 import kotlinx.android.synthetic.main.code_fragment_interaction.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
-import java.util.stream.Collectors
 
 /**
  * 互动
@@ -71,7 +64,7 @@ class InteractionFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener
     }
 
      fun onItemChildClick(presonInfo: PresonInfo) {
-         var intent = Intent(activity,ChatActivity::class.java)
+         var intent = Intent(activity, ChatActivity::class.java)
          intent.putExtra("friendId",presonInfo.userName)
          activity.startActivity(intent)
     }

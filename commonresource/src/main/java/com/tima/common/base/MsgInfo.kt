@@ -1,6 +1,5 @@
-package com.tima.chat.bean
+package com.tima.common.base
 
-import com.hyphenate.chat.EMMessage
 import org.litepal.crud.DataSupport
 
 /**
@@ -11,7 +10,7 @@ class MsgInfo : DataSupport(){
     var msgId : String = ""                                         //消息id
     var content: String = ""                                        //消息内容
     var type: Int = -1                                              //消息类型-接收发送
-    var msgType: EMMessage.Type = EMMessage.Type.TXT                //信息类型-语音-图片-文本
+    var msgType: com.hyphenate.chat.EMMessage.Type = com.hyphenate.chat.EMMessage.Type.TXT                //信息类型-语音-图片-文本
     var voiceLeght : Int = 0                                        //语音-长度
     var acceptTime : String =""                                     //接收最新消息时间  yyyy-MM-dd HH:mm:ss
     var from : String = ""                                          //好友id

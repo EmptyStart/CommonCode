@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.EditText
 import android.widget.GridView
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.chat.R
 import com.tima.chat.constracts.IChatView
 import com.tima.chat.helper.ChatUtils
@@ -17,6 +18,7 @@ import com.tima.chat.ui.presenter.ChatPersenterImpl
 import com.tima.chat.weight.RecordVoiceBtnController
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.MsgEventData
+import com.tima.common.base.RoutePaths
 import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.chat_activity_chat_layout.*
 import kotlinx.android.synthetic.main.chat_send_msg_buttom_layout.*
@@ -26,6 +28,7 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * Created by Administrator on 2018/8/20/020.
  */
+@Route(path = RoutePaths.chatActivity)
 class ChatActivity : BaseActivity() , View.OnClickListener,IChatView ,SwipeRefreshLayout.OnRefreshListener{
     var ichatPresent : ChatPersenterImpl? = null
     var friendId : String = ""                                                                      //环信对方账号

@@ -108,6 +108,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v13'
         exclude group: 'com.android.support', module: 'support-vector-drawable'
     }
+    //环信客服SDK
+    api 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com
 
     //    api libraries.values()
 }

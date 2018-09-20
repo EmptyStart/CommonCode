@@ -75,8 +75,7 @@ dependencies {
     implementation project(':commonresource')
     kapt rootProject.ext.exps.arouter_compiler
     kapt rootProject.ext.exps.lifecycle_compiler
-    //环信客服SDK
-    api 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com
+
     // .hyphenate:kefu-easeui-android:1.1.7.final'
     //用于线程间的通讯代替handler或用于组件间的通讯代替Intent
     //implementation 'org.greenrobot:eventbus:3.1.1'

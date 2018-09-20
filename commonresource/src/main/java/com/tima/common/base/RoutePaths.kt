@@ -64,4 +64,6 @@ object RoutePaths{
      * service
      */
     const val chatManager="/service/chat"
+
+    const val chatActivity="chat/chatactivity"
 }

@@ -6,12 +6,8 @@ import android.support.v7.widget.RecyclerView
 import android.widget.EditText
 import android.widget.GridView
 import com.hyphenate.chat.EMMessage
-import com.tima.chat.bean.MsgInfo
 import com.tima.chat.weight.RecordVoiceBtnController
-import com.tima.common.base.IBasePresenter
-import com.tima.common.base.IBaseViewModel
-import com.tima.common.base.IBaseViews
-import com.tima.common.base.IDataListener
+import com.tima.common.base.*
 
 /**
  * Created by Administrator on 2018/8/22/022.

@@ -18,9 +18,9 @@ import com.hyphenate.chat.EMMessage
 import com.hyphenate.helpdesk.easeui.adapter.MessageAdapter
 import com.hyphenate.helpdesk.easeui.recorder.MediaManager
 import com.tima.chat.R
-import com.tima.chat.bean.MsgInfo
 import com.tima.chat.helper.ChatUtils.TYPE_SEND
 import com.tima.chat.weight.CircleImageView
+import com.tima.common.base.MsgInfo
 import com.tima.common.utils.DateUtils
 import com.tima.common.utils.DensityUtils
 import com.tima.common.utils.LogUtils

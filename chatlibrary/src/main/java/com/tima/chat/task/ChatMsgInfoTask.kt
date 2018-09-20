@@ -4,10 +4,10 @@ import android.text.TextUtils
 import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMTextMessageBody
 import com.hyphenate.chat.EMVoiceMessageBody
-import com.tima.chat.bean.MsgInfo
-import com.tima.chat.bean.PresonInfo
 import com.tima.chat.helper.ChatUtils
 import com.tima.common.base.MsgEventData
+import com.tima.common.base.MsgInfo
+import com.tima.common.base.PresonInfo
 import com.tima.common.thread.TaskInterface
 import com.tima.common.utils.DateUtils
 import com.tima.common.utils.LogUtils

@@ -12,7 +12,6 @@ import com.hyphenate.chat.EMMessage
 import com.tima.chat.R
 import com.tima.chat.apdater.ChatAdapter
 import com.tima.chat.apdater.ChoiceFunctionAdapter
-import com.tima.chat.bean.MsgInfo
 import com.tima.chat.constracts.IChatPresent
 import com.tima.chat.constracts.IChatView
 import com.tima.chat.helper.ChatUtils
@@ -24,6 +23,7 @@ import com.tima.chat.ui.model.ChatViewModelImpl
 import com.tima.chat.weight.RecordVoiceBtnController
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.IDataListener
+import com.tima.common.base.MsgInfo
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.*
 import org.jetbrains.anko.toast

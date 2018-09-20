@@ -10,9 +10,6 @@ import android.widget.Toast
 import com.hyphenate.EMCallBack
 import com.hyphenate.chat.*
 import com.tima.chat.Listener.MyEMMessageListener
-import com.tima.chat.Listener.MyMessageListener
-import com.tima.chat.R
-import com.tima.chat.bean.MsgInfo
 import com.tima.common.utils.LogUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -26,6 +23,7 @@ import java.io.File
 import com.hyphenate.chat.EMClient
 import com.hyphenate.helpdesk.easeui.recorder.MediaManager
 import com.hyphenate.helpdesk.easeui.widget.AlertDialog
+import com.tima.common.base.MsgInfo
 import org.jetbrains.anko.toast
 
 

@@ -6,6 +6,7 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
+import com.tima.chat.helper.ChatUtils
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
@@ -73,29 +74,25 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
      * 初始化环信聊天
      */
     fun initChat() {
-//        var result = ChatUtils.init(this)
-        val initChat = iChatManage.initChat()
+        /*val initChat = iChatManage.initChat()
         if (initChat) {
             val mobile = Constant.mobile
             val chatPassword = Constant.chatPassword
             if (mobile.isNotEmpty()&&chatPassword.isNotEmpty()) {
                 iChatManage.login(mobile, chatPassword)
             }
+        }*/
+        var result = ChatUtils.init(this)
+        if (result) {
+            var result = ChatUtils.login(ChatUtils.NAME, ChatUtils.PASSWORD, this)
+        }else{
+            toast("初始化环信失败")
         }
-//        val iChatManage = navigation as IChatManage
-//        iChatManage.toast(this)
-//        if (result) {
-//            ChatUtils.login(ChatUtils.NAME, ChatUtils.PASSWORD, this!!)
-//        }else{
-//            toast("初始化环信失败")
-//        }
     }
 
     override fun onClick(v: View?) {
         present?.onClick(v)
     }
-
-
 
     /**
      * 初始化tab
@@ -253,8 +250,8 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
     override fun onDestroy() {
         super.onDestroy()
         try {
-            iChatManage.loginOut()
-//            ChatUtils.loginOut(this)
+            //iChatManage.loginOut()
+            ChatUtils.loginOut(this)
         } catch (e: Exception) {
             e.printStackTrace()
         }

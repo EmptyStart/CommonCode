@@ -3,7 +3,6 @@
     <dbname value="chat" />
     <version value="1" />
     <list>
-        <mapping class="com.tima.chat.bean.MsgInfo" />
-        <mapping class="com.tima.chat.bean.PresonInfo" />
+
     </list>
 </litepal>

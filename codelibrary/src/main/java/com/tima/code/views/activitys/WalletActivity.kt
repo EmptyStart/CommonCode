@@ -20,8 +20,10 @@ import com.tima.common.https.RetrofitHelper
 import com.tima.common.rx.SchedulerUtils
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.IAMapLocationSuccessListener
+import com.tima.common.utils.LoadingBarManage
 import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.code_activity_wallet.*
+import org.jetbrains.anko.toast
 import org.json.JSONObject
 
 /**
@@ -43,6 +45,7 @@ class WalletActivity : BaseActivity(), View.OnClickListener,IWalletView{
         tv_account_recharge.setOnClickListener(this)
 
         walletPresent = WalletPresenterImpl(this)
+        lifecycle.addObserver(walletPresent!!)
     }
 
     override fun onClick(v: View?) {
@@ -50,12 +53,15 @@ class WalletActivity : BaseActivity(), View.OnClickListener,IWalletView{
     }
 
     override fun hideLoading() {
+        loadingBar.dismiss()
     }
 
     override fun showError(errorMsg: String) {
+        toast(errorMsg)
     }
 
     override fun showLoading() {
+        loadingBar.show()
     }
 
     override fun getWalletActvity(): Activity {

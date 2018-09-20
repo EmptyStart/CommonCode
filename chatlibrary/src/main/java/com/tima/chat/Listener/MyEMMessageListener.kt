@@ -5,8 +5,6 @@ import com.hyphenate.EMMessageListener
 import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMTextMessageBody
 import com.hyphenate.chat.EMVoiceMessageBody
-import com.tima.chat.bean.MsgInfo
-import com.tima.chat.bean.PresonInfo
 import com.tima.chat.helper.ChatUtils
 import com.tima.chat.helper.ChatUtils.TYPE_RECEIVED
 import com.tima.chat.task.ChatMsgInfoTask
