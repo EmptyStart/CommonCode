@@ -49,7 +49,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
     }
 
 
-    private fun fullData(){
+    override fun fullData(){
         view?.showLoading()
         mViewMode.addFullTimeListener(object : IDataListener {
             override fun successData(success: String) {

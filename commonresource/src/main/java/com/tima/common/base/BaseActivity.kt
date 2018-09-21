@@ -1,5 +1,6 @@
 package com.tima.common.base
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
@@ -29,7 +30,9 @@ abstract class BaseActivity : AutoLayoutActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         rootView = View.inflate(this, getLayoutId(), null)
+
         setContentView(rootView)
         ARouter.getInstance().inject(this)
         if (useMap()) {

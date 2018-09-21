@@ -77,6 +77,7 @@ class WalletPresenterImpl : IWalletPresent , DialogUtils.OnDialogListener{
                 walletCo = GsonUtils.getGson.fromJson(success, WalletCo::class.java)
                 if(walletCo != null)
                     view.getTvAccountBalanceView().text = walletCo?.available_amt.toString()
+                view?.hideLoading()
             }
 
             override fun errorData(error: String) {

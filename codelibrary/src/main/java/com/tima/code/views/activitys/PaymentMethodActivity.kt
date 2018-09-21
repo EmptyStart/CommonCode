@@ -1,8 +1,12 @@
 package com.tima.code.views.activitys
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import com.tima.code.R
+import com.tima.code.timaconstracts.IPaymentMethodView
+import com.tima.code.timapresenter.PaymentMethodPresenterImpl
+import com.tima.code.timapresenter.WalletPresenterImpl
 import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_payment_method.*
 import org.jetbrains.anko.toast
@@ -11,8 +15,10 @@ import org.jetbrains.anko.toast
  *  收款方式
  *  Created by jjy on 2018/8/31/031.
  */
-class PaymentMethodActivity : BaseActivity(), View.OnClickListener{
+class PaymentMethodActivity : BaseActivity(), IPaymentMethodView,View.OnClickListener{
+
     var paymentType = -1                                               // 1、支付宝   2、微信
+    var paymentPresent : PaymentMethodPresenterImpl? = null
 
     override fun getLayoutId(): Int {
         return R.layout.code_activity_payment_method
@@ -27,6 +33,8 @@ class PaymentMethodActivity : BaseActivity(), View.OnClickListener{
             tv_payment_name.text = "微信"
             iv_payment_logo.setImageResource(R.mipmap.ic_wechat)
         }
+
+        paymentPresent = PaymentMethodPresenterImpl(this)
 
         abv_type4.setOnRightTextListener(this)
         abv_type4.setOnRightImageListener(this)
@@ -49,5 +57,21 @@ class PaymentMethodActivity : BaseActivity(), View.OnClickListener{
 
             }
         }
+    }
+
+    override fun hideLoading() {
+        loadingBar.dismiss()
+    }
+
+    override fun showError(errorMsg: String) {
+        toast(errorMsg)
+    }
+
+    override fun getPaymentMethodActivity(): Activity {
+        return this
+    }
+
+    override fun showLoading() {
+        loadingBar.show()
     }
 }

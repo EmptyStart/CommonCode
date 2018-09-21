@@ -69,6 +69,14 @@ class InteractionFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener
          activity.startActivity(intent)
     }
 
+    fun showLoading() {
+        loadingManage.show()
+    }
+
+    fun hideLoading() {
+        loadingManage.dismiss()
+    }
+
 
     fun testData(){
         presonInfos.add(PresonInfo("老王","13764217962",22,"22"))

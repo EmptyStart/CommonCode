@@ -10,6 +10,7 @@ import com.tima.code.R
 import com.tima.code.timaconstracts.IFullTimePresent
 import com.tima.code.timaconstracts.IFullTimeView
 import com.tima.code.timapresenter.FullTimePresenterImpl
+import com.tima.common.base.BaseActivity
 import com.tima.common.base.BaseFragment
 import com.tima.common.base.RoutePaths
 import kotlinx.android.synthetic.main.code_fragment_full_time.*
@@ -50,12 +51,15 @@ class FullTimeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, I
 
     override fun onRefresh() {
         swipe_full_time.isRefreshing = false
+        fullTimePresent?.fullData()
     }
 
     override fun showLoading() {
+        loadingManage.show()
     }
 
     override fun hideLoading() {
+        loadingManage.dismiss()
     }
 
     override fun showError(errorMsg: String) {

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
+import com.tima.code.R.id.swipe_communicate
 import com.tima.code.views.adapter.CommunicateAdapter
 import com.tima.common.base.BaseFragment
 import com.tima.common.base.RoutePaths
@@ -14,10 +15,10 @@ import kotlinx.android.synthetic.main.code_fragment_communicate.*
  * 沟通
  * Created by Administrator on 2018/8/27/027.
  */
-@com.alibaba.android.arouter.facade.annotation.Route(path = com.tima.common.base.RoutePaths.communicatefragment)
-class CommunicateFragment : com.tima.common.base.BaseFragment(), android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener, com.tima.code.views.adapter.CommunicateAdapter.OnCommunicateListener {
+@Route(path = RoutePaths.communicatefragment)
+class CommunicateFragment : BaseFragment(),SwipeRefreshLayout.OnRefreshListener,CommunicateAdapter.OnCommunicateListener {
 
-    var communicateAdapter : com.tima.code.views.adapter.CommunicateAdapter? = null
+    var communicateAdapter : CommunicateAdapter? = null
 
 
     override fun attachLayoutRes(): Int {
@@ -44,6 +45,14 @@ class CommunicateFragment : com.tima.common.base.BaseFragment(), android.support
 
     override fun onRefresh() {
         swipe_communicate.isRefreshing = false
+    }
+
+    fun showLoading() {
+        loadingManage.show()
+    }
+
+    fun hideLoading() {
+        loadingManage.dismiss()
     }
 
     override fun onCommunicateClick() {

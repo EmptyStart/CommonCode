@@ -40,4 +40,6 @@ interface IFullTimePresent : IBasePresenter {
     fun refreshAuditAdapter()
 
     fun refreshAlreadyDownAdapter()
+
+    fun fullData()
 }

@@ -15,6 +15,7 @@ import com.tima.common.base.BaseFragment
 import com.tima.common.base.RoutePaths
 import kotlinx.android.synthetic.main.code_fragment_part_time.*
 import kotlinx.android.synthetic.main.code_three_select_top.*
+import org.jetbrains.anko.toast
 
 /**
  * 管理-兼职
@@ -74,11 +75,14 @@ class PartTimeFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener, I
     }
 
     override fun showLoading() {
+        loadingManage.show()
     }
 
     override fun hideLoading() {
+        loadingManage.dismiss()
     }
 
     override fun showError(errorMsg: String) {
+        activity.toast(errorMsg)
     }
 }
