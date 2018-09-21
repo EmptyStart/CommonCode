@@ -87,18 +87,17 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                         override fun successData(success: String) {
                             hideLoading()
                             val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
-                            if (responseBody != null && responseBody.hr != null) {
+
+                            responseBody?.apply {
                                 DataSupport.deleteAll(LoginResponseBody::class.java)
                                 DataSupport.deleteAll(Hr::class.java)
                                 DataSupport.deleteAll(Company::class.java)
-
-                                responseBody.save()
-                                responseBody.hr.save()
-                                responseBody.hr.company.save()
-                            }
+                                save()
+                                hr.save()
+                                hr.company.save()
 
 
-                            responseBody?.apply {
+
                                 SpHelper(Constant.LOGENINFO, success)
                                 Constant.token = token
                                 Constant.mobile = hr.mobile
@@ -106,11 +105,27 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                                 Constant.companyId = hr.company.id.toString()
                                 Constant.hrId = hr.id.toString()
                                 Constant.partCommit = parttime_commition
-
+                                if ("0"==hr.company.type){
+                                    //个人
+                                    Constant.position=1
+                                }else if ("1"==hr.company.type){
+                                    //公司
+                                    Constant.position=2
+                                }
                                 if ("N".equals(company)) {
                                     ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
                                 } else {
-                                    ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+                                    val verify = hr.company.verify
+                                    if("1"==verify){
+                                        ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+                                    }
+                                    if ("2"==verify){
+                                        if (Constant.position==1){
+                                            ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
+                                        }else if (Constant.position==2){
+                                            ARouter.getInstance().build(RoutePaths.registerCompany).navigation()
+                                        }
+                                    }
                                 }
                                 ActivityManage.instance.exitCurrentActivity()
                             }
