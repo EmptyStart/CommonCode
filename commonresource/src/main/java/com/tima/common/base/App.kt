@@ -9,6 +9,8 @@ import com.amap.api.location.AMapLocationClient
 import com.tima.common.BuildConfig
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.OnlySetOnce
+import org.litepal.LitePal
+import org.litepal.LitePalApplication
 
 /**
  * @author : zhijun.li on 2018/6/28
@@ -55,6 +57,6 @@ class App :MultiDexApplication(){
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
-
+        LitePal.initialize(this)
     }
 }

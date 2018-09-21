@@ -173,11 +173,12 @@
     </com.zhy.autolayout.AutoLinearLayout>
 
     <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="230px"
         android:layout_height="230px"
         android:layout_alignParentRight="true"
         android:layout_marginRight="80px"
         android:layout_marginTop="200px"
         android:src="@mipmap/code_register_addphoto"
-        android:id="@+id/imageView" />
+        />
 </RelativeLayout>

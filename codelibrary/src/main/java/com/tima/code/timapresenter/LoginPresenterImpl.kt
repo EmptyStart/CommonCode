@@ -6,6 +6,8 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
+import com.tima.code.ResponseBody.Company
+import com.tima.code.ResponseBody.Hr
 import com.tima.code.ResponseBody.LoginResponseBody
 import com.tima.code.ResponseBody.RegisterValidResponseBody
 import com.tima.code.timaconstracts.ILoginPresent
@@ -21,6 +23,7 @@ import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.LogUtils
 import com.tima.common.utils.SpHelper
 import okhttp3.ResponseBody
+import org.litepal.crud.DataSupport
 
 /**
  * @author : zhijun.li on 2018/8/30
@@ -84,6 +87,17 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                         override fun successData(success: String) {
                             hideLoading()
                             val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
+                            if (responseBody != null && responseBody.hr != null) {
+                                DataSupport.deleteAll(LoginResponseBody::class.java)
+                                DataSupport.deleteAll(Hr::class.java)
+                                DataSupport.deleteAll(Company::class.java)
+
+                                responseBody.save()
+                                responseBody.hr.save()
+                                responseBody.hr.company.save()
+                            }
+
+
                             responseBody?.apply {
                                 SpHelper(Constant.LOGENINFO, success)
                                 Constant.token = token

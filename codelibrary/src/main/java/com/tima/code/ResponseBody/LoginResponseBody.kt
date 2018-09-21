@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.tima.common.https.ApiException
 import okhttp3.MediaType
 import okio.BufferedSource
+import org.litepal.crud.DataSupport
 
 /**
  * @author : zhijun.li on 2018/9/3
@@ -18,45 +19,45 @@ data class LoginResponseBody(
     val img_base: String,
     val huanxin_password: String,
     val parttime_commition: Double
-)
+): DataSupport()
 
-data class Hr(
+data class Hr (
     val id: Int,
-    val company: Company,
-    val created_on: String,
-    val mobile: String,
-    val name: String,
-    val nick_name: Any,
-    val password: Any,
-    val avatar: Any,
-    val type: String,
-    val gender: String,
-    val address: String,
-    val province: String,
-    val city: String,
-    val region: String,
-    val email: Any,
-    val birthday: Any,
-    val rating: Any,
-    val status: String,
-    val register_ip: Any,
-    val last_login_ip: String,
-    val last_login_on: Any,
-    val last_login_device: Any,
-    val tel: Any,
-    val img1: Any,
-    val img2: Any,
-    val img3: Any,
-    val id_card: Any,
-    val id_verified: String,
-    val push_id: Any,
-    val im_id: Any
-)
+    val company: Company,                   //公司
+    val created_on: String,                 //创建时间
+    val mobile: String,                     //帐号
+    val name: String,                       //姓名
+    val nick_name: String,                     //昵称
+    val password: String,                      //密码
+    val avatar: String,                        //头像
+    val type: String,                       //类型
+    val gender: String,                     //性别
+    val address: String,                    //地址
+    val province: String,                   //省份
+    val city: String,                       //市
+    val region: String,                     //区
+    val email: String,                         //邮箱
+    val birthday: String,                      //出生日期
+    val rating: String,                        //等级
+    val status: String,                     //状态
+    val register_ip: String,                   //注册IP
+    val last_login_ip: String,              //最近登录IP
+    val last_login_on: String,                 //最近登录日期
+    val last_login_device: String,             //最近登录设备
+    val tel: String,                           //电话
+    val img1: String,                          //图片1
+    val img2: String,                          //图片2
+    val img3: String,                          //图片3
+    val id_card: String,                       //身份证
+    val id_verified: String,                //实名认证
+    val push_id: String,                       //推送设备ID
+    val im_id: String                          //环信设备ID
+) : DataSupport()
 
 data class Company(
     val id: Int,
     val full_name: String,
-    val short_name: Any,
+    val short_name: String,
     val logo: String,
     val type: String,
     val province: String,
@@ -64,14 +65,14 @@ data class Company(
     val region: String,
     val verify: String,
     val status: String,
-    val priority: Any,
-    val tags: Any,
+    val priority: String,
+    val tags: String,
     val created_on: String,
     val fulltime_amt: String,
     val fulltime_window: Int,
     val fulltime_unit: String,
     val margin: String
-)
+) : DataSupport()
 
 data class RegisterValidResponseBody(
         val detail: String

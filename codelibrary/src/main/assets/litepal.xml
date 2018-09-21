@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="code" />
+    <version value="3" />
+    <list>
+        <mapping class="com.tima.code.ResponseBody.LoginResponseBody" />
+        <mapping class="com.tima.code.ResponseBody.Hr" />
+        <mapping class="com.tima.code.ResponseBody.Company" />
+    </list>
+</litepal>
