@@ -37,8 +37,8 @@ object ChatUtils{
     var msgInfos = ArrayList<MsgInfo>()                             //接受到----聊天信息
 
     //val FRIENDID = "13764217962"                                    //发送人Id
-    val NAME = "18390317131"                                        //账号
-    val PASSWORD = "123456"                                         //密码
+    //val NAME = "18390317131"                                        //账号
+    //val PASSWORD = "123456"                                         //密码
     var REFRESH_CHAT = "refresh_chat"                               //刷新聊天信息
     /**
      * 初始化聊天
@@ -159,7 +159,6 @@ object ChatUtils{
             override fun onError(code: Int, message: String) {
                 result = false
                 activity.runOnUiThread {
-                    //activity.toast("退出环信失败")
                     LogUtils.i(TAG,"退出环信失败")
                 }
             }

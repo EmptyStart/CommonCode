@@ -2,12 +2,14 @@ package com.tima.code.views.activitys
 
 import android.app.FragmentTransaction
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
 import com.tima.chat.helper.ChatUtils
 import com.tima.code.R
+import com.tima.code.ResponseBody.Hr
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
 import com.tima.code.timapresenter.MainPagePresenterImpl
@@ -22,6 +24,7 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
+import org.litepal.crud.DataSupport
 
 /**
  * @author : zhijun.li on 2018/8/22
@@ -84,7 +87,11 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         }*/
         var result = ChatUtils.init(this)
         if (result) {
-            var result = ChatUtils.login(ChatUtils.NAME, ChatUtils.PASSWORD, this)
+            if (!TextUtils.isEmpty(Constant.mobile) && !TextUtils.isEmpty(Constant.chatPassword)){
+                var result = ChatUtils.login(Constant.mobile, Constant.chatPassword, this)
+            }else{
+                toast("初始化环信账号、密码为空!")
+            }
         }else{
             toast("初始化环信失败")
         }

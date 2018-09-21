@@ -15,8 +15,6 @@ import com.tima.chat.apdater.ChoiceFunctionAdapter
 import com.tima.chat.constracts.IChatPresent
 import com.tima.chat.constracts.IChatView
 import com.tima.chat.helper.ChatUtils
-import com.tima.chat.helper.ChatUtils.NAME
-import com.tima.chat.helper.ChatUtils.PASSWORD
 import com.tima.chat.helper.ChatUtils.TYPE_SEND
 import com.tima.chat.helper.MessageUtils
 import com.tima.chat.ui.model.ChatViewModelImpl
@@ -62,7 +60,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
      * 初始化环信聊天
      */
     fun initChat(){
-        if(!ChatUtils.isConnected()){
+       /* if(!ChatUtils.isConnected()){
             var result = ChatUtils.init(chatActivity!!)
             if (result) {
                 var result = ChatUtils.login(NAME, PASSWORD, chatActivity!!)
@@ -72,7 +70,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             }else{
                 chatActivity?.toast("初始化环信失败")
             }
-        }
+        }*/
     }
 
     override fun onRefreshChatAdapter(msgInfos: ArrayList<MsgInfo>) {
@@ -130,7 +128,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             msgInfo.save()
             msgInfos.add(msgInfo)
 
-            LogUtils.i(TAG,ChatUtils.NAME+"--发送--"+view?.getFRIENDID()+"--消息--"+msgInfo.toString())
+            LogUtils.i(TAG,"--发送--"+view?.getFRIENDID()+"--消息--"+msgInfo.toString())
             refreshChatAdapter()
         }else{
             if (chatActivity != null)
@@ -229,7 +227,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             msgInfo.from = view?.getFRIENDID()!!
             msgInfo.voiceLeght = seconds.toInt()
             msgInfos.add(msgInfo)
-            LogUtils.i(TAG, ChatUtils.NAME + "--发送--" + view?.getFRIENDID()!! + "--消息--" + msgInfo.toString())
+            LogUtils.i(TAG, "--发送--" + view?.getFRIENDID()!! + "--消息--" + msgInfo.toString())
             refreshChatAdapter()
         }else{
             chatActivity?.toast("发送语言失败")
