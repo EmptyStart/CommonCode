@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.tencent.android.tpush.XGIOperateCallback
+import com.tencent.android.tpush.XGPushManager
 import com.tima.code.R
 import com.tima.code.timaconstracts.ILoginView
 import com.tima.code.timapresenter.LoginPresenterImpl
@@ -25,6 +27,18 @@ import java.util.concurrent.TimeUnit
  */
 @Route(path = RoutePaths.login)
 class LoginActivity : BaseActivity(), ILoginView, View.OnClickListener {
+    override fun bindAccount(mobile: String?) {
+        XGPushManager.bindAccount(this,mobile,object : XGIOperateCallback {
+            override fun onSuccess(p0: Any?, p1: Int) {
+
+            }
+
+            override fun onFail(p0: Any?, p1: Int, p2: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+    }
+
     override fun cancelValid() {
         tv_vaild.text = "获取验证码"
         tv_vaild.isEnabled = true

@@ -1,6 +1,8 @@
 package com.tima.common.utils
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -138,5 +140,18 @@ object SettingUtils {
             context = (context as ContextWrapper).baseContext
         }
         throw IllegalStateException("The view's Context is not an Activity.")
+    }
+
+    fun isMainProcess(context: Context) : Boolean{
+        val am = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val runningAppProcesses = am.runningAppProcesses
+        val packageName = context.packageName
+        val myPid = android.os.Process.myPid()
+        runningAppProcesses.forEach {
+            if (it.pid==myPid&&packageName.equals(it.processName)){
+                return true
+            }
+        }
+        return false
     }
 }

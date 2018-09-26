@@ -1,22 +1,10 @@
 package com.tima.code.views.adapter.mine
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.ColorFilter
-import android.graphics.ColorMatrix
-import android.graphics.drawable.ColorDrawable
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.ColorUtils
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
-import com.tima.code.ResponseBody.FundDetail
+import com.tima.code.responsebody.FundDetail
 import com.tima.common.utils.ResourceUtil
 
 /**

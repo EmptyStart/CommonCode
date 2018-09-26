@@ -5,11 +5,10 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.support.v7.widget.LinearLayoutManager
-import android.text.TextUtils
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
-import com.tima.code.ResponseBody.*
+import com.tima.code.responsebody.*
 import com.tima.code.timaconstracts.IManageSetPresent
 import com.tima.code.timaconstracts.IManageSetView
 import com.tima.code.timaviewmodels.ManageSetViewModelImpl
@@ -23,7 +22,6 @@ import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
 import org.jetbrains.anko.toast
 import org.json.JSONObject
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**

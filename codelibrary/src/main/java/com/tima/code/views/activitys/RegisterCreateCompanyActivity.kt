@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
-import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.responsebody.LocationBean
 import com.tima.code.timaconstracts.IRegisterCreateCompanyView
 import com.tima.code.timapresenter.RegisterCreateCompanyPresentImpl
 import com.tima.common.base.Constant

@@ -110,7 +110,11 @@ dependencies {
     }
     //环信客服SDK
     api 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com
-
+//增加这行
+    api 'com.tencent.xinge:xinge:4.0.3-release'
+    api 'com.tencent.jg:jg:1.1'
+    api 'com.tencent.wup:wup:1.0.0.E-release'
+    api 'com.tencent.mid:mid:4.0.7'
     //    api libraries.values()
 }
 

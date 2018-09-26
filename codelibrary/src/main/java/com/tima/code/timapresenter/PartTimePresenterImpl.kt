@@ -8,14 +8,12 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
-import com.tima.code.ResponseBody.Position
+import com.tima.code.responsebody.Position
 import com.tima.code.timaconstracts.IPartTimePresent
 import com.tima.code.timaconstracts.IPartTimeView
 import com.tima.code.timaviewmodels.PartTimeViewModelImpl
 import com.tima.code.views.activitys.ManageFullTimeInfoActivity
-import com.tima.code.views.adapter.part.PartAlreadyDownAdapter
 import com.tima.code.views.adapter.part.PartAuditAdapter
 import com.tima.code.views.adapter.part.PartPublishedAdapter
 import com.tima.common.base.IBaseViews
@@ -24,7 +22,6 @@ import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
-import org.jetbrains.anko.toast
 import org.json.JSONObject
 
 /**

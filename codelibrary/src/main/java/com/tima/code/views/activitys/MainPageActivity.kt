@@ -9,7 +9,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
 import com.tima.chat.helper.ChatUtils
 import com.tima.code.R
-import com.tima.code.ResponseBody.Hr
 import com.tima.code.timaconstracts.IMainPagePresent
 import com.tima.code.timaconstracts.IMainPageView
 import com.tima.code.timapresenter.MainPagePresenterImpl
@@ -20,11 +19,7 @@ import com.tima.common.base.RoutePaths
 import com.tima.common.services.IChatManage
 import com.tima.common.utils.*
 import kotlinx.android.synthetic.main.code_activity_main.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
-import org.litepal.crud.DataSupport
 
 /**
  * @author : zhijun.li on 2018/8/22

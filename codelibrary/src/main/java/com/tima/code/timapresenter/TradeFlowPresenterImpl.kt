@@ -9,13 +9,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
-import com.tima.code.R.id.recycler_trade_flow
-import com.tima.code.ResponseBody.Fund
+import com.tima.code.responsebody.Fund
 import com.tima.code.timaconstracts.ITradeFlowPresent
 import com.tima.code.timaconstracts.ITradeFlowView
 import com.tima.code.timaviewmodels.TradeFlowViewModelImpl
 import com.tima.code.views.activitys.PersonnelRosterActivity
-import com.tima.code.views.activitys.TradeFlowActivity
 import com.tima.code.views.adapter.mine.PendingPeymentAdapter
 import com.tima.code.views.adapter.mine.TradeFlowAdapter
 import com.tima.common.base.IDataListener
@@ -24,8 +22,6 @@ import com.tima.common.https.ExceptionDeal
 import com.tima.common.https.HttpRequest
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.LogUtils
-import kotlinx.android.synthetic.main.code_activity_trade_flow.*
-import org.jetbrains.anko.toast
 import org.json.JSONObject
 
 /**

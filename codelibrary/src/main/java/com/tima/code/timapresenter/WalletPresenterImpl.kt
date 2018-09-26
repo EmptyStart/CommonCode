@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import com.tima.code.R
-import com.tima.code.ResponseBody.Fund
-import com.tima.code.ResponseBody.Position
-import com.tima.code.ResponseBody.WalletCo
+import com.tima.code.responsebody.Fund
+import com.tima.code.responsebody.WalletCo
 import com.tima.code.timaconstracts.IWalletPresent
 import com.tima.code.timaconstracts.IWalletView
-import com.tima.code.timaviewmodels.FullTimeViewModelImpl
 import com.tima.code.timaviewmodels.WalletViewModelImpl
 import com.tima.code.views.activitys.PutForwardActivity
 import com.tima.code.views.activitys.TradeFlowActivity

@@ -5,7 +5,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
-
 android {
     compileSdkVersion COMPILE_SDK_VERSION
     defaultConfig {
@@ -26,8 +25,9 @@ android {
         manifestPlaceholders=[
                 //autoLayout 声明的最初尺寸
                 DESIGN_WIDTH:"1080",
-                DESIGN_HEIGHT:"1920"
-
+                DESIGN_HEIGHT:"1920",
+                XG_ACCESS_ID:"2100312426",
+                XG_ACCESS_KEY :"AU242FFIC44I"
         ]
         ndk {
             //选择要添加的对应cpu类型的.so库
@@ -111,3 +111,4 @@ dependencies {
     implementation project(':chatlibrary')
     kapt rootProject.ext.exps.arouter_compiler
 }
+

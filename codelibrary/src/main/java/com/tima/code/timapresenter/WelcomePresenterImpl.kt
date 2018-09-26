@@ -39,9 +39,10 @@ class WelcomePresenterImpl(view: IBaseViews?) : IWelcomePresent {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume(owner: LifecycleOwner) {
-        if (Constant.token.isNotEmpty()){
+        if (Constant.token.isNotEmpty()) {
+            view?.bindAccount()
             ARouter.getInstance().build(RoutePaths.mainpage).navigation()
-        }else {
+        } else {
             ARouter.getInstance().build(RoutePaths.login).navigation()
         }
         ActivityManage.instance.exitExcept("LoginActivity")

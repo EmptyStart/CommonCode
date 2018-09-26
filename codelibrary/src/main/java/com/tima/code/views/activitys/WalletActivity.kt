@@ -1,30 +1,15 @@
 package com.tima.code.views.activitys
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.tima.code.R
-import com.tima.code.ResponseBody.Position
 import com.tima.code.timaconstracts.IWalletView
 import com.tima.code.timapresenter.WalletPresenterImpl
-import com.tima.code.views.dialog.DialogUtils
-import com.tima.code.views.dialog.PaymentResultDialog
 import com.tima.common.base.BaseActivity
-import com.tima.common.base.IDataListener
-import com.tima.common.https.BaseSubscriber
-import com.tima.common.https.CommonUrls
-import com.tima.common.https.ExceptionDeal
-import com.tima.common.https.RetrofitHelper
-import com.tima.common.rx.SchedulerUtils
-import com.tima.common.utils.GsonUtils
-import com.tima.common.utils.IAMapLocationSuccessListener
-import com.tima.common.utils.LoadingBarManage
-import com.tima.common.utils.LogUtils
 import kotlinx.android.synthetic.main.code_activity_wallet.*
 import org.jetbrains.anko.toast
-import org.json.JSONObject
 
 /**
  * 钱包-界面

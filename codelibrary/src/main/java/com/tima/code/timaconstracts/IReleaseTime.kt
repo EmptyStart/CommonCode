@@ -1,7 +1,7 @@
 package com.tima.code.timaconstracts
 
-import com.tima.code.ResponseBody.LocationBean
-import com.tima.code.ResponseBody.ReleasePopData
+import com.tima.code.responsebody.LocationBean
+import com.tima.code.responsebody.ReleasePopData
 import com.tima.common.base.IBasePresenter
 import com.tima.common.base.IBaseViewModel
 import com.tima.common.base.IBaseViews

@@ -6,11 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
-import com.tima.code.ResponseBody.Position
+import com.tima.code.responsebody.Position
 import com.tima.code.timaconstracts.IFullTimePresent
 import com.tima.code.timaconstracts.IFullTimeView
 import com.tima.code.timaviewmodels.FullTimeViewModelImpl
-import com.tima.code.timaviewmodels.ManageFullTimeInfoModelImpl
 import com.tima.code.views.activitys.ManageFullTimeInfoActivity
 import com.tima.code.views.adapter.full.FullPublishedAdapter
 import com.tima.code.views.adapter.part.PartAlreadyDownAdapter

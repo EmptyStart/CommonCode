@@ -5,24 +5,22 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
+import com.tencent.android.tpush.XGPushManager
 import com.tima.code.R
-import com.tima.code.ResponseBody.Company
-import com.tima.code.ResponseBody.Hr
-import com.tima.code.ResponseBody.LoginResponseBody
-import com.tima.code.ResponseBody.RegisterValidResponseBody
+import com.tima.code.responsebody.Company
+import com.tima.code.responsebody.Hr
+import com.tima.code.responsebody.LoginResponseBody
+import com.tima.code.responsebody.RegisterValidResponseBody
 import com.tima.code.timaconstracts.ILoginPresent
 import com.tima.code.timaconstracts.ILoginView
 import com.tima.code.timaviewmodels.LoginViewModelImpl
 import com.tima.common.base.Constant
 import com.tima.common.base.IDataListener
 import com.tima.common.base.RoutePaths
-import com.tima.common.https.ApiException
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.GsonUtils
-import com.tima.common.utils.LogUtils
 import com.tima.common.utils.SpHelper
-import okhttp3.ResponseBody
 import org.litepal.crud.DataSupport
 
 /**
@@ -96,8 +94,7 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                                 hr.save()
                                 hr.company.save()
 
-
-
+                                mView?.bindAccount(hr.mobile)
                                 SpHelper(Constant.LOGENINFO, success)
                                 Constant.token = token
                                 Constant.mobile = hr.mobile

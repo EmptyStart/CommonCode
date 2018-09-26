@@ -3,8 +3,8 @@
     <dbname value="code" />
     <version value="3" />
     <list>
-        <mapping class="com.tima.code.ResponseBody.LoginResponseBody" />
-        <mapping class="com.tima.code.ResponseBody.Hr" />
-        <mapping class="com.tima.code.ResponseBody.Company" />
+        <mapping class="com.tima.code.responsebody.LoginResponseBody" />
+        <mapping class="com.tima.code.responsebody.Hr" />
+        <mapping class="com.tima.code.responsebody.Company" />
     </list>
 </litepal>

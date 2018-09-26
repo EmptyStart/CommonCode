@@ -18,7 +18,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.tima.code.R
-import com.tima.code.ResponseBody.*
+import com.tima.code.responsebody.*
 import com.tima.code.timaconstracts.IReleaseTimePresent
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener

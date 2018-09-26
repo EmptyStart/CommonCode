@@ -3,9 +3,8 @@ package com.tima.code.views.adapter.part
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
-import com.tima.code.ResponseBody.Position
+import com.tima.code.responsebody.Position
 import com.tima.common.utils.LogUtils
-import com.tima.common.utils.StringUtils
 
 /**
  * 管理-兼职-审核中

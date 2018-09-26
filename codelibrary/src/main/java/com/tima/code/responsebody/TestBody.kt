@@ -1,4 +1,4 @@
-package com.tima.code.ResponseBody
+package com.tima.code.responsebody
 
 /**
  * @author : zhijun.li on 2018/9/11

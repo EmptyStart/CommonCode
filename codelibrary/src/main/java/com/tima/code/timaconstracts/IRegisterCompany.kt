@@ -1,7 +1,7 @@
 package com.tima.code.timaconstracts
 
 import android.net.Uri
-import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.responsebody.LocationBean
 import com.tima.common.base.*
 import com.tima.common.utils.IAMapLocationSuccessListener
 

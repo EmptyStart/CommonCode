@@ -13,6 +13,8 @@ import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.location.AMapLocationListener
 import com.tbruyelle.rxpermissions2.Permission
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.tencent.android.tpush.XGIOperateCallback
+import com.tencent.android.tpush.XGPushManager
 import com.tima.code.R
 import com.tima.code.timaconstracts.IWelcomePresent
 import com.tima.code.timaconstracts.IWelcomeView
@@ -36,6 +38,18 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.welcome)
 class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
+    override fun bindAccount() {
+        XGPushManager.bindAccount(this,Constant.mobile,object : XGIOperateCallback {
+            override fun onSuccess(p0: Any?, p1: Int) {
+                LogUtils.i("TPUSH","注册成功，token为"+p0.toString())
+
+            }
+
+            override fun onFail(p0: Any?, p1: Int, p2: String?) {
+                LogUtils.i("TPUSH","注册失败，错误码：" +p1+",错误信息：" + p2)
+            }
+        })
+    }
 
 
     override fun onClick(v: View?) {

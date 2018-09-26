@@ -28,7 +28,7 @@ import com.amap.api.services.geocoder.*
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
-import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.responsebody.LocationBean
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths

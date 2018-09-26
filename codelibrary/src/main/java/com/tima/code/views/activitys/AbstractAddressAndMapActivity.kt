@@ -31,7 +31,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
-import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.responsebody.LocationBean
 import com.tima.common.base.*
 import com.tima.common.utils.*
 import kotlinx.android.synthetic.main.code_layout_select_address.*

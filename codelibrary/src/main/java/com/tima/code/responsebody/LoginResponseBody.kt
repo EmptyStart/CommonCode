@@ -1,9 +1,5 @@
-package com.tima.code.ResponseBody
+package com.tima.code.responsebody
 
-import com.google.gson.annotations.SerializedName
-import com.tima.common.https.ApiException
-import okhttp3.MediaType
-import okio.BufferedSource
 import org.litepal.crud.DataSupport
 
 /**

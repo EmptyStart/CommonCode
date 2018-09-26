@@ -17,8 +17,8 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
-import com.tima.code.ResponseBody.LocationBean
-import com.tima.code.ResponseBody.ReleasePopData
+import com.tima.code.responsebody.LocationBean
+import com.tima.code.responsebody.ReleasePopData
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
 import com.tima.code.timapresenter.ReleaseTimePresenterImpl

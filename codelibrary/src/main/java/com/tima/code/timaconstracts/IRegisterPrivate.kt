@@ -1,11 +1,9 @@
 package com.tima.code.timaconstracts
 
-import android.database.Observable
 import android.net.Uri
-import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.responsebody.LocationBean
 import com.tima.common.base.*
 import com.tima.common.utils.IAMapLocationSuccessListener
-import okhttp3.ResponseBody
 
 /**
  * @author : zhijun.li on 2018/6/28

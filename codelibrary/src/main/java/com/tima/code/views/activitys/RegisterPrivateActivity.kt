@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
-import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.responsebody.LocationBean
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timapresenter.RegisterPrivatePresentImpl
 import com.tima.common.base.Constant

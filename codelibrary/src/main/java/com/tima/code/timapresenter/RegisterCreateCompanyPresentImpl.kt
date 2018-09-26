@@ -10,8 +10,7 @@ import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
-import com.tima.code.ResponseBody.CompanyStaffsBody
-import com.tima.code.ResponseBody.LocationBean
+import com.tima.code.responsebody.CompanyStaffsBody
 import com.tima.code.timaconstracts.IRegisterCreateCompanyPresent
 import com.tima.code.timaconstracts.IRegisterCreateCompanyView
 import com.tima.code.timaviewmodels.RegisterCreateCompanyViewModelImpl

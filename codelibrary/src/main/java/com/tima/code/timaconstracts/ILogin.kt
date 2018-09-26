@@ -24,4 +24,5 @@ interface ILoginView : IBaseViews {
     fun valid(): String?
     fun getValidSuccess()
     fun cancelValid()
+    fun bindAccount(mobile: String?)
 }

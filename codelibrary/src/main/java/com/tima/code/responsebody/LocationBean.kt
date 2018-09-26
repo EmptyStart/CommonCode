@@ -1,4 +1,4 @@
-package com.tima.code.ResponseBody
+package com.tima.code.responsebody
 
 /**
  * @author : lzj on 2018/9/8 22:47

@@ -4,9 +4,9 @@ import android.app.Activity
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.tima.code.R
-import com.tima.code.ResponseBody.Company
-import com.tima.code.ResponseBody.Hr
-import com.tima.code.ResponseBody.LoginResponseBody
+import com.tima.code.responsebody.Company
+import com.tima.code.responsebody.Hr
+import com.tima.code.responsebody.LoginResponseBody
 import com.tima.code.timaconstracts.IMinePresent
 import com.tima.code.timaconstracts.IMineView
 import com.tima.code.timapresenter.MinePresenterImpl

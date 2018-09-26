@@ -8,20 +8,17 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.tima.code.R
-import com.tima.code.ResponseBody.Fund
-import com.tima.code.ResponseBody.FundDetail
+import com.tima.code.responsebody.FundDetail
 import com.tima.code.timaconstracts.IPersonnelRosterPresent
 import com.tima.code.timaconstracts.IPersonnelRosterView
 import com.tima.code.timaviewmodels.PersonnelRosterViewModelImpl
 import com.tima.code.views.adapter.mine.PersonnelRosterAdapter
-import com.tima.code.views.adapter.part.PartPublishedAdapter
 import com.tima.common.base.IDataListener
 import com.tima.common.https.CommonUrls
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.https.HttpRequest
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.LogUtils
-import kotlinx.android.synthetic.main.code_activity_personnel_roster.*
 import org.jetbrains.anko.toast
 import org.json.JSONObject
 

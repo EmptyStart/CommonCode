@@ -1,13 +1,9 @@
 package com.tima.code.views.adapter.mine
 
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.tima.code.R
-import com.tima.code.ResponseBody.Fund
+import com.tima.code.responsebody.Fund
 
 /**
  *  待付款-适配器

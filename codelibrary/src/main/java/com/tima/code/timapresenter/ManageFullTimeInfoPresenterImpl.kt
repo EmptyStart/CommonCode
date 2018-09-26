@@ -1,7 +1,6 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
-import android.app.job.JobInfo
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
@@ -10,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import com.tima.code.R
-import com.tima.code.ResponseBody.*
+import com.tima.code.responsebody.*
 import com.tima.code.bean.JobType
 import com.tima.code.timaconstracts.IManageFullTimeInfoPresent
 import com.tima.code.timaconstracts.IManageFullTimeInfoView
@@ -21,10 +20,7 @@ import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
 import com.tima.common.base.IDataListener
 import com.tima.common.https.CommonUrls
 import com.tima.common.utils.GsonUtils
-import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
-import com.tima.common.utils.StringUtils
-import org.json.JSONArray
 import org.json.JSONObject
 
 /**
