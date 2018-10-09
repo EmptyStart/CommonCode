@@ -72,6 +72,7 @@ dependencies {
     implementation project(':chatlibrary')
     kapt rootProject.ext.exps.arouter_compiler
     kapt rootProject.ext.exps.lifecycle_compiler
+    kapt rootProject.ext.exps.glide_compiler
     //    kapt rootProject.ext.exps.databinding_compiler
     //    kapt 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.21'
 }

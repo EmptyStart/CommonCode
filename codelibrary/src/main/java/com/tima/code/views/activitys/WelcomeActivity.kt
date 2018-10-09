@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
@@ -22,10 +23,7 @@ import com.tima.code.timapresenter.WelcomePresenterImpl
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
-import com.tima.common.utils.IAMapLocationSuccessListener
-import com.tima.common.utils.LogUtils
-import com.tima.common.utils.MapGaoDe
-import com.tima.common.utils.SpHelper
+import com.tima.common.utils.*
 import io.reactivex.Observer
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.code_activity_welcome.*
@@ -39,16 +37,7 @@ import org.jetbrains.anko.toast
 @Route(path = RoutePaths.welcome)
 class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
     override fun bindAccount() {
-        XGPushManager.bindAccount(this,Constant.mobile,object : XGIOperateCallback {
-            override fun onSuccess(p0: Any?, p1: Int) {
-                LogUtils.i("TPUSH","注册成功，token为"+p0.toString())
 
-            }
-
-            override fun onFail(p0: Any?, p1: Int, p2: String?) {
-                LogUtils.i("TPUSH","注册失败，错误码：" +p1+",错误信息：" + p2)
-            }
-        })
     }
 
 
@@ -63,6 +52,13 @@ class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
     override fun inits(savedInstanceState: Bundle?) {
         iWelcomePresent = WelcomePresenterImpl(this)
         lifecycle.addObserver(iWelcomePresent as WelcomePresenterImpl)
+
+        if (Constant.token.isNotEmpty()) {
+            ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+        } else {
+            ARouter.getInstance().build(RoutePaths.login).navigation()
+        }
+        finish()
     }
 
 

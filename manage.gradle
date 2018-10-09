@@ -16,6 +16,7 @@ ext{
 
     arouter_version='1.2.1'
     lifecycle_version='1.1.1'
+    glide_version='4.7.1'
     databinding_version='3.1.4'
 
 
@@ -25,6 +26,7 @@ ext{
     exps=[
             arouter_compiler        :"com.alibaba:arouter-compiler:${arouter_version}",
             lifecycle_compiler        :"android.arch.lifecycle:compiler:${lifecycle_version}",
+            glide_compiler        :"com.github.bumptech.glide:compiler:${glide_version}",
 //            databinding_compiler        :"com.android.databinding:compiler:${databinding_version}",
     ]
 }

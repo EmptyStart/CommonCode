@@ -62,7 +62,17 @@ class App :MultiDexApplication(){
             }
             ARouter.init(this); // 尽可能早，推荐在Application中初始化
             LitePal.initialize(this)
+            if (Constant.token.isNotEmpty()) {
+                XGPushManager.bindAccount(this, Constant.mobile, object : XGIOperateCallback {
+                    override fun onSuccess(p0: Any?, p1: Int) {
+                        LogUtils.i("TPUSH", "注册成功，token为" + p0.toString())
+                    }
 
+                    override fun onFail(p0: Any?, p1: Int, p2: String?) {
+                        LogUtils.i("TPUSH", "注册失败，错误码：" + p1 + ",错误信息：" + p2)
+                    }
+                })
+            }
         }
     }
 }
