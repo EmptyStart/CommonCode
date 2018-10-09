@@ -1,23 +1,29 @@
 package com.tima.code.timaviewmodels
 
-import com.tima.code.timaconstracts.IMineViewModel
+import android.database.Observable
+import com.tima.code.timaconstracts.ILoginViewModel
 import com.tima.common.base.BaseViewModel
-import com.tima.common.base.IBaseDataListener
 import com.tima.common.base.IDataListener
 import com.tima.common.https.BaseSubscriber
 import com.tima.common.https.CommonUrls
 import com.tima.common.https.RetrofitHelper
 import com.tima.common.rx.SchedulerUtils
+import io.reactivex.disposables.CompositeDisposable
+import okhttp3.ResponseBody
 
 /**
- * Created by Administrator on 2018/8/30/030.
+ * @author : zhijun.li on 2018/8/30
+ *   email : zhijun.li@timanetworks.com
+ *
  */
-class MineViewModelImpl : BaseViewModel(),IMineViewModel {
-    override fun logout(listener: IDataListener) {
+class AlipayViewModelImpl() : BaseViewModel(){
+
+    open fun addOnAlipayListener(listener: IDataListener) {
         val requestData = listener.requestData()
         val baseSubscriber = BaseSubscriber(listener)
-        RetrofitHelper.service.executePost(CommonUrls.logout, requestData).compose(SchedulerUtils
+        RetrofitHelper.service.executePost(CommonUrls.alipay, requestData).compose(SchedulerUtils
                 .ioToMain()).subscribe(baseSubscriber)
         addSubscription(baseSubscriber)
     }
+
 }

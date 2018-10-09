@@ -6,12 +6,18 @@ package com.tima.common.https
  *
  */
 object CommonUrls {
-    //登录验证
+    /**
+     *     登录验证
+     */
     const val loginVerify="login/verify/"
     /**
      * login
      */
     const val login="login/"
+ /**
+     * logout
+     */
+    const val logout="logout/"
 
     /**
      * hr info 需拼接{id}/
@@ -57,4 +63,6 @@ object CommonUrls {
     const val applyBatch = "apply/batch/"
 
     const val withdraw = "withdraw/"
+
+    const val alipay = "alipay/prepay/"
 }

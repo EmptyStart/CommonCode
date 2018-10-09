@@ -39,6 +39,7 @@ class MineFragment : BaseFragment() , View.OnClickListener,IMineView{
         ll_shell.setOnClickListener(this)
         ll_wallet.setOnClickListener(this)
         ll_resume.setOnClickListener(this)
+        tvLogout.setOnClickListener(this)
 
         var loginBody = DataSupport.findFirst(LoginResponseBody::class.java)
         var hr = DataSupport.findFirst(Hr::class.java)

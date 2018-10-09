@@ -6,44 +6,107 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.view.View
+import com.alibaba.android.arouter.launcher.ARouter
+import com.tima.chat.helper.ChatUtils
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMinePresent
 import com.tima.code.timaconstracts.IMineView
+import com.tima.code.timaviewmodels.AlipayViewModelImpl
 import com.tima.code.timaviewmodels.MineViewModelImpl
 import com.tima.code.views.activitys.WalletActivity
+import com.tima.common.alipay.AlipayUtils
+import com.tima.common.alipay.PayBackListener
+import com.tima.common.alipay.PayOrderListener
+import com.tima.common.base.Constant
 import com.tima.common.base.IBaseViews
+import com.tima.common.base.IDataListener
+import com.tima.common.base.RoutePaths
+import com.tima.common.https.CommonUrls.logout
+import com.tima.common.https.ExceptionDeal
+import com.tima.common.utils.ActivityManage
+import com.tima.common.utils.SpHelper
 
 /**
  * Created by Administrator on 2018/8/30/030.
  */
 class MinePresenterImpl : IMinePresent {
-    var view : IMineView? = null
-    var mineActivity : Activity? = null
+    var view: IMineView? = null
+    var mineActivity: Activity? = null
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { MineViewModelImpl() }
-    constructor(view : IBaseViews){
+
+    constructor(view: IBaseViews) {
         this.view = view as IMineView
         mineActivity = view?.getMineActivity()
     }
+
     override fun onClick(v: View?) {
-        when (v!!.id){
-            R.id.ll_help->{
+        when (v!!.id) {
+            R.id.ll_help -> {
 
             }
-            R.id.tv_phone->{
+            R.id.tv_phone -> {
 
             }
-            R.id.ll_shell->{
+            R.id.ll_shell -> {
 
             }
-            R.id.ll_wallet->{
-                var intent = Intent(mineActivity,WalletActivity::class.java)
+            R.id.ll_wallet -> {
+                var intent = Intent(mineActivity, WalletActivity::class.java)
                 mineActivity!!.startActivity(intent)
             }
-            R.id.ll_resume->{
+            R.id.ll_resume -> {
+                getorder("0.01")
+            }
+            R.id.tvLogout -> {
+                logoutDeal()
 
             }
         }
     }
+
+    private fun getorder(money: String){
+        view?.showLoading()
+        AlipayUtils.addOnAlipayListener(object : PayOrderListener{
+            override fun productOrder(orderInfo: String) {
+                view?.hideLoading()
+                AlipayUtils.pay(orderInfo,object : PayBackListener{
+                    override fun payBack(result: String?) {
+
+                    }
+                })
+            }
+
+            override fun money(): String? =money
+        })
+    }
+    private fun logoutDeal() {
+        val mobile = Constant.mobile
+        if (mobile.isNotEmpty()) {
+            view?.showLoading()
+            mViewMode.logout(object : IDataListener {
+                override fun requestData(): Map<String, String>? {
+                    return mapOf(Pair("mobile", mobile))
+                }
+
+                override fun successData(success: String) {
+                    view?.hideLoading()
+                    view?.showError("退出登录成功")
+                    SpHelper.clearPreference()
+                    ARouter.getInstance().build(RoutePaths.login).navigation()
+                    ActivityManage.instance.exitExcept("LoginActivity")
+                }
+
+                override fun errorData(error: String) {
+                    view?.hideLoading()
+//                    view?.showError("退出登录失败")
+                    ExceptionDeal.handleException(error)
+                }
+
+            })
+
+        }
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
         mViewMode.detachView()

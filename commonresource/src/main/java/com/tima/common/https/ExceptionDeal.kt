@@ -1,6 +1,7 @@
 package com.tima.common.https
 
-import android.widget.Toast
+import com.alibaba.android.arouter.launcher.ARouter
+import com.tima.common.base.RoutePaths
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.SpHelper
@@ -22,6 +23,7 @@ object ExceptionDeal {
                 it.toast(detail?:"未知错误")
                 if ("token失效，请重新登陆！"==exception?.detail){
                     SpHelper.clearPreference()
+                    ARouter.getInstance().build(RoutePaths.login).navigation()
                     ActivityManage.instance.exitExcept("LoginActivity")
                 }
             }catch (e:Exception){

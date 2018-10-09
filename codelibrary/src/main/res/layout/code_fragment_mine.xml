@@ -169,7 +169,18 @@
                 android:textSize="13sp"
                 android:textColor="@color/xmpp_mian"/>
         </com.zhy.autolayout.AutoLinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80px"
+            android:background="@color/line"/>
+        <TextView
+            android:id="@+id/tvLogout"
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:text="退出登录"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textColor="@color/code_title_barbc"/>
     </com.zhy.autolayout.AutoLinearLayout>
 
     <ImageView

@@ -20,7 +20,7 @@ class LoginViewModelImpl() : BaseViewModel(),ILoginViewModel{
 
     override fun addOnVerifyListener(listener: IDataListener) {
         val requestData = listener.requestData()
-        val baseSubscriber = BaseSubscriber(listener);
+        val baseSubscriber = BaseSubscriber(listener)
         RetrofitHelper.service.executePost(CommonUrls.loginVerify, requestData).compose(SchedulerUtils
                 .ioToMain()).subscribe(baseSubscriber)
         addSubscription(baseSubscriber)
