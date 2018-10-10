@@ -69,16 +69,23 @@ class MinePresenterImpl : IMinePresent {
         AlipayUtils.addOnAlipayListener(object : PayOrderListener{
             override fun productOrder(orderInfo: String) {
                 view?.hideLoading()
-                AlipayUtils.pay(orderInfo,object : PayBackListener{
-                    override fun payBack(result: String?) {
 
-                    }
-                })
+
             }
 
             override fun money(): String? =money
         })
     }
+
+    //支付宝充值
+    private fun payAlipay(orderInfo : String){
+        AlipayUtils.pay(orderInfo,object : PayBackListener{
+            override fun payBack(result: String?) {
+
+            }
+        })
+    }
+
     private fun logoutDeal() {
         val mobile = Constant.mobile
         if (mobile.isNotEmpty()) {

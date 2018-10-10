@@ -37,11 +37,18 @@ object DialogUtils{
     /**
      * 账户充值
      */
-    fun showAccountRecharge(activity: Activity,listener : OnDialogListener) : Dialog{
+    fun showAccountRecharge(activity: Activity,needMoney : String,surplusMoney : String, rechargeMoney : String,listener : OnDialogListener) : Dialog{
         var view = View.inflate(activity, R.layout.code_dialog_account_recharge,null)
         var dialog = AlertDialog.Builder(activity).create()
+        var tv_surplus_amount : TextView = view.findViewById(R.id.tv_surplus_amount)
+        var tv_need_pay : TextView = view.findViewById(R.id.tv_need_pay)
+        var tv_recharge_amount : TextView = view.findViewById(R.id.tv_recharge_amount)
         var tv_sure_recharge : TextView = view.findViewById(R.id.tv_sure_recharge)
         var iv_cancel : ImageView = view.findViewById(R.id.iv_cancel)
+
+        tv_surplus_amount.text = surplusMoney
+        tv_need_pay.text = needMoney
+        tv_recharge_amount.text = rechargeMoney
 
         iv_cancel.setOnClickListener(View.OnClickListener {
             if (dialog != null)
@@ -49,14 +56,14 @@ object DialogUtils{
         })
         tv_sure_recharge.setOnClickListener(View.OnClickListener {
             if (listener != null)
-                listener.onDialogClick()
+                listener.onDialogClick("0.01")
         })
         showKeyboardDialog(activity,dialog,view)
         return dialog
     }
 
     interface OnDialogListener{
-        fun onDialogClick()
+        fun onDialogClick(money : String)
     }
 
 

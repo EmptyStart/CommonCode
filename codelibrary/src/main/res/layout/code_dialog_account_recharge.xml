@@ -35,11 +35,11 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <EditText
+        <TextView
             style="@style/weight_width_1"
             android:background="@null"
-            android:hint="剩余金额"
-            android:textColor="@color/text_black"
+            android:text="剩余金额"
+            android:textColor="@color/text_gray"
             android:textSize="16sp" />
 
         <TextView
@@ -72,11 +72,11 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <EditText
+        <TextView
             style="@style/weight_width_1"
             android:background="@null"
-            android:hint="需支付"
-            android:textColor="@color/text_black"
+            android:text="需支付"
+            android:textColor="@color/text_gray"
             android:textSize="16sp" />
 
         <TextView
@@ -171,6 +171,7 @@
         android:layout_height="140px"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:paddingLeft="100px"
         android:paddingRight="100px">
 
@@ -200,8 +201,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:gravity="center_vertical"
+        android:layout_height="300px"
         android:orientation="horizontal"
         android:background="@color/line"
         android:paddingLeft="100px"
@@ -209,8 +209,8 @@
         <TextView
             android:id="@+id/tv_sure_recharge"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25px"
+            android:layout_height="125px"
+            android:layout_marginTop="125px"
             android:layout_marginBottom="25px"
             android:textColor="@color/white"
             android:text="确认充值"

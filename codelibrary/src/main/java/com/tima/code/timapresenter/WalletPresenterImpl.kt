@@ -1,6 +1,7 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.view.View
 import com.tima.code.R
@@ -12,6 +13,9 @@ import com.tima.code.timaviewmodels.WalletViewModelImpl
 import com.tima.code.views.activitys.PutForwardActivity
 import com.tima.code.views.activitys.TradeFlowActivity
 import com.tima.code.views.dialog.DialogUtils
+import com.tima.common.alipay.AlipayUtils
+import com.tima.common.alipay.PayBackListener
+import com.tima.common.alipay.PayOrderListener
 import com.tima.common.base.IDataListener
 import com.tima.common.https.CommonUrls
 import com.tima.common.https.ExceptionDeal
@@ -31,6 +35,7 @@ class WalletPresenterImpl : IWalletPresent , DialogUtils.OnDialogListener{
     var viewMode: WalletViewModelImpl
     var funds = ArrayList<Fund>()
     var walletCo : WalletCo? = null
+    var payDialog : Dialog? = null
 
     constructor(view : IWalletView){
         this.view = view
@@ -97,7 +102,10 @@ class WalletPresenterImpl : IWalletPresent , DialogUtils.OnDialogListener{
                 activity.startActivity(intent)
             }
             R.id.tv_account_recharge->{
-                DialogUtils.showAccountRecharge(activity,this)
+                if (walletCo != null){
+                    var needMoney = walletCo?.total_amt!! - walletCo?.available_amt!!
+                    payDialog = DialogUtils.showAccountRecharge(activity,needMoney.toString(),walletCo?.available_amt.toString(),walletCo?.total_amt.toString(),this)
+                }
             }
             R.id.ll_stay_payment->{
                 var intent = Intent(activity, TradeFlowActivity::class.java)
@@ -108,11 +116,45 @@ class WalletPresenterImpl : IWalletPresent , DialogUtils.OnDialogListener{
                 activity.finish()
             }
             R.id.tv_actionbar_right_title->{
-                DialogUtils.showAccountRecharge(activity,this)
+            if (walletCo != null){
+                var needMoney = walletCo?.total_amt!! - walletCo?.available_amt!!
+                payDialog = DialogUtils.showAccountRecharge(activity,needMoney.toString(),walletCo?.available_amt.toString(),walletCo?.total_amt.toString(),this)
+            }
+
             }
         }
     }
 
-    override fun onDialogClick() {
+    override fun onDialogClick(money : String) {
+        getorder(money)
+    }
+
+
+    private fun getorder(money: String){
+        LogUtils.i(TAG,"getorder  开始调用支付宝支付")
+        view?.showLoading()
+        AlipayUtils.addOnAlipayListener(object : PayOrderListener {
+            override fun productOrder(orderInfo: String) {
+                view.hideLoading()
+                LogUtils.i(TAG,"getorder  result=="+orderInfo)
+                payAlipay(orderInfo)
+            }
+            override fun money(): String? =money
+        })
+    }
+
+    //支付宝充值
+    private fun payAlipay(orderInfo : String){
+        AlipayUtils.pay(orderInfo,object : PayBackListener {
+            override fun payBack(result: String?) {
+                LogUtils.i(TAG,"payAlipay  result=="+result)
+                if(result != null){
+                    if (result.equals("支付成功")){
+                        if (payDialog != null)
+                            payDialog?.dismiss()
+                    }
+                }
+            }
+        })
     }
 }

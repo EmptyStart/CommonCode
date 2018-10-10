@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.tima.code.R
+import com.tima.common.alipay.AlipayUtils
+import com.tima.common.alipay.PayBackListener
+import com.tima.common.alipay.PayOrderListener
 import com.tima.common.base.BaseActivity
 import com.tima.common.utils.ResourceUtil
 import kotlinx.android.synthetic.main.code_activity_put_foward.*
@@ -40,6 +43,7 @@ class PutForwardActivity : BaseActivity(), View.OnClickListener{
             }
             R.id.tv_actionbar_right_title->{
                 toast("确认提现")
+
             }
             R.id.iv_actionbar_cancle->{
                 finish()
@@ -73,4 +77,7 @@ class PutForwardActivity : BaseActivity(), View.OnClickListener{
         tv_wechat_name.setTextColor(if(position == 1) white else gray)
         tv_wechat_update.setTextColor(if(position == 1) white else gray)
     }
+
+
+
 }

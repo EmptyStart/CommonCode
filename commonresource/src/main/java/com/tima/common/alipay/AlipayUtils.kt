@@ -22,6 +22,8 @@ import org.jetbrains.anko.toast
  *
  */
 object AlipayUtils {
+
+
     //传入订单信息起调支付宝
     fun pay(orderInfo: String, listener: PayBackListener?) {
         val currentActivity = ActivityManage.instance.getCurrentActivity()
