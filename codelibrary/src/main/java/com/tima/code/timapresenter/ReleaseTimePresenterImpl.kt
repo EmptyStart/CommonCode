@@ -81,11 +81,17 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     //最低学历
     private var edu = ""
 
+    private var positionId = ""
+
     override fun onClick(view: View?) {
         view?.let {
             when (it.id) {
                 R.id.iv_actionbar_cancle -> {
-                    (view.context as Activity).finish()
+                    if (positionId.isNotEmpty()) {
+                        reRelease(positionId)
+                    } else {
+                        (view.context as Activity).finish()
+                    }
                 }
 
                 R.id.rl_work_type -> {
@@ -267,11 +273,11 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             if (edu.isNotEmpty()) {
                 pairs["education"] = edu
             }
-            upRelease(pairs)
+            upRelease(pairs, code)
         }
     }
 
-    fun upRelease(requestData: Map<String, String>) {
+    fun upRelease(requestData: Map<String, String>, code: Int) {
         mView?.showLoading()
         mViewModel.addOnReleaseTimeListener(object : IDataListener {
             override fun requestData(): Map<String, String>? {
@@ -281,8 +287,18 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             override fun successData(success: String) {
                 mView?.hideLoading()
                 mView?.showError("发布成功")
+
+                if (code == 1) {
+                    //兼职
+                    //statue==4  本地账户余额不足
+                    if (4 == 4) {
+
+                    }
+                }
+
                 val currentActivity = ActivityManage.instance.getCurrentActivity()
                 currentActivity?.finish()
+
             }
 
             override fun errorData(error: String) {
@@ -557,6 +573,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                             emitter.onNext(workExpResults)
                         }
                     }
+
                     override fun errorData(error: String) {
                         mView?.hideLoading()
                         ExceptionDeal.handleException(error)
@@ -575,6 +592,28 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             }
         }
 
+    }
+
+    private fun reRelease(positionId: String) {
+        mView?.showLoading()
+        mViewModel.addOnRepayListener(object : IDataListener {
+            override fun successData(success: String) {
+                mView?.hideLoading()
+            }
+
+            override fun errorData(error: String) {
+                mView?.hideLoading()
+                ExceptionDeal.handleException(error)
+            }
+
+            override fun requestData(): Map<String, String>? {
+                return mapOf(Pair("position_id", positionId))
+            }
+        })
+    }
+
+    override fun isCanRe(): Boolean {
+        return positionId.isNotEmpty()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

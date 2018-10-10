@@ -5,10 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
@@ -285,6 +282,13 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         return true
     }
 
+    override fun onBackPressed() {
+        if (presenter.isCanRe()){
+            toast("您还没有走完兼职发布流程！")
+            return
+        }
+        super.onBackPressed()
+    }
     override fun onDestroy() {
         popSelect?.let {
             if (it.isShowing) {

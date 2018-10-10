@@ -13,6 +13,14 @@ import com.tima.common.rx.SchedulerUtils
  *
  */
 class ReleaseTimeViewModelImpl : ConfigInfoViewModelImpl(),IReleaseTimeViewModel {
+    override fun addOnRepayListener(listener: IDataListener) {
+        val requestData = listener.requestData()
+        val baseSubscriber = BaseSubscriber(listener);
+        RetrofitHelper.service.executePost(CommonUrls.replayTime,requestData).compose(SchedulerUtils
+                .ioToMain()).subscribe(baseSubscriber)
+        addSubscription(baseSubscriber)
+    }
+
     override fun addOnReleaseTimeListener(listener: IDataListener) {
         val requestData = listener.requestData()
         val baseSubscriber = BaseSubscriber(listener);

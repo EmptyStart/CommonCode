@@ -361,3 +361,37 @@ data class WorkExpResult(
     val key: String,
     val value: String
 )
+
+data class ReleasePartTimeResponse(
+    val id: Int,
+    val applys: List<Any>,
+    val created_on: String,
+    val career_type: Int,
+    val name: String,
+    val province: String,
+    val city: String,
+    val region: String,
+    val address: String,
+    val longitude: String,
+    val latitude: String,
+    val type: String,
+    val salary_type: String,
+    val salary_begin: String,
+    val salary_end: String,
+    val salary_unit: String,
+    val salary_qty: Int,
+    val exp_year_beg: Int,
+    val exp_year_end: Int,
+    val on_site_time: String,
+    val education: String,
+    val status: String,
+    val verify: String,
+    val priority: Any,
+    val interview_day: Any,
+    val interview_time: Any,
+    val interview_from: Any,
+    val interview_to: Any,
+    val qty: Int,
+    val qty_var: Int,
+    val skill_set: Any
+)

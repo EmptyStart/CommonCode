@@ -25,9 +25,10 @@ object ExceptionDeal {
                     SpHelper.clearPreference()
                     ARouter.getInstance().build(RoutePaths.login).navigation()
                     ActivityManage.instance.exitExcept("LoginActivity")
-                }
+                }else{}
             }catch (e:Exception){
                 e.printStackTrace()
+                it.toast("未知错误")
             }
         }
     }

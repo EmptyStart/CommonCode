@@ -1,64 +1,82 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tima.code" >
+    package="com.tima.code">
 
     <application>
-        <activity android:name=".views.activitys.MainPageActivity"
+        <activity
+            android:name=".views.activitys.MainPageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.WelcomeActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.LoginActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.ReleaseFulltimeActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.ReleaseFulltimeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.ManageFullTimeInfoActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.ManageFullTimeInfoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.WalletActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.WalletActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.TradeFlowActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.TradeFlowActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.PaymentMethodActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.PaymentMethodActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.PutForwardActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.PutForwardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.RegisterCreateCompanyActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.RegisterCreateCompanyActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.PersonnelRosterActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.PersonnelRosterActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.ManageSetActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.ManageSetActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".views.activitys.RegisterSelectActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".views.activitys.RegisterSelectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.RegisterPrivateActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.RegisterPrivateActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.RegisterCompanyActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.RegisterCompanyActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme.NoActionBar"/>
-        <activity android:name=".views.activitys.MapSearchActivity"
+            android:theme="@style/BaseAppTheme.NoActionBar" />
+        <activity
+            android:name=".views.activitys.MapSearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MapSearchStyle"
-            />
-        <activity android:name=".views.activitys.ReleaseParttimeActivity"
+            android:theme="@style/MapSearchStyle" />
+        <activity
+            android:name=".views.activitys.ReleaseParttimeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MapSearchStyle"
-            />
-        <activity android:name=".views.activitys.TagSelectActivity"
+            android:theme="@style/MapSearchStyle" />
+        <activity
+            android:name=".views.activitys.TagSelectActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MapSearchStyle"
-            />
+            android:theme="@style/MapSearchStyle" />
+        <activity
+            android:name="com.zhishen.report.wxapi.WXEntryActivity"
+            android:exported="true" />
     </application>
 </manifest>

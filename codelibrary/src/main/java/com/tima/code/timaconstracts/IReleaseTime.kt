@@ -14,10 +14,12 @@ import com.tima.common.base.IDataListener
  */
 interface IReleaseTimeViewModel : IBaseViewModel {
     fun addOnReleaseTimeListener(listener: IDataListener)
+    fun addOnRepayListener(listener: IDataListener)
 }
 
 interface IReleaseTimePresent : IBasePresenter {
     fun saveRelease(code : Int)
+    fun isCanRe() : Boolean
 }
 
 interface IReleaseTimeView : IBaseViews {

@@ -32,6 +32,10 @@ object CommonUrls {
      * 发布职业
      */
     const val releaseTime="position/"
+   /**
+    * 兼职发布  余额不足的情况
+    */
+    const val replayTime="position/repay/"
 
     /**
      * 配置信息查询

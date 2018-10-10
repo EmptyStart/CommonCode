@@ -109,12 +109,13 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-vector-drawable'
     }
     //环信客服SDK
-    api 'com.hyphenate:kefu-easeui-android:latest.release' //或者 compile 'com
+    api 'com.hyphenate:kefu-easeui-android:1.1.7.final' //或者 compile 'com
 //增加这行
     api 'com.tencent.xinge:xinge:4.0.3-release'
     api 'com.tencent.jg:jg:1.1'
     api 'com.tencent.wup:wup:1.0.0.E-release'
     api 'com.tencent.mid:mid:4.0.7'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:5.1.6'
     //    api libraries.values()
 }
 
