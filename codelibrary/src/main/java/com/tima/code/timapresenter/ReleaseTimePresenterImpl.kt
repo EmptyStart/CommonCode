@@ -1,6 +1,7 @@
 package com.tima.code.timapresenter
 
 import android.app.Activity
+import android.app.Dialog
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
@@ -70,6 +71,8 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
     //兼职时间
     var partTimeSelect: String = ""
+
+    var rechargeDialog : Dialog?=null
     private val mViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ReleaseTimeViewModelImpl()
     }
@@ -624,10 +627,10 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     private fun recharge(){
         val currentActivity = ActivityManage.instance.getCurrentActivity()
         currentActivity?.let {
-            DialogUtils.showAccountRecharge(it,"10","11","12",object : DialogUtils
-            .OnDialogListener{
+            rechargeDialog = DialogUtils.showAccountRecharge(it, "10", "11", "12", object : DialogUtils
+            .OnDialogListener {
                 override fun onDialogClick(money: String) {
-
+                    rechargeDialog?.dismiss()
                 }
             })
         }
@@ -639,6 +642,11 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         mView == null
         popFullDateWindow?.let {
             if (it.isShowing) {
+                it.dismiss()
+            }
+        }
+        rechargeDialog?.let {
+            if (it.isShowing){
                 it.dismiss()
             }
         }
