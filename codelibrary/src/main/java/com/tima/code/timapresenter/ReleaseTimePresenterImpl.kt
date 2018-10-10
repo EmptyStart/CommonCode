@@ -23,6 +23,7 @@ import com.tima.code.timaconstracts.IReleaseTimePresent
 import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
 import com.tima.code.timaviewmodels.ReleaseTimeViewModelImpl
+import com.tima.code.views.dialog.DialogUtils
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.IDataListener
 import com.tima.common.https.ExceptionDeal
@@ -90,7 +91,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     if (positionId.isNotEmpty()) {
                         reRelease(positionId)
                     } else {
-                        (view.context as Activity).finish()
+//                        (view.context as Activity).finish()
                     }
                 }
 
@@ -287,12 +288,16 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             override fun successData(success: String) {
                 mView?.hideLoading()
                 mView?.showError("发布成功")
+                val response = GsonUtils.getGson.fromJson(success,
+                        ReleasePartTimeResponse::class.java)
 
                 if (code == 1) {
                     //兼职
                     //statue==4  本地账户余额不足
-                    if (4 == 4) {
-
+                    if (response.status == "4") {
+                        positionId=response.id.toString()
+                        recharge()
+                        return
                     }
                 }
 
@@ -614,6 +619,18 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
     override fun isCanRe(): Boolean {
         return positionId.isNotEmpty()
+    }
+
+    private fun recharge(){
+        val currentActivity = ActivityManage.instance.getCurrentActivity()
+        currentActivity?.let {
+            DialogUtils.showAccountRecharge(it,"10","11","12",object : DialogUtils
+            .OnDialogListener{
+                override fun onDialogClick(money: String) {
+
+                }
+            })
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

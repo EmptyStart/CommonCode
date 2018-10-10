@@ -36,6 +36,9 @@ object DialogUtils{
 
     /**
      * 账户充值
+     * @param needMoney 需支付
+     * @param surplusMoney 剩余金额
+     * @param rechargeMoney 充值金额
      */
     fun showAccountRecharge(activity: Activity,needMoney : String,surplusMoney : String, rechargeMoney : String,listener : OnDialogListener) : Dialog{
         var view = View.inflate(activity, R.layout.code_dialog_account_recharge,null)
