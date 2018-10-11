@@ -629,7 +629,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         currentActivity?.let {
             rechargeDialog = DialogUtils.showAccountRecharge(it, "10", "11", "12", object : DialogUtils
             .OnDialogListener {
-                override fun onDialogClick(money: String) {
+                override fun onDialogClick(money: String,selectType : Int) {
                     rechargeDialog?.dismiss()
                 }
             })

@@ -48,25 +48,42 @@ object DialogUtils{
         var tv_recharge_amount : TextView = view.findViewById(R.id.tv_recharge_amount)
         var tv_sure_recharge : TextView = view.findViewById(R.id.tv_sure_recharge)
         var iv_cancel : ImageView = view.findViewById(R.id.iv_cancel)
+        var iv_alipay : ImageView = view.findViewById(R.id.iv_alipay)
+        var iv_wechat : ImageView = view.findViewById(R.id.iv_wechat)
 
+        var selectType = 0
         tv_surplus_amount.text = surplusMoney
         tv_need_pay.text = needMoney
         tv_recharge_amount.text = rechargeMoney
 
+        iv_alipay.setOnClickListener({
+            if (selectType != 0){
+                selectType = 0
+                iv_alipay.setImageResource(R.mipmap.icon_check)
+                iv_wechat.setImageResource(R.mipmap.icon_uncheck)
+            }
+        })
+        iv_wechat.setOnClickListener({
+            if (selectType != 1){
+                selectType = 1
+                iv_alipay.setImageResource(R.mipmap.icon_uncheck)
+                iv_wechat.setImageResource(R.mipmap.icon_check)
+            }
+        })
         iv_cancel.setOnClickListener(View.OnClickListener {
             if (dialog != null)
                 dialog.dismiss()
         })
         tv_sure_recharge.setOnClickListener(View.OnClickListener {
             if (listener != null)
-                listener.onDialogClick("0.01")
+                listener.onDialogClick("0.01",selectType)
         })
         showKeyboardDialog(activity,dialog,view)
         return dialog
     }
 
     interface OnDialogListener{
-        fun onDialogClick(money : String)
+        fun onDialogClick(money : String,selectType : Int)
     }
 
 

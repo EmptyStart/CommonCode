@@ -125,8 +125,12 @@ class WalletPresenterImpl : IWalletPresent , DialogUtils.OnDialogListener{
         }
     }
 
-    override fun onDialogClick(money : String) {
-        getorder(money)
+    override fun onDialogClick(money : String,selectType : Int) {
+        if (selectType == 0){           //支付宝
+            getorder(money)
+        }else{                          //微信
+
+        }
     }
 
 
