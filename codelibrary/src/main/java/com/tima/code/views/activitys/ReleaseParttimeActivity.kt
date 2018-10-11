@@ -38,6 +38,15 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releaseparttime)
 class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickListener, IReleaseTimeView {
+
+    override fun close() {
+        finish()
+    }
+
+    override fun getCountMoney(): String? {
+        return tv_count_pay.text.toString().trim()
+    }
+
     override fun setInWeek(code: Int) {
     }
 
@@ -140,6 +149,9 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     override fun getQty(): String? {
         return et_count.text.toString().trim()
     }
+    override fun getQtyVar(): String? {
+        return et_count_add.text.toString().trim()
+    }
 
     override fun setQty(value: Any?) {
         value?.let {
@@ -231,6 +243,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         et_count.addTextChangedListener(this)
         et_cycle.addTextChangedListener(this)
         et_wage.addTextChangedListener(this)
+        et_count_add.addTextChangedListener(this)
         rl_work_type.setOnClickListener(this)
         tv_minus.setOnClickListener(this)
         tv_add.setOnClickListener(this)
@@ -246,6 +259,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
         val wage = et_wage.text.toString()
         val cycle = et_cycle.text.toString()
         val count = et_count.text.toString()
+        val countAdd = et_count_add.text.toString()
         if (wage.isEmpty() || cycle.isEmpty() || count.isEmpty()) {
             return
         }
@@ -256,7 +270,8 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
             val wi: Int = wage.toInt()
             val ci: Int = cycle.toInt()
             val ti: Int = count.toInt()
-            val i = wi * ci * ti
+            val tid: Int = countAdd.toInt()
+            val i = wi * ci * (ti+tid)
             val poundage = i * Constant.partCommit
             val d = poundage + i
             tv_poundage.text = poundage.toString()

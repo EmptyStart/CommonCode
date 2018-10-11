@@ -123,7 +123,8 @@
                         android:paddingRight="35px"
                         android:text="-"
                         android:textColor="@color/code_title_barbc"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:visibility="gone"/>
 
                     <EditText
                         android:id="@+id/et_count"
@@ -138,7 +139,30 @@
                         android:text="0"
                         android:inputType="number"
                         android:textSize="12sp" />
-
+                    <TextView
+                        android:id="@+id/tv_add_"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="35px"
+                        android:paddingRight="35px"
+                        android:text="±"
+                        android:textColor="@color/code_title_barbc"
+                        android:textSize="25sp" />
+                    <EditText
+                        android:id="@+id/et_count_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/code_release_count_bc"
+                        android:gravity="center"
+                        android:paddingBottom="15px"
+                        android:paddingLeft="30px"
+                        android:paddingRight="30px"
+                        android:paddingTop="15px"
+                        android:text="0"
+                        android:inputType="number"
+                        android:layout_marginRight="72px"
+                        android:textSize="12sp" />
                     <TextView
                         android:id="@+id/tv_add"
                         android:layout_width="wrap_content"
@@ -148,7 +172,8 @@
                         android:paddingRight="35px"
                         android:text="+"
                         android:textColor="@color/code_title_barbc"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:visibility="gone"/>
                 </LinearLayout>
             </RelativeLayout>
 

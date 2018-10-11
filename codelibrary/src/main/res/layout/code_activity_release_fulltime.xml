@@ -269,6 +269,8 @@
                     android:hint="请填写"
                     android:textSize="12sp"
                     android:background="@null"
+                    android:minHeight="100dp"
+                    android:gravity="left|top"
                     android:layout_below="@+id/tv_work_desc"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="2dp"

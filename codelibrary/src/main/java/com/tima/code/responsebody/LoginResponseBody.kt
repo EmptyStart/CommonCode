@@ -363,6 +363,21 @@ data class WorkExpResult(
 )
 
 data class ReleasePartTimeResponse(
+    val position: ReleasePartTimePosition,
+    val wallet: ReleasePartTimeWallet
+)
+
+data class ReleasePartTimeWallet(
+    val company: Int,
+    val created_on: String,
+    val total_amt: String,
+    val freeze_amt: String,
+    val available_amt: String,
+    val credit_amt: String,
+    val loan_amt: String
+)
+
+data class ReleasePartTimePosition(
     val id: Int,
     val applys: List<Any>,
     val created_on: String,
@@ -370,7 +385,7 @@ data class ReleasePartTimeResponse(
     val name: String,
     val province: String,
     val city: String,
-    val region: String,
+    val region: Any,
     val address: String,
     val longitude: String,
     val latitude: String,
@@ -380,8 +395,8 @@ data class ReleasePartTimeResponse(
     val salary_end: String,
     val salary_unit: String,
     val salary_qty: Int,
-    val exp_year_beg: Int,
-    val exp_year_end: Int,
+    val exp_year_beg: Any,
+    val exp_year_end: Any,
     val on_site_time: String,
     val education: String,
     val status: String,

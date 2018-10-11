@@ -64,6 +64,14 @@ interface IReleaseTimeView : IBaseViews {
     fun setInWeek(code: Int)
     //面试时间
     fun setInTime(code: Int)
+
+    //合计金额
+    fun getCountMoney() : String?
+
+    //运行误差人数
+    fun getQtyVar() : String?
+
+    fun close()
 }
 
 interface OnSelectListener {

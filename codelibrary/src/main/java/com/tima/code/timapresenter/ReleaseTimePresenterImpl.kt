@@ -7,6 +7,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +26,12 @@ import com.tima.code.timaconstracts.IReleaseTimeView
 import com.tima.code.timaconstracts.OnSelectListener
 import com.tima.code.timaviewmodels.ReleaseTimeViewModelImpl
 import com.tima.code.views.dialog.DialogUtils
+import com.tima.common.alipay.AlipayUtils
+import com.tima.common.alipay.PayBackListener
+import com.tima.common.alipay.PayOrderListener
 import com.tima.common.base.BaseActivity
 import com.tima.common.base.IDataListener
+import com.tima.common.https.ApiException
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.DateUtils
@@ -72,7 +77,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     //兼职时间
     var partTimeSelect: String = ""
 
-    var rechargeDialog : Dialog?=null
+    var rechargeDialog: Dialog? = null
     private val mViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ReleaseTimeViewModelImpl()
     }
@@ -81,7 +86,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     //小时选择的结果
     private var selectTimesData = ""
     //薪水单位
-    private var salaryUnit = ""
+    private var salaryUnits = ""
     //最低学历
     private var edu = ""
 
@@ -92,9 +97,9 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             when (it.id) {
                 R.id.iv_actionbar_cancle -> {
                     if (positionId.isNotEmpty()) {
-                        reRelease(positionId)
+                        mView?.showError("您还没有走完兼职发布流程！")
                     } else {
-//                        (view.context as Activity).finish()
+                        mView?.close()
                     }
                 }
 
@@ -180,6 +185,10 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
     //0/全职 1/兼职
     override fun saveRelease(code: Int) {
+        if (positionId.isNotEmpty()) {
+            reRelease(positionId)
+            return
+        }
         mView?.apply {
             val pairs = mutableMapOf<String, String>()
             pairs["type"] = code.toString()
@@ -224,8 +233,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                 pairs["skill_set"] = skillSet!!
             }
             if (code == 1) {
-                pairs["salary_begin"] = "10"
-                pairs["salary_end"] = "10"
+
                 if (partTimeSelect.isEmpty()) {
                     showError("请选择到场时间")
                     return
@@ -237,14 +245,27 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     showError("请输入单位薪水")
                     return
                 } else {
-                    pairs["salary_qty"] = wagePart!!
+                    pairs["salary_begin"] = wagePart!!
+                    pairs["salary_end"] = wagePart!!
+                }
+
+                val salaryQty = salaryUnit()
+                if (salaryQty.isNullOrEmpty()){
+                    showError("请输入周期单位数量")
+                }else{
+                    pairs["salary_qty"] = salaryQty!!
                 }
                 val qty = getQty()
                 if (qty.isNullOrEmpty()) {
                     showError("请输入需求人数")
                 } else {
                     pairs["qty"] = qty!!
-                    pairs["qty_var"] = qty!!
+                }
+                val qtyVar = getQtyVar()
+                if (qtyVar.isNullOrEmpty()){
+                    pairs["qty_var"] = "0"
+                }else{
+                    pairs["qty_var"] =qtyVar!!
                 }
             }
 
@@ -271,8 +292,8 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             }
 
 
-            if (salaryUnit.isNotEmpty()) {
-                pairs["salary_unit"] = salaryUnit
+            if (salaryUnits.isNotEmpty()) {
+                pairs["salary_unit"] = salaryUnits
             }
             if (edu.isNotEmpty()) {
                 pairs["education"] = edu
@@ -290,23 +311,24 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
             override fun successData(success: String) {
                 mView?.hideLoading()
-                mView?.showError("发布成功")
                 val response = GsonUtils.getGson.fromJson(success,
                         ReleasePartTimeResponse::class.java)
 
                 if (code == 1) {
                     //兼职
                     //statue==4  本地账户余额不足
-                    if (response.status == "4") {
-                        positionId=response.id.toString()
-                        recharge()
+                    val position = response.position
+                    val wallet = response.wallet
+                    if (position.status == "4") {
+                        positionId = position.id.toString()
+                        val surplusMoney = wallet.available_amt
+                        val needMoney = mView?.getCountMoney()
+                        recharge(surplusMoney, needMoney)
                         return
                     }
                 }
-
-                val currentActivity = ActivityManage.instance.getCurrentActivity()
-                currentActivity?.finish()
-
+                mView?.showError("发布成功")
+                mView?.close()
             }
 
             override fun errorData(error: String) {
@@ -531,7 +553,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
                                     2 -> {
                                         setSalaryUnit(activity.resources.getStringArray(items).get(selectedIndex))
-                                        salaryUnit = selectedIndex.toString()
+                                        salaryUnits = selectedIndex.toString()
                                     }
                                     3 -> {
                                         setWage(its?.get(selectedIndex))
@@ -602,11 +624,19 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
     }
 
-    private fun reRelease(positionId: String) {
+    private fun reRelease(posId: String) {
         mView?.showLoading()
         mViewModel.addOnRepayListener(object : IDataListener {
             override fun successData(success: String) {
                 mView?.hideLoading()
+                val success = GsonUtils.getGson.fromJson(success, ApiException::class.java)
+                if (TextUtils.equals("200",success.code.toString())){
+                    mView?.showError("发布成功")
+                    positionId=""
+                    mView?.close()
+                }else{
+                    mView?.showError(success.detail.toString())
+                }
             }
 
             override fun errorData(error: String) {
@@ -615,7 +645,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             }
 
             override fun requestData(): Map<String, String>? {
-                return mapOf(Pair("position_id", positionId))
+                return mapOf(Pair("position_id", posId))
             }
         })
     }
@@ -624,13 +654,32 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         return positionId.isNotEmpty()
     }
 
-    private fun recharge(){
+    private fun recharge(surplusMoney: String, needMoney: String?) {
+        if (needMoney.isNullOrEmpty()) return
+        val toDouble = surplusMoney.toDouble()
+        val toDouble1 = needMoney!!.toDouble()
+        val rechargeMoney = String.format("%.2f",(toDouble1 - toDouble))
         val currentActivity = ActivityManage.instance.getCurrentActivity()
         currentActivity?.let {
-            rechargeDialog = DialogUtils.showAccountRecharge(it, "10", "11", "12", object : DialogUtils
+            rechargeDialog = DialogUtils.showAccountRecharge(it, needMoney, surplusMoney, rechargeMoney, object : DialogUtils
             .OnDialogListener {
-                override fun onDialogClick(money: String,selectType : Int) {
+                override fun onDialogClick(money: String, selectType: Int) {
                     rechargeDialog?.dismiss()
+                    mView?.showLoading()
+                    AlipayUtils.addOnAlipayListener(object : PayOrderListener {
+                        override fun productOrder(orderInfo: String) {
+                            mView?.hideLoading()
+                            AlipayUtils.pay(orderInfo, object : PayBackListener {
+                                override fun payBack(result: String?) {
+
+                                }
+                            })
+                        }
+
+                        override fun money(): String? {
+                            return money
+                        }
+                    })
                 }
             })
         }
@@ -646,7 +695,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             }
         }
         rechargeDialog?.let {
-            if (it.isShowing){
+            if (it.isShowing) {
                 it.dismiss()
             }
         }

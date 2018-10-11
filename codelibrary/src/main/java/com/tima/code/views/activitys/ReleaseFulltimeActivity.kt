@@ -42,6 +42,18 @@ import java.lang.StringBuilder
  */
 @Route(path = RoutePaths.releasefulltime)
 class ReleaseFulltimeActivity : AbstractAddressAndMapActivity() , IReleaseTimeView ,View.OnClickListener{
+    override fun getQtyVar(): String? {
+        return null
+    }
+
+    override fun close() {
+        finish()
+    }
+
+    override fun getCountMoney(): String? {
+        return null
+    }
+
     override fun setInWeek(code: Int) {
         if (code==0){
             tv_interview_week.setText("请选择")
