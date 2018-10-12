@@ -17,14 +17,14 @@ object FullTimeUtils {
         try {
             for (str in spiltStr) {
                 val toInt = str.toInt()
-                sb.append(stringArray.get(toInt))
+                sb.append(stringArray[toInt])
                 sb.append(",")
             }
             return sb.subSequence(0,sb.length-1).toString()
         } catch (e: Exception) {
             e.printStackTrace()
-            return null
         }
+        return null
     }
 
     fun getTimes(times: String?): String? {
@@ -35,14 +35,14 @@ object FullTimeUtils {
         try {
             for (str in spiltStr) {
                 val toInt = str.toInt()
-                sb.append(stringArray.get(toInt))
+                sb.append(stringArray[toInt])
                 sb.append(",")
             }
             return sb.subSequence(0,sb.length-1).toString()
         } catch (e: Exception) {
             e.printStackTrace()
-            return null
         }
+        return null
     }
 
     private fun spiltStr(value: String): List<String> {
