@@ -105,9 +105,6 @@ class ManagePartTimeInfoActivity : BaseActivity(),IManagePartTimeInfoView , View
         return recycler_job_describe
     }
 
-    override fun getRecyclerRequireView(): RecyclerView {
-        return recycler_require
-    }
 
     override fun getInfoActivity(): Activity {
         return this

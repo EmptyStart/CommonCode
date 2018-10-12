@@ -146,8 +146,8 @@ class ManageFullTimeInfoActivity : AbstractAddressAndMapTwoActivity(),IManageFul
         return recycler_job_describe
     }
 
-    override fun getRecyclerRequireView(): RecyclerView {
-        return recycler_require
+    override fun getTextRequireView(): TextView {
+        return tv_require
     }
 
     override fun getInfoActivity(): Activity {

@@ -40,7 +40,6 @@ interface IManagePartTimeInfoView : IBaseViews {
 
     fun getRecyclerJobDescribeView() : RecyclerView
 
-    fun getRecyclerRequireView() : RecyclerView
 
     fun getInfoActivity() : Activity
 }

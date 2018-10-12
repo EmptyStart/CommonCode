@@ -32,7 +32,6 @@ import org.json.JSONObject
 class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
     var TAG = "ManageFullTimeInfoPresenterImpl"
     var jobs = ArrayList<JobType>()
-    var requires = ArrayList<String>()
     var work_Experiences = ArrayList<Work_Experience>()
 
     var view : IManageFullTimeInfoView
@@ -127,7 +126,7 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
                 if (position?.on_site_time != null)
                     time = position?.on_site_time!!.replace("T"," ")
                 if (position?.salary_unit != null){
-                    salary = position?.salary_begin.toString() +"/"+ResourceUtil.getStringArrayValue(R.array.cycle_time,position?.salary_unit)
+                    salary = position?.salary_begin.toString() +"元/"+ResourceUtil.getStringArrayValue(R.array.cycle_time,position?.salary_unit)
                 }
             }
             view.setTextAddressTime(position?.province,position?.city,position?.region,position?.address, time)
@@ -143,8 +142,7 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
         }
 
         if (!TextUtils.isEmpty(position?.descriptions))
-            requires.add(position?.descriptions!!)
-        onRefreshRequireAdapter()
+            view.getTextRequireView().text = position?.descriptions!!
 
         view.getManageNumOneView().text = count?.apply_count.toString()
         if (view.getManageTypeInt() == 1){
@@ -246,20 +244,6 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
             jobAdapter!!.notifyDataSetChanged()
         }
     }
-
-    override fun onRefreshRequireAdapter() {
-        if (requireAdapter == null){
-            requireAdapter = ManageFullInfoRequireAdapter(R.layout.code_recycler_manage_full_info_require_item, requires)
-            view?.getRecyclerRequireView().layoutManager = LinearLayoutManager(infoActivity, LinearLayoutManager.VERTICAL,false)
-            view?.getRecyclerRequireView().adapter = requireAdapter
-            requireAdapter?.setOnItemClickListener({
-                adapter, view, position ->onFullInfoRequireClickItem()
-            })
-        }else{
-            requireAdapter!!.notifyDataSetChanged()
-        }
-    }
-
 
     fun onFullInfoJodClickItem() {
     }

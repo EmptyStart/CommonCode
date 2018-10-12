@@ -53,8 +53,10 @@
                         android:text="兼职要求"
                         android:textColor="@color/text_black_gray"
                         android:textStyle="bold"/>
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_require"
+                <TextView
+                    android:id="@+id/tv_require"
+                    android:layout_marginLeft="30px"
+                    android:textColor="@color/text_gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
