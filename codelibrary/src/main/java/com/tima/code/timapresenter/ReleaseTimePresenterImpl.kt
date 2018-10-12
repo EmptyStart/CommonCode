@@ -494,7 +494,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             val pickerView = TimePickerBuilder(activity, object : OnTimeSelectListener {
                 override fun onTimeSelect(date: Date?, v: View?) {
                     date?.let {
-                        val s = DateUtils.getDateYMDHMS_(it)
+                        val s = DateUtils.getDateYMDHMS_2(it)
                         mView?.setPartMs(s)
                         partTimeSelect = s
                     }

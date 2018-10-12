@@ -7,10 +7,7 @@ import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tencent.android.tpush.XGPushManager
 import com.tima.code.R
-import com.tima.code.responsebody.Company
-import com.tima.code.responsebody.Hr
-import com.tima.code.responsebody.LoginResponseBody
-import com.tima.code.responsebody.RegisterValidResponseBody
+import com.tima.code.responsebody.*
 import com.tima.code.timaconstracts.ILoginPresent
 import com.tima.code.timaconstracts.ILoginView
 import com.tima.code.timaviewmodels.LoginViewModelImpl
@@ -21,6 +18,7 @@ import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.SpHelper
+import com.tima.common.utils.genericClass
 import org.litepal.crud.DataSupport
 
 /**
@@ -46,7 +44,7 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                     mViewMode.addOnVerifyListener(object : IDataListener {
                         override fun successData(success: String) {
                             hideLoading()
-                            val validResponseBody = GsonUtils.getGson.fromJson(success, RegisterValidResponseBody::class.java)
+                            val validResponseBody = GsonUtils.getGson.fromJson(success, genericClass<RegisterValidResponseBody>())
                             val detail = validResponseBody?.detail
                             detail?.let {
                                 mView?.showError(it)

@@ -63,4 +63,14 @@ object DateUtils{
         }
         return strs
     }
+    fun getDateYMDHMS_2(date: Date): String {
+        var strs = ""
+        try {
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:00", Locale.getDefault())
+            strs = sdf.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return strs
+    }
 }

@@ -11,7 +11,8 @@ import com.tima.common.utils.ResourceUtil
 object FullTimeUtils {
     fun getWeeks(weeks: String?): String? {
         if (weeks.isNullOrEmpty()) return null
-        val spiltStr = spiltStr(weeks!!)
+        var spiltStr = spiltStr(weeks!!)
+        spiltStr = spiltStr.sorted()
         val stringArray = ResourceUtil.getStringArray(R.array.weeks)
         val sb = StringBuffer()
         try {
@@ -30,12 +31,18 @@ object FullTimeUtils {
     fun getTimes(times: String?): String? {
         if (times.isNullOrEmpty()) return null
         val spiltStr = spiltStr(times!!)
+
         val stringArray = ResourceUtil.getStringArray(R.array.selectTimes)
         val sb = StringBuffer()
         try {
+            val arrayTimes = arrayListOf<Int>()
             for (str in spiltStr) {
                 val toInt = str.toInt()
-                sb.append(stringArray[toInt-8])
+                arrayTimes.add(toInt-8)
+            }
+            val sorted = arrayTimes.sorted()
+            for (str in sorted) {
+                sb.append(stringArray[str])
                 sb.append(",")
             }
             return sb.subSequence(0,sb.length-1).toString()
