@@ -45,8 +45,10 @@ class ManageFullTimeInfoActivity : AbstractAddressAndMapTwoActivity(),IManageFul
 
         if (manageType == 1) {
             abv_type2.setTitle("全职详情")
+            tv_job_require.text = "全职要求"
         }else{
             abv_type2.setTitle("兼职详情")
+            tv_job_require.text = "兼职要求"
             tv_manage_title_two.text = "到场管理"
             tv_manage_title_three.text = "结算管理"
             ll_manage_four.visibility = View.GONE

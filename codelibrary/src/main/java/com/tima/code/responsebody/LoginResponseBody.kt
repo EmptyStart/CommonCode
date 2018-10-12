@@ -91,7 +91,7 @@ data class Position(
         var salary_type : String,                                        //薪水类型
         var salary_begin : Int,                                          //起薪
         var salary_end : Int,                                            //满新
-        var salary_unit : String,                                        //薪水单位         0 次，1 小时，2 天，3 月，4 年
+        var salary_unit : Int,                                           //薪水单位         0 次，1 小时，2 天，3 月，4 年
         var salary_qty : Int,                                            //薪水数量
         var exp_year_beg : Int,                                          //经验要求起始年
         var exp_year_end : Int,                                          //经验要求结束年

@@ -44,6 +44,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
                     <TextView
+                        android:id="@+id/tv_job_require"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30px"

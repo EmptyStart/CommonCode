@@ -118,16 +118,26 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
 
     fun initJob(){
         if (position != null){
-            var time = FullTimeUtils.getWeeks(position?.interview_day) +"\n"+ FullTimeUtils.getTimes(position?.interview_time)
+            var time = ""
+            var salary =  ""
+            if (view.getManageTypeInt() == 1) {
+                time  = FullTimeUtils.getWeeks(position?.interview_day) + "\n" + FullTimeUtils.getTimes(position?.interview_time)
+                salary = position?.salary_begin.toString()+"-"+position?.salary_end+"元"
+            }else{
+                if (position?.on_site_time != null)
+                    time = position?.on_site_time!!.replace("T"," ")
+                if (position?.salary_unit != null){
+                    salary = position?.salary_begin.toString() +"/"+ResourceUtil.getStringArrayValue(R.array.cycle_time,position?.salary_unit)
+                }
+            }
             view.setTextAddressTime(position?.province,position?.city,position?.region,position?.address, time)
             view.setTextCompanyInfo(position?.name, position?.skill_set)
+            view.getSalaryView().text = salary
 
             if (position?.latitude != null && position?.longitude != null)
                 view.setAddressLocation(LatLng(position?.latitude!!, position!!.longitude))
             else
                 view.setAddressLocation(LatLng(0.0, 0.0))
-
-            view.getSalaryView().setText(position?.salary_begin.toString()+"-"+position?.salary_end+"元")
 
             configInfo()
         }

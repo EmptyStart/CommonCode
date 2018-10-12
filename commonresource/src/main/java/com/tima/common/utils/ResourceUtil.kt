@@ -7,6 +7,7 @@ import android.support.annotation.IdRes
 import android.support.annotation.RequiresApi
 import com.amap.api.maps.model.BitmapDescriptor
 import com.amap.api.maps.model.BitmapDescriptorFactory
+import com.amap.api.maps.model.CameraPosition
 import com.tima.common.base.App
 
 /**
@@ -27,6 +28,17 @@ object ResourceUtil {
 
     fun getStringArray(arrayId: Int): Array<String> {
         return App.app.resources.getStringArray(arrayId)
+    }
+
+    fun getStringArrayValue(arrayId: Int?,position: Int?): String {
+        var result = ""
+        if (arrayId != null && position != null) {
+            var arrays = App.app.resources.getStringArray(arrayId!!)
+            if (arrays.size > position!!) {
+                result = arrays[position-1]
+            }
+        }
+        return result
     }
 
     fun getBitmapDescriptorFactory(imageIdRes: Int): BitmapDescriptor? {
