@@ -60,10 +60,11 @@
 
             <include layout="@layout/code_layout_info_address_p" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:orientation="horizontal"
                 android:padding="30px"
                 android:layout_marginTop="15px"
                 android:layout_marginBottom="45px">
@@ -75,13 +76,12 @@
                     android:textSize="13sp"/>
                 <TextView
                     android:id="@+id/tv_work_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    style="@style/weight_width_1"
+                    android:gravity="right"
                     android:text="2012-09-08 18:30:00"
                     android:textColor="@color/text_gray"
                     android:textSize="12sp"/>
-            </RelativeLayout>
+            </LinearLayout>
         </com.zhy.autolayout.AutoLinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </com.zhy.autolayout.AutoLinearLayout>

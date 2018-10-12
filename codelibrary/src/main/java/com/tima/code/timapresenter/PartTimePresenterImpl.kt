@@ -33,6 +33,7 @@ class PartTimePresenterImpl : IPartTimePresent {
     var activity: Activity? = null
     var view: IPartTimeView? = null
     var positions = ArrayList<Position>()
+    var showPositions = ArrayList<Position>()
     var currentPosition = 0
 
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { PartTimeViewModelImpl() }
@@ -139,7 +140,7 @@ class PartTimePresenterImpl : IPartTimePresent {
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = publishedAdapter
         publishedAdapter.setOnItemClickListener({
-            adapter, view, position ->publishedClick(positions[position].id)
+            adapter, view, position ->publishedClick(showPositions[position].id)
         })
     }
 
@@ -151,7 +152,7 @@ class PartTimePresenterImpl : IPartTimePresent {
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
         auditAdapter.setOnItemClickListener({
-            adapter, view, position ->onAuditClick(positions[position].id)
+            adapter, view, position ->publishedClick(showPositions[position].id)
         })
     }
 
@@ -163,14 +164,8 @@ class PartTimePresenterImpl : IPartTimePresent {
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
         auditAdapter.setOnItemClickListener({
-            adapter, view, position ->onAuditClick(positions[position].id)
+            adapter, view, position ->publishedClick(showPositions[position].id)
         })
-        /*var alreadyDownAdapter = PartAlreadyDownAdapter(R.layout.code_recycler_published_item, getPositionData("0","3"))
-        view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        view?.getRecyclerPartTimeView()!!.adapter = alreadyDownAdapter
-        alreadyDownAdapter.setOnItemClickListener({
-            adapter, view, position ->onAlreadyDownClick(positions[position].id)
-        })*/
     }
 
     fun publishedClick(id : Int){
@@ -185,22 +180,14 @@ class PartTimePresenterImpl : IPartTimePresent {
     }
 
     fun getPositionData(type : String, verify : String) : ArrayList<Position>{
-        var positions = ArrayList<Position>()
+        showPositions.clear()
         for (i in 0..this.positions.size - 1){
             var position = this.positions[i]
             if (type == position.type && verify == position.verify){
-                positions.add(position)
+                showPositions.add(position)
             }
         }
-        return positions
-    }
-
-    fun onAuditClick(position : Int) {
-        Toast.makeText(activity, "点击审核中", Toast.LENGTH_SHORT).show()
-    }
-
-     fun onAlreadyDownClick(position : Int) {
-        Toast.makeText(activity, "点击已下架", Toast.LENGTH_SHORT).show()
+        return showPositions
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

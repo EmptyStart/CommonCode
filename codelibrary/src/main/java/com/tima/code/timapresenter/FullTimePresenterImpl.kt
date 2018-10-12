@@ -32,6 +32,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
     var view: IFullTimeView? = null
     var viewMode: FullTimeViewModelImpl? = null
     var positions = ArrayList<Position>()
+    var showPositions = ArrayList<Position>()
     var currentPosition = 0
 
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { FullTimeViewModelImpl() }
@@ -53,6 +54,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
         mViewMode.addFullTimeListener(object : IDataListener {
             override fun successData(success: String) {
                 LogUtils.i(TAG,"返回发布职位=="+success)
+                positions.clear()
                 var arrays = JSONObject(success).getJSONArray("results")
                 for (i in 0..arrays.length() - 1){
                     val position = GsonUtils.getGson.fromJson(arrays[i].toString(), Position::class.java)
@@ -143,7 +145,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
         view?.getRecyclerFullTimeView()!!.adapter = publishedAdapter
         publishedAdapter.setOnItemChildClickListener(this)
         publishedAdapter?.setOnItemClickListener({
-            adapter, view, position ->onPublishedClickItem(positions[position].id)
+            adapter, view, position ->onPublishedClickItem(showPositions[position].id)
         })
     }
 
@@ -156,7 +158,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
         view?.getRecyclerFullTimeView()!!.adapter = auditAdapter
         auditAdapter.setOnItemChildClickListener(this)
         auditAdapter?.setOnItemClickListener({
-            adapter, view, position ->onPublishedClickItem(positions[position].id)
+            adapter, view, position ->onPublishedClickItem(showPositions[position].id)
         })
     }
 
@@ -166,7 +168,7 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
         view?.getRecyclerFullTimeView()!!.adapter = alreadyAdapter
         alreadyAdapter.setOnItemChildClickListener(this)
         alreadyAdapter?.setOnItemClickListener({
-            adapter, view, position ->onPublishedClickItem(positions[position].id)
+            adapter, view, position ->onPublishedClickItem(showPositions[position].id)
         })
     }
 
@@ -189,13 +191,13 @@ class FullTimePresenterImpl : IFullTimePresent, BaseQuickAdapter.OnItemChildClic
     }
 
     fun getPositionData(type : String, verify : String) : ArrayList<Position>{
-        var positions = ArrayList<Position>()
+        showPositions.clear()
         for (i in 0..this.positions.size - 1){
             var position = this.positions[i]
             if (type == position.type && verify == position.verify){
-                positions.add(position)
+                showPositions.add(position)
             }
         }
-        return positions
+        return showPositions
     }
 }

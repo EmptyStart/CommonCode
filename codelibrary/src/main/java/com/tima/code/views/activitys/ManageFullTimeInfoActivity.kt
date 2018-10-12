@@ -6,21 +6,25 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.amap.api.maps.model.LatLng
 import com.tima.code.R
+import com.tima.code.responsebody.Company
 import com.tima.code.timaconstracts.IManageFullTimeInfoPresent
 import com.tima.code.timaconstracts.IManageFullTimeInfoView
 import com.tima.code.timapresenter.ManageFullTimeInfoPresenterImpl
-import com.tima.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_manage_fulltime_info.*
+import kotlinx.android.synthetic.main.code_include_company_info.*
 import kotlinx.android.synthetic.main.code_layout_info_address_p.*
 import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*
 import org.jetbrains.anko.toast
+import org.litepal.crud.DataSupport
 
 /**
  * 全职详情-兼职详情
  * Created by Administrator on 2018/8/29/029.
  */
-class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.OnClickListener{
+class ManageFullTimeInfoActivity : AbstractAddressAndMapTwoActivity(),IManageFullTimeInfoView, View.OnClickListener{
+
     var manageFullTimeInfoPresent : IManageFullTimeInfoPresent? = null
     var manageType  = -1                                                                            //1、全职   2、兼职
     var id : Int = -1                                                                               //
@@ -48,10 +52,19 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
             ll_manage_four.visibility = View.GONE
         }
         abv_type2.setOnRightImageListener(this)
+
+        var company = DataSupport.findFirst(Company::class.java)
+        if(company != null){
+            tv_company_name.text = company.full_name
+        }
     }
 
     override fun onClick(v: View?) {
         manageFullTimeInfoPresent?.onClick(v)
+    }
+
+    override fun setAddressLocation(it: LatLng?) {
+        setLocation(it)
     }
 
     override fun showLoading() {
@@ -64,6 +77,10 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
 
     override fun showError(errorMsg: String) {
         toast(errorMsg)
+    }
+
+    override fun getSalaryView(): TextView {
+        return tv_salary
     }
 
     override fun getManageOneView(): LinearLayout {
@@ -155,4 +172,14 @@ class ManageFullTimeInfoActivity : BaseActivity(),IManageFullTimeInfoView, View.
         if (time != null)
             tv_work_time.text = time
     }
+
+    override fun setTextCompanyInfo(name: String?, skill_set: String?) {
+        var nameType = if (name != null) name else ""
+        tv_work_type.text =  nameType + if (manageType == 1) "（全职）" else "（兼职）"
+        if (skill_set != null)
+            tv_skill_label.text = skill_set
+        else
+            tv_skill_label.text = ""
+    }
+
 }

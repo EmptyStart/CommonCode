@@ -17,36 +17,3 @@ class ManageFullInfoJobAdapter(var layoutId : Int, var datas: List<JobType>): Ba
     }
 }
 
-/*
-class ManageFullInfoJobAdapter(var context : Context, var listener : OnFullInfoJodListener, var jobs :  ArrayList<JobType>): RecyclerView.Adapter<ManageFullInfoJobAdapter.ViewHolder>(){
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.code_recycler_manage_full_info_item,parent,false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var jobInfo = jobs[position]
-        holder.tv_job_name.text = jobInfo.jobName
-        if (!TextUtils.isEmpty(jobInfo.jobType)){
-            holder.tv_job_type.text = jobInfo.jobType
-        }
-        holder.tv_job_type.setOnClickListener(View.OnClickListener {
-            if (listener != null)
-                listener.onFullInfoJodClickItem()
-        })
-    }
-
-    override fun getItemCount(): Int {
-        return jobs.size
-    }
-
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        var tv_job_type : TextView = itemView.findViewById(R.id.tv_job_type)
-        var tv_job_name : TextView = itemView.findViewById(R.id.tv_job_name)
-    }
-
-    interface OnFullInfoJodListener{
-        fun onFullInfoJodClickItem()
-    }
-}*/

@@ -8,18 +8,21 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
+import com.amap.api.maps.model.LatLng
 import com.tima.code.R
 import com.tima.code.responsebody.*
 import com.tima.code.bean.JobType
 import com.tima.code.timaconstracts.IManageFullTimeInfoPresent
 import com.tima.code.timaconstracts.IManageFullTimeInfoView
 import com.tima.code.timaviewmodels.ManageFullTimeInfoModelImpl
+import com.tima.code.utils.FullTimeUtils
 import com.tima.code.views.activitys.ManageSetActivity
 import com.tima.code.views.adapter.full.ManageFullInfoJobAdapter
 import com.tima.code.views.adapter.full.ManageFullInfoRequireAdapter
 import com.tima.common.base.IDataListener
 import com.tima.common.https.CommonUrls
 import com.tima.common.utils.GsonUtils
+import com.tima.common.utils.LogUtils
 import com.tima.common.utils.ResourceUtil
 import org.json.JSONObject
 
@@ -30,6 +33,7 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
     var TAG = "ManageFullTimeInfoPresenterImpl"
     var jobs = ArrayList<JobType>()
     var requires = ArrayList<String>()
+    var work_Experiences = ArrayList<Work_Experience>()
 
     var view : IManageFullTimeInfoView
     var jobAdapter : ManageFullInfoJobAdapter? = null
@@ -56,6 +60,8 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
                 if (ops_count != null){
                     count  = GsonUtils.getGson.fromJson(ops_count.toString(), Count::class.java)
                 }
+                //LogUtils.i(TAG,"position="+position.toString())
+                //LogUtils.i(TAG,"count="+count.toString())
                 initJob()
             }
 
@@ -111,19 +117,23 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
     }
 
     fun initJob(){
-        var pName = "未知"
         if (position != null){
-            if (position?.career_type != null){
-                pName = JSONObject(position?.career_type.toString()).getString("name")
-            }
-            view.setTextAddressTime(position?.province,position?.city,position?.region,position?.address, position?.created_no)
+            var time = FullTimeUtils.getWeeks(position?.interview_day) +"\n"+ FullTimeUtils.getTimes(position?.interview_time)
+            view.setTextAddressTime(position?.province,position?.city,position?.region,position?.address, time)
+            view.setTextCompanyInfo(position?.name, position?.skill_set)
+
+            if (position?.latitude != null && position?.longitude != null)
+                view.setAddressLocation(LatLng(position?.latitude!!, position!!.longitude))
+            else
+                view.setAddressLocation(LatLng(0.0, 0.0))
+
+            view.getSalaryView().setText(position?.salary_begin.toString()+"-"+position?.salary_end+"元")
+
+            configInfo()
         }
-        jobs.add(JobType("职位类型",pName))
-        jobs.add(JobType("最低学历",getEducation(position?.education!!)))
-        jobs.add(JobType("工作类型",null))
+
         if (!TextUtils.isEmpty(position?.descriptions))
             requires.add(position?.descriptions!!)
-        onRefreshJobAdapter()
         onRefreshRequireAdapter()
 
         view.getManageNumOneView().text = count?.apply_count.toString()
@@ -135,7 +145,56 @@ class ManageFullTimeInfoPresenterImpl : IManageFullTimeInfoPresent {
             view.getManageNumTwoView().text = count?.onsite_count.toString()
             view.getManageNumThreeView().text = count?.payment_count.toString()
         }
+    }
 
+    fun configInfo(){
+        view.showLoading()
+        mViewMode.addConfigInfo(object : IDataListener{
+            override fun successData(success: String) {
+                view.hideLoading()
+                work_Experiences.clear()
+                var arrays = JSONObject(success).getJSONArray("results")
+                for (i in 0..arrays.length() - 1){
+                    work_Experiences.add( GsonUtils.getGson.fromJson(arrays[i].toString(), Work_Experience::class.java))
+                }
+                //LogUtils.i(TAG,"WORK_EXPERIENCE =="+success)
+                //LogUtils.i(TAG,"work_Experiences =="+work_Experiences.size)
+                jobData()
+            }
+
+            override fun errorData(error: String) {
+                view.hideLoading()
+                jobData()
+            }
+
+            override fun requestData(): Map<String, String>? {
+                return mapOf(Pair("type", "WORK_EXPERIENCE"))
+            }
+        })
+    }
+
+    fun getJobTime(exp_year_beg : Int,exp_year_end : Int) : String{
+        var jobTime = exp_year_beg.toString()+"-"+exp_year_end
+        for (i in 0..work_Experiences.size - 1){
+            if (jobTime.equals(work_Experiences[i].key)){
+                jobTime = work_Experiences[i].value
+                break
+            }
+        }
+        return jobTime
+    }
+
+    fun jobData(){
+        if (position != null ) {
+            var pName = "未知"
+            if (position?.career_type != null) {
+                pName = JSONObject(position?.career_type.toString()).getString("name")
+            }
+            jobs.add(JobType("职位类型", pName))
+            jobs.add(JobType("最低学历", getEducation(position?.education!!)))
+            jobs.add(JobType("工作经验", getJobTime(position?.exp_year_beg!!, position?.exp_year_end!!)))
+            onRefreshJobAdapter()
+        }
     }
 
     fun toSelect(position : Int){

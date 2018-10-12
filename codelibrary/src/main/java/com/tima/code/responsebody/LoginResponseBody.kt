@@ -85,12 +85,12 @@ data class Position(
         var city : String,                                               //市
         var region : String,                                             //区
         var address : String,                                            //工作地址
-        var longitude : Any,                                             //经度
-        var latitude : Any,                                              //纬度
+        var longitude : Double,                                             //经度
+        var latitude : Double,                                              //纬度
         var type : String,                                               //工作性质         0 全职，1兼职
         var salary_type : String,                                        //薪水类型
-        var salary_begin : String,                                       //起薪
-        var salary_end : String,                                         //满新
+        var salary_begin : Int,                                          //起薪
+        var salary_end : Int,                                            //满新
         var salary_unit : String,                                        //薪水单位         0 次，1 小时，2 天，3 月，4 年
         var salary_qty : Int,                                            //薪水数量
         var exp_year_beg : Int,                                          //经验要求起始年
@@ -290,6 +290,17 @@ data class Result(
         val type: String,
         val key: String,
         val value: String
+)
+
+/**
+ * 工作经验
+ */
+data class Work_Experience(
+        var id : Int,
+        var created_on: String,
+        var type: String,
+        var key: String,
+        var value: String                                                 //值
 )
 
 data class Count(
