@@ -5,7 +5,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
@@ -38,6 +41,10 @@ import org.jetbrains.anko.toast
  */
 @Route(path = RoutePaths.releaseparttime)
 class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickListener, IReleaseTimeView {
+    override fun getTags(): String? {
+
+        return tv_introduce.text.toString()
+    }
 
     override fun close() {
         finish()
@@ -54,7 +61,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     }
 
     override fun selectTag(array: ArrayList<String>) {
-        if (array.size>0) {
+        if (array.size > 0) {
             val canSelectTag = CanSelectTag()
             canSelectTag.tagList.addAll(array)
             EventBus.getDefault().postSticky(canSelectTag)
@@ -149,6 +156,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     override fun getQty(): String? {
         return et_count.text.toString().trim()
     }
+
     override fun getQtyVar(): String? {
         return et_count_add.text.toString().trim()
     }
@@ -271,11 +279,11 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
             val ci: Int = cycle.toInt()
             val ti: Int = count.toInt()
             val tid: Int = countAdd.toInt()
-            val i = wi * ci * (ti+tid)
+            val i = wi * ci * (ti + tid)
             val poundage = i * Constant.partCommit
             val d = poundage + i
-            tv_poundage.text = poundage.toString()
-            tv_count_pay.text = d.toString()
+            tv_poundage.text = String.format("%.2f",poundage)
+            tv_count_pay.text =  String.format("%.2f",d)
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
@@ -290,7 +298,7 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
             sb.append(it)
             sb.append(";")
         }
-        tv_introduce.setText(sb.subSequence(0, sb.length - 1))
+        tv_introduce.text = sb.subSequence(0, sb.length - 1)
     }
 
     override fun useEventBus(): Boolean {
@@ -298,12 +306,13 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
     }
 
     override fun onBackPressed() {
-        if (presenter.isCanRe()){
+        if (presenter.isCanRe()) {
             toast("您还没有走完兼职发布流程！")
             return
         }
         super.onBackPressed()
     }
+
     override fun onDestroy() {
         popSelect?.let {
             if (it.isShowing) {

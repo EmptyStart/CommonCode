@@ -34,7 +34,6 @@ class LoginActivity : BaseActivity(), ILoginView, View.OnClickListener {
             }
 
             override fun onFail(p0: Any?, p1: Int, p2: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
     }

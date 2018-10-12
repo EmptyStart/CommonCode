@@ -35,7 +35,7 @@ object FullTimeUtils {
         try {
             for (str in spiltStr) {
                 val toInt = str.toInt()
-                sb.append(stringArray[toInt])
+                sb.append(stringArray[toInt-8])
                 sb.append(",")
             }
             return sb.subSequence(0,sb.length-1).toString()

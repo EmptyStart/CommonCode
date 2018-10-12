@@ -59,7 +59,6 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
     //标签类型（职位类型下的子表）  （有就有值 无就为空）
     val tagList = arrayListOf<String>()
-    val skillSet: String? = null
     //全职工做时间选择弹窗
     var popFullDateWindow: PopupWindow? = null
     //工作经验
@@ -227,6 +226,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     pairs["exp_year_end"] = split[1]
                 }
             }
+            val skillSet = getTags()
             if (!skillSet.isNullOrEmpty()) {
                 pairs["skill_set"] = skillSet!!
             }

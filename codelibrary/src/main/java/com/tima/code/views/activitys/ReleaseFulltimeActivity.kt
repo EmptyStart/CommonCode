@@ -42,6 +42,11 @@ import java.lang.StringBuilder
  */
 @Route(path = RoutePaths.releasefulltime)
 class ReleaseFulltimeActivity : AbstractAddressAndMapActivity() , IReleaseTimeView ,View.OnClickListener{
+    override fun getTags(): String? {
+
+        return tv_introduce.text.toString()
+    }
+
     override fun getQtyVar(): String? {
         return null
     }
@@ -56,18 +61,18 @@ class ReleaseFulltimeActivity : AbstractAddressAndMapActivity() , IReleaseTimeVi
 
     override fun setInWeek(code: Int) {
         if (code==0){
-            tv_interview_week.setText("请选择")
+            tv_interview_week.text = "请选择"
             return
         }
-        tv_interview_week.setText("已选择")
+        tv_interview_week.text = "已选择"
     }
 
     override fun setInTime(code: Int) {
         if (code==0){
-            tv_interview_time.setText("请选择")
+            tv_interview_time.text = "请选择"
             return
         }
-        tv_interview_time.setText("已选择")
+        tv_interview_time.text = "已选择"
     }
 
     override fun selectTag(array: ArrayList<String>) {

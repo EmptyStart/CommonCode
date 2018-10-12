@@ -72,6 +72,8 @@ interface IReleaseTimeView : IBaseViews {
     fun getQtyVar() : String?
 
     fun close()
+
+    fun getTags() : String?
 }
 
 interface OnSelectListener {
