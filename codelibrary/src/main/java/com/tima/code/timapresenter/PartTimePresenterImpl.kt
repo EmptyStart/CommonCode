@@ -135,7 +135,7 @@ class PartTimePresenterImpl : IPartTimePresent {
      * 刷新已发布配器
      */
     override fun refreshPublishedAdapter() {
-        var publishedAdapter = PartPublishedAdapter(R.layout.code_recycler_published_item, getPositionData("0","0"))
+        var publishedAdapter = PartPublishedAdapter(R.layout.code_recycler_published_item, getPositionData("1","1"))
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = publishedAdapter
         publishedAdapter.setOnItemClickListener({
@@ -147,7 +147,7 @@ class PartTimePresenterImpl : IPartTimePresent {
      * 刷新审核中
      */
     override fun refreshAuditAdapter() {
-        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, getPositionData("0","0"))
+        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, getPositionData("1","0"))
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
         auditAdapter.setOnItemClickListener({
@@ -159,7 +159,7 @@ class PartTimePresenterImpl : IPartTimePresent {
      * 刷新已下架适配器
      */
     override fun refreshAlreadyDownAdapter() {
-        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, getPositionData("0","0"))
+        var auditAdapter = PartAuditAdapter(R.layout.code_recycler_published_item, getPositionData("1","3"))
         view?.getRecyclerPartTimeView()!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view?.getRecyclerPartTimeView()!!.adapter = auditAdapter
         auditAdapter.setOnItemClickListener({
