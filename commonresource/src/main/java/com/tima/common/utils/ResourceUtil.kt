@@ -25,13 +25,19 @@ object ResourceUtil {
         }
     }
 
+    fun getStringArray(arrayId: Int): Array<String> {
+        return App.app.resources.getStringArray(arrayId)
+    }
+
     fun getBitmapDescriptorFactory(imageIdRes: Int): BitmapDescriptor? {
         try {
             val bitmap = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(App.app.resources, imageIdRes))
             return bitmap
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return null
     }
+
+
 }

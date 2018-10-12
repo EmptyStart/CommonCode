@@ -33,10 +33,7 @@ import com.tima.common.base.BaseActivity
 import com.tima.common.base.IDataListener
 import com.tima.common.https.ApiException
 import com.tima.common.https.ExceptionDeal
-import com.tima.common.utils.ActivityManage
-import com.tima.common.utils.DateUtils
-import com.tima.common.utils.GsonUtils
-import com.tima.common.utils.KeyboardUtils
+import com.tima.common.utils.*
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import com.zhy.view.flowlayout.TagFlowLayout
@@ -44,6 +41,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import org.jetbrains.anko.find
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author : zhijun.li on 2018/9/12
@@ -414,10 +412,9 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
 
     //全职的时间选择 0/星期  1/时间
     private fun popDataSelect(code: Int) {
-        val weeks = arrayListOf("周一", "周二", "周三", "周四", "周五", "周六", "周七")
-        val dates = arrayListOf("8:00-9:00", "9:00-10:00", "10:00-11:00", "11:00-12:00"
-                , "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00",
-                "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00", "21:00-22:00")
+
+        val weeks = ResourceUtil.getStringArray(R.array.weeks).toList() as ArrayList<String>
+        val dates = ResourceUtil.getStringArray(R.array.selectTimes).toList() as ArrayList<String>
         val popDatas = arrayListOf<String>()
         when (code) {
             0 -> popDatas.addAll(weeks)

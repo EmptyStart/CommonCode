@@ -64,18 +64,18 @@ android {
     }
 
     productFlavors {
-        TimaTest{
+        ZhiShenTest{
             dimension "color"
             applicationId "com.zhishen.test"
 
 //            buildConfigField("String", "ServiceUrl", "\"http://jmcradartest.timanetwork.com/sp/\"")
         }
-        TimaUat{
+        ZhiShenUat{
             dimension "color"
             applicationId "com.zhishen.uat"
 //            buildConfigField("String", "ServiceUrl", "\"https://radar.jmc.com.cn/sp/\"")
         }
-        TimaReport{
+        ZhiShenReport{
             dimension "color"
             applicationId "com.zhishen.report"
 //            buildConfigField("String", "ServiceUrl", "\"https://radar.jmc.com.cn/sp/\"")

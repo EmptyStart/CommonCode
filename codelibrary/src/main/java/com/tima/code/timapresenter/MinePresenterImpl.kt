@@ -55,7 +55,7 @@ class MinePresenterImpl : IMinePresent {
                 mineActivity!!.startActivity(intent)
             }
             R.id.ll_resume -> {
-                getorder("0.01")
+//                getorder("0.01")
             }
             R.id.tvLogout -> {
                 logoutDeal()
