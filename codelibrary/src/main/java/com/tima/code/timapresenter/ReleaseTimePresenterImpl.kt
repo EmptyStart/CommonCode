@@ -80,7 +80,9 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
     }
     //星期选择的结果
     private var selectWeeksData = ""
+    private val selectWeekList = mutableSetOf<Int>()
     //小时选择的结果
+    private val selectTimeList = mutableSetOf<Int>()
     private var selectTimesData = ""
     //薪水单位
     private var salaryUnits = ""
@@ -219,12 +221,17 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             if (!wordDec.isNullOrEmpty()) {
                 pairs["descriptions"] = wordDec!!
             }
-            workExpResult?.apply {
-                val split = key.split("-")
-                if (split.size > 1) {
-                    pairs["exp_year_beg"] = split[0]
-                    pairs["exp_year_end"] = split[1]
+            if (workExpResult != null) {
+                workExpResult?.apply {
+                    val split = key.split("-")
+                    if (split.size > 1) {
+                        pairs["exp_year_beg"] = split[0]
+                        pairs["exp_year_end"] = split[1]
+                    }
                 }
+            } else {
+                showError("工作经验是必填项")
+                return
             }
             val skillSet = getTags()
             if (!skillSet.isNullOrEmpty()) {
@@ -248,9 +255,9 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                 }
 
                 val salaryQty = salaryUnit()
-                if (salaryQty.isNullOrEmpty()){
+                if (salaryQty.isNullOrEmpty()) {
                     showError("请输入周期单位数量")
-                }else{
+                } else {
                     pairs["salary_qty"] = salaryQty!!
                 }
                 val qty = getQty()
@@ -260,10 +267,10 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     pairs["qty"] = qty!!
                 }
                 val qtyVar = getQtyVar()
-                if (qtyVar.isNullOrEmpty()){
+                if (qtyVar.isNullOrEmpty()) {
                     pairs["qty_var"] = "0"
-                }else{
-                    pairs["qty_var"] =qtyVar!!
+                } else {
+                    pairs["qty_var"] = qtyVar!!
                 }
             }
 
@@ -416,10 +423,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         val weeks = ResourceUtil.getStringArray(R.array.weeks).toList() as ArrayList<String>
         val dates = ResourceUtil.getStringArray(R.array.selectTimes).toList() as ArrayList<String>
         val popDatas = arrayListOf<String>()
-        when (code) {
-            0 -> popDatas.addAll(weeks)
-            1 -> popDatas.addAll(dates)
-        }
+
         val currentActivity = ActivityManage.instance.getCurrentActivity()
         currentActivity?.let { activity ->
             val view = LayoutInflater.from(activity).inflate(R.layout.code_layout_pop_flowlayout, null)
@@ -427,6 +431,10 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             val popTvSure = view.find(R.id.popTvSure) as TextView
             val popTvTitle = view.find(R.id.popTvTitle) as TextView
             val popTfl = view.find(R.id.popTfl) as TagFlowLayout
+            when (code) {
+                0 -> popDatas.addAll(weeks)
+                1 -> popDatas.addAll(dates)
+            }
             popFullDateWindow = PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams
                     .MATCH_PARENT, true)
 
@@ -437,7 +445,18 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     }
                     R.id.popTvSure -> {
                         val sb = StringBuilder()
-                        popTfl.selectedList.forEach {
+                        val selectedList = popTfl.selectedList
+                        when (code) {
+                            0 -> {
+                                selectWeekList.clear()
+                                selectWeekList.addAll(selectedList)
+                            }
+                            1 -> {
+                                selectTimeList.clear()
+                                selectTimeList.addAll(selectedList)
+                            }
+                        }
+                        selectedList.forEach {
                             if (code == 0) {
                                 sb.append(it)
                             } else {
@@ -468,12 +487,25 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             }
             popTvCancel.setOnClickListener(clickListener)
             popTvSure.setOnClickListener(clickListener)
-            popTfl.adapter = object : TagAdapter<String>(popDatas) {
+            val tagAdapter = object : TagAdapter<String>(popDatas) {
                 override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
                     val textView = LayoutInflater.from(activity).inflate(R.layout.code_flowlayout_item, parent, false)
                             as TextView
                     textView.text = t
                     return textView
+                }
+            }
+            popTfl.adapter =tagAdapter
+            when (code) {
+                0 ->{
+                    if (selectWeekList.size>0){
+                        tagAdapter.setSelectedList(selectWeekList)
+                    }
+                }
+                1 -> {
+                    if (selectTimeList.size>0){
+                        tagAdapter.setSelectedList(selectTimeList)
+                    }
                 }
             }
             popFullDateWindow?.isFocusable = true
@@ -627,11 +659,11 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             override fun successData(success: String) {
                 mView?.hideLoading()
                 val success = GsonUtils.getGson.fromJson(success, ApiException::class.java)
-                if (TextUtils.equals("200",success.code.toString())){
+                if (TextUtils.equals("200", success.code.toString())) {
                     mView?.showError("发布成功")
-                    positionId=""
+                    positionId = ""
                     mView?.close()
-                }else{
+                } else {
                     mView?.showError(success.detail.toString())
                 }
             }
@@ -655,7 +687,7 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         if (needMoney.isNullOrEmpty()) return
         val toDouble = surplusMoney.toDouble()
         val toDouble1 = needMoney!!.toDouble()
-        val rechargeMoney = String.format("%.2f",(toDouble1 - toDouble))
+        val rechargeMoney = String.format("%.2f", (toDouble1 - toDouble))
         val currentActivity = ActivityManage.instance.getCurrentActivity()
         currentActivity?.let {
             rechargeDialog = DialogUtils.showAccountRecharge(it, needMoney, surplusMoney, rechargeMoney, object : DialogUtils

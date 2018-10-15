@@ -123,23 +123,30 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
 
             if (image21!=null){
                 upPic(image21,"2-1")
-
+            }else{
+                count--;
             }
             if (image22!=null){
                 upPic(image22,"2-2")
-
+            }else{
+                count--;
             }
             if (image23!=null){
                 upPic(image23,"2-3")
+            }else{
+                count--;
             }
 
             if (headImage!=null){
                 upPic(headImage,"1")
+            }else{
+                count--;
             }
         }
     }
 
     private fun saved() {
+        mView?.showError("资料提交审核成功！")
         val activity = ActivityManage.instance.getCurrentActivity()
         ARouter.getInstance().build(RoutePaths.mainpage).navigation()
         activity?.finish()
@@ -206,6 +213,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
             })
@@ -271,7 +279,6 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 }
 
                 override fun successData(success: String) {
-                    mView?.hideLoading()
                     if (count == 1) {
                         saved()
                     } else {

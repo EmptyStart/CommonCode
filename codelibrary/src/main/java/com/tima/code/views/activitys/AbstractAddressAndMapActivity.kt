@@ -142,7 +142,8 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
                     Constant.aMapLocation = p0
                     p0?.let {
                         val latLng = LatLng(it.latitude, it.longitude)
-                        setLocation(latLng)
+//                        setLocation(latLng)
+                        setLocation(p0)
                         latLngDefault = latLng
                     }
                 }
@@ -150,7 +151,8 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
             return
         }
         val latLng = LatLng(aMapLocation.latitude, aMapLocation.longitude)
-        setLocation(latLng)
+//        setLocation(latLng)
+        setLocation(aMapLocation)
         latLngDefault = latLng
     }
 
@@ -446,6 +448,7 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
             KeyboardUtils.hideInput(SettingUtils.getActivity(iv_county.context))
             countyPicker()
         }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 1)
