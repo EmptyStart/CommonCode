@@ -25,6 +25,7 @@ import com.tima.common.base.MsgInfo
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.*
 import org.jetbrains.anko.toast
+import org.litepal.crud.DataSupport
 
 /**
  * Created by Administrator on 2018/8/22/022.
@@ -51,6 +52,8 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             chatActivity = view?.getActivity()
             initChat()
         }
+        var infos = DataSupport.where("from=?",view?.getFRIENDID()).find(MsgInfo::class.java)
+        msgInfos.addAll(infos)
         refreshChatAdapter()
         view?.getVoiceBtView()?.initConv(chatActivity!!, chatAdapter!!)
         view?.getVoiceBtView()?.setAudioFinishRecorderListener(this)

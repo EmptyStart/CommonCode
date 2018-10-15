@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="code" />
-    <version value="3" />
+    <version value="4" />
     <list>
         <mapping class="com.tima.code.responsebody.LoginResponseBody" />
         <mapping class="com.tima.code.responsebody.Hr" />
         <mapping class="com.tima.code.responsebody.Company" />
+        <mapping class="com.tima.common.base.MsgInfo" />
     </list>
 </litepal>

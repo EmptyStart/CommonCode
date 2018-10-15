@@ -3,7 +3,6 @@
     <dbname value="common" />
     <version value="1" />
     <list>
-        <mapping class="com.tima.common.base.MsgInfo" />
         <mapping class="com.tima.common.base.PresonInfo" />
     </list>
 </litepal>

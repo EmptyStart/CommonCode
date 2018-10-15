@@ -106,6 +106,7 @@ class ChatAdapter(var context : Context, var msgInfos : List<MsgInfo>) : Recycle
             holder.llChartFrom.visibility = View.VISIBLE
             holder.chatfrom_content.text = msgInfo.content
             holder.chatfrom_time.text = StringUtils.getSubString(msgInfo.acceptTime,11,16)
+            holder.tv_from_name.text = msgInfo.from
 
             if (msgInfo.msgType == EMMessage.Type.TXT){
                 holder.chatfrom_content.visibility = View.VISIBLE

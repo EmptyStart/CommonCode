@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="5dp"
         android:visibility="visible">
 
         <com.tima.chat.weight.CircleImageView
@@ -47,7 +48,7 @@
                 android:textSize="12sp" />
 
             <LinearLayout
-                style="@style/padding_15_10_15_10"
+                style="@style/padding_15_5_15_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -115,6 +116,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:gravity="center"
         android:visibility="visible">
 
         <LinearLayout
@@ -131,16 +134,16 @@
                 android:layout_marginBottom="5dp"
                 android:text="依果而-"
                 android:textColor="#aab1b5"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone"/>
 
             <LinearLayout
-                style="@style/padding_15_10_15_10"
+                style="@style/padding_15_5_15_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:background="@mipmap/talk_blue_icon"
                 android:orientation="horizontal">
-
 
                 <LinearLayout
                     android:id="@+id/ll_chatto_voice"

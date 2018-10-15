@@ -2,15 +2,20 @@ package com.tima.code.views.fragments
 
 import android.app.FragmentTransaction
 import android.view.View
+import android.widget.Toast
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.views.fragments.news.CommunicateFragment
 import com.tima.code.views.fragments.news.InteractionFragment
 import com.tima.common.base.BaseFragment
+import com.tima.common.base.MsgInfo
 import com.tima.common.base.RoutePaths
+import com.tima.common.utils.DateUtils
 import com.tima.common.utils.ResourceUtil
 import kotlinx.android.synthetic.main.code_double_select_top.*
+import org.jetbrains.anko.toast
+import org.litepal.crud.DataSupport
 
 /**
  *  消息
@@ -33,6 +38,8 @@ class NewsFragment : BaseFragment() , View.OnClickListener{
         ll_one.tag = false
         ll_two.tag = false
         tabSelect(0)
+
+        DataSupport.deleteAll(MsgInfo::class.java,"acceptTime < ?",DateUtils.getDateYMDHMS(System.currentTimeMillis() - 30 * 24 * 60 * 1000))
     }
 
     override fun lazyLoad() {
