@@ -109,9 +109,11 @@ class MainPageActivity : BaseActivity(), View.OnClickListener, IMainPageView {
         iv_tab2.tag = false
         iv_tab3.tag = false
         iv_tab4.tag = false
-
-        tabSelect(0)
-//        changeFragment(0)
+        if (TextUtils.equals(Constant.verify,"2")){
+            tabSelect(3)
+        }else {
+            tabSelect(0)
+        }
     }
 
     override fun tabSelect(position: Int) {

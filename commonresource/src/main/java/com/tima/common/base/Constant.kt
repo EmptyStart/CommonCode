@@ -23,6 +23,9 @@ object Constant {
 
     var hrId: String by SpHelper("hrId", "")
 
+    var verify: String by SpHelper("verifyID", "")
+
+    var companyState: String by SpHelper("companyState", "")
 
     var partCommit: Double by SpHelper("parttime_commition", 0.0)
 

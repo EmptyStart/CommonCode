@@ -2,6 +2,7 @@ package com.tima.code.views.activitys
 
 import android.Manifest
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -54,7 +55,12 @@ class WelcomeActivity : BaseActivity(), IWelcomeView ,View.OnClickListener{
         lifecycle.addObserver(iWelcomePresent as WelcomePresenterImpl)
 
         if (Constant.token.isNotEmpty()) {
+            if (TextUtils.equals(Constant.companyState,"N")){
+                ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
+            }else {
+//                ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
             ARouter.getInstance().build(RoutePaths.mainpage).navigation()
+            }
         } else {
             ARouter.getInstance().build(RoutePaths.login).navigation()
         }

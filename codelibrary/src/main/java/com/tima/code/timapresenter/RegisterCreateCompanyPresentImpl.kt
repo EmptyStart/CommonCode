@@ -119,6 +119,9 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
             pairs["latitude"] = locationBean.latitude.toString()
             pairs["longitude"] = locationBean.longitude.toString()
 
+
+            pairs["status"]="1"
+
             patchCompany(pairs)
 
             if (image21!=null){
@@ -169,6 +172,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 }
 
                 override fun errorData(error: String) {
+                    mView?.hideLoading()
                     ExceptionDeal.handleException(error)
                 }
 

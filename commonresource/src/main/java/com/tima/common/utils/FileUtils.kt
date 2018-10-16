@@ -6,6 +6,7 @@ import android.os.Environment
 import android.support.v4.content.FileProvider
 import java.io.*
 import android.R.attr.path
+import android.content.ContentResolver
 import android.provider.MediaStore
 import com.tima.common.base.App
 
@@ -448,18 +449,32 @@ object FileUtils {
 
     fun uriToFile(uri: Uri?): File? {
         var path = ""
-        val proj = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = App.app.getContentResolver().query(uri, proj, null, null, null)
-        if (cursor.moveToFirst()) {
-            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            path = cursor.getString(columnIndex)
+        try {
+            uri?.let {
+                val scheme = it.scheme
+                if (scheme == null) {
+                    path = it.path
+                } else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+                    path = it.path
+                } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+                    val proj = arrayOf(MediaStore.Images.Media.DATA)
+                    val cursor = App.app.contentResolver.query(uri, proj, null, null, null)
+                    if (cursor.moveToFirst()) {
+                        val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                        path = cursor.getString(columnIndex)
+                    }
+                    cursor.close()
+                }
+                if (path.isEmpty()) {
+                    return null
+                } else {
+                    return File(path)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        cursor.close()
-        if (path.isEmpty()) {
-            return null
-        } else {
-            return File(path)
-        }
+        return null
     }
 
     fun picTailName(picName: String?): String? {
@@ -497,13 +512,13 @@ object FileUtils {
      * 获取省市区数据
      */
     fun readProvince(): String? {
-        var province : String? =""
+        var province: String? = ""
         try {
             province = readAssetFiles("province.json")
-            province="{\n\"districts\":"+province+"}"
-        }catch (e: Exception){
+            province = "{\n\"districts\":" + province + "}"
+        } catch (e: Exception) {
             e.printStackTrace()
         }
-        return  province
+        return province
     }
 }

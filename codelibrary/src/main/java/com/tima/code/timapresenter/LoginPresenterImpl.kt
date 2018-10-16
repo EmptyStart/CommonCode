@@ -107,10 +107,12 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                                     //公司
                                     Constant.position=2
                                 }
+                                Constant.companyState=company
                                 if ("N".equals(company)) {
                                     ARouter.getInstance().build(RoutePaths.registerSelect).navigation()
                                 } else {
                                     val verify = hr.company.verify
+                                    Constant.verify=verify
                                     if("1"==verify){
                                         ARouter.getInstance().build(RoutePaths.mainpage).navigation()
                                     }

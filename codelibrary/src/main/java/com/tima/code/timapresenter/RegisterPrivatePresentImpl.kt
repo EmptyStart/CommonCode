@@ -69,6 +69,8 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
             pairs.put("latitude", locationBean.latitude.toString())
             pairs.put("longitude", locationBean.longitude.toString())
 
+            pairs["status"]="1"
+
             patchCompany(pairs)
         }
 
