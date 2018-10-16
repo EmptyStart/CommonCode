@@ -1,12 +1,13 @@
 package com.tima.common.base
 
-import org.litepal.crud.DataSupport
+import org.litepal.crud.LitePalSupport
+
 
 /**
  * 聊天信息
  * Created by Administrator on 2018/8/21/021.
  */
-class MsgInfo : DataSupport(){
+class MsgInfo : LitePalSupport(){
     var msgId : String = ""                                         //消息id
     var content: String = ""                                        //消息内容
     var type: Int = -1                                              //消息类型-接收发送
@@ -30,4 +31,4 @@ class PresonInfo(
         var userName: String,                                           //账号
         var newsCount: Int,                                             //消息数量
         var headUrl: String                                             //头像路径
-) : DataSupport()
+) : LitePalSupport()

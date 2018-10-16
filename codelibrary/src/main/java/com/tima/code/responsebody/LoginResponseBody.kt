@@ -1,6 +1,6 @@
 package com.tima.code.responsebody
 
-import org.litepal.crud.DataSupport
+import org.litepal.crud.LitePalSupport
 
 /**
  * @author : zhijun.li on 2018/9/3
@@ -15,7 +15,7 @@ data class LoginResponseBody(
     val img_base: String,
     val huanxin_password: String,
     val parttime_commition: Double
-): DataSupport()
+): LitePalSupport()
 
 data class Hr (
     val id: Int,
@@ -48,7 +48,7 @@ data class Hr (
     val id_verified: String,                //实名认证
     val push_id: String,                       //推送设备ID
     val im_id: String                          //环信设备ID
-) : DataSupport()
+) : LitePalSupport()
 
 data class Company(
     val id: Int,
@@ -68,7 +68,7 @@ data class Company(
     val fulltime_window: Int,
     val fulltime_unit: String,
     val margin: String
-) : DataSupport()
+) : LitePalSupport()
 
 data class RegisterValidResponseBody(
         val detail: String

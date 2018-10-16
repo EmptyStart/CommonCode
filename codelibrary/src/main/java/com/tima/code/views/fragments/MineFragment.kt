@@ -14,7 +14,7 @@ import com.tima.common.base.BaseFragment
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.ImageLoader
 import kotlinx.android.synthetic.main.code_fragment_mine.*
-import org.litepal.crud.DataSupport
+import org.litepal.LitePal
 
 /**
  * 我的-界面
@@ -41,9 +41,9 @@ class MineFragment : BaseFragment() , View.OnClickListener,IMineView{
         ll_resume.setOnClickListener(this)
         tvLogout.setOnClickListener(this)
 
-        var loginBody = DataSupport.findFirst(LoginResponseBody::class.java)
-        var hr = DataSupport.findFirst(Hr::class.java)
-        var company = DataSupport.findFirst(Company::class.java)
+        var loginBody = LitePal.findFirst(LoginResponseBody::class.java)
+        var hr = LitePal.findFirst(Hr::class.java)
+        var company = LitePal.findFirst(Company::class.java)
         if (loginBody != null && hr!= null && company != null){
             tv_company_name.text = hr.name
             var url = loginBody.img_base+company.logo

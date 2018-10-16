@@ -103,7 +103,8 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:4.1.6'
     //标签
     api 'com.hyman:flowlayout-lib:1.1.2'
-    api 'org.litepal.android:core:1.6.1'
+    //api 'org.litepal.android:core:1.6.1'
+    api 'org.litepal.android:kotlin:3.0.0'
     api("com.afollestad.material-dialogs:core:0.9.5.0") {
         exclude group: 'com.android.support', module: 'support-v13'
         exclude group: 'com.android.support', module: 'support-vector-drawable'

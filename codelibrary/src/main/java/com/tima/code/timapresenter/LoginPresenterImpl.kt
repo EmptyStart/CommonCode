@@ -19,7 +19,7 @@ import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.GsonUtils
 import com.tima.common.utils.SpHelper
 import com.tima.common.utils.genericClass
-import org.litepal.crud.DataSupport
+import org.litepal.LitePal
 
 /**
  * @author : zhijun.li on 2018/8/30
@@ -85,9 +85,9 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                             val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
 
                             responseBody?.apply {
-                                DataSupport.deleteAll(LoginResponseBody::class.java)
-                                DataSupport.deleteAll(Hr::class.java)
-                                DataSupport.deleteAll(Company::class.java)
+                                LitePal.deleteAll(LoginResponseBody::class.java)
+                                LitePal.deleteAll(Hr::class.java)
+                                LitePal.deleteAll(Company::class.java)
                                 save()
                                 hr.save()
                                 hr.company.save()

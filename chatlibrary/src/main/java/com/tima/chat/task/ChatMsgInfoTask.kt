@@ -12,7 +12,7 @@ import com.tima.common.thread.TaskInterface
 import com.tima.common.utils.DateUtils
 import com.tima.common.utils.LogUtils
 import org.greenrobot.eventbus.EventBus
-import org.litepal.crud.DataSupport
+import org.litepal.LitePal
 
 /**
  * Created by Administrator on 2018/9/18.
@@ -66,13 +66,13 @@ class ChatMsgInfoTask(var messages : MutableList<EMMessage>): TaskInterface{
         for (i in 0..messages.size - 1){
             var message = messages[i]
             if (!TextUtils.isEmpty(message.from) && message.from.length > 0){
-                var presonInfo = DataSupport.where("userName=?",message.from).findFirst(PresonInfo::class.java)
+                var presonInfo = LitePal.where("userName=?",message.from).findFirst(PresonInfo::class.java)
                 if (presonInfo == null){
                     presonInfo = PresonInfo(message.from,message.userName,1,"")
                     presonInfo.saveOrUpdate("userName=?",message.userName)
                 }
             }else{
-                var presonInfo = DataSupport.where("userName=?",message.from).findFirst(MsgInfo::class.java)
+                var presonInfo = LitePal.where("userName=?",message.from).findFirst(MsgInfo::class.java)
             }
 
         }

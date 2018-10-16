@@ -5,7 +5,6 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.hyphenate.chat.EMMessage
@@ -16,7 +15,6 @@ import com.tima.chat.constracts.IChatPresent
 import com.tima.chat.constracts.IChatView
 import com.tima.chat.helper.ChatUtils
 import com.tima.chat.helper.ChatUtils.TYPE_SEND
-import com.tima.chat.helper.MessageUtils
 import com.tima.chat.ui.model.ChatViewModelImpl
 import com.tima.chat.weight.RecordVoiceBtnController
 import com.tima.common.base.IBaseViews
@@ -25,7 +23,7 @@ import com.tima.common.base.MsgInfo
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.*
 import org.jetbrains.anko.toast
-import org.litepal.crud.DataSupport
+import org.litepal.LitePal
 
 /**
  * Created by Administrator on 2018/8/22/022.
@@ -52,7 +50,7 @@ class ChatPersenterImpl : IChatPresent, ChoiceFunctionAdapter.OnChoiceClickListe
             chatActivity = view?.getActivity()
             initChat()
         }
-        var infos = DataSupport.where("from=?",view?.getFRIENDID()).find(MsgInfo::class.java)
+        var infos = LitePal.where("from=?",view?.getFRIENDID()).find(MsgInfo::class.java)
         msgInfos.addAll(infos)
         refreshChatAdapter()
         view?.getVoiceBtView()?.initConv(chatActivity!!, chatAdapter!!)

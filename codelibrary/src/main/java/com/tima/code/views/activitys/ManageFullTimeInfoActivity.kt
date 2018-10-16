@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.code_include_company_info.*
 import kotlinx.android.synthetic.main.code_layout_info_address_p.*
 import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*
 import org.jetbrains.anko.toast
-import org.litepal.crud.DataSupport
+import org.litepal.LitePal
 
 /**
  * 全职详情-兼职详情
@@ -55,7 +55,7 @@ class ManageFullTimeInfoActivity : AbstractAddressAndMapTwoActivity(),IManageFul
         }
         abv_type2.setOnRightImageListener(this)
 
-        var company = DataSupport.findFirst(Company::class.java)
+        var company = LitePal.findFirst(Company::class.java)
         if(company != null){
             tv_company_name.text = company.full_name
         }

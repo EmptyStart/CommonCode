@@ -13,6 +13,7 @@ import com.tima.common.base.*
 import kotlinx.android.synthetic.main.code_fragment_interaction.*
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import org.litepal.LitePal
 import java.util.*
 
 /**
@@ -31,7 +32,7 @@ class InteractionFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener
 
     override fun initView() {
         swipe_interaction.setOnRefreshListener(this)
-        testData()
+        refreshData()
         onRefreshAdpater()
     }
 
@@ -78,19 +79,30 @@ class InteractionFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener
     }
 
 
-    fun testData(){
-        presonInfos.add(PresonInfo("老王","13764217962",22,"22"))
+    fun refreshData(){
+       /* presonInfos.add(PresonInfo("老王","13764217962",22,"22"))
         presonInfos.add(PresonInfo("李四","18390317132",0,"22"))
         presonInfos.add(PresonInfo("王五","18390317132",2,"22"))
         presonInfos.add(PresonInfo("六六","18390317132",4,"22"))
-        presonInfos.add(PresonInfo("老七","18390317132",13,"22"))
+        presonInfos.add(PresonInfo("老七","18390317132",13,"22"))*/
+        presonInfos.clear()
+        var presons = LitePal.findAll(PresonInfo::class.java)
+        if (presons == null || presons.size == 0){
+            var presonInfo =PresonInfo("18390317132","18390317132",0,"")
+            presonInfo.save()
+            presonInfos.add(presonInfo)
+        }else{
+            presonInfos.addAll(presons)
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun reciviceBus(event: MsgEventData) {
         when(event.functionName){
             ChatUtils.REFRESH_CHAT ->{
-
+                refreshData()
+                onRefreshAdpater()
             }
         }
     }
