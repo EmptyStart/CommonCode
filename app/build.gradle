@@ -53,6 +53,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
             signingConfig signingConfigs.release
         }
@@ -110,5 +111,6 @@ dependencies {
     implementation project(':commonresource')
     implementation project(':chatlibrary')
     kapt rootProject.ext.exps.arouter_compiler
+//    kapt rootProject.ext.exps.glide_compiler
 }
 

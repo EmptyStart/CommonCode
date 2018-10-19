@@ -9,16 +9,19 @@ import com.tima.common.base.*
  *         # Email
  */
 
-interface IRegisterCreateCompanyPresent : IBasePresenter
+interface IRegisterCreateCompanyPresent : IBasePresenter {
+    var isChangeInfo: Boolean
+    fun setStaffes(key: String?)
+}
 
 interface IRegisterCreateCompanyView : IRegisterCompanyView {
-    fun image21() : Uri?
-    fun image22() : Uri?
-    fun image23() : Uri?
-    fun image3() : Uri?
+    fun image21(): Uri?
+    fun image22(): Uri?
+    fun image23(): Uri?
+    fun image3(): Uri?
 
-    fun getStaffes() : TextView
+    fun getStaffes(): TextView
 
-    fun getIntroduce() : String?
-    fun getWebAddress() : String?
+    fun getIntroduce(): String?
+    fun getWebAddress(): String?
 }

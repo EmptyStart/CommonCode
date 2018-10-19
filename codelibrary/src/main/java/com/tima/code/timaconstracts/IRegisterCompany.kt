@@ -13,6 +13,7 @@ interface IRegisterCompanyViewModel : IBaseViewModel {
     fun addOnUpPicListener(listener: IDataFileListener)
     fun addOnUpHrListener(listener: IDataListener)
     fun addOnUpCompanyListener(listener: IDataListener)
+//    fun addOnCompany
 }
 
 interface IRegisterCompanyPresent : IBasePresenter

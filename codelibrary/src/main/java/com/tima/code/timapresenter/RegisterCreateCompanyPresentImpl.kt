@@ -5,15 +5,19 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 import android.net.Uri
+import android.text.TextUtils
 import android.view.View
 import com.afollestad.materialdialogs.DialogAction
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
+import com.tima.code.responsebody.Company
 import com.tima.code.responsebody.CompanyStaffsBody
+import com.tima.code.responsebody.Result
 import com.tima.code.timaconstracts.IRegisterCreateCompanyPresent
 import com.tima.code.timaconstracts.IRegisterCreateCompanyView
 import com.tima.code.timaviewmodels.RegisterCreateCompanyViewModelImpl
+import com.tima.common.base.Constant
 import com.tima.common.base.IDataFileListener
 import com.tima.common.base.IDataListener
 import com.tima.common.base.RoutePaths
@@ -25,6 +29,7 @@ import com.tima.common.utils.GsonUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.litepal.LitePal
 import java.io.File
 
 /**
@@ -34,18 +39,19 @@ import java.io.File
  */
 
 class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IRegisterCreateCompanyPresent {
+    override var isChangeInfo: Boolean=false
     var mView: IRegisterCreateCompanyView? = mView
     var selectStaffs: String = ""
-
+    val staffsList = arrayListOf<Result>()
     var count = -1;
     val mViewMode by lazy(LazyThreadSafetyMode.NONE) { RegisterCreateCompanyViewModelImpl() }
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.tv_actionbar_right_title -> {
-                count = 5
+                count = 1
                 patchAll()
             }
-            R.id.iv_actionbar_cancle->{
+            R.id.iv_actionbar_cancle -> {
                 (view.context as Activity).finish()
             }
             R.id.iv_head -> {
@@ -71,9 +77,9 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
         }
     }
 
-    fun patchAll(){
+    fun patchAll() {
         mView?.apply {
-            var pairs= mutableMapOf<String,String>()
+            var pairs = mutableMapOf<String, String>()
             val name = getName()
             val locationBean = getLocationBean()
             val headImage = headImage()
@@ -85,31 +91,33 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
 
 
 
-            if (name.isNullOrEmpty()){
+            if (name.isNullOrEmpty()) {
                 showError("公司名称是必填项")
                 return
             }
-
-            if (image3==null){
-                showError("公司营业执照是必填项")
-                return
-            }else{
-                upPic(image3,"3")
+            if (!isChangeInfo) {
+                count++
+                if (image3 == null) {
+                    showError("公司营业执照是必填项")
+                    return
+                } else {
+                    upPic(image3, "3")
+                }
             }
-            if (locationBean==null){
+            if (locationBean == null) {
                 showError("公司详细地址是必填项")
                 return
             }
 
-            if (!introduce.isNullOrEmpty()){
+            if (!introduce.isNullOrEmpty()) {
                 pairs.put("introduction", introduce!!)
             }
 
 
-            if (selectStaffs.isNotEmpty()){
+            if (selectStaffs.isNotEmpty()) {
                 pairs.put("staffs", selectStaffs)
             }
-            pairs["id"] = "42"
+            pairs["id"] = Constant.companyId
             pairs["full_name"] = name!!
             pairs["type"] = "1"
             pairs["address"] = locationBean.snippet
@@ -120,30 +128,26 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
             pairs["longitude"] = locationBean.longitude.toString()
 
 
-            pairs["status"]="1"
+            pairs["status"] = "1"
 
             patchCompany(pairs)
 
-            if (image21!=null){
-                upPic(image21,"2-1")
-            }else{
-                count--;
+            if (image21 != null) {
+                count++
+                upPic(image21, "2-1")
             }
-            if (image22!=null){
-                upPic(image22,"2-2")
-            }else{
-                count--;
+            if (image22 != null) {
+                count++
+                upPic(image22, "2-2")
             }
-            if (image23!=null){
-                upPic(image23,"2-3")
-            }else{
-                count--;
+            if (image23 != null) {
+                count++
+                upPic(image23, "2-3")
             }
 
-            if (headImage!=null){
-                upPic(headImage,"1")
-            }else{
-                count--;
+            if (headImage != null) {
+                count++
+                upPic(headImage, "1")
             }
         }
     }
@@ -155,7 +159,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
         activity?.finish()
     }
 
-    private fun upPic(uri: Uri,type: String) {
+    private fun upPic(uri: Uri, type: String) {
         mView?.apply {
             val file: File? = FileUtils.uriToFile(uri)
             val name = file?.name
@@ -225,55 +229,122 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
     }
 
     private fun getConfig() {
-        mView?.apply {
-            showLoading()
-            mViewMode.addConfigInfo(object : IDataListener {
-                override fun requestData(): Map<String, String>? {
-                    return mapOf(Pair("type", "COMPANY_STAFFS"))
+        if (staffsList.isEmpty()) {
+            mView?.apply {
+                showLoading()
+                mViewMode.addConfigInfo(object : IDataListener {
+                    override fun requestData(): Map<String, String>? {
+                        return mapOf(Pair("type", "COMPANY_STAFFS"))
 
-                }
-                override fun successData(success: String) {
-                    mView?.hideLoading()
-                    val staffsBody = GsonUtils.getGson.fromJson(success, CompanyStaffsBody::class.java)
-                    val results = staffsBody.results
-                    val list = arrayListOf<String>()
-                    for (result in results) {
-                        list.add(result.value)
                     }
-                    mView?.apply {
-                        if (list.isEmpty()) {
-                            return
+
+                    override fun successData(success: String) {
+                        mView?.hideLoading()
+                        val staffsBody = GsonUtils.getGson.fromJson(success, CompanyStaffsBody::class.java)
+                        staffsList.addAll(staffsBody.results)
+                        val list = arrayListOf<String>()
+                        for (result in staffsList) {
+                            list.add(result.value)
                         }
-                        MaterialDialog.Builder(getStaffes().context)
-                                .title("请选择公司规模")
-                                .positiveText("确定")
-                                .items(list)
-                                .itemsCallbackSingleChoice(0, object : MaterialDialog.ListCallbackSingleChoice {
-                                    override fun onSelection(dialog: MaterialDialog?, itemView: View?, which: Int, text: CharSequence?): Boolean {
-                                        val result = results.get(which)
-                                        selectStaffs = result.key
-                                        getStaffes().text = result.value
-                                        return true
-                                    }
-                                })
-                                .onPositive(object : MaterialDialog.SingleButtonCallback {
-                                    override fun onClick(dialog: MaterialDialog, which: DialogAction) {
-                                        dialog.dismiss()
-                                    }
+                        mView?.apply {
+                            if (list.isEmpty()) {
+                                return
+                            }
+                            MaterialDialog.Builder(getStaffes().context)
+                                    .title("请选择公司规模")
+                                    .positiveText("确定")
+                                    .items(list)
+                                    .itemsCallbackSingleChoice(0, object : MaterialDialog.ListCallbackSingleChoice {
+                                        override fun onSelection(dialog: MaterialDialog?, itemView: View?, which: Int, text: CharSequence?): Boolean {
+                                            val result = staffsList.get(which)
+                                            selectStaffs = result.key
+                                            getStaffes().text = result.value
+                                            return true
+                                        }
+                                    })
+                                    .onPositive(object : MaterialDialog.SingleButtonCallback {
+                                        override fun onClick(dialog: MaterialDialog, which: DialogAction) {
+                                            dialog.dismiss()
+                                        }
 
-                                }).show()
+                                    }).show()
+                        }
                     }
-                }
 
-                override fun errorData(error: String) {
-                    mView?.hideLoading()
-                    ExceptionDeal.handleException(error)
+                    override fun errorData(error: String) {
+                        mView?.hideLoading()
+                        ExceptionDeal.handleException(error)
+                    }
+                })
+            }
+        }else{
+            val list = arrayListOf<String>()
+            for (result in staffsList) {
+                list.add(result.value)
+            }
+            mView?.apply {
+                if (list.isEmpty()) {
+                    return
                 }
-            })
+                MaterialDialog.Builder(getStaffes().context)
+                        .title("请选择公司规模")
+                        .positiveText("确定")
+                        .items(list)
+                        .itemsCallbackSingleChoice(0, object : MaterialDialog.ListCallbackSingleChoice {
+                            override fun onSelection(dialog: MaterialDialog?, itemView: View?, which: Int, text: CharSequence?): Boolean {
+                                val result = staffsList.get(which)
+                                selectStaffs = result.key
+                                getStaffes().text = result.value
+                                return true
+                            }
+                        })
+                        .onPositive(object : MaterialDialog.SingleButtonCallback {
+                            override fun onClick(dialog: MaterialDialog, which: DialogAction) {
+                                dialog.dismiss()
+                            }
+
+                        }).show()
+            }
+        }
+    }
+    override fun setStaffes(key: String?) {
+        if (staffsList.isEmpty()) {
+            mView?.apply {
+                showLoading()
+                mViewMode.addConfigInfo(object : IDataListener {
+                    override fun requestData(): Map<String, String>? {
+                        return mapOf(Pair("type", "COMPANY_STAFFS"))
+
+                    }
+
+                    override fun successData(success: String) {
+                        mView?.hideLoading()
+                        val staffsBody = GsonUtils.getGson.fromJson(success, CompanyStaffsBody::class.java)
+                        staffsList.addAll(staffsBody.results)
+
+                        for (result in staffsList) {
+                            if (TextUtils.equals(key,result.key)){
+                                mView?.getStaffes()?.text=result.value
+                            }
+                        }
+                    }
+
+                    override fun errorData(error: String) {
+                        mView?.hideLoading()
+                        ExceptionDeal.handleException(error)
+                    }
+                })
+            }
+        }else{
+            for (result in staffsList) {
+                if (TextUtils.equals(key,result.key)){
+                    mView?.getStaffes()?.text=result.value
+                }
+            }
         }
     }
 
-    private fun patchCompany(requestMap : Map<String,String>){
+    private fun patchCompany(requestMap: Map<String, String>) {
         mView?.apply {
             showLoading()
             mViewMode.addOnUpCompanyListener(object : IDataListener {
@@ -283,6 +354,8 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
                 }
 
                 override fun successData(success: String) {
+                    val company = GsonUtils.getGson.fromJson(success, Company::class.java)
+                    company.saveOrUpdateAsync("id=?",company.id.toString())
                     if (count == 1) {
                         saved()
                     } else {

@@ -1,5 +1,6 @@
 package com.tima.code.timapresenter
 
+import android.app.Activity
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
@@ -7,15 +8,19 @@ import android.net.Uri
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
+import com.tima.code.responsebody.Company
+import com.tima.code.responsebody.Hr
 import com.tima.code.timaconstracts.IRegisterPrivatePresent
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timaviewmodels.RegisterPrivateViewModelImpl
+import com.tima.common.base.Constant
 import com.tima.common.base.IDataFileListener
 import com.tima.common.base.IDataListener
 import com.tima.common.base.RoutePaths
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.FileUtils
+import com.tima.common.utils.GsonUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -38,6 +43,9 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
             R.id.ivPicHead -> {
                 mView?.selectImage()
             }
+            R.id.iv_actionbar_cancle -> {
+                (view.context as Activity).finish()
+            }
         }
     }
 
@@ -56,11 +64,11 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 return
             }
             if (headImage != null) {
-                count = 3
+                count ++
                 upPic(headImage)
             }
             patchHr(name!!)
-            pairs.put("id", "42")
+            pairs.put("id",Constant.companyId)
             pairs.put("type", "0")
             pairs.put("address", locationBean.snippet)
             pairs.put("province", locationBean.province)
@@ -131,6 +139,8 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 }
 
                 override fun successData(success: String) {
+                    val hr = GsonUtils.getGson.fromJson(success, Hr::class.java)
+                    hr.saveOrUpdateAsync("id=?",hr.id.toString())
                     mView?.hideLoading()
                     if (count == 1) {
                         saved()
@@ -158,6 +168,8 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 }
 
                 override fun successData(success: String) {
+                    val company = GsonUtils.getGson.fromJson(success, Company::class.java)
+                    company.saveOrUpdateAsync("id=?",company.id.toString())
                     mView?.hideLoading()
                     if (count == 1) {
                         saved()

@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
+import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -282,8 +283,8 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
             val i = wi * ci * (ti + tid)
             val poundage = i * Constant.partCommit
             val d = poundage + i
-            tv_poundage.text = String.format("%.2f",poundage)
-            tv_count_pay.text =  String.format("%.2f",d)
+            tv_poundage.text = String.format("%.2f", poundage)
+            tv_count_pay.text = String.format("%.2f", d)
         } catch (e: NumberFormatException) {
             e.printStackTrace()
         }
@@ -307,7 +308,17 @@ class ReleaseParttimeActivity : AbstractAddressAndMapActivity(), View.OnClickLis
 
     override fun onBackPressed() {
         if (presenter.isCanRe()) {
-            toast("您还没有走完兼职发布流程！")
+            MaterialDialog.Builder(this)
+                    .title("确认退出？")
+                    .content("您还没有走完兼职发布流程，退出将不会保存！")
+                    .positiveText("取消")
+                    .negativeText("确认")
+                    .onPositive { dialog, which -> dialog.dismiss() }
+                    .onNegative { dialog, which ->
+                        dialog.dismiss()
+                        finish()
+                    }
+                    .show()
             return
         }
         super.onBackPressed()

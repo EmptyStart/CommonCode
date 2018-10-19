@@ -1,8 +1,17 @@
 package com.tima.code.views.fragments
 
+import android.Manifest
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
+import com.tbruyelle.rxpermissions2.Permission
+import com.tbruyelle.rxpermissions2.RxPermissions
+import com.tbruyelle.rxpermissions2.RxPermissionsFragment
 import com.tima.code.R
 import com.tima.code.responsebody.Company
 import com.tima.code.responsebody.Hr
@@ -11,9 +20,14 @@ import com.tima.code.timaconstracts.IMinePresent
 import com.tima.code.timaconstracts.IMineView
 import com.tima.code.timapresenter.MinePresenterImpl
 import com.tima.common.base.BaseFragment
+import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.ImageLoader
+import com.tima.common.utils.LogUtils
+import com.tima.common.utils.MapGaoDe
+import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.code_fragment_mine.*
+import org.jetbrains.anko.toast
 import org.litepal.LitePal
 
 /**
@@ -22,9 +36,18 @@ import org.litepal.LitePal
  *   email : zhijun.li@timanetworks.com
  */
 @Route(path = RoutePaths.minefragment)
-class MineFragment : BaseFragment() , View.OnClickListener,IMineView{
+class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
+    override fun gotoChangeInfo() {
+        if (Constant.position == 1){
+            ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
+        }else{
+//            ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
+            ARouter.getInstance().build(RoutePaths.createcompany).navigation()
+        }
 
-    var minePresent : IMinePresent? = null
+    }
+
+    var minePresent: IMinePresent? = null
 
     override fun attachLayoutRes(): Int {
         return R.layout.code_fragment_mine
@@ -33,25 +56,36 @@ class MineFragment : BaseFragment() , View.OnClickListener,IMineView{
     override fun initView() {
         minePresent = MinePresenterImpl(this)
 
-
         ll_help.setOnClickListener(this)
-        tv_phone.setOnClickListener(this)
+        onlineService.setOnClickListener(this)
         ll_shell.setOnClickListener(this)
         ll_wallet.setOnClickListener(this)
         ll_resume.setOnClickListener(this)
         tvLogout.setOnClickListener(this)
+        tv_company_name.setOnClickListener(this)
+        iv_logo.setOnClickListener(this)
 
-        var loginBody = LitePal.findFirst(LoginResponseBody::class.java)
-        var hr = LitePal.findFirst(Hr::class.java)
-        var company = LitePal.findFirst(Company::class.java)
-        if (loginBody != null && hr!= null && company != null){
-            tv_company_name.text = hr.name
-            var url = loginBody.img_base+company.logo
-            ImageLoader.load(activity,url,iv_logo)
+        val loginBody = LitePal.findFirst(LoginResponseBody::class.java)
+        val hr = LitePal.findFirst(Hr::class.java)
+        val company = LitePal.findFirst(Company::class.java)
+        if (loginBody != null && hr != null && company != null) {
+            if (Constant.position == 1) {
+                tv_company_name.text = hr.name
+                ll_resume.visibility = View.GONE
+                mineVerfy.setText("个人实名认证")
+            } else if (Constant.position == 2) {
+                tv_company_name.text = company.full_name
+                ll_resume.visibility = View.VISIBLE
+                mineVerfy.setText("公司实名认证")
+            }
+            var url = loginBody.img_base + company.logo
+            ImageLoader.load(activity, url, iv_logo, R.mipmap.code_register_addphoto)
             tv_phone.text = hr.mobile
         }
 
     }
+
+
 
     override fun lazyLoad() {
     }
@@ -71,7 +105,28 @@ class MineFragment : BaseFragment() , View.OnClickListener,IMineView{
     override fun showError(errorMsg: String) {
     }
 
-    override fun getMineActivity() : Activity {
+    override fun getMineActivity(): Activity {
         return activity
+    }
+
+    override fun callPhone() {
+        val phoneNum: String?=tv_phone.text.toString().trim()
+        if (phoneNum.isNullOrEmpty()) return
+        val rxPermissions = RxPermissions(getMineActivity() as AppCompatActivity)
+        rxPermissions.request(Manifest.permission.CALL_PHONE)
+                .subscribe(object : Consumer<Boolean> {
+                    override fun accept(t: Boolean?) {
+                        t?.let {
+                            if (it) {
+                                val intent=Intent(Intent.ACTION_DIAL);
+                                val data=Uri.parse("tel:" + phoneNum);
+                                intent.setData(data);
+                                getMineActivity().startActivity(intent);
+                            } else {
+                                toast("该功能需要电话权限！")
+                            }
+                        }
+                    }
+                })
     }
 }

@@ -231,6 +231,29 @@ abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {
             aMap.minZoomLevel = 12f
             aMap.maxZoomLevel = 18f
         }
+    }
+
+    /**
+     * 设置定位数据
+     */
+    protected fun setLocation(it: LocationBean?) {
+        it?.let {
+            tv_pro.text = it.province
+            tv_city.text = it.city
+            tv_county.text = it.district
+            et_address.setText(it.snippet)
+            val latLng = LatLng(it.latitude, it.longitude)
+            marker?.let {
+                if (!it.isRemoved) {
+                    it.remove()
+                }
+            }
+            marker = aMap.addMarker(setMarker(latLng, null))
+            val newLatLng = CameraUpdateFactory.newLatLng(latLng)
+            aMap.moveCamera(newLatLng)
+            aMap.minZoomLevel = 12f
+            aMap.maxZoomLevel = 18f
+        }
 
     }
 

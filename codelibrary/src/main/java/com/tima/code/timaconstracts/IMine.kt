@@ -12,5 +12,7 @@ interface IMineViewModel : IBaseViewModel{
 
 interface IMineView : IBaseViews {
     fun getMineActivity() : Activity
+    fun callPhone()
+    fun gotoChangeInfo()
 }
 interface IMinePresent : IBasePresenter

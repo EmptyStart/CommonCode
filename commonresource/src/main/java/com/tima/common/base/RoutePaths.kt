@@ -33,6 +33,7 @@ object RoutePaths{
     //技能标签选择
     const val releasetag="/release/tag"
 
+    const val chatActivity="/chat/chatactivity"
 
 
     /**
@@ -65,5 +66,7 @@ object RoutePaths{
      */
     const val chatManager="/service/chat"
 
-    const val chatActivity="chat/chatactivity"
+
+
+//    const val glideService="/service/glide"
 }

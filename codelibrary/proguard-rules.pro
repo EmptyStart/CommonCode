@@ -101,6 +101,8 @@
 -keep class com.alipay.tscenter.** { *; }
 -keep class com.ta.utdid2.** { *;}
 -keep class com.ut.device.** { *;}
+#-dontwarn org.apache.commons.collections.BeanMap
+-dontwarn java.beans.**
 #   微信支付
 -keep class com.tencent.mm.opensdk.** {
     *;
@@ -113,7 +115,28 @@
 -keep class com.tencent.mm.sdk.** {
     *;
     }
+#  glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+#  LitePal
+-keep class org.litepal.** {
+    *;
+}
 
+-keep class * extends org.litepal.crud.DataSupport {
+    *;
+}
+
+-keep class * extends org.litepal.crud.LitePalSupport {
+    *;
+}
+
+# for DexGuard only
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 #---------------------------------3.与js互相调用的类------------------------
 
 

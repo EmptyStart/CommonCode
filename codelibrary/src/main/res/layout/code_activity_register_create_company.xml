@@ -138,7 +138,7 @@
                     android:text="上传公司介绍" />
 
                 <ImageView
-                    android:id="@+id/iv_add_img1"
+                    android:id="@+id/iv_add_img3"
                     android:layout_width="172px"
                     android:layout_height="172px"
                     android:layout_alignParentRight="true"
@@ -156,11 +156,11 @@
                     android:layout_marginRight="35px"
                     android:scaleType="centerCrop"
                     app:layout_auto_basewidth="height"
-                    android:layout_toLeftOf="@+id/iv_add_img1"
+                    android:layout_toLeftOf="@+id/iv_add_img3"
                     android:src="@mipmap/code_register_addphoto" />
 
                 <ImageView
-                    android:id="@+id/iv_add_img3"
+                    android:id="@+id/iv_add_img1"
                     android:layout_width="172px"
                     android:layout_height="172px"
                     android:layout_centerVertical="true"
@@ -200,6 +200,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rlicImage"
                 android:layout_width="match_parent"
                 android:layout_height="230px"
                 android:layout_marginTop="30px"
@@ -246,5 +247,6 @@
         android:layout_marginRight="35px"
         android:layout_marginTop="220px"
         android:scaleType="centerCrop"
-        android:src="@mipmap/code_register_addphoto" />
+        android:src="@mipmap/code_login_arrive"
+         />
 </com.zhy.autolayout.AutoRelativeLayout>

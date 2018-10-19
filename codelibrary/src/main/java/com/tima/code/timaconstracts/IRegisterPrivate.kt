@@ -24,4 +24,5 @@ interface IRegisterPrivateView : IBaseViews {
     fun location(listener: IAMapLocationSuccessListener)
     fun getName() : String?
     fun getLocationBean() : LocationBean?
+
 }

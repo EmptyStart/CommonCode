@@ -50,15 +50,23 @@ data class Hr (
     val im_id: String                          //环信设备ID
 ) : LitePalSupport()
 
-data class Company(
+data class  Company(
     val id: Int,
     val full_name: String,
     val short_name: String,
     val logo: String,
+    val website: String,
     val type: String,
+    val introduction: String,
     val province: String,
     val city: String,
     val region: String,
+    val address: String,
+    val longitude: String,
+    val latitude: String,
+    val img1: String,
+    val img2: String,
+    val img3: String,
     val verify: String,
     val status: String,
     val priority: String,
@@ -420,4 +428,10 @@ data class ReleasePartTimePosition(
     val qty: Int,
     val qty_var: Int,
     val skill_set: Any
+)
+
+data class ReRealseResponse(
+    val code: Int,
+    val available_amt: Double,
+    val detail: String
 )

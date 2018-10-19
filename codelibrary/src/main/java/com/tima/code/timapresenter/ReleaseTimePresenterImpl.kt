@@ -96,7 +96,17 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
             when (it.id) {
                 R.id.iv_actionbar_cancle -> {
                     if (positionId.isNotEmpty()) {
-                        mView?.showError("您还没有走完兼职发布流程！")
+                        MaterialDialog.Builder(it.context)
+                                .title("确认退出？")
+                                .content("您还没有走完兼职发布流程，退出将不会保存！")
+                                .positiveText("取消")
+                                .negativeText("确认")
+                                .onPositive { dialog, which -> dialog.dismiss() }
+                                .onNegative { dialog, which ->
+                                    dialog.dismiss()
+                                    ActivityManage.instance.exitCurrentActivity()
+                                }
+                                .show()
                     } else {
                         mView?.close()
                     }
@@ -495,15 +505,15 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
                     return textView
                 }
             }
-            popTfl.adapter =tagAdapter
+            popTfl.adapter = tagAdapter
             when (code) {
-                0 ->{
-                    if (selectWeekList.size>0){
+                0 -> {
+                    if (selectWeekList.size > 0) {
                         tagAdapter.setSelectedList(selectWeekList)
                     }
                 }
                 1 -> {
-                    if (selectTimeList.size>0){
+                    if (selectTimeList.size > 0) {
                         tagAdapter.setSelectedList(selectTimeList)
                     }
                 }
@@ -658,13 +668,16 @@ class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {
         mViewModel.addOnRepayListener(object : IDataListener {
             override fun successData(success: String) {
                 mView?.hideLoading()
-                val success = GsonUtils.getGson.fromJson(success, ApiException::class.java)
+                val success = GsonUtils.getGson.fromJson(success, ReRealseResponse::class.java)
                 if (TextUtils.equals("200", success.code.toString())) {
                     mView?.showError("发布成功")
                     positionId = ""
                     mView?.close()
                 } else {
                     mView?.showError(success.detail.toString())
+                    val needMoney = mView?.getCountMoney()
+                    val surplusMoney = success.available_amt.toString()
+                    recharge(surplusMoney, needMoney)
                 }
             }
 

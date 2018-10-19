@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
 @Route(path = RoutePaths.login)
 class LoginActivity : BaseActivity(), ILoginView, View.OnClickListener {
     override fun bindAccount(mobile: String?) {
-        XGPushManager.bindAccount(this,mobile,object : XGIOperateCallback {
+        XGPushManager.bindAccount(this.application,mobile,object : XGIOperateCallback {
             override fun onSuccess(p0: Any?, p1: Int) {
 
             }

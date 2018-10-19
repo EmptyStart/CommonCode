@@ -7,11 +7,9 @@ import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
-import com.tima.chat.helper.ChatUtils
 import com.tima.code.R
 import com.tima.code.timaconstracts.IMinePresent
 import com.tima.code.timaconstracts.IMineView
-import com.tima.code.timaviewmodels.AlipayViewModelImpl
 import com.tima.code.timaviewmodels.MineViewModelImpl
 import com.tima.code.views.activitys.WalletActivity
 import com.tima.common.alipay.AlipayUtils
@@ -21,7 +19,6 @@ import com.tima.common.base.Constant
 import com.tima.common.base.IBaseViews
 import com.tima.common.base.IDataListener
 import com.tima.common.base.RoutePaths
-import com.tima.common.https.CommonUrls.logout
 import com.tima.common.https.ExceptionDeal
 import com.tima.common.utils.ActivityManage
 import com.tima.common.utils.SpHelper
@@ -44,11 +41,11 @@ class MinePresenterImpl : IMinePresent {
             R.id.ll_help -> {
 
             }
-            R.id.tv_phone -> {
-
+            R.id.onlineService -> {
+                view?.callPhone()
             }
             R.id.ll_shell -> {
-
+//                view?.showError("认证")
             }
             R.id.ll_wallet -> {
                 var intent = Intent(mineActivity, WalletActivity::class.java)
@@ -56,6 +53,9 @@ class MinePresenterImpl : IMinePresent {
             }
             R.id.ll_resume -> {
 //                getorder("0.01")
+            }
+            R.id.tv_company_name,R.id.iv_logo -> {
+                view?.gotoChangeInfo()
             }
             R.id.tvLogout -> {
                 logoutDeal()
