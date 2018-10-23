@@ -24,4 +24,8 @@ interface IRegisterCreateCompanyView : IRegisterCompanyView {
 
     fun getIntroduce(): String?
     fun getWebAddress(): String?
+
+    fun upDatePic(picName:String,type : String)
+
+    fun toUpData()
 }

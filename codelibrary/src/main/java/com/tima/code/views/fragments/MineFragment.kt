@@ -19,6 +19,7 @@ import com.tima.code.responsebody.LoginResponseBody
 import com.tima.code.timaconstracts.IMinePresent
 import com.tima.code.timaconstracts.IMineView
 import com.tima.code.timapresenter.MinePresenterImpl
+import com.tima.common.BusEvents.SelectEvent5
 import com.tima.common.base.BaseFragment
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
@@ -27,6 +28,9 @@ import com.tima.common.utils.LogUtils
 import com.tima.common.utils.MapGaoDe
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.code_fragment_mine.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
 import org.litepal.LitePal
 
@@ -38,16 +42,19 @@ import org.litepal.LitePal
 @Route(path = RoutePaths.minefragment)
 class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
     override fun gotoChangeInfo() {
-        if (Constant.position == 1){
+        if (Constant.position == 1) {
             ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
-        }else{
-//            ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
-            ARouter.getInstance().build(RoutePaths.createcompany).navigation()
+        } else {
+            ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
+//            ARouter.getInstance().build(RoutePaths.createcompany).navigation()
         }
 
     }
 
     var minePresent: IMinePresent? = null
+    override fun useEventBus(): Boolean {
+        return true
+    }
 
     override fun attachLayoutRes(): Int {
         return R.layout.code_fragment_mine
@@ -65,6 +72,18 @@ class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
         tv_company_name.setOnClickListener(this)
         iv_logo.setOnClickListener(this)
 
+        putData()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun getEvent(event: SelectEvent5) {
+        if (event.upData == 2) {
+            putData()
+        }
+        EventBus.getDefault().removeStickyEvent(event)
+    }
+
+    private fun putData() {
         val loginBody = LitePal.findFirst(LoginResponseBody::class.java)
         val hr = LitePal.findFirst(Hr::class.java)
         val company = LitePal.findFirst(Company::class.java)
@@ -82,10 +101,7 @@ class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
             ImageLoader.load(activity, url, iv_logo, R.mipmap.code_register_addphoto)
             tv_phone.text = hr.mobile
         }
-
     }
-
-
 
     override fun lazyLoad() {
     }
@@ -110,7 +126,7 @@ class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
     }
 
     override fun callPhone() {
-        val phoneNum: String?=tv_phone.text.toString().trim()
+        val phoneNum: String? = tv_phone.text.toString().trim()
         if (phoneNum.isNullOrEmpty()) return
         val rxPermissions = RxPermissions(getMineActivity() as AppCompatActivity)
         rxPermissions.request(Manifest.permission.CALL_PHONE)
@@ -118,8 +134,8 @@ class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
                     override fun accept(t: Boolean?) {
                         t?.let {
                             if (it) {
-                                val intent=Intent(Intent.ACTION_DIAL);
-                                val data=Uri.parse("tel:" + phoneNum);
+                                val intent = Intent(Intent.ACTION_DIAL);
+                                val data = Uri.parse("tel:" + phoneNum);
                                 intent.setData(data);
                                 getMineActivity().startActivity(intent);
                             } else {

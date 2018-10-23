@@ -15,6 +15,7 @@ import com.tima.code.responsebody.LocationBean
 import com.tima.code.responsebody.LoginResponseBody
 import com.tima.code.timaconstracts.IRegisterCreateCompanyView
 import com.tima.code.timapresenter.RegisterCreateCompanyPresentImpl
+import com.tima.common.BusEvents.SelectEvent5
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.CameraUtils
@@ -22,6 +23,7 @@ import com.tima.common.utils.ImageLoader
 import com.zhihu.matisse.Matisse
 import kotlinx.android.synthetic.main.code_activity_register_create_company.*
 import kotlinx.android.synthetic.main.code_layout_select_address.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 import org.litepal.LitePal
 
@@ -32,8 +34,14 @@ import org.litepal.LitePal
 @Route(path = RoutePaths.createcompany)
 class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         IRegisterCreateCompanyView,View.OnClickListener {
+    override fun toUpData() {
+        EventBus.getDefault().postSticky(SelectEvent5(2))
+        finish()
+    }
 
-
+//    override fun useEventBus(): Boolean {
+//        return true
+//    }
     private var locLatitude : Double= -1.0
     private var locLongitude : Double=-1.0
     override fun getWebAddress(): String? {
@@ -50,22 +58,22 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         present.onClick(v)
     }
 
-    var image3: Uri? = null
+    private var image3: Uri? = null
     override fun image3(): Uri? {
         return image3
     }
 
-    var image21: Uri? = null
+    private var image21: Uri? = null
     override fun image21(): Uri? {
         return image21
     }
 
-    var image22: Uri? = null
+    private var image22: Uri? = null
     override fun image22(): Uri? {
         return image22
     }
 
-    var image23: Uri? = null
+    private var image23: Uri? = null
     override fun image23(): Uri? {
         return image23
     }
@@ -74,7 +82,7 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         return tv_company_size
     }
 
-    var headImage: Uri? = null
+    private var headImage: Uri? = null
     override fun headImage(): Uri? {
         return headImage
     }
@@ -174,9 +182,9 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
             if(!company.introduction.isNullOrEmpty()){
                 et_introduce.setText(company.introduction)
             }
-//            if (!company.staffs.isNullOrEmpty()){
-//                present.setStaffes(company.staffs)
-//            }
+            if (!company.staffs.isNullOrEmpty()){
+                present.setStaffes(company.staffs)
+            }
             if (!company.region.isNullOrEmpty()&&!company.address.isNullOrEmpty()&&!company.city.isNullOrEmpty()
                     &&!company.province.isNullOrEmpty()&&!(company.latitude.isNullOrEmpty() && company.longitude.isNullOrEmpty())) {
                 tv_county.text = company.region
@@ -207,6 +215,17 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
                 iv.setImageURI(uri)
             }
         })
+    }
+
+    override fun upDatePic(picName: String, type: String) {
+        val company = LitePal.findFirst(Company::class.java)
+        when(type){
+            "2-1"->company.img1=picName
+            "2-2"->company.img2=picName
+            "2-3"->company.img3=picName
+            "1"->company.logo=picName
+        }
+        company.save()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

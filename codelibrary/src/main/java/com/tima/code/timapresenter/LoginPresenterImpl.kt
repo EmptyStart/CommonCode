@@ -98,7 +98,8 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                                 Constant.mobile = hr.mobile
                                 Constant.chatPassword = huanxin_password
                                 Constant.companyId = hr.company.id.toString()
-                                Constant.hrId = hr.id.toString()
+                                val hrId = hr.id.toString();
+                                Constant.hrId = hrId
                                 Constant.partCommit = parttime_commition
                                 if ("0"==hr.company.type){
                                     //个人

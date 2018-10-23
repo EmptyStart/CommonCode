@@ -54,7 +54,7 @@ data class  Company(
     val id: Int,
     val full_name: String,
     val short_name: String,
-    val logo: String,
+    var logo: String,
     val website: String,
     val type: String,
     val introduction: String,
@@ -64,9 +64,10 @@ data class  Company(
     val address: String,
     val longitude: String,
     val latitude: String,
-    val img1: String,
-    val img2: String,
-    val img3: String,
+    val staffs: String,
+    var img1: String,
+    var img2: String,
+    var img3: String,
     val verify: String,
     val status: String,
     val priority: String,
@@ -434,4 +435,9 @@ data class ReRealseResponse(
     val code: Int,
     val available_amt: Double,
     val detail: String
+)
+
+data class PicResponse(
+    val code: Int,
+    val file: String
 )

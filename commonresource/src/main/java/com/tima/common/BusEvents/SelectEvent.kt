@@ -19,10 +19,7 @@ class SelectPos4{
     var  isPos4:Boolean=false
 
 }
-class SelectPos5{
-    var  isPos5:Boolean=false
-
-}
+data class SelectEvent5(var upData:Int)
 
 class CanSelectTag{
     val tagList= arrayListOf<String>()

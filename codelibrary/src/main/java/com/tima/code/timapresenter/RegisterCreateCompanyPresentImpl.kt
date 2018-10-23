@@ -13,6 +13,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.responsebody.Company
 import com.tima.code.responsebody.CompanyStaffsBody
+import com.tima.code.responsebody.PicResponse
 import com.tima.code.responsebody.Result
 import com.tima.code.timaconstracts.IRegisterCreateCompanyPresent
 import com.tima.code.timaconstracts.IRegisterCreateCompanyView
@@ -154,9 +155,7 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
 
     private fun saved() {
         mView?.showError("资料提交审核成功！")
-        val activity = ActivityManage.instance.getCurrentActivity()
-        ARouter.getInstance().build(RoutePaths.mainpage).navigation()
-        activity?.finish()
+        mView?.toUpData()
     }
 
     private fun upPic(uri: Uri, type: String) {
@@ -168,11 +167,18 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
             mViewMode.addOnUpPicListener(object : IDataFileListener {
 
                 override fun successData(success: String) {
-                    if (count == 1) {
-                        saved()
-                    } else {
-                        count--
+                    try {
+                        val picResponse = GsonUtils.getGson.fromJson(success, PicResponse::class.java)
+                        mView?.upDatePic(picResponse.file,type)
+                        if (count == 1) {
+                            saved()
+                        } else {
+                            count--
+                        }
+                    }catch (e:Exception){
+                        e.printStackTrace()
                     }
+
                 }
 
                 override fun errorData(error: String) {
@@ -355,7 +361,8 @@ class RegisterCreateCompanyPresentImpl(mView: IRegisterCreateCompanyView) : IReg
 
                 override fun successData(success: String) {
                     val company = GsonUtils.getGson.fromJson(success, Company::class.java)
-                    company.saveOrUpdateAsync("id=?",company.id.toString())
+                    LitePal.deleteAll(Company::class.java)
+                    company.save()
                     if (count == 1) {
                         saved()
                     } else {

@@ -32,7 +32,7 @@ class RegisterPrivateViewModelImpl : BaseViewModel(), IRegisterPrivateViewModel 
 
     override fun addOnUpHrListener(listener: IDataListener) {
         val baseSubscriber = BaseSubscriber(listener)
-        RetrofitHelper.service.executePatch(CommonUrls.hrInfo + "/${Constant.hrId}/", listener.requestData())
+        RetrofitHelper.service.executePatch(CommonUrls.hrInfo + "${Constant.hrId}/", listener.requestData())
                 .compose(SchedulerUtils.ioToMain()).subscribe(baseSubscriber)
         addSubscription(baseSubscriber)
     }
