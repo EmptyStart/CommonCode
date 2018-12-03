@@ -15,7 +15,7 @@ import org.jetbrains.anko.find
 
 /**
  * @author : zhijun.li on 2018/8/23
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class ActionBarView : AutoLinearLayout {

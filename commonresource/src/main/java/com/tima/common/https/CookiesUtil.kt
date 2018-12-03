@@ -2,7 +2,7 @@ package com.tima.common.https
 
 /**
  * @author : zhijun.li on 2018/9/4
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object CookiesUtil{

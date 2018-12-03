@@ -2,7 +2,7 @@ package com.tima.common.https
 
 /**
  * @author : zhijun.li on 2018/8/31
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object CommonUrls {

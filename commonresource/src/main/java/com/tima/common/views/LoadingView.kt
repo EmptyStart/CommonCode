@@ -10,7 +10,7 @@ import com.tima.common.R
 
 /**
  * @author : zhijun.li on 2018/9/20
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class LoadingView(context: Context) : Dialog(context){

@@ -5,7 +5,7 @@ import com.tima.common.base.IDataListener
 
 /**
  * @author : zhijun.li on 2018/9/10
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface IConfigInfoViewModel : IBaseViewModel{

@@ -4,7 +4,7 @@ import android.text.TextUtils
 
 /**
  * @author : zhijun.li on 2018/9/14
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class PayResult(rawResult: Map<String, String>?) {

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.code_activity_main.*
 
 /**
  * @author : zhijun.li on 2018/8/23
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class MainPagePresenterImpl : IMainPagePresent {

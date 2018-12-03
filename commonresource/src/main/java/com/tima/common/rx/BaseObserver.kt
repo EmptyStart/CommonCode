@@ -5,7 +5,7 @@ import io.reactivex.observers.ResourceObserver
 
 /**
  * @author : zhijun.li on 2018/8/15
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 open class BaseObserver<T> : ResourceObserver<T> {

@@ -7,7 +7,7 @@ import javax.crypto.spec.SecretKeySpec
 
 /**
  * @author : zhijun.li on 2018/7/1
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object SafeUtils{

@@ -13,7 +13,7 @@ import okhttp3.ResponseBody
 
 /**
  * @author : zhijun.li on 2018/8/30
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class AlipayViewModelImpl() : BaseViewModel(){

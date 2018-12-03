@@ -9,7 +9,7 @@ import com.tima.common.rx.SchedulerUtils
 
 /**
  * @author : zhijun.li on 2018/8/22
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class WelcomeViewModelImpl : BaseViewModel(),IWelcomeViewModel {

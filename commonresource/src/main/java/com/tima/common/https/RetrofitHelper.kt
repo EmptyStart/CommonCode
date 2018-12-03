@@ -18,7 +18,7 @@ import javax.net.ssl.*
 
 /**
  * @author : zhijun.li on 2018/8/1
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object RetrofitHelper {

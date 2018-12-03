@@ -6,7 +6,7 @@ import okhttp3.Response
 
 /**
  * @author : zhijun.li on 2018/7/2
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class LoggingIntercepter : Interceptor {

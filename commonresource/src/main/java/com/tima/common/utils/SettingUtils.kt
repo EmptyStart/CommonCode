@@ -14,7 +14,7 @@ import android.content.ContextWrapper
 
 /**
  * @author : zhijun.li on 2018/8/14
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object SettingUtils {

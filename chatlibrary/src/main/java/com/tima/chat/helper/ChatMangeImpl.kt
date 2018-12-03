@@ -15,7 +15,7 @@ import org.jetbrains.anko.toast
 
 /**
  * @author : zhijun.li on 2018/9/19
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.chatManager)

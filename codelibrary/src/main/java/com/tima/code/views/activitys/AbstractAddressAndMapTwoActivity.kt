@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.code_layout_info_address_p.*
 
 /**
  * @author : zhijun.li on 2018/9/7
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 abstract class AbstractAddressAndMapTwoActivity : BaseActivity() {

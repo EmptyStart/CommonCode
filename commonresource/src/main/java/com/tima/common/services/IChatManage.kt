@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.template.IProvider
 
 /**
  * @author : zhijun.li on 2018/9/19
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface IChatManage :IProvider{

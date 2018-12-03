@@ -5,13 +5,10 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
-import android.text.TextUtils
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.tbruyelle.rxpermissions2.Permission
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.tbruyelle.rxpermissions2.RxPermissionsFragment
 import com.tima.code.R
 import com.tima.code.responsebody.Company
 import com.tima.code.responsebody.Hr
@@ -24,8 +21,6 @@ import com.tima.common.base.BaseFragment
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.ImageLoader
-import com.tima.common.utils.LogUtils
-import com.tima.common.utils.MapGaoDe
 import io.reactivex.functions.Consumer
 import kotlinx.android.synthetic.main.code_fragment_mine.*
 import org.greenrobot.eventbus.EventBus
@@ -37,7 +32,7 @@ import org.litepal.LitePal
 /**
  * 我的-界面
  * @author : zhijun.li on 2018/8/27
- *   email : zhijun.li@timanetworks.com
+ *   email :
  */
 @Route(path = RoutePaths.minefragment)
 class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
@@ -45,8 +40,8 @@ class MineFragment : BaseFragment(), View.OnClickListener, IMineView {
         if (Constant.position == 1) {
             ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
         } else {
-            ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
-//            ARouter.getInstance().build(RoutePaths.createcompany).navigation()
+//            ARouter.getInstance().build(RoutePaths.registerPrivate).navigation()
+            ARouter.getInstance().build(RoutePaths.createcompany).navigation()
         }
 
     }

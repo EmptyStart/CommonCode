@@ -5,7 +5,7 @@ import io.reactivex.subscribers.ResourceSubscriber
 
 /**
  * @author : zhijun.li on 2018/8/15
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 abstract class BaseSubscriber<T> : ResourceSubscriber<T> {

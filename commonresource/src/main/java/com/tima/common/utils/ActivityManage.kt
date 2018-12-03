@@ -5,7 +5,7 @@ import java.util.*
 
 /**
  * @author : zhijun.li on 2018/6/27
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class ActivityManage private constructor() {

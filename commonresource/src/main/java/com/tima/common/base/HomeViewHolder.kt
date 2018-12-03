@@ -6,7 +6,7 @@ import com.zhy.autolayout.utils.AutoUtils
 
 /**
  * @author : zhijun.li on 2018/7/1
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class HomeViewHolder : BaseViewHolder{

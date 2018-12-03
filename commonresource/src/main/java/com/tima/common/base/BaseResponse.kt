@@ -2,7 +2,7 @@ package com.tima.common.base
 
 /**
  * @author : zhijun.li on 2018/7/5
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 

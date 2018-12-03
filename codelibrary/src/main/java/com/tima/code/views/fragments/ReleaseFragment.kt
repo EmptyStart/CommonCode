@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.code_fragment_release.*
 
 /**
  * @author : zhijun.li on 2018/8/27
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.releasefragment)

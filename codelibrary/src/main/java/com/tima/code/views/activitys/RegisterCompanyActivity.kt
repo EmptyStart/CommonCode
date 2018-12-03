@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.code_activity_register_company.*
 
 /**
  * @author : zhijun.li on 2018/9/4
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.registerCompany)

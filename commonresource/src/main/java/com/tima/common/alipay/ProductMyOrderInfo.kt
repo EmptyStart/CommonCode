@@ -2,7 +2,7 @@ package com.tima.common.alipay
 
 /**
  * @author : zhijun.li on 2018/10/9
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 data class ProductMyOrderInfo(

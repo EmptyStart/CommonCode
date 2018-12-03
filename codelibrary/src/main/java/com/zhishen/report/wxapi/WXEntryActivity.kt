@@ -7,7 +7,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler
 
 /**
  * @author : zhijun.li on 2018/10/10
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class WXEntryActivity  : AppCompatActivity(), IWXAPIEventHandler {

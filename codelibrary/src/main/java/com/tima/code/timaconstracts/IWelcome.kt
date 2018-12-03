@@ -8,7 +8,7 @@ import com.tima.common.utils.IAMapLocationSuccessListener
 
 /**
  * @author : zhijun.li on 2018/6/28
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface IWelcomeViewModel : IBaseViewModel{

@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * @author : zhijun.li on 2018/6/28
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class WelcomePresenterImpl(view: IBaseViews?) : IWelcomePresent {

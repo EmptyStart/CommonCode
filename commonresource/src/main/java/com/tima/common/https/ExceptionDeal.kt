@@ -9,7 +9,7 @@ import org.jetbrains.anko.toast
 
 /**
  * @author : zhijun.li on 2018/8/20
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object ExceptionDeal {

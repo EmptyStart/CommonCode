@@ -11,7 +11,7 @@ import org.jetbrains.anko.toast
 
 /**
  * @author : zhijun.li on 2018/8/24
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.fragmentutils)

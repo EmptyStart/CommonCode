@@ -23,7 +23,7 @@ import org.litepal.LitePal
 
 /**
  * @author : zhijun.li on 2018/8/30
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
@@ -83,7 +83,8 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                         override fun successData(success: String) {
                             hideLoading()
                             val responseBody = GsonUtils.getGson.fromJson(success, LoginResponseBody::class.java)
-
+                            val responseBodyNoId = GsonUtils.getGson.fromJson(success,
+                                    LoginResponseBodyNoId::class.java)
                             responseBody?.apply {
                                 LitePal.deleteAll(LoginResponseBody::class.java)
                                 LitePal.deleteAll(Hr::class.java)
@@ -97,8 +98,8 @@ class LoginPresenterImpl(mView: ILoginView) : ILoginPresent {
                                 Constant.token = token
                                 Constant.mobile = hr.mobile
                                 Constant.chatPassword = huanxin_password
-                                Constant.companyId = hr.company.id.toString()
-                                val hrId = hr.id.toString();
+                                Constant.companyId = responseBodyNoId.hr.company.id.toString()
+                                val hrId = responseBodyNoId.hr.id.toString();
                                 Constant.hrId = hrId
                                 Constant.partCommit = parttime_commition
                                 if ("0"==hr.company.type){

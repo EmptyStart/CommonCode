@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 
 /**
  * @author : zhijun.li on 2018/8/23
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.login)

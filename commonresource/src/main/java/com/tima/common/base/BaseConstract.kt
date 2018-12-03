@@ -5,7 +5,7 @@ import io.reactivex.disposables.Disposable
 
 /**
  * @author : zhijun.li on 2018/9/4
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
  class BasePresenter<mView : IBaseViews> {

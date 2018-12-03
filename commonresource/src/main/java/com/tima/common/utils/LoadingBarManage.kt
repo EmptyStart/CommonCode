@@ -8,7 +8,7 @@ import com.tima.common.views.LoadingView
 
 /**
  * @author : zhijun.li on 2018/9/19
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class LoadingBarManage(context: Context) {

@@ -5,7 +5,7 @@ import java.security.MessageDigest
 
 /**
  * @author : zhijun.li on 2018/7/6
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *   签名
  */
 object SignUtils {

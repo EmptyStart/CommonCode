@@ -5,7 +5,7 @@ import okhttp3.RequestBody
 
 /**
  * @author : zhijun.li on 2018/6/28
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 

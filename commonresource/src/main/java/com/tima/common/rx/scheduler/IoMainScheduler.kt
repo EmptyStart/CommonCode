@@ -5,7 +5,7 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * @author : zhijun.li on 2018/8/15
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class IoMainScheduler<T> : BaseScheduler<T>(Schedulers.io(), AndroidSchedulers.mainThread())

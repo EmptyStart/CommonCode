@@ -9,7 +9,7 @@ import okhttp3.ResponseBody
 
 /**
  * @author : zhijun.li on 2018/6/28
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface ILoginViewModel : IBaseViewModel {

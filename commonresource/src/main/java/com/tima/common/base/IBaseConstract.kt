@@ -6,7 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 /**
  * @author : zhijun.li on 2018/6/29
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface IBaseViews {

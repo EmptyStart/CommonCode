@@ -5,7 +5,7 @@ import com.tima.common.utils.ResourceUtil
 
 /**
  * @author : zhijun.li on 2018/10/12
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object FullTimeUtils {

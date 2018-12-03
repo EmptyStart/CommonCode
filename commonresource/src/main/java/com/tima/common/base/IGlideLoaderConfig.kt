@@ -6,7 +6,7 @@
 //
 ///**
 // * @author : zhijun.li on 2018/10/17
-// *   email : zhijun.li@timanetworks.com
+// *   email :
 // *
 // */
 //interface IGlideLoaderConfig : IProvider{

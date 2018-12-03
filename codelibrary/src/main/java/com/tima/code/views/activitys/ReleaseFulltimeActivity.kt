@@ -37,7 +37,7 @@ import java.lang.StringBuilder
 
 /**
  * @author : zhijun.li on 2018/8/29
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.releasefulltime)

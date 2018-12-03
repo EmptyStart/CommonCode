@@ -12,7 +12,7 @@ import java.net.URL
 
 /**
  * @author : zhijun.li on 2018/8/14
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 object NetWorkUtil{

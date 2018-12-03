@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 /**
  * @author : zhijun.li on 2018/8/10
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface UrlService {

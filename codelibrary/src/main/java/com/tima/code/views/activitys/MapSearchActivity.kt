@@ -40,7 +40,7 @@ import org.jetbrains.anko.find
 
 /**
  * @author : zhijun.li on 2018/9/11
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.registerMap)

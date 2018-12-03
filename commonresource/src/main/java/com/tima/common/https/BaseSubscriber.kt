@@ -9,7 +9,7 @@ import kotlin.properties.Delegates
 
 /**
  * @author : zhijun.li on 2018/8/15
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class BaseSubscriber(listener: IBaseDataListener) : ResourceObserver<ResponseBody>() {

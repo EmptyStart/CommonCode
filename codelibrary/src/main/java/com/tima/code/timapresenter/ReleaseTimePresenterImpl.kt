@@ -45,7 +45,7 @@ import kotlin.collections.ArrayList
 
 /**
  * @author : zhijun.li on 2018/9/12
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class ReleaseTimePresenterImpl(view: IReleaseTimeView) : IReleaseTimePresent {

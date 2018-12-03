@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.code_double_select_top.*
 /**
  *  管理
  * @author : zhijun.li on 2018/8/27
- *   email : zhijun.li@timanetworks.com
+ *   email :
  */
 @Route(path = RoutePaths.managefragment)
 class ManageFragment : BaseFragment(),View.OnClickListener{

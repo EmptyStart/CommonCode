@@ -6,7 +6,7 @@ import java.io.IOException
 
 /**
  * @author : zhijun.li on 2018/7/2
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class HttpUtils private constructor(){

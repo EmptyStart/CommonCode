@@ -23,7 +23,7 @@ import org.jetbrains.anko.toast
 
 /**
  * @author : zhijun.li on 2018/8/22
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *  个人主页
  */
 @Route(path = RoutePaths.mainpage)

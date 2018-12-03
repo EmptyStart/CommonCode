@@ -5,7 +5,7 @@ import org.reactivestreams.Publisher
 
 /**
  * @author : zhijun.li on 2018/8/15
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 abstract class BaseScheduler<T> protected constructor(private val subscribeOnScheduler: Scheduler,

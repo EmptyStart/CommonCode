@@ -12,7 +12,7 @@ import org.greenrobot.eventbus.EventBus
 
 /**
  * @author : zhijun.li on 2018/8/23
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 abstract class BaseFragment() : Fragment(){

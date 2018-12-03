@@ -5,7 +5,7 @@ import kotlin.reflect.KProperty
 
 /**
  * @author : zhijun.li on 2018/8/13
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class OnlySetOnce {

@@ -7,7 +7,7 @@ import com.tima.common.utils.IAMapLocationSuccessListener
 
 /**
  * @author : zhijun.li on 2018/6/28
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface IRegisterPrivateViewModel : IBaseViewModel {
@@ -24,5 +24,6 @@ interface IRegisterPrivateView : IBaseViews {
     fun location(listener: IAMapLocationSuccessListener)
     fun getName() : String?
     fun getLocationBean() : LocationBean?
+    fun upData()
 
 }

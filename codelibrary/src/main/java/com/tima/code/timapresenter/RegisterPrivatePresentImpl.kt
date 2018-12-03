@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.tima.code.R
 import com.tima.code.responsebody.Company
 import com.tima.code.responsebody.Hr
+import com.tima.code.responsebody.NewHr
 import com.tima.code.timaconstracts.IRegisterPrivatePresent
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timaviewmodels.RegisterPrivateViewModelImpl
@@ -24,10 +25,11 @@ import com.tima.common.utils.GsonUtils
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.litepal.LitePal
 
 /**
  * @author : zhijun.li on 2018/9/5
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivatePresent {
@@ -139,8 +141,11 @@ class RegisterPrivatePresentImpl(mView: IRegisterPrivateView) : IRegisterPrivate
                 }
 
                 override fun successData(success: String) {
-                    val hr = GsonUtils.getGson.fromJson(success, Hr::class.java)
-                    hr.saveOrUpdateAsync("id=?",hr.id.toString())
+                    val newHr = GsonUtils.getGson.fromJson(success, NewHr::class.java)
+                    val hr = LitePal.findFirst(Hr::class.java)
+                    hr.name=newHr.name
+                    hr.save()
+                    mView?.upData()
                     mView?.hideLoading()
                     if (count == 1) {
                         saved()

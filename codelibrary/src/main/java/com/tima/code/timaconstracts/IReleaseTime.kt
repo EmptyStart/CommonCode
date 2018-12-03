@@ -9,7 +9,7 @@ import com.tima.common.base.IDataListener
 
 /**
  * @author : zhijun.li on 2018/9/12
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 interface IReleaseTimeViewModel : IBaseViewModel {

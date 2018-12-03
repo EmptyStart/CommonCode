@@ -39,9 +39,6 @@ class RegisterCreateCompanyActivity : AbstractAddressAndMapActivity(),
         finish()
     }
 
-//    override fun useEventBus(): Boolean {
-//        return true
-//    }
     private var locLatitude : Double= -1.0
     private var locLongitude : Double=-1.0
     override fun getWebAddress(): String? {

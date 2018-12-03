@@ -14,6 +14,7 @@ import com.tima.code.responsebody.LocationBean
 import com.tima.code.responsebody.LoginResponseBody
 import com.tima.code.timaconstracts.IRegisterPrivateView
 import com.tima.code.timapresenter.RegisterPrivatePresentImpl
+import com.tima.common.BusEvents.SelectEvent5
 import com.tima.common.base.Constant
 import com.tima.common.base.RoutePaths
 import com.tima.common.utils.CameraUtils
@@ -21,16 +22,20 @@ import com.tima.common.utils.ImageLoader
 import com.zhihu.matisse.Matisse
 import kotlinx.android.synthetic.main.code_activity_register_private.*
 import kotlinx.android.synthetic.main.code_layout_select_address.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 import org.litepal.LitePal
 
 /**
  * @author : zhijun.li on 2018/9/4
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 @Route(path = RoutePaths.registerPrivate)
 class RegisterPrivateActivity : AbstractAddressAndMapActivity(), IRegisterPrivateView, View.OnClickListener {
+    override fun upData() {
+        EventBus.getDefault().postSticky(SelectEvent5(2))
+    }
 
     private var locLatitude : Double= -1.0
     private var locLongitude : Double=-1.0

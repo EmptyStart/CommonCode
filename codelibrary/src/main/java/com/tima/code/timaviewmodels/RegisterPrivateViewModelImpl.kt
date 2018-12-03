@@ -12,7 +12,7 @@ import com.tima.common.rx.SchedulerUtils
 
 /**
  * @author : zhijun.li on 2018/9/5
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class RegisterPrivateViewModelImpl : BaseViewModel(), IRegisterPrivateViewModel {

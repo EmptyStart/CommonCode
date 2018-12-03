@@ -25,7 +25,7 @@ import okhttp3.RequestBody
 
 /**
  * @author : zhijun.li on 2018/9/5
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class RegisterCompanyPresentImpl(mView: IRegisterCompanyView) : IRegisterCompanyPresent {

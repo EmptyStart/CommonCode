@@ -6,7 +6,7 @@ import com.tima.common.utils.LogUtils
 
 /**
  * @author : zhijun.li on 2018/9/26
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class MessageReceiver : XGPushBaseReceiver(){

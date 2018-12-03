@@ -43,7 +43,7 @@ import org.jetbrains.anko.toast
 
 /**
  * @author : zhijun.li on 2018/9/7
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 abstract class AbstractAddressAndMapActivity : BaseActivity(), TextWatcher {

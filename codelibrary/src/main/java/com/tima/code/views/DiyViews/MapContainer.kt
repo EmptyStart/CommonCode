@@ -8,7 +8,7 @@ import android.widget.ScrollView
 
 /**
  * @author : zhijun.li on 2018/9/7
- *   email : zhijun.li@timanetworks.com
+ *   email :
  *
  */
 class MapContainer : RelativeLayout{
