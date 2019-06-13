@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.xx.code.R
-import com.xx.code.timaconstracts.IManageFullTimeInfoPresent
-import com.xx.code.timaconstracts.IManagePartTimeInfoView
+import com.xx.code.constracts.IManageFullTimeInfoPresent
+import com.xx.code.constracts.IManagePartTimeInfoView
 import com.xx.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_manage_fulltime_info.*
 import kotlinx.android.synthetic.main.code_manage_full_four_select_top.*

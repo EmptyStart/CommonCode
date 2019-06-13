@@ -19,9 +19,9 @@ import com.chad.library.adapter.base.BaseViewHolder
 import com.xx.code.R
 import com.xx.code.responsebody.LocationBean
 import com.xx.code.responsebody.ReleasePopData
-import com.xx.code.timaconstracts.IReleaseTimeView
-import com.xx.code.timaconstracts.OnSelectListener
-import com.xx.code.timapresenter.ReleaseTimePresenterImpl
+import com.xx.code.constracts.IReleaseTimeView
+import com.xx.code.constracts.OnSelectListener
+import com.xx.code.presenter.ReleaseTimePresenterImpl
 import com.xx.common.BusEvents.CanSelectTag
 import com.xx.common.BusEvents.SelectedTag
 import com.xx.common.base.Constant

@@ -6,8 +6,8 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.xx.code.R
-import com.xx.code.timaconstracts.ITradeFlowView
-import com.xx.code.timapresenter.TradeFlowPresenterImpl
+import com.xx.code.constracts.ITradeFlowView
+import com.xx.code.presenter.TradeFlowPresenterImpl
 import com.xx.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_trade_flow.*
 import org.jetbrains.anko.toast

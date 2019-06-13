@@ -10,8 +10,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.xx.code.R
-import com.xx.code.timaconstracts.IManageSetView
-import com.xx.code.timapresenter.ManageSetPresenterImpl
+import com.xx.code.constracts.IManageSetView
+import com.xx.code.presenter.ManageSetPresenterImpl
 import com.xx.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_manage_set.*
 import kotlinx.android.synthetic.main.code_three_select_top.*

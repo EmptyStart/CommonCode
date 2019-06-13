@@ -4,8 +4,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import com.xx.code.R
-import com.xx.code.timaconstracts.IPaymentMethodView
-import com.xx.code.timapresenter.PaymentMethodPresenterImpl
+import com.xx.code.constracts.IPaymentMethodView
+import com.xx.code.presenter.PaymentMethodPresenterImpl
 import com.xx.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_payment_method.*
 import org.jetbrains.anko.toast

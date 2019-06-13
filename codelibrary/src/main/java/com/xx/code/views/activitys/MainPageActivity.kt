@@ -9,9 +9,9 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.amap.api.location.AMapLocation
 import com.xx.chat.helper.ChatUtils
 import com.xx.code.R
-import com.xx.code.timaconstracts.IMainPagePresent
-import com.xx.code.timaconstracts.IMainPageView
-import com.xx.code.timapresenter.MainPagePresenterImpl
+import com.xx.code.constracts.IMainPagePresent
+import com.xx.code.constracts.IMainPageView
+import com.xx.code.presenter.MainPagePresenterImpl
 import com.xx.code.views.fragments.*
 import com.xx.common.base.BaseActivity
 import com.xx.common.base.Constant

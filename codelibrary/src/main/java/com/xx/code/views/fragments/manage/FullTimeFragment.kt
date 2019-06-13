@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.xx.code.R
-import com.xx.code.timaconstracts.IFullTimePresent
-import com.xx.code.timaconstracts.IFullTimeView
-import com.xx.code.timapresenter.FullTimePresenterImpl
+import com.xx.code.constracts.IFullTimePresent
+import com.xx.code.constracts.IFullTimeView
+import com.xx.code.presenter.FullTimePresenterImpl
 import com.xx.common.base.BaseFragment
 import com.xx.common.base.RoutePaths
 import kotlinx.android.synthetic.main.code_fragment_full_time.*

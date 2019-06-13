@@ -13,9 +13,9 @@ import com.xx.code.R
 import com.xx.code.responsebody.Company
 import com.xx.code.responsebody.Hr
 import com.xx.code.responsebody.LoginResponseBody
-import com.xx.code.timaconstracts.IMinePresent
-import com.xx.code.timaconstracts.IMineView
-import com.xx.code.timapresenter.MinePresenterImpl
+import com.xx.code.constracts.IMinePresent
+import com.xx.code.constracts.IMineView
+import com.xx.code.presenter.MinePresenterImpl
 import com.xx.common.BusEvents.SelectEvent5
 import com.xx.common.base.BaseFragment
 import com.xx.common.base.Constant

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.xx.code.R
-import com.xx.code.timaconstracts.IWalletView
-import com.xx.code.timapresenter.WalletPresenterImpl
+import com.xx.code.constracts.IWalletView
+import com.xx.code.presenter.WalletPresenterImpl
 import com.xx.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_wallet.*
 import org.jetbrains.anko.toast

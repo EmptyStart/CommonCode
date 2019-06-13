@@ -9,9 +9,9 @@ import android.widget.TextView
 import com.amap.api.maps.model.LatLng
 import com.xx.code.R
 import com.xx.code.responsebody.Company
-import com.xx.code.timaconstracts.IManageFullTimeInfoPresent
-import com.xx.code.timaconstracts.IManageFullTimeInfoView
-import com.xx.code.timapresenter.ManageFullTimeInfoPresenterImpl
+import com.xx.code.constracts.IManageFullTimeInfoPresent
+import com.xx.code.constracts.IManageFullTimeInfoView
+import com.xx.code.presenter.ManageFullTimeInfoPresenterImpl
 import kotlinx.android.synthetic.main.code_activity_manage_fulltime_info.*
 import kotlinx.android.synthetic.main.code_include_company_info.*
 import kotlinx.android.synthetic.main.code_layout_info_address_p.*

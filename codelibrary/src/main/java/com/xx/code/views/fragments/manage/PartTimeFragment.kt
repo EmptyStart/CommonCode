@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.xx.code.R
-import com.xx.code.timaconstracts.IPartTimePresent
-import com.xx.code.timaconstracts.IPartTimeView
-import com.xx.code.timapresenter.PartTimePresenterImpl
+import com.xx.code.constracts.IPartTimePresent
+import com.xx.code.constracts.IPartTimeView
+import com.xx.code.presenter.PartTimePresenterImpl
 import com.xx.common.base.BaseFragment
 import com.xx.common.base.RoutePaths
 import kotlinx.android.synthetic.main.code_fragment_part_time.*

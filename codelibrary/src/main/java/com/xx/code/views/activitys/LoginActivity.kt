@@ -7,8 +7,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.tencent.android.tpush.XGIOperateCallback
 import com.tencent.android.tpush.XGPushManager
 import com.xx.code.R
-import com.xx.code.timaconstracts.ILoginView
-import com.xx.code.timapresenter.LoginPresenterImpl
+import com.xx.code.constracts.ILoginView
+import com.xx.code.presenter.LoginPresenterImpl
 import com.xx.common.base.BaseActivity
 import com.xx.common.base.RoutePaths
 import com.xx.common.utils.ResourceUtil

@@ -6,9 +6,9 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.xx.code.R
-import com.xx.code.timaconstracts.IWelcomePresent
-import com.xx.code.timaconstracts.IWelcomeView
-import com.xx.code.timapresenter.WelcomePresenterImpl
+import com.xx.code.constracts.IWelcomePresent
+import com.xx.code.constracts.IWelcomeView
+import com.xx.code.presenter.WelcomePresenterImpl
 import com.xx.common.base.BaseActivity
 import com.xx.common.base.Constant
 import com.xx.common.base.RoutePaths

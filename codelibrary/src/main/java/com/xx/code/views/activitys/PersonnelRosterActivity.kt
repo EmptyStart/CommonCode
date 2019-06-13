@@ -7,8 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.xx.code.R
-import com.xx.code.timaconstracts.IPersonnelRosterView
-import com.xx.code.timapresenter.PersonnelRosterPresenterImpl
+import com.xx.code.constracts.IPersonnelRosterView
+import com.xx.code.presenter.PersonnelRosterPresenterImpl
 import com.xx.common.base.BaseActivity
 import kotlinx.android.synthetic.main.code_activity_personnel_roster.*
 import org.jetbrains.anko.toast

@@ -12,8 +12,8 @@ import com.xx.code.R
 import com.xx.code.responsebody.Company
 import com.xx.code.responsebody.LocationBean
 import com.xx.code.responsebody.LoginResponseBody
-import com.xx.code.timaconstracts.IRegisterCreateCompanyView
-import com.xx.code.timapresenter.RegisterCreateCompanyPresentImpl
+import com.xx.code.constracts.IRegisterCreateCompanyView
+import com.xx.code.presenter.RegisterCreateCompanyPresentImpl
 import com.xx.common.BusEvents.SelectEvent5
 import com.xx.common.base.Constant
 import com.xx.common.base.RoutePaths
