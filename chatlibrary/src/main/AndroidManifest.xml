@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tima.chat">
+    package="com.xx.chat">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -23,7 +23,7 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name="com.tima.common.base.App"
+        android:name="com.xx.common.base.App"
         android:theme="@style/AppTheme">
 
         <!-- 设置环信应用的AppKey -->
@@ -43,7 +43,7 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <!-- 声明SDK所需的receiver -->
-        <activity android:name=".ui.activity.ChatActivity"
+        <activity android:name="com.xx.chat.ui.activity.ChatActivity"
             android:theme="@style/BaseAppTheme.NoActionBar"/>
     </application>
 </manifest>

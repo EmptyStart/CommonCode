@@ -1,81 +1,81 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tima.code">
+    package="com.xx.code">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <application>
         <activity
-            android:name=".views.activitys.MainPageActivity"
+            android:name="com.xx.code.views.activitys.MainPageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".views.activitys.WelcomeActivity"
+            android:name="com.xx.code.views.activitys.WelcomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.LoginActivity"
+            android:name="com.xx.code.views.activitys.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.ReleaseFulltimeActivity"
+            android:name="com.xx.code.views.activitys.ReleaseFulltimeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.ManageFullTimeInfoActivity"
+            android:name="com.xx.code.views.activitys.ManageFullTimeInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.WalletActivity"
+            android:name="com.xx.code.views.activitys.WalletActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.TradeFlowActivity"
+            android:name="com.xx.code.views.activitys.TradeFlowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.PaymentMethodActivity"
+            android:name="com.xx.code.views.activitys.PaymentMethodActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.PutForwardActivity"
+            android:name="com.xx.code.views.activitys.PutForwardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.RegisterCreateCompanyActivity"
+            android:name="com.xx.code.views.activitys.RegisterCreateCompanyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.PersonnelRosterActivity"
+            android:name="com.xx.code.views.activitys.PersonnelRosterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.ManageSetActivity"
+            android:name="com.xx.code.views.activitys.ManageSetActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".views.activitys.RegisterSelectActivity"
+            android:name="com.xx.code.views.activitys.RegisterSelectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.RegisterPrivateActivity"
+            android:name="com.xx.code.views.activitys.RegisterPrivateActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.RegisterCompanyActivity"
+            android:name="com.xx.code.views.activitys.RegisterCompanyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.NoActionBar" />
         <activity
-            android:name=".views.activitys.MapSearchActivity"
+            android:name="com.xx.code.views.activitys.MapSearchActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MapSearchStyle" />
         <activity
-            android:name=".views.activitys.ReleaseParttimeActivity"
+            android:name="com.xx.code.views.activitys.ReleaseParttimeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MapSearchStyle" />
         <activity
-            android:name=".views.activitys.TagSelectActivity"
+            android:name="com.xx.code.views.activitys.TagSelectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MapSearchStyle" />
         <activity

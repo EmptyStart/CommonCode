@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.tima.mainmodul">
+    package="com.xx.mainmodul">
 
     <!--<uses-permission android:name="android.permission.INTERNET"/>-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -39,10 +39,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name="com.tima.common.base.App"
+        android:name="com.xx.common.base.App"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.tima.code.views.activitys.WelcomeActivity">
+        <activity android:name="com.xx.code.views.activitys.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -93,7 +93,7 @@
             </intent-filter>
         </receiver>
         <provider
-            android:name=".TxFileProvider"
+            android:name="com.xx.mainmodul.TxFileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -103,7 +103,7 @@
         </provider>
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.tima.mainmodul.lj.jjy.fileprovider"
+            android:authorities="com.xx.mainmodul.lj.jjy.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

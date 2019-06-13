@@ -3,10 +3,10 @@
     <dbname value="code" />
     <version value="7" />
     <list>
-        <mapping class="com.tima.code.responsebody.LoginResponseBody" />
-        <mapping class="com.tima.code.responsebody.Hr" />
-        <mapping class="com.tima.code.responsebody.Company" />
-        <mapping class="com.tima.common.base.MsgInfo" />
-        <mapping class="com.tima.common.base.PresonInfo" />
+        <mapping class="com.xx.code.responsebody.LoginResponseBody" />
+        <mapping class="com.xx.code.responsebody.Hr" />
+        <mapping class="com.xx.code.responsebody.Company" />
+        <mapping class="com.xx.common.base.MsgInfo" />
+        <mapping class="com.xx.common.base.PresonInfo" />
     </list>
 </litepal>

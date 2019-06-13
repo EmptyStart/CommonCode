@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp" />
     </LinearLayout>
-    <com.tima.code.views.DiyViews.MapContainer
+    <com.xx.code.views.DiyViews.MapContainer
         android:id="@+id/mapContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -80,5 +80,5 @@
             android:id="@+id/map_view"
             android:layout_width="match_parent"
             android:layout_height="572px" />
-    </com.tima.code.views.DiyViews.MapContainer>
+    </com.xx.code.views.DiyViews.MapContainer>
 </LinearLayout>

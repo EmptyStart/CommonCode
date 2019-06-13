@@ -31,7 +31,7 @@ android {
 
         debug{
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "isDebug", "true"
 
         }
@@ -42,7 +42,7 @@ android {
 //            shrinkResources true
 //            是否启用zipAlign压缩
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "isDebug", "false"
         }
     }

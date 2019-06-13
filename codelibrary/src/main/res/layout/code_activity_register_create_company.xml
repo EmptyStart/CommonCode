@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/code_registerbc_color">
 
-    <com.tima.common.views.ActionBarView
+    <com.xx.common.views.ActionBarView
         android:id="@+id/actionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:layout_below="@+id/actionbar"
         android:background="@color/code_title_barbc" />
 
-    <com.tima.code.views.DiyViews.CommonScrollView
+    <com.xx.code.views.DiyViews.CommonScrollView
         android:id="@+id/svCreate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -236,7 +236,7 @@
 
             <include layout="@layout/code_layout_select_address" />
         </com.zhy.autolayout.AutoLinearLayout>
-    </com.tima.code.views.DiyViews.CommonScrollView>
+    </com.xx.code.views.DiyViews.CommonScrollView>
 
     <ImageView
         android:id="@+id/iv_head"

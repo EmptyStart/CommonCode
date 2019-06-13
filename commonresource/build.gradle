@@ -10,7 +10,7 @@ apply from: 'tima_test.gradle'
 //---------外网环境---------------------
 //apply from: 'tima_uat.gradle'
 //---------生产环境---------------------
-//apply from: 'tima_pro.gradle'
+//apply from: 'pro.gradle'
 android {
     compileSdkVersion COMPILE_SDK_VERSION
 
@@ -44,7 +44,7 @@ android {
         }
         debug{
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.tima_pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "boolean", "isDebug", "true"
 
         }

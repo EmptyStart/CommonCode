@@ -6,7 +6,7 @@
     android:background="@color/line"
     android:orientation="vertical">
 
-    <com.tima.common.views.ActionBarView
+    <com.xx.common.views.ActionBarView
         android:id="@+id/abv_type2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

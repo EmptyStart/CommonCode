@@ -30,7 +30,7 @@
                 android:background="@drawable/edit_stroke_style"
                 android:orientation="horizontal">
 
-                <com.tima.chat.weight.RecordVoiceBtnController
+                <com.xx.chat.weight.RecordVoiceBtnController
                     android:id="@+id/voice_btn"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"

@@ -25,7 +25,7 @@
         android:layout_margin="5dp"
         android:visibility="visible">
 
-        <com.tima.chat.weight.CircleImageView
+        <com.xx.chat.weight.CircleImageView
             android:id="@+id/iv_chatfrom"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -198,7 +198,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <com.tima.chat.weight.CircleImageView
+        <com.xx.chat.weight.CircleImageView
             android:id="@+id/iv_chatto"
             android:layout_width="40dp"
             android:layout_height="40dp"

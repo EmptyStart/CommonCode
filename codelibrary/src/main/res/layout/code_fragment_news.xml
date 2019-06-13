@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.tima.common.views.ActionBarView
+    <com.xx.common.views.ActionBarView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mode_title="收到得消息"

@@ -2,7 +2,7 @@ package com.zhishen.report
 
 import android.content.Context
 import com.tencent.android.tpush.*
-import com.tima.common.utils.LogUtils
+import com.xx.common.utils.LogUtils
 
 /**
  * @author : zhijun.li on 2018/9/26

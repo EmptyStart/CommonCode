@@ -6,13 +6,13 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.tima.common.views.ActionBarView
+    <com.xx.common.views.ActionBarView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:mode_title="类型1"
         app:mode_type="type_default" />
 
-    <com.tima.common.views.ActionBarView
+    <com.xx.common.views.ActionBarView
         android:id="@+id/abv_type2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         app:mode_type="type_two"
         android:layout_marginTop="5dp"/>
 
-    <com.tima.common.views.ActionBarView
+    <com.xx.common.views.ActionBarView
         android:id="@+id/abv_type3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:mode_type="type_three"
         android:layout_marginTop="5dp"/>
 
-    <com.tima.common.views.ActionBarView
+    <com.xx.common.views.ActionBarView
         android:id="@+id/abv_type4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
