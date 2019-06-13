@@ -49,7 +49,7 @@ object RetrofitHelper {
         }
 
         //设置请求的缓存大小跟位置
-        val cacheFile = File(App.app.cacheDir, "timaCache")
+        val cacheFile = File(App.app.cacheDir, "xxCache")
         val cache = Cache(cacheFile, 1024 * 1024 * 50)//50MB缓存大小
         builder.run {
             // addInterceptor(addQueryParameterInterceptor())  //参数添加

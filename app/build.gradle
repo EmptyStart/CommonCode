@@ -15,7 +15,7 @@ android {
         multiDexEnabled true
         flavorDimensions "color"
 
-        testInstrumentationRunner "android.support.tima_test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.xx_test.runner.AndroidJUnitRunner"
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())

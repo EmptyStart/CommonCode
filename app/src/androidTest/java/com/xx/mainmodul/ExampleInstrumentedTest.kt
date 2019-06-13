@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.junit.Assert.*
 
 /**
- * Instrumented tima_test, which will execute on an Android device.
+ * Instrumented xx_test, which will execute on an Android device.
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
@@ -17,8 +17,8 @@ import org.junit.Assert.*
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
-        // Context of the app under tima_test.
+        // Context of the app under xx_test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.tima.mainmodul", appContext.packageName)
+        assertEquals("com.xx.mainmodul", appContext.packageName)
     }
 }

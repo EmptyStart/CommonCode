@@ -1,4 +1,4 @@
-//package com.tima.mainmodul
+//package com.xx.mainmodul
 //
 //import com.bumptech.glide.annotation.GlideModule
 //import com.bumptech.glide.module.AppGlideModule

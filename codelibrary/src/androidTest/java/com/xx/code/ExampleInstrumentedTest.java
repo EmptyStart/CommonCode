@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 /**
- * Instrumented tima_test, which will execute on an Android device.
+ * Instrumented xx_test, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
@@ -18,9 +18,9 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
-        // Context of the app under tima_test.
+        // Context of the app under xx_test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.tima.code.tima_test", appContext.getPackageName());
+        assertEquals("com.tima.code.xx_test", appContext.getPackageName());
     }
 }

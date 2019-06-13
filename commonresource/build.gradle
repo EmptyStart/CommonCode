@@ -6,9 +6,9 @@ apply plugin: 'kotlin-kapt'
  * 共通类，放置共通方法 给每一个子模块调用
  */
 //---------测试环境---------------------
-apply from: 'tima_test.gradle'
+apply from: 'xx_test.gradle'
 //---------外网环境---------------------
-//apply from: 'tima_uat.gradle'
+//apply from: 'xx_uat.gradle'
 //---------生产环境---------------------
 //apply from: 'pro.gradle'
 android {

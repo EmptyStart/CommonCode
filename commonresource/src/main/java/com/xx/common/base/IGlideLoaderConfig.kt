@@ -1,4 +1,4 @@
-//package com.tima.common.base
+//package com.xx.common.base
 //
 //import android.content.Context
 //import android.widget.ImageView

@@ -1,11 +1,11 @@
-//package com.tima.mainmodul
+//package com.xx.mainmodul
 //
 //import android.content.Context
 //import android.widget.ImageView
 //import com.alibaba.android.arouter.facade.annotation.Route
 //import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-//import com.tima.common.base.IGlideLoaderConfig
-//import com.tima.common.base.RoutePaths
+//import com.xx.common.base.IGlideLoaderConfig
+//import com.xx.common.base.RoutePaths
 //
 ///**
 // * @author : zhijun.li on 2018/10/17
